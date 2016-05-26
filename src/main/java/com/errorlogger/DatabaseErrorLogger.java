@@ -17,7 +17,8 @@ public class DatabaseErrorLogger extends DateManipulator {
 	final private static String DIVIDER = "********************";
 	private static Date currentErrorLoggingDay = new Date();
 	private String errorLoggerName;
-	private static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yy HH:mm:ss");
+	private static DateFormat dateAndTimeFormatter = new SimpleDateFormat("dd-MM-yy HH:mm:ss");
+	private static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yy");
 
 	public DatabaseErrorLogger(String errorLoggerName) {
 
@@ -57,7 +58,7 @@ public class DatabaseErrorLogger extends DateManipulator {
 	private static void addErrorToFile(String error, int columnNumber, String workingFileName) {
 
 		String todaysDate = dateFormatter.format(getCurrentDate());
-		String todaysDateAndTime = dateFormatter.format(getCurrentDateAndTime());
+		String todaysDateAndTime = dateAndTimeFormatter.format(getCurrentDateAndTime());
 
 		File errorLog = new File(workingFileName + " " + todaysDate + ".txt");
 
@@ -74,6 +75,7 @@ public class DatabaseErrorLogger extends DateManipulator {
 			}
 		} else {
 			try {
+				System.out.println("error found");
 				PrintWriter errorWriter = new PrintWriter(new BufferedWriter(new FileWriter(errorLog, false)));
 
 				errorWriter.write(error + NEW_LINE);

@@ -1,22 +1,9 @@
 package com.ait.project;
 
-//LS I commented them out as eclipse said they unused
-
-/*import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;*/
-
-/*import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;*/
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -31,61 +18,51 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-
-
+import com.validation.DataValidator;
 
 public class SimpleExcelReaderExample {
 
+	static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	static ArrayList<Object[][]> arrays = new ArrayList<Object[][]>();
+
 	public static void main(String[] args) throws Exception {
-		Object[] array = readFileInFromHardDrive();
-		int size = array.length;
-		System.out.println(size);
-		//System.out.println(array[7]);
-		System.out.println(Arrays.asList(array).contains(null));
+		arrays = readFileInFromHardDrive();
+		
+		// System.out.println(array[7]);
 	}
 
-	public static Object[] readFileInFromHardDrive() {
-		String fileName = "C:\\Users\\A00236958\\Documents\\AIT Group Project - Sample Dataset.xls";
-		Object[] arrayOfArrays = new Object[5];
-		
+	public static ArrayList<Object[][]> readFileInFromHardDrive() {
+		String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
+		String makeFileName = "testfile";
+
 		try {
 
-//			POIFSFileSystem dataSetExcelFile;
-//
-//			dataSetExcelFile = new POIFSFileSystem(
-//					new FileInputStream(fileName));
-//
-//			HSSFWorkbook dataSetWorkbook = new HSSFWorkbook(dataSetExcelFile);
 			Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
-			
 
-			// getSheetAt(0) gets the first sheet in the excel file!
 			for (int i = 0; i <= 4; i++) {
 				Object[][] array = readInTheData(dataSetWorkbook, i);
 				System.out.println(array.toString());
-				arrayOfArrays[i] = array;
-				
-				passTheArrayToValidator(array, fileName);
+				arrays.add(array);
+
 			}
-		
+			passTheArrayToValidator(arrays, makeFileName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		 return arrayOfArrays;
-		
+
+		return arrays;
+
 	}
 
-	
 	public static Object[][] readInTheData(Workbook dataSetWorkbook, int i) {
 		Sheet sheet = dataSetWorkbook.getSheetAt(i);
+
 		Row row;
 		Cell cell;
-		DataFormatter formatter = new DataFormatter();
+		Cell dateCell;
 
 		int rows; // No of rows
 		rows = sheet.getPhysicalNumberOfRows();
-		
 
 		int columns = 0; // No of columns
 		int numOfDataCellsPerRow = 0;
@@ -95,26 +72,32 @@ public class SimpleExcelReaderExample {
 		for (int j = 0; j < 10 || j < rows; j++) {
 			row = sheet.getRow(j);
 			if (row != null) {
-				numOfDataCellsPerRow = sheet.getRow(j)
-						.getPhysicalNumberOfCells();
+				numOfDataCellsPerRow = sheet.getRow(j).getPhysicalNumberOfCells();
 				if (numOfDataCellsPerRow > columns) {
 					columns = numOfDataCellsPerRow;
 				}
 			}
 		}
-		
-		Object[][] sheetObject = new Object[rows][columns];
 
+		Object[][] sheetObject = new Object[rows][columns];
+		String date = "";
 		for (int r = 1; r < rows; r++) {
 			row = sheet.getRow(r);
 			if (row != null) {
 				for (int c = 0; c < columns; c++) {
-					
-					cell = row.getCell(c);
-					if(c!=0)
-					cell.setCellType(Cell.CELL_TYPE_STRING);
-					if (cell != null) {					
-						System.out.print(cell + "\t");
+					if (i == 0) {
+						if (c == 0) {
+							dateCell = row.getCell(c);
+
+							sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
+						} else {
+							cell = row.getCell(c);
+							cell.setCellType(Cell.CELL_TYPE_STRING);
+							sheetObject[r][c] = cell;
+						}
+					} else {
+						cell = row.getCell(c);
+						cell.setCellType(Cell.CELL_TYPE_STRING);
 						sheetObject[r][c] = cell;
 					}
 				}
@@ -122,16 +105,16 @@ public class SimpleExcelReaderExample {
 			System.out.println("\n");
 		}
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		
+
 		return sheetObject;
 	}
 
-	
-	public static void passTheArrayToValidator(Object[][] array, String filename) {
-		//DataValidator.validData(array, filename);
+	public static void passTheArrayToValidator(ArrayList<Object[][]> arrays, String filename) {
+
+		for (Object[][] o : arrays) {
+			DataValidator.validateData(o, filename);
+		}
 		System.out.println("WE ARE IN!!!");
-		
-		
-		
+
 	}
 }
