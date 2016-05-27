@@ -1,40 +1,41 @@
 package com.ait.dao;
 
 public class Mcc_mnc {
-	int MCC;
-	int MNC;
-	String COUNTRY;
-	String OPERATOR;
+	int mcc;
+	int mnc;
+	String country;
+	String operator;
 
-	public int getMCC() {
-		return MCC;
+	public int getMcc() {
+		return mcc;
 	}
 
-	public void setMCC(int mCC) {
-		MCC = mCC;
+	public void setMcc(int mcc) {
+		this.mcc = mcc;
 	}
 
-	public int getMNC() {
-		return MNC;
+	public int getMnc() {
+		return mnc;
 	}
 
-	public void setMNC(int mNC) {
-		MNC = mNC;
+	public void setMnc(int mnc) {
+		this.mnc = mnc;
 	}
 
-	public String getCOUNTRY() {
-		return COUNTRY;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setCOUNTRY(String cOUNTRY) {
-		COUNTRY = cOUNTRY;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-	public String getOPERATOR() {
-		return OPERATOR;
+	public String getOperator() {
+		return operator;
 	}
 
-	public void setOPERATOR(String oPERATOR) {
-		OPERATOR = oPERATOR;
+	public void setOperator(String operator) {
+		this.operator = operator;
 	}
+
 }
