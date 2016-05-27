@@ -20,7 +20,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import com.ait.project.SimpleExcelReaderExample;
+import com.ait.project.ReadDataSetIntoMainMemory;
 import java.util.ArrayList;
 
 public class TestExcelReader{
@@ -39,13 +39,13 @@ public class TestExcelReader{
 	public void testArrayPopulated() throws InvalidFormatException, IOException {
 		fileName = "C:\\Users\\A00236958\\Documents\\AIT Group Project - Sample Dataset.xls";
 		arrays = new ArrayList<Object[][]>();
-		arrays = SimpleExcelReaderExample.readFileInFromHardDrive(fileName);	
+		arrays = ReadDataSetIntoMainMemory.readFileInFromHardDrive(fileName);	
 		assertEquals(arrays.size(),5);
 	}
 	
 	@Test(expected = Exception.class)
 	public void testWorkBookCatch() throws InvalidFormatException, IOException{
-		arrays = SimpleExcelReaderExample.readFileInFromHardDrive("WrongFileName");
+		arrays = ReadDataSetIntoMainMemory.readFileInFromHardDrive("WrongFileName");
 	}
 	
 //	@After

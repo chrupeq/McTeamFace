@@ -22,7 +22,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.validation.DataValidator;
 
-public class SimpleExcelReaderExample {
+public class ReadDataSetIntoMainMemory {
 
 	static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	static ArrayList<Object[][]> arrays = new ArrayList<Object[][]>();
