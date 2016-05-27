@@ -13,7 +13,7 @@ public class DatabaseErrorLogger extends DateManipulator {
 
 	private static int dailyErrorCount;
 	private static int overallErrorCount;
-	final private static String NEW_LINE = "\r\n";
+//	final private static String NEW_LINE = "\r\n";
 	final private static String DIVIDER = "********************";
 	private static Date currentErrorLoggingDay = new Date();
 	private String errorLoggerName;
@@ -31,14 +31,14 @@ public class DatabaseErrorLogger extends DateManipulator {
 	 * overall error count by calling relevant methods Also checks
 	 */
 
-	public void errorFound(String error, int columnNumber, String workingFileName) {
+	public void errorsFound(String error, StringBuilder errorBuilder, String workingFileName) {
 
 		if (!checkNewDay(currentErrorLoggingDay, new Date()))
 			resetDailyErrorCount();
 
 		increaseDailyErrorCount();
 		increaseOverallErrorCount();
-		addErrorToFile(error, columnNumber, workingFileName);
+		addErrorToFile(error, errorBuilder, workingFileName);
 	}
 
 	public String getErrorLoggerName() {
@@ -55,19 +55,18 @@ public class DatabaseErrorLogger extends DateManipulator {
 		overallErrorCount++;
 	}
 
-	private static void addErrorToFile(String error, int columnNumber, String workingFileName) {
+	private static void addErrorToFile(String error, StringBuilder errorString, String workingFileName) {
 
 		String todaysDate = dateFormatter.format(getCurrentDate());
-		String todaysDateAndTime = dateAndTimeFormatter.format(getCurrentDateAndTime());
+//		String todaysDateAndTime = dateAndTimeFormatter.format(getCurrentDateAndTime());
 
 		File errorLog = new File(workingFileName + " " + todaysDate + ".txt");
 
 		if (errorLog.exists()) {
 			try {
 				PrintWriter errorWriter = new PrintWriter(new BufferedWriter(new FileWriter(errorLog, true)));
-				errorWriter.write(error + NEW_LINE);
-				errorWriter.write("ERROR: Erroneous or null data found at column: " + columnNumber + NEW_LINE + " at "
-						+ todaysDateAndTime + NEW_LINE + DIVIDER + NEW_LINE);
+				errorWriter.write(errorString.toString());
+				errorWriter.write("Error count for this file: " + dailyErrorCount);
 				errorWriter.close();
 			} catch (IOException e) {
 				System.out.println("Error writing to file.");
@@ -75,12 +74,9 @@ public class DatabaseErrorLogger extends DateManipulator {
 			}
 		} else {
 			try {
-				System.out.println("error found");
 				PrintWriter errorWriter = new PrintWriter(new BufferedWriter(new FileWriter(errorLog, false)));
-
-				errorWriter.write(error + NEW_LINE);
-				errorWriter.write("ERROR: Erroneous or null data found at column: " + columnNumber + NEW_LINE + " at "
-						+ todaysDateAndTime + NEW_LINE + DIVIDER + NEW_LINE);
+				errorWriter.write(errorString.toString());
+				errorWriter.write("Error count for this file: " + dailyErrorCount);
 				errorWriter.close();
 			} catch (IOException e) {
 				System.out.println("Error writing to file.");

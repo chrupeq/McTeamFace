@@ -1,18 +1,9 @@
 package com.ait.project;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -26,12 +17,12 @@ public class SimpleExcelReaderExample {
 	static ArrayList<Object[][]> arrays = new ArrayList<Object[][]>();
 
 	public static void main(String[] args) throws Exception {
-		arrays = readFileInFromHardDrive();
-		
+		readFileInFromHardDrive();
+
 		// System.out.println(array[7]);
 	}
 
-	public static ArrayList<Object[][]> readFileInFromHardDrive() {
+	public static void readFileInFromHardDrive() {
 		String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
 		String makeFileName = "testfile";
 
@@ -39,19 +30,15 @@ public class SimpleExcelReaderExample {
 
 			Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
 
-			for (int i = 0; i <= 4; i++) {
+			for (int i = 0; i < 1; i++) {
 				Object[][] array = readInTheData(dataSetWorkbook, i);
-				System.out.println(array.toString());
 				arrays.add(array);
-
 			}
+
 			passTheArrayToValidator(arrays, makeFileName);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return arrays;
-
 	}
 
 	public static Object[][] readInTheData(Workbook dataSetWorkbook, int i) {
@@ -80,21 +67,14 @@ public class SimpleExcelReaderExample {
 		}
 
 		Object[][] sheetObject = new Object[rows][columns];
-		String date = "";
 		for (int r = 1; r < rows; r++) {
 			row = sheet.getRow(r);
 			if (row != null) {
 				for (int c = 0; c < columns; c++) {
-					if (i == 0) {
-						if (c == 0) {
-							dateCell = row.getCell(c);
 
-							sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
-						} else {
-							cell = row.getCell(c);
-							cell.setCellType(Cell.CELL_TYPE_STRING);
-							sheetObject[r][c] = cell;
-						}
+					if (c == 0) {
+						dateCell = row.getCell(c);
+						sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
 					} else {
 						cell = row.getCell(c);
 						cell.setCellType(Cell.CELL_TYPE_STRING);
@@ -102,10 +82,8 @@ public class SimpleExcelReaderExample {
 					}
 				}
 			}
-			System.out.println("\n");
 		}
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
 		return sheetObject;
 	}
 
