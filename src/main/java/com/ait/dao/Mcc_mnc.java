@@ -1,10 +1,25 @@
 package com.ait.dao;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Mcc_mnc {
-	int mcc;
-	int mnc;
-	String country;
-	String operator;
+	
+	@Id
+	private int mcc;
+	private int mnc;
+	private String country;
+	private String operator;
+	
+	public Mcc_mnc() {}
+
+	public Mcc_mnc(int mcc, int mnc, String country, String operator) {
+		this.mcc = mcc;
+		this.mnc = mnc;
+		this.country = country;
+		this.operator = operator;
+	}
 
 	public int getMcc() {
 		return mcc;

@@ -1,10 +1,24 @@
 package com.ait.dao;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Event_cause {
 	
-	int cause_code;
-	int event_id;
-	String description;
+	private int cause_code;
+	@Id
+	private int event_id;
+	private String description;
+	
+	public Event_cause() {}
+	
+	public Event_cause(int cause_code, int event_id, String description) {
+		super();
+		this.cause_code = cause_code;
+		this.event_id = event_id;
+		this.description = description;
+	}
 	public int getCause_code() {
 		return cause_code;
 	}

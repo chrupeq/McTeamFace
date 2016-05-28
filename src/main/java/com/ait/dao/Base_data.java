@@ -3,23 +3,57 @@ package com.ait.dao;
 import java.math.BigInteger;
 import java.sql.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Base_data {
 
-	int report_id;
-	Date date_time;
-	int cause_code;
-	int event_id;
-	int failure_class;
-	int ue_type;
-	int market;
-	int operator;
-	int cell_id;
-	int duration;
-	String ne_version;
-	BigInteger imsi;
-	BigInteger hier3_id;
-	BigInteger hier32_id;
-	BigInteger hier321_id;
+	@Id
+	@GeneratedValue
+	private int report_id;
+	private Date date_time;
+	private int cause_code;
+	private int event_id;
+	private int failure_class;
+	private int ue_type;
+	private int market;
+	private int operator;
+	private int cell_id;
+	private int duration;
+	private String ne_version;
+	private BigInteger imsi;
+	private BigInteger hier3_id;
+	private BigInteger hier32_id;
+	private BigInteger hier321_id;
+	
+	
+	
+	public Base_data() {}
+	
+	public Base_data(Date date_time, int cause_code, int event_id,
+			int failure_class, int ue_type, int market, int operator,
+			int cell_id, int duration, String ne_version, BigInteger imsi,
+			BigInteger hier3_id, BigInteger hier32_id, BigInteger hier321_id) {
+		this.date_time = date_time;
+		this.cause_code = cause_code;
+		this.event_id = event_id;
+		this.failure_class = failure_class;
+		this.ue_type = ue_type;
+		this.market = market;
+		this.operator = operator;
+		this.cell_id = cell_id;
+		this.duration = duration;
+		this.ne_version = ne_version;
+		this.imsi = imsi;
+		this.hier3_id = hier3_id;
+		this.hier32_id = hier32_id;
+		this.hier321_id = hier321_id;
+	}
+
+
+
 	public int getReport_id() {
 		return report_id;
 	}
