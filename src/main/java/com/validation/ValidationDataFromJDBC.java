@@ -3,6 +3,7 @@ package com.validation;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	
@@ -11,7 +12,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	private ArrayList<Integer> causeCodes = new ArrayList<Integer>();
 	private ArrayList<Integer> failureClass = new ArrayList<Integer>();
 	private ArrayList<Integer> userEquipment = new ArrayList<Integer>();
-	private ArrayList<Integer> markets = new ArrayList<Integer>();
+	private HashMap<Integer, Integer> marketsAndOperators = new HashMap<Integer, Integer>();
 	private ArrayList<Integer> operators = new ArrayList<Integer>();
 	
 	public ArrayList<Integer> getEventIdList(){
@@ -57,8 +58,6 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT failure_class FROM failure_class");
 			
-			resultsGatherer.next();
-			
 			while(resultsGatherer.next()){
 				failureClass.add(resultsGatherer.getInt("failure_class"));
 			}
@@ -88,15 +87,15 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 		return userEquipment;
 	}
 	
-	public ArrayList<Integer> getMarkets(){
+	public HashMap<Integer, Integer> getMarketsAndOperators(){
 	
 		try {
-			resultsGatherer = statement.executeQuery("SELECT DISTINCT mcc FROM mcc_mnc");
+			resultsGatherer = statement.executeQuery("SELECT DISTINCT mcc, mnc FROM mcc_mnc");
 			
 			resultsGatherer.next();
 			
 			while(resultsGatherer.next()){
-				markets.add(resultsGatherer.getInt("mcc"));
+				marketsAndOperators.put(resultsGatherer.getInt("mcc"), resultsGatherer.getInt("mnc"));
 			}
 			
 		} catch (SQLException e) {
@@ -104,7 +103,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			e.printStackTrace();
 		}
 		
-		return markets;
+		return marketsAndOperators;
 	}
 	
 	public ArrayList<Integer> getOperators(){

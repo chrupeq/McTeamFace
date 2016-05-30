@@ -1,40 +1,56 @@
 package com.ait.dao;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Mcc_mnc {
-	int MCC;
-	int MNC;
-	String COUNTRY;
-	String OPERATOR;
+	
+	@Id
+	private int mcc;
+	private int mnc;
+	private String country;
+	private String operator;
+	
+	public Mcc_mnc() {}
 
-	public int getMCC() {
-		return MCC;
+	public Mcc_mnc(int mcc, int mnc, String country, String operator) {
+		this.mcc = mcc;
+		this.mnc = mnc;
+		this.country = country;
+		this.operator = operator;
 	}
 
-	public void setMCC(int mCC) {
-		MCC = mCC;
+	public int getMcc() {
+		return mcc;
 	}
 
-	public int getMNC() {
-		return MNC;
+	public void setMcc(int mcc) {
+		this.mcc = mcc;
 	}
 
-	public void setMNC(int mNC) {
-		MNC = mNC;
+	public int getMnc() {
+		return mnc;
 	}
 
-	public String getCOUNTRY() {
-		return COUNTRY;
+	public void setMnc(int mnc) {
+		this.mnc = mnc;
 	}
 
-	public void setCOUNTRY(String cOUNTRY) {
-		COUNTRY = cOUNTRY;
+	public String getCountry() {
+		return country;
 	}
 
-	public String getOPERATOR() {
-		return OPERATOR;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-	public void setOPERATOR(String oPERATOR) {
-		OPERATOR = oPERATOR;
+	public String getOperator() {
+		return operator;
 	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
 }

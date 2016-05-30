@@ -10,7 +10,7 @@ public class DateManipulator {
 		return todaysDate;
 	}
 
-	protected static Date getCurrentDateAndTime() {
+	public static Date getCurrentDateAndTime() {
 		Date todaysDateAndTime = new Date();
 		return todaysDateAndTime;
 	}

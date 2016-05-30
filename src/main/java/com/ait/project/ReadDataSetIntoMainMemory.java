@@ -1,9 +1,20 @@
 package com.ait.project;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -11,34 +22,35 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.validation.DataValidator;
 
-public class SimpleExcelReaderExample {
+public class ReadDataSetIntoMainMemory {
 
 	static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	static ArrayList<Object[][]> arrays = new ArrayList<Object[][]>();
+	static String fileName = "C:\\Users\\A00236958\\Documents\\AIT Group Project - Sample Dataset.xls";
+	static String makeFileName = "testfile";
 
-	public static void main(String[] args) throws Exception {
-		readFileInFromHardDrive();
+//	public static void main(String[] args) throws Exception {
+//		readFileInFromHardDrive(fileName);
+//		
+//		// System.out.println(array[7]);
+//	}
 
-		// System.out.println(array[7]);
-	}
+	public static ArrayList<Object[][]> readFileInFromHardDrive(String fileName) throws InvalidFormatException, IOException {
 
-	public static void readFileInFromHardDrive() {
-		String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
-		String makeFileName = "testfile";
-
-		try {
 
 			Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
 
-			for (int i = 0; i < 1; i++) {
+			for (int i = 0; i <= 4; i++) {
 				Object[][] array = readInTheData(dataSetWorkbook, i);
+				System.out.println(array.toString());
 				arrays.add(array);
-			}
 
+			}
 			passTheArrayToValidator(arrays, makeFileName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+			System.out.println(arrays.size());
+		return arrays;
+
 	}
 
 	public static Object[][] readInTheData(Workbook dataSetWorkbook, int i) {
@@ -67,23 +79,31 @@ public class SimpleExcelReaderExample {
 		}
 
 		Object[][] sheetObject = new Object[rows][columns];
+		String date = "";
 		for (int r = 1; r < rows; r++) {
 			row = sheet.getRow(r);
-			if (row != null) {
 				for (int c = 0; c < columns; c++) {
+					if (i == 0) {
+						if (c == 0) {
+							dateCell = row.getCell(c);
 
-					if (c == 0) {
-						dateCell = row.getCell(c);
-						sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
+							sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
+						} else {
+							cell = row.getCell(c);
+							cell.setCellType(Cell.CELL_TYPE_STRING);
+							sheetObject[r][c] = cell;
+						}
 					} else {
 						cell = row.getCell(c);
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						sheetObject[r][c] = cell;
 					}
-				}
+				
 			}
+			System.out.println("\n");
 		}
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
 		return sheetObject;
 	}
 
