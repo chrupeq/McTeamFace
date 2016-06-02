@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -14,15 +15,17 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import com.validation.DataValidator;
 
 /**
- * @author A00236958 In this class, the excel file is read from a specified
- *         location on the hard drive and then validated for errors.
+ * @author A00236958
+ * In this class, the excel file is read from a specified
+ * location on the hard drive and then validated for errors.
  */
 public class ReadDataSetIntoMainMemory {
 
-	static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-	static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
-	static String fileName = "C:\\Users\\A00236958\\Documents\\AIT Group Project - Sample Dataset.xls";
-	static String makeFileNameForErrorLog = "ErrorLog";
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
+	private static String fileName = "C:\\Users\\A00236958\\Documents\\AIT Group Project - Sample Dataset.xls";
+	private static String makeFileNameForErrorLog = "ErrorLog";
+	private static DataFormatter cellFormatter;
 
 	public static void main(String[] args) throws Exception {
 		readFileInFromHardDrive(fileName);
@@ -96,7 +99,7 @@ public class ReadDataSetIntoMainMemory {
 				} else {
 					cell = row.getCell(c);
 					cell.setCellType(Cell.CELL_TYPE_STRING);
-					sheetObject[r][c] = cell;
+					sheetObject[r][c] = (String)cellFormatter.formatCellValue(cell);
 				}
 			}
 		}
