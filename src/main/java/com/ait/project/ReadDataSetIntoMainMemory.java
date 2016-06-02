@@ -26,21 +26,21 @@ public class ReadDataSetIntoMainMemory {
 
 	static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	static ArrayList<Object[][]> arrays = new ArrayList<Object[][]>();
-	static String fileName = "C:\\Users\\A00236958\\Documents\\AIT Group Project - Sample Dataset.xls";
+	static String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
 	static String makeFileName = "testfile";
 
-//	public static void main(String[] args) throws Exception {
-//		readFileInFromHardDrive(fileName);
-//		
-//		// System.out.println(array[7]);
-//	}
+	public static void main(String[] args) throws Exception {
+		readFileInFromHardDrive(fileName);
+		
+		// System.out.println(array[7]);
+	}
 
 	public static ArrayList<Object[][]> readFileInFromHardDrive(String fileName) throws InvalidFormatException, IOException {
 
 
 			Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
 
-			for (int i = 0; i <= 4; i++) {
+			for (int i = 0; i < 1; i++) {
 				Object[][] array = readInTheData(dataSetWorkbook, i);
 				System.out.println(array.toString());
 				arrays.add(array);
@@ -79,7 +79,6 @@ public class ReadDataSetIntoMainMemory {
 		}
 
 		Object[][] sheetObject = new Object[rows][columns];
-		String date = "";
 		for (int r = 1; r < rows; r++) {
 			row = sheet.getRow(r);
 				for (int c = 0; c < columns; c++) {

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	
@@ -12,8 +13,10 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	private ArrayList<Integer> causeCodes = new ArrayList<Integer>();
 	private ArrayList<Integer> failureClass = new ArrayList<Integer>();
 	private ArrayList<Integer> userEquipment = new ArrayList<Integer>();
-	private HashMap<Integer, Integer> marketsAndOperators = new HashMap<Integer, Integer>();
 	private ArrayList<Integer> operators = new ArrayList<Integer>();
+	int[] MCCValues;
+	int[] MNCValues;
+	List<int[]> MNCMCCHolder;
 	
 	public ArrayList<Integer> getEventIdList(){
 		initiateDatabase();
@@ -87,23 +90,32 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 		return userEquipment;
 	}
 	
-	public HashMap<Integer, Integer> getMarketsAndOperators(){
+	public List<int[]> getMarketsAndOperators(){
 	
+		int counter = 0;
+		MNCMCCHolder = new ArrayList<int[]>();
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT mcc, mnc FROM mcc_mnc");
-			
+			resultsGatherer.last();
+			int rowCount = resultsGatherer.getRow();
+			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
-			
+			MCCValues = new int[rowCount];
+			MNCValues = new int[rowCount];
 			while(resultsGatherer.next()){
-				marketsAndOperators.put(resultsGatherer.getInt("mcc"), resultsGatherer.getInt("mnc"));
+				MCCValues[counter] = resultsGatherer.getInt("mcc"); 
+				MNCValues[counter] = resultsGatherer.getInt("mnc");
+				counter ++;
 			}
-			
+			MNCMCCHolder.add(MCCValues);
+			MNCMCCHolder.add(MNCValues);
+			counter = 0;
 		} catch (SQLException e) {
 			System.out.println("Error in executing query for mcc list.");
 			e.printStackTrace();
 		}
 		
-		return marketsAndOperators;
+		return MNCMCCHolder;
 	}
 	
 	public ArrayList<Integer> getOperators(){

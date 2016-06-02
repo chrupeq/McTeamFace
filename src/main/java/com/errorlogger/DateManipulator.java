@@ -1,9 +1,14 @@
 package com.errorlogger;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DateManipulator {
+
+	private static DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
 	protected static Date getCurrentDate() {
 		Date todaysDate = new Date();
@@ -24,6 +29,17 @@ public class DateManipulator {
 
 		return oldCalendar.get(Calendar.YEAR) == newCalendar.get(Calendar.YEAR)
 				&& oldCalendar.get(Calendar.DAY_OF_YEAR) == newCalendar.get(Calendar.DAY_OF_YEAR);
+	}
+
+	public static boolean checkThatDateIsNotInTheFuture(String dateAndTimeToCheck) throws ParseException {
+
+		Date dateToBeValidated = dateFormatter.parse(dateAndTimeToCheck);
+
+		if (dateToBeValidated.after(getCurrentDateAndTime())) {
+			return false;
+		}
+
+		return true;
 	}
 
 }

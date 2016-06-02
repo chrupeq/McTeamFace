@@ -1,7 +1,9 @@
 package com.validation;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -15,7 +17,9 @@ public class DataValidator {
 	private static ArrayList<Integer> causeCodes;
 	private static ArrayList<Integer> failureClasses;
 	private static ArrayList<Integer> UETypes;
-	private static HashMap<Integer, Integer> marketsAndOperators;
+	private static List<int[]> marketsAndOperators;
+	private static int[] MNCValues;
+	private static int[] MCCValues;
 
 	private static DataFormatter formatter;
 	private static StringBuilder errorBuilder = new StringBuilder();
@@ -24,6 +28,7 @@ public class DataValidator {
 	private static int arrayLength;
 	private static int rowCount = 2;
 	private static String fileNameForErrorLogger;
+	private static int errorCount;
 
 	static DatabaseErrorLogger dataErrorLogger = new DatabaseErrorLogger("Validation Logger");
 
@@ -35,6 +40,9 @@ public class DataValidator {
 		failureClasses = databaseAccessor.getFailureClass();
 		UETypes = databaseAccessor.getUETypes();
 		marketsAndOperators = databaseAccessor.getMarketsAndOperators();
+
+		MNCValues = marketsAndOperators.get(0);
+		MCCValues = marketsAndOperators.get(1);
 
 		formatter = new DataFormatter();
 
@@ -52,66 +60,79 @@ public class DataValidator {
 			if (!validateDateTime(tableValuesToValidate[i][0])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid date at column: 1 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateEventId(tableValuesToValidate[i][1])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid Event ID at column: 2 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateFailureClass(tableValuesToValidate[i][2])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime()
 						+ ": Invalid failure class at column: 3 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateUEType(tableValuesToValidate[i][3])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid UE Type at column: 4 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateMarketAndOperator(tableValuesToValidate[i][4], tableValuesToValidate[i][5])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime()
 						+ ": Invalid or unmatched data at column: 5 & 6 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateCellId(tableValuesToValidate[i][6])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid Cell ID at column: 7 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateDuration(tableValuesToValidate[i][7])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime()
 						+ ": Invalid call duration at column: 8 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateCauseCode(tableValuesToValidate[i][8])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime() + ": Invalid Cause Code at column: 9 Line: "
 						+ i + "\n");
+				errorCount++;
 			}
 
 			if (!validateNEVersion(tableValuesToValidate[i][9])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime() + ": Invalid NEVersion at column: 10 Line: "
 						+ i + "\n");
+				errorCount++;
 			}
 
 			if (!validateIMSI(tableValuesToValidate[i][10])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid IMSI at column 11 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateHier3(tableValuesToValidate[i][11])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER3 at column: 12 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateHier32(tableValuesToValidate[i][12])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER32 at column: 13 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			if (!validateHier321(tableValuesToValidate[i][13])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER321 at column: 14 Line: " + i + "\n");
+				errorCount++;
 			}
 
 			rowCount++;
@@ -128,21 +149,30 @@ public class DataValidator {
 			String dateTimeValue = (String) dateTime;
 			if (dateTimeValue.matches("\\d{2,2}/\\d{2,2}/\\d{4,4}\\s\\d{2,2}:\\d{2,2}$")) {
 				String[] brokenUpDates = dateTimeValue.substring(0, 10).split("/");
+				String time = dateTimeValue.substring(11);
 				int day = Integer.parseInt(brokenUpDates[0]);
 				int year = Integer.parseInt(brokenUpDates[2]);
+				try {
+					if (DateManipulator.checkThatDateIsNotInTheFuture(dateTime.toString())) {
 
-				if (brokenUpDates[1].matches("0[1-9]|1[0-2]")) {
-					if (day <= 28 && day > 0) {
-						return true;
-					} else if (day <= 30 && day > 0 && brokenUpDates[1].matches("04|06|09|11")) {
-						return true;
-					} else if (day <= 31 && brokenUpDates[1].matches("01|03|05|07|08|12")) {
-						return true;
-					} else if (isLeapYear(year) && brokenUpDates[1].equals("02") && day <= 29 && day > 0) {
-						return true;
-					} else {
-						return false;
+						if (brokenUpDates[1].matches("0[1-9]|1[0-2]") && time
+								.matches("(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])$")) {
+							if (day <= 28 && day > 0) {
+								return true;
+							} else if (day <= 30 && day > 0 && brokenUpDates[1].matches("04|06|09|11")) {
+								return true;
+							} else if (day <= 31 && brokenUpDates[1].matches("01|03|05|07|08|10|12")) {
+								return true;
+							} else if (isLeapYear(year) && brokenUpDates[1].equals("02") && day <= 29 && day > 0) {
+								return true;
+							} else {
+								return false;
+							}
+						}
 					}
+				} catch (ParseException e) {
+					System.out.println("parse exception!");
+					e.printStackTrace();
 				}
 			}
 		}
@@ -203,9 +233,9 @@ public class DataValidator {
 		try {
 			int marketIntValue = Integer.parseInt(marketValue);
 			int operatorIntValue = Integer.parseInt(operatorValue);
-			for (int key : marketsAndOperators.keySet()) {
-				if (marketIntValue == key && operatorIntValue == marketsAndOperators.get(key))
-				return true;
+			for (int i = 0; i < MNCValues.length; i++) {
+				if (marketIntValue == MNCValues[i] && operatorIntValue == MCCValues[i])
+					return true;
 			}
 
 		} catch (Exception e) {
@@ -338,7 +368,7 @@ public class DataValidator {
 
 	private static void logError(Object[] erroneousEntry, StringBuilder errorBuilder) {
 
-		for (int i = 0; i < erroneousEntry.length; i ++) {
+		for (int i = 0; i < erroneousEntry.length; i++) {
 			errorToString.append("[" + (i + 1) + "]" + erroneousEntry[i].toString() + " ");
 		}
 		errorToString.append("\n");
@@ -347,7 +377,7 @@ public class DataValidator {
 		errorToString.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
 		if (rowCount == arrayLength)
-			dataErrorLogger.errorsFound(errorToString.toString(), errorToString, fileNameForErrorLogger);
+			dataErrorLogger.errorsFound(errorToString.toString(), errorToString, fileNameForErrorLogger, errorCount);
 
 		errorBuilder.setLength(0);
 	}
