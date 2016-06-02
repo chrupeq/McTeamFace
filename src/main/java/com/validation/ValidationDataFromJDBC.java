@@ -110,7 +110,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	/*
 	 * Returns all user equipment types from the database for use in validating user equipment types in the dataset
 	 */
-	
+	//comment
 	public int[] getUETypes(){
 	
 		try {
