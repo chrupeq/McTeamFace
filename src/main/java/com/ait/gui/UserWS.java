@@ -19,6 +19,10 @@ import javax.ws.rs.core.Response;
 
 
 
+/**
+ * @author A00236944
+ *
+ */
 @Path("/users")
 @Stateless
 @LocalBean

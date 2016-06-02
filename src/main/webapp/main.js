@@ -18,3 +18,13 @@ var signin = function() {
 	}
 
 }
+
+var rootUrl="http://localhost:8080/GroupProject2016/rest/wines";
+var findAll=function(){
+	$.ajax({
+		   type:'GET',
+		   url: rootUrl,
+		   dataType:"json",
+		   success:renderList
+		   });
+};

@@ -7,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author A00236944
+ *
+ */
 @Entity
 @XmlRootElement
 @Table(name = "users")

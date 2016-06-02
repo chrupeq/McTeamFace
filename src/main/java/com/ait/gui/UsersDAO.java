@@ -12,6 +12,10 @@ import javax.persistence.Query;
 
 
 
+/**
+ * @author A00236944
+ *
+ */
 @Stateless
 @LocalBean
 public class UsersDAO {
