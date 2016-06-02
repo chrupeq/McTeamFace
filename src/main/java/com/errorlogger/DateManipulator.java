@@ -31,6 +31,10 @@ public class DateManipulator {
 				&& oldCalendar.get(Calendar.DAY_OF_YEAR) == newCalendar.get(Calendar.DAY_OF_YEAR);
 	}
 
+	/*
+	 * Compares a date from a row of the dataset and checks that it isn't in the future which would make it invalid
+	 */
+	
 	public static boolean checkThatDateIsNotInTheFuture(String dateAndTimeToCheck) throws ParseException {
 
 		Date dateToBeValidated = dateFormatter.parse(dateAndTimeToCheck);
