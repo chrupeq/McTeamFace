@@ -1,14 +1,15 @@
-package com.validator.test;
+package utilities;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import com.validation.JDBCConnectionManager;
+
 public class ValidatorTestUtilities {
 
 	private static DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
 	
 	public static String getDatesInTheFuture(int timeToGet){
 		
@@ -17,7 +18,7 @@ public class ValidatorTestUtilities {
 		
 		switch(timeToGet){
 		case 1:
-			currentDateAndTime.add(Calendar.MINUTE, 1);
+			currentDateAndTime.add(Calendar.MINUTE, 2);
 			break;
 		case 2:
 			currentDateAndTime.add(Calendar.HOUR_OF_DAY, 1);
@@ -36,7 +37,4 @@ public class ValidatorTestUtilities {
 		return dateFormatter.format(currentDateAndTime.getTime());
 	}
 	
-	public static void main(String[] args){
-		System.out.println(getDatesInTheFuture(1));
-	}
 }
