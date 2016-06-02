@@ -2,7 +2,6 @@ package com.validation;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -13,10 +12,10 @@ import com.errorlogger.DateManipulator;
 
 public class DataValidator {
 
-	private static ArrayList<Integer> eventIdList;
-	private static ArrayList<Integer> causeCodes;
-	private static ArrayList<Integer> failureClasses;
-	private static ArrayList<Integer> UETypes;
+	private static int[] eventIdList;
+	private static int[] causeCodes;
+	private static int[] failureClasses;
+	private static int[] UETypes;
 	private static List<int[]> marketsAndOperators;
 	private static int[] MNCValues;
 	private static int[] MCCValues;
@@ -59,79 +58,79 @@ public class DataValidator {
 
 			if (!validateDateTime(tableValuesToValidate[i][0])) {
 				errorBuilder.append(
-						DateManipulator.getCurrentDateAndTime() + ": Invalid date at column: 1 Line: " + i + "\n");
+						DateManipulator.getCurrentDateAndTime() + ": Invalid date at column: 1 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateEventId(tableValuesToValidate[i][1])) {
 				errorBuilder.append(
-						DateManipulator.getCurrentDateAndTime() + ": Invalid Event ID at column: 2 Line: " + i + "\n");
+						DateManipulator.getCurrentDateAndTime() + ": Invalid Event ID at column: 2 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateFailureClass(tableValuesToValidate[i][2])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime()
-						+ ": Invalid failure class at column: 3 Line: " + i + "\n");
+						+ ": Invalid failure class at column: 3 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateUEType(tableValuesToValidate[i][3])) {
 				errorBuilder.append(
-						DateManipulator.getCurrentDateAndTime() + ": Invalid UE Type at column: 4 Line: " + i + "\n");
+						DateManipulator.getCurrentDateAndTime() + ": Invalid UE Type at column: 4 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateMarketAndOperator(tableValuesToValidate[i][4], tableValuesToValidate[i][5])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime()
-						+ ": Invalid or unmatched data at column: 5 & 6 Line: " + i + "\n");
+						+ ": Invalid or unmatched data at column: 5 & 6 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateCellId(tableValuesToValidate[i][6])) {
 				errorBuilder.append(
-						DateManipulator.getCurrentDateAndTime() + ": Invalid Cell ID at column: 7 Line: " + i + "\n");
+						DateManipulator.getCurrentDateAndTime() + ": Invalid Cell ID at column: 7 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateDuration(tableValuesToValidate[i][7])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime()
-						+ ": Invalid call duration at column: 8 Line: " + i + "\n");
+						+ ": Invalid call duration at column: 8 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateCauseCode(tableValuesToValidate[i][8])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime() + ": Invalid Cause Code at column: 9 Line: "
-						+ i + "\n");
+						+ i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateNEVersion(tableValuesToValidate[i][9])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime() + ": Invalid NEVersion at column: 10 Line: "
-						+ i + "\n");
+						+ i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateIMSI(tableValuesToValidate[i][10])) {
 				errorBuilder.append(
-						DateManipulator.getCurrentDateAndTime() + ": Invalid IMSI at column 11 Line: " + i + "\n");
+						DateManipulator.getCurrentDateAndTime() + ": Invalid IMSI at column 11 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateHier3(tableValuesToValidate[i][11])) {
 				errorBuilder.append(
-						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER3 at column: 12 Line: " + i + "\n");
+						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER3 at column: 12 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateHier32(tableValuesToValidate[i][12])) {
 				errorBuilder.append(
-						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER32 at column: 13 Line: " + i + "\n");
+						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER32 at column: 13 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
 			if (!validateHier321(tableValuesToValidate[i][13])) {
 				errorBuilder.append(
-						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER321 at column: 14 Line: " + i + "\n");
+						DateManipulator.getCurrentDateAndTime() + ": Invalid HIER321 at column: 14 Line: " + i + "\r\n");
 				errorCount++;
 			}
 
@@ -184,7 +183,9 @@ public class DataValidator {
 		String eventIdValue = formatter.formatCellValue(c);
 		try {
 			int intValue = Integer.parseInt(eventIdValue);
-			if (eventIdList.contains(intValue)) {
+			
+			for(int i = 0; i < eventIdList.length; i ++)
+			if (eventIdList[i] == intValue) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -201,8 +202,10 @@ public class DataValidator {
 				return true;
 			}
 			int intValue = Integer.parseInt(failureClassValue);
-			if (failureClasses.contains(intValue)) {
+			for(int i = 0; i < failureClasses.length; i ++){
+			if (failureClasses[i] == intValue) {
 				return true;
+			}
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered.");
@@ -216,8 +219,10 @@ public class DataValidator {
 		String ueTypeValue = formatter.formatCellValue(c);
 		try {
 			int intValue = Integer.parseInt(ueTypeValue);
-			if (UETypes.contains(intValue)) {
+			for(int i = 0; i < UETypes.length; i ++){
+			if (UETypes[i] == intValue) {
 				return true;
+			}
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered.");
@@ -282,8 +287,10 @@ public class DataValidator {
 				return true;
 			}
 			int intValue = Integer.parseInt(causeCodeValue);
-			if (causeCodes.contains(intValue)) {
+			for(int i = 0; i < causeCodes.length; i ++){
+			if (causeCodes[i] == intValue) {
 				return true;
+			}
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered.");
@@ -371,10 +378,10 @@ public class DataValidator {
 		for (int i = 0; i < erroneousEntry.length; i++) {
 			errorToString.append("[" + (i + 1) + "]" + erroneousEntry[i].toString() + " ");
 		}
-		errorToString.append("\n");
-		errorToString.append("----------------------\n");
-		errorToString.append(errorBuilder.toString() + "\n");
-		errorToString.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		errorToString.append("\r\n");
+		errorToString.append("----------------------\r\n");
+		errorToString.append(errorBuilder.toString() + "\r\n");
+		errorToString.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n");
 
 		if (rowCount == arrayLength)
 			dataErrorLogger.errorsFound(errorToString.toString(), errorToString, fileNameForErrorLogger, errorCount);
