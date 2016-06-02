@@ -1,5 +1,6 @@
 package com.validation;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,13 @@ public class DataValidator {
 	public static void setUpDatabaseData() {
 
 		ValidationDataFromJDBC databaseAccessor = new ValidationDataFromJDBC();
-		eventIdList = databaseAccessor.getEventIdList();
+			try {
+				eventIdList = databaseAccessor.getEventIdList();
+			} catch (SQLException e) {
+			System.out.println("SQL Exception on connection close.");
+				e.printStackTrace();
+			}
+			
 		causeCodes = databaseAccessor.getCauseCodes();
 		failureClasses = databaseAccessor.getFailureClass();
 		UETypes = databaseAccessor.getUETypes();
@@ -180,11 +187,15 @@ public class DataValidator {
 
 	private static boolean validateEventId(Object eventId) {
 		try {
+			if(eventId.toString().startsWith("0") && !eventId.toString().matches("^[1-9][1-9][1-9][1-9]$")){
+				return false;
+			}
 			int intValue = Integer.parseInt(eventId.toString());
-			
-			for(int i = 0; i < eventIdList.length; i ++)
+			for(int i = 0; i < eventIdList.length; i ++){
+				
 			if (eventIdList[i] == intValue) {
 				return true;
+			}
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered.");
@@ -195,7 +206,10 @@ public class DataValidator {
 
 	private static boolean validateFailureClass(Object failureClass) {
 		try {
-			if (failureClass.toString().equals("(null)")) {
+			if (!failureClass.toString().matches("^[0-4]$") && !failureClass.toString().equals("(null)")){
+				return false;
+			}
+			if(failureClass.toString().equals("(null)")){
 				return true;
 			}
 			int intValue = Integer.parseInt(failureClass.toString());
@@ -206,23 +220,27 @@ public class DataValidator {
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered.");
+			return false;
 		}
 
 		return false;
 	}
 
 	private static boolean validateUEType(Object ueType) {
+		
+		if(!ueType.toString().matches("\\d")){
+			return false;
+		}
 		try {
 			int intValue = Integer.parseInt(ueType.toString());
 			for(int i = 0; i < UETypes.length; i ++){
-//				System.out.println(i);
-//				System.out.println(UETypes.length);
 			if (UETypes[i] == intValue) {
 				return true;
 			}
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered.");
+			return false;
 		}
 		return false;
 	}
@@ -232,6 +250,7 @@ public class DataValidator {
 			int marketIntValue = Integer.parseInt(market.toString());
 			int operatorIntValue = Integer.parseInt(operator.toString());
 			for (int i = 0; i < MNCValues.length; i++) {
+				System.out.println(MNCValues[i]);
 				if (marketIntValue == MNCValues[i] && operatorIntValue == MCCValues[i])
 					return true;
 			}

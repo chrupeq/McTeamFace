@@ -28,7 +28,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	 * Returns all event IDs from the database for use in validating event IDs in the dataset
 	 */
 	
-	public int[] getEventIdList(){
+	public int[] getEventIdList() throws SQLException{
 		initiateDatabase();
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT(event_id) FROM event_cause");
@@ -37,11 +37,10 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			rowCount = resultsGatherer.getRow();
 			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
-			eventsList = new int[rowCount];
+			eventsList = new int[rowCount - 1];
 			while(resultsGatherer.next()){
 				eventsList[counter] = resultsGatherer.getInt("event_id");
 				counter ++;
-				
 			}
 			resultsGatherer.close();
 			counter = 0;
@@ -50,7 +49,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			System.out.println("Error in executing query for event_id list.");
 			e.printStackTrace();
 		}
-		
+	//	closeDatabase();
 		return eventsList;
 	}
 	
@@ -147,7 +146,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	 */
 	
 	public List<int[]> getMarketsAndOperators(){
-	
+		initiateDatabase();
 		MNCMCCHolder = new ArrayList<int[]>();
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT mcc, mnc FROM mcc_mnc");
@@ -160,6 +159,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			while(resultsGatherer.next()){
 				MCCValues[counter] = resultsGatherer.getInt("mcc"); 
 				MNCValues[counter] = resultsGatherer.getInt("mnc");
+				System.out.println(resultsGatherer.getInt("mnc"));
 				counter ++;
 			}
 			MNCMCCHolder.add(MCCValues);
