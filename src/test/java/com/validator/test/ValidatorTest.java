@@ -147,6 +147,7 @@ public class ValidatorTest extends ValidatorTestUtilities {
 	@Parameters(method = "validateEventIdParams")
 	public void testValidEventIds(Object eventId)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		System.out.println(cell.getNumericCellValue());
 		boolean isEventValid = (boolean) validateEventIdMethod.invoke(DataValidator.class, cell);
 		assertFalse(isEventValid);
 	}

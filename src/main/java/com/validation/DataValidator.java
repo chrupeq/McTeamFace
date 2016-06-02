@@ -188,6 +188,7 @@ public class DataValidator {
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered.");
+			return false;
 		}
 		return false;
 	}
