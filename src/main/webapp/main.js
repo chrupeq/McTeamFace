@@ -8,6 +8,7 @@ function prepareLogin() {
 	document.getElementById("button").onclick = signin;
 }
 
+
 var signin = function() {
 	var username = document.getElementById("username").value;
 	var password = document.getElementById("password").value;
