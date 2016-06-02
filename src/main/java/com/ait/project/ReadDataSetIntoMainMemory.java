@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -22,7 +23,7 @@ public class ReadDataSetIntoMainMemory {
 
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
-	private static String fileName = "C:\\Users\\A00236958\\Documents\\AIT Group Project - Sample Dataset.xls";
+	private static String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
 	private static String makeFileNameForErrorLog = "ErrorLog";
 	private static DataFormatter cellFormatter;
 
@@ -50,7 +51,8 @@ public class ReadDataSetIntoMainMemory {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
 			arrayListOfSheets.add(sheet);
 		}
-		passTheArrayToValidator(arrayListOfSheets, makeFileNameForErrorLog);
+		
+		passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
 		return arrayListOfSheets;
 	}
 
@@ -93,12 +95,14 @@ public class ReadDataSetIntoMainMemory {
 			row = sheet.getRow(r);
 			for (int c = 0; c < columns; c++) {
 				if (sheetNumber == 0 && c == 0) {
+					System.out.println(c);
 					dateCell = row.getCell(c);
 					sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
 				} else {
 					cell = row.getCell(c);
+					System.out.println(c);
 					cell.setCellType(Cell.CELL_TYPE_STRING);
-					sheetObject[r][c] = (String)cellFormatter.formatCellValue(cell);
+					sheetObject[r][c] = (String) cell.toString();
 				}
 			}
 		}
@@ -109,13 +113,11 @@ public class ReadDataSetIntoMainMemory {
 	 * Here the ArrayList of sheets are passed to the DataValidator class where
 	 * the sheets will be validated for errors.
 	 * 
-	 * @param arrayListOfSheets
+	 * @param objects
 	 * @param filename
 	 */
-	public static void passTheArrayToValidator(final ArrayList<Object[][]> arrayListOfSheets,
+	public static void passTheArrayToValidator(final Object[][] sheet,
 			final String makeFileNameForErrorLog) {
-		for (final Object[][] sheet : arrayListOfSheets) {
 			DataValidator.validateData(sheet, makeFileNameForErrorLog);
-		}
 	}
 }

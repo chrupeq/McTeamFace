@@ -214,6 +214,8 @@ public class DataValidator {
 		try {
 			int intValue = Integer.parseInt(ueType.toString());
 			for(int i = 0; i < UETypes.length; i ++){
+//				System.out.println(i);
+//				System.out.println(UETypes.length);
 			if (UETypes[i] == intValue) {
 				return true;
 			}

@@ -89,10 +89,16 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	 */
 	
 	public int[] getFailureClass(){
-	
+		
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT failure_class FROM failure_class");
 			
+			resultsGatherer.last();
+			rowCount = resultsGatherer.getRow();
+			resultsGatherer.beforeFirst();
+			resultsGatherer.next();
+			
+			failureClass = new int[rowCount];
 			while(resultsGatherer.next()){
 				failureClass[counter] = resultsGatherer.getInt("failure_class");
 				counter ++;
@@ -114,6 +120,13 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	
 		try {
 			resultsGatherer = statement.executeQuery("SELECT tac FROM user_equipment");
+			
+			resultsGatherer.last();
+			rowCount = resultsGatherer.getRow();
+			resultsGatherer.beforeFirst();
+			resultsGatherer.next();
+			
+			userEquipment = new int[rowCount];
 			
 			while(resultsGatherer.next()){
 				userEquipment[counter] = resultsGatherer.getInt("tac");
