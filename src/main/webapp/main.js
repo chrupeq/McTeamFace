@@ -4,6 +4,7 @@
 window.onload = prepareLogin;
 
 function prepareLogin() {
+	alert("Load success")
 	document.getElementById("button").onclick = signin;
 }
 
