@@ -179,10 +179,8 @@ public class DataValidator {
 	}
 
 	private static boolean validateEventId(Object eventId) {
-		Cell c = (Cell) eventId;
-		String eventIdValue = formatter.formatCellValue(c);
 		try {
-			int intValue = Integer.parseInt(eventIdValue);
+			int intValue = Integer.parseInt(eventId.toString());
 			
 			for(int i = 0; i < eventIdList.length; i ++)
 			if (eventIdList[i] == intValue) {
@@ -195,13 +193,11 @@ public class DataValidator {
 	}
 
 	private static boolean validateFailureClass(Object failureClass) {
-		Cell c = (Cell) failureClass;
-		String failureClassValue = formatter.formatCellValue(c);
 		try {
 			if (failureClass.toString().equals("(null)")) {
 				return true;
 			}
-			int intValue = Integer.parseInt(failureClassValue);
+			int intValue = Integer.parseInt(failureClass.toString());
 			for(int i = 0; i < failureClasses.length; i ++){
 			if (failureClasses[i] == intValue) {
 				return true;
@@ -215,10 +211,8 @@ public class DataValidator {
 	}
 
 	private static boolean validateUEType(Object ueType) {
-		Cell c = (Cell) ueType;
-		String ueTypeValue = formatter.formatCellValue(c);
 		try {
-			int intValue = Integer.parseInt(ueTypeValue);
+			int intValue = Integer.parseInt(ueType.toString());
 			for(int i = 0; i < UETypes.length; i ++){
 			if (UETypes[i] == intValue) {
 				return true;
@@ -231,13 +225,9 @@ public class DataValidator {
 	}
 
 	private static boolean validateMarketAndOperator(Object market, Object operator) {
-		Cell c = (Cell) market;
-		Cell o = (Cell) operator;
-		String marketValue = formatter.formatCellValue(c);
-		String operatorValue = formatter.formatCellValue(o);
 		try {
-			int marketIntValue = Integer.parseInt(marketValue);
-			int operatorIntValue = Integer.parseInt(operatorValue);
+			int marketIntValue = Integer.parseInt(market.toString());
+			int operatorIntValue = Integer.parseInt(operator.toString());
 			for (int i = 0; i < MNCValues.length; i++) {
 				if (marketIntValue == MNCValues[i] && operatorIntValue == MCCValues[i])
 					return true;
@@ -251,10 +241,8 @@ public class DataValidator {
 	}
 
 	private static boolean validateCellId(Object cellId) {
-		Cell c = (Cell) cellId;
-		String cellIdValue = formatter.formatCellValue(c);
 		try {
-			int intValue = Integer.parseInt(cellIdValue);
+			int intValue = Integer.parseInt(cellId.toString());
 			if (intValue > 0) {
 				return true;
 			}
@@ -266,10 +254,8 @@ public class DataValidator {
 	}
 
 	private static boolean validateDuration(Object duration) {
-		Cell c = (Cell) duration;
-		String durationValue = formatter.formatCellValue(c);
 		try {
-			int intValue = Integer.parseInt(durationValue);
+			int intValue = Integer.parseInt(duration.toString());
 			if (intValue > 0) {
 				return true;
 			}
@@ -280,13 +266,11 @@ public class DataValidator {
 	}
 
 	private static boolean validateCauseCode(Object causeCode) {
-		Cell c = (Cell) causeCode;
-		String causeCodeValue = formatter.formatCellValue(c);
 		try {
-			if (causeCodeValue.equals("(null)")) {
+			if (causeCode.toString().equals("(null)")) {
 				return true;
 			}
-			int intValue = Integer.parseInt(causeCodeValue);
+			int intValue = Integer.parseInt(causeCode.toString());
 			for(int i = 0; i < causeCodes.length; i ++){
 			if (causeCodes[i] == intValue) {
 				return true;
@@ -299,20 +283,16 @@ public class DataValidator {
 	}
 
 	private static boolean validateNEVersion(Object NEVersion) {
-		Cell c = (Cell) NEVersion;
-		String NEVersionValue = formatter.formatCellValue(c);
-		if (NEVersionValue.matches("^[0-9][0-9][A-Z]")) {
+		if (NEVersion.toString().matches("^[0-9][0-9][A-Z]")) {
 			return true;
 		}
 		return false;
 	}
 
 	private static boolean validateIMSI(Object IMSI) {
-		Cell c = (Cell) IMSI;
-		String IMSIValue = formatter.formatCellValue(c);
 		try {
-			Long longValue = Long.parseLong(IMSIValue);
-			if (longValue > 0 && IMSIValue.length() <= 15) {
+			Long longValue = Long.parseLong(IMSI.toString());
+			if (longValue > 0 && IMSI.toString().length() <= 15) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -322,11 +302,9 @@ public class DataValidator {
 	}
 
 	private static boolean validateHier3(Object hier3) {
-		Cell c = (Cell) hier3;
-		String hier3Value = formatter.formatCellValue(c);
 		try {
-			Long longValue = Long.parseLong(hier3Value);
-			if (longValue > 0 && hier3Value.length() == 19) {
+			Long longValue = Long.parseLong(hier3.toString());
+			if (longValue > 0 && hier3.toString().length() == 19) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -336,11 +314,9 @@ public class DataValidator {
 	}
 
 	private static boolean validateHier32(Object hier32) {
-		Cell c = (Cell) hier32;
-		String hier32Value = formatter.formatCellValue(c);
 		try {
-			Long longValue = Long.parseLong(hier32Value);
-			if (longValue > 0 && hier32Value.length() == 19) {
+			Long longValue = Long.parseLong(hier32.toString());
+			if (longValue > 0 && hier32.toString().length() == 19) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -350,11 +326,9 @@ public class DataValidator {
 	}
 
 	private static boolean validateHier321(Object hier321) {
-		Cell c = (Cell) hier321;
-		String hier321Value = formatter.formatCellValue(c);
 		try {
-			Long longValue = Long.parseLong(hier321Value);
-			if (longValue > 0 && hier321Value.length() == 19) {
+			Long longValue = Long.parseLong(hier321.toString());
+			if (longValue > 0 && hier321.toString().length() == 19) {
 				return true;
 			}
 		} catch (Exception e) {

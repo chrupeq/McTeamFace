@@ -60,7 +60,6 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	
 	public int[] getCauseCodes(){
 		
-		
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT cause_code FROM event_cause");
 			
