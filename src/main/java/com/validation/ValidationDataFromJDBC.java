@@ -3,48 +3,78 @@ package com.validation;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+
+/*
+ * Class for returning data from the database for cross-checking purposes with incoming datasets
+ */
 
 public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	
 	private ResultSet resultsGatherer;
-	private ArrayList<Integer> eventsList = new ArrayList<Integer>();
-	private ArrayList<Integer> causeCodes = new ArrayList<Integer>();
-	private ArrayList<Integer> failureClass = new ArrayList<Integer>();
-	private ArrayList<Integer> userEquipment = new ArrayList<Integer>();
-	private HashMap<Integer, Integer> marketsAndOperators = new HashMap<Integer, Integer>();
-	private ArrayList<Integer> operators = new ArrayList<Integer>();
+	private int[] eventsList;
+	private int[] causeCodes;
+	private int[] failureClass;
+	private int[] userEquipment;
+	private int[] MCCValues;
+	private int[] MNCValues;
+	private List<int[]> MNCMCCHolder;
 	
-	public ArrayList<Integer> getEventIdList(){
+	private static int counter = 0;
+	
+	private static int rowCount;
+	
+	/*
+	 * Returns all event IDs from the database for use in validating event IDs in the dataset
+	 */
+	
+	public int[] getEventIdList() throws SQLException{
 		initiateDatabase();
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT(event_id) FROM event_cause");
 			
+			resultsGatherer.last();
+			rowCount = resultsGatherer.getRow();
+			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
-			
+			eventsList = new int[rowCount - 1];
 			while(resultsGatherer.next()){
-				eventsList.add(resultsGatherer.getInt("event_id"));
-				
+				eventsList[counter] = resultsGatherer.getInt("event_id");
+				counter ++;
 			}
 			resultsGatherer.close();
+			counter = 0;
 			
 		} catch (SQLException e) {
 			System.out.println("Error in executing query for event_id list.");
 			e.printStackTrace();
 		}
-		
+	//	closeDatabase();
 		return eventsList;
 	}
 	
-	public ArrayList<Integer> getCauseCodes(){
+	/*
+	 * Returns all cause codes from the database for use in validating cause codes in the dataset
+	 */
+	
+	public int[] getCauseCodes(){
 		
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT cause_code FROM event_cause");
 			
+			resultsGatherer.last();
+			rowCount = resultsGatherer.getRow();
+			resultsGatherer.beforeFirst();
+			resultsGatherer.next();
+			
+			causeCodes = new int[rowCount];
+			
 			while(resultsGatherer.next()){
-				causeCodes.add(resultsGatherer.getInt("cause_code"));
+				causeCodes[counter] = resultsGatherer.getInt("cause_code");
+				counter ++;
 			}
 			
+			counter = 0;
 		} catch (SQLException e) {
 			System.out.println("Error in executing query for cause_codes list.");
 			e.printStackTrace();
@@ -53,73 +83,94 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 		return causeCodes;
 	}
 	
-	public ArrayList<Integer> getFailureClass(){
+	/*
+	 * Returns all failure classes from the database for use in validating failure classes in the dataset
+	 */
 	
+	public int[] getFailureClass(){
+		
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT failure_class FROM failure_class");
 			
+			resultsGatherer.last();
+			rowCount = resultsGatherer.getRow();
+			resultsGatherer.beforeFirst();
+			resultsGatherer.next();
+			
+			failureClass = new int[rowCount];
 			while(resultsGatherer.next()){
-				failureClass.add(resultsGatherer.getInt("failure_class"));
+				failureClass[counter] = resultsGatherer.getInt("failure_class");
+				counter ++;
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("Error in executing query for failure_class list.");
 			e.printStackTrace();
 		}
-		
+		counter = 0;
 		return failureClass;
 	}
 	
-	public ArrayList<Integer> getUETypes(){
+	/*
+	 * Returns all user equipment types from the database for use in validating user equipment types in the dataset
+	 */
+	//comment
+	public int[] getUETypes(){
 	
 		try {
 			resultsGatherer = statement.executeQuery("SELECT tac FROM user_equipment");
 			
+			resultsGatherer.last();
+			rowCount = resultsGatherer.getRow();
+			resultsGatherer.beforeFirst();
+			resultsGatherer.next();
+			
+			userEquipment = new int[rowCount];
+			
 			while(resultsGatherer.next()){
-				userEquipment.add(resultsGatherer.getInt("tac"));
+				userEquipment[counter] = resultsGatherer.getInt("tac");
+				counter ++;
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("Error in executing query for tac list.");
 			e.printStackTrace();
 		}
-		
+		counter = 0;
 		return userEquipment;
 	}
 	
-	public HashMap<Integer, Integer> getMarketsAndOperators(){
+	/*
+	 * Returns all mobile country codes and mobile network codes from the database and stores them in seperate arrays for use in validating data in the dataset
+	 * Both of these must exist together in the database or the data is considered invalid
+	 */
 	
+	public List<int[]> getMarketsAndOperators(){
+		initiateDatabase();
+		MNCMCCHolder = new ArrayList<int[]>();
 		try {
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT mcc, mnc FROM mcc_mnc");
-			
+			resultsGatherer.last();
+			int rowCount = resultsGatherer.getRow();
+		//	rowCount
+			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
-			
+			MCCValues = new int[rowCount];
+			MNCValues = new int[rowCount];
 			while(resultsGatherer.next()){
-				marketsAndOperators.put(resultsGatherer.getInt("mcc"), resultsGatherer.getInt("mnc"));
+				MCCValues[counter] = resultsGatherer.getInt("mcc"); 
+				MNCValues[counter] = resultsGatherer.getInt("mnc");
+				counter ++;
 			}
-			
+			MNCMCCHolder.add(MCCValues);
+			MNCMCCHolder.add(MNCValues);
+			counter = 0;
+			rowCount = 0;
 		} catch (SQLException e) {
 			System.out.println("Error in executing query for mcc list.");
 			e.printStackTrace();
 		}
 		
-		return marketsAndOperators;
-	}
-	
-	public ArrayList<Integer> getOperators(){
-		
-		try {
-			resultsGatherer = statement.executeQuery("SELECT DISTINCT mnc FROM mcc_mnc");
-			
-			while(resultsGatherer.next()){
-				operators.add(resultsGatherer.getInt("mnc"));
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("Error in executing query for operators list.");
-			e.printStackTrace();
-		}
-		
-		return operators;
+		return MNCMCCHolder;
 	}
 }

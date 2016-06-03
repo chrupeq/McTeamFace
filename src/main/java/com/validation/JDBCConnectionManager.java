@@ -2,6 +2,7 @@ package com.validation;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class JDBCConnectionManager {
@@ -24,4 +25,8 @@ public class JDBCConnectionManager {
 		}
 	}
 	
+	public void closeDatabase() throws SQLException{
+		con.close();
+		con = null;
+	}
 }

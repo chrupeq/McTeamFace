@@ -1,18 +1,10 @@
 package com.ait.project;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
@@ -22,52 +14,72 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.validation.DataValidator;
 
+/**
+ * @author A00236958
+ * In this class, the excel file is read from a specified
+ * location on the hard drive and then validated for errors.
+ */
 public class ReadDataSetIntoMainMemory {
 
-	static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-	static ArrayList<Object[][]> arrays = new ArrayList<Object[][]>();
-	static String fileName = "C:\\Users\\A00236958\\Documents\\AIT Group Project - Sample Dataset.xls";
-	static String makeFileName = "testfile";
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
+	private static String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
+	private static String makeFileNameForErrorLog = "ErrorLog";
+	private static DataFormatter cellFormatter;
 
-//	public static void main(String[] args) throws Exception {
-//		readFileInFromHardDrive(fileName);
-//		
-//		// System.out.println(array[7]);
-//	}
-
-	public static ArrayList<Object[][]> readFileInFromHardDrive(String fileName) throws InvalidFormatException, IOException {
-
-
-			Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
-
-			for (int i = 0; i <= 4; i++) {
-				Object[][] array = readInTheData(dataSetWorkbook, i);
-				System.out.println(array.toString());
-				arrays.add(array);
-
-			}
-			passTheArrayToValidator(arrays, makeFileName);
-
-			System.out.println(arrays.size());
-		return arrays;
-
+	public static void main(String[] args) throws Exception {
+		readFileInFromHardDrive(fileName);
 	}
 
-	public static Object[][] readInTheData(Workbook dataSetWorkbook, int i) {
-		Sheet sheet = dataSetWorkbook.getSheetAt(i);
+	/**
+	 * Reads in the excel file from a specified location on the hard drive.
+	 * Passes on the excel file to the readInTheData method, and then to the
+	 * passTheArrayToValidator method, then finally returns an ArrayList of the
+	 * excel sheets.
+	 * 
+	 * @param fileName
+	 * @return
+	 * @throws InvalidFormatException
+	 * @throws IOException
+	 */
+	public static ArrayList<Object[][]> readFileInFromHardDrive(final String fileName)
+			throws InvalidFormatException, IOException {
+
+		final Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
+
+		for (int sheetNumber = 0; sheetNumber <= 4; sheetNumber++) {
+			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
+			arrayListOfSheets.add(sheet);
+		}
+		
+		passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
+		return arrayListOfSheets;
+	}
+
+	/**
+	 * The Workbook and sheetNumber are passed into this method for converting
+	 * the sheet into a 2D object array filled with cells from the sheet. This
+	 * is essential for the validator to check the Workbook for errors.
+	 * 
+	 * @param dataSetWorkbook
+	 * @param sheetNumber
+	 * @return
+	 */
+	public static Object[][] convertDataSetSheetIntoObjectArray(final Workbook dataSetWorkbook, final int sheetNumber) {
+		final Sheet sheet = dataSetWorkbook.getSheetAt(sheetNumber);
 
 		Row row;
 		Cell cell;
 		Cell dateCell;
 
-		int rows; // No of rows
+		int rows;
 		rows = sheet.getPhysicalNumberOfRows();
 
-		int columns = 0; // No of columns
+		int columns = 0;
 		int numOfDataCellsPerRow = 0;
 
-		// This trick ensures that we get the data properly even if it
-		// doesn't start from first few rows
+		// This for loop ensures that we get the data properly
+		// even if the data doesn't start from first few rows
 		for (int j = 0; j < 10 || j < rows; j++) {
 			row = sheet.getRow(j);
 			if (row != null) {
@@ -79,40 +91,33 @@ public class ReadDataSetIntoMainMemory {
 		}
 
 		Object[][] sheetObject = new Object[rows][columns];
-		String date = "";
 		for (int r = 1; r < rows; r++) {
 			row = sheet.getRow(r);
-				for (int c = 0; c < columns; c++) {
-					if (i == 0) {
-						if (c == 0) {
-							dateCell = row.getCell(c);
-
-							sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
-						} else {
-							cell = row.getCell(c);
-							cell.setCellType(Cell.CELL_TYPE_STRING);
-							sheetObject[r][c] = cell;
-						}
-					} else {
-						cell = row.getCell(c);
-						cell.setCellType(Cell.CELL_TYPE_STRING);
-						sheetObject[r][c] = cell;
-					}
-				
+			for (int c = 0; c < columns; c++) {
+				if (sheetNumber == 0 && c == 0) {
+					System.out.println(c);
+					dateCell = row.getCell(c);
+					sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
+				} else {
+					cell = row.getCell(c);
+					System.out.println(c);
+					cell.setCellType(Cell.CELL_TYPE_STRING);
+					sheetObject[r][c] = (String) cell.toString();
+				}
 			}
-			System.out.println("\n");
 		}
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
 		return sheetObject;
 	}
 
-	public static void passTheArrayToValidator(ArrayList<Object[][]> arrays, String filename) {
-
-		for (Object[][] o : arrays) {
-			DataValidator.validateData(o, filename);
-		}
-		System.out.println("WE ARE IN!!!");
-
+	/**
+	 * Here the ArrayList of sheets are passed to the DataValidator class where
+	 * the sheets will be validated for errors.
+	 * 
+	 * @param objects
+	 * @param filename
+	 */
+	public static void passTheArrayToValidator(final Object[][] sheet,
+			final String makeFileNameForErrorLog) {
+			DataValidator.validateData(sheet, makeFileNameForErrorLog);
 	}
 }

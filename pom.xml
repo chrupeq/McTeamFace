@@ -75,6 +75,25 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-pmd-plugin</artifactId>
+						<version>3.6</version>
+						<configuration>
+							<rulesets>
+								<ruleset>CDS_pmd_ruleset_jse-1.0.xml</ruleset>
+							</rulesets>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>install</phase>
+								<goals>
+									<goal>check</goal>
+									<goal>cpd-check</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 		</plugins>
 	</build>
 </project>
