@@ -152,6 +152,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT mcc, mnc FROM mcc_mnc");
 			resultsGatherer.last();
 			int rowCount = resultsGatherer.getRow();
+		//	rowCount
 			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
 			MCCValues = new int[rowCount];

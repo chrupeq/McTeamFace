@@ -2,10 +2,8 @@ package com.validation;
 
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 
 import com.errorlogger.DatabaseErrorLogger;
@@ -21,7 +19,6 @@ public class DataValidator {
 	private static int[] MNCValues;
 	private static int[] MCCValues;
 
-	private static DataFormatter formatter;
 	private static StringBuilder errorBuilder = new StringBuilder();
 	private static StringBuilder errorToString = new StringBuilder();
 
@@ -50,7 +47,7 @@ public class DataValidator {
 		MNCValues = marketsAndOperators.get(0);
 		MCCValues = marketsAndOperators.get(1);
 
-		formatter = new DataFormatter();
+		new DataFormatter();
 		
 		try {
 			databaseAccessor.closeDatabase();
@@ -199,7 +196,6 @@ public class DataValidator {
 			}
 			int intValue = Integer.parseInt(eventId.toString());
 			for(int i = 0; i < eventIdList.length; i ++){
-				
 			if (eventIdList[i] == intValue) {
 				return true;
 			}
@@ -216,7 +212,7 @@ public class DataValidator {
 			if (!failureClass.toString().matches("^[0-4]$") && !failureClass.toString().equals("(null)")){
 				return false;
 			}
-			if(failureClass.toString().equals("(null)")){
+			if(failureClass.toString().equals("(null)") || failureClass.toString().equals("") || failureClass.toString().equals(null)){
 				return true;
 			}
 			int intValue = Integer.parseInt(failureClass.toString());
@@ -226,7 +222,7 @@ public class DataValidator {
 			}
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating failureClass.");
 			return false;
 		}
 
@@ -246,7 +242,7 @@ public class DataValidator {
 			}
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating UEType.");
 			return false;
 		}
 		return false;
@@ -256,14 +252,14 @@ public class DataValidator {
 		try {
 			int marketIntValue = Integer.parseInt(market.toString());
 			int operatorIntValue = Integer.parseInt(operator.toString());
+			
 			for (int i = 0; i < MNCValues.length; i++) {
-				System.out.println(MNCValues[i]);
 				if (marketIntValue == MNCValues[i] && operatorIntValue == MCCValues[i])
 					return true;
 			}
 
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating marketsAndOperators.");
 		}
 
 		return false;
@@ -276,7 +272,7 @@ public class DataValidator {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating cellId.");
 		}
 
 		return false;
@@ -289,14 +285,14 @@ public class DataValidator {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating duration.");
 		}
 		return false;
 	}
 
 	private static boolean validateCauseCode(Object causeCode) {
 		try {
-			if (causeCode.toString().equals("(null)")) {
+			if (causeCode.toString().equals("(null)") || causeCode.toString().equals("") || causeCode.toString().equals(null)) {
 				return true;
 			}
 			int intValue = Integer.parseInt(causeCode.toString());
@@ -306,7 +302,7 @@ public class DataValidator {
 			}
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating causeCode.");
 		}
 		return false;
 	}
@@ -325,7 +321,7 @@ public class DataValidator {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating IMSI.");
 		}
 		return false;
 	}
@@ -337,7 +333,7 @@ public class DataValidator {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating hier3.");
 		}
 		return false;
 	}
@@ -349,7 +345,7 @@ public class DataValidator {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating hier32.");
 		}
 		return false;
 	}
@@ -361,7 +357,7 @@ public class DataValidator {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating hier321.");
 		}
 		return false;
 	}

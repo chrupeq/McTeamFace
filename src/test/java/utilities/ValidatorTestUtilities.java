@@ -21,7 +21,7 @@ public class ValidatorTestUtilities {
 			currentDateAndTime.add(Calendar.MINUTE, 2);
 			break;
 		case 2:
-			currentDateAndTime.add(Calendar.HOUR_OF_DAY, 1);
+			currentDateAndTime.add(Calendar.HOUR, 1);
 			break;
 		case 3:
 			currentDateAndTime.add(Calendar.YEAR, 1);
