@@ -1,30 +1,54 @@
 //javascript document
 
-
-window.onload = prepareLogin;
-
-function prepareLogin() {
-	alert("Load success")
-	document.getElementById("button").onclick = signin;
-}
+var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 
 
-var signin = function() {
-	var username = document.getElementById("username").value;
-	var password = document.getElementById("password").value;
+
+$(document).ready(function() {
+	alert("Hello");
+
 	
-	if(username == "Manager2016" && password == "password1") {
-		alert("Login SUCCESS");
-	}
+	
+	$.ajax ({
+		type: 'GET',
+		url: rootUrl,
+		dataType: "json",
+		success: loginAuthentication,
+		error: function() {
+			alert('error loading details');
+		}
+	})
+});
 
+function loginAuthentication(details) {
+	var username = $('#username').value;
+	var password = $('#password').value;
+	
+	
+	$.each(details, function(i, detail){
+		alert(detail.username + " and " + detail.password);
+		if(username==detail.username) {
+			if(password==detail.password){
+				alert("Login success");
+			}
+		
+			
+			
+			
+		}else {
+			alert("FAIL");
+		}
+		
+		
+		
+	})	
 }
 
-var rootUrl="http://localhost:8080/GroupProject2016/rest/wines";
-var findAll=function(){
-	$.ajax({
-		   type:'GET',
-		   url: rootUrl,
-		   dataType:"json",
-		   success:renderList
-		   });
-};
+
+
+
+
+
+
+
+
