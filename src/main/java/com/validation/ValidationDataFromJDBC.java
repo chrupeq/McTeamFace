@@ -159,7 +159,6 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			while(resultsGatherer.next()){
 				MCCValues[counter] = resultsGatherer.getInt("mcc"); 
 				MNCValues[counter] = resultsGatherer.getInt("mnc");
-				System.out.println(resultsGatherer.getInt("mnc"));
 				counter ++;
 			}
 			MNCMCCHolder.add(MCCValues);

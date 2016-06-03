@@ -265,87 +265,69 @@ public class ValidatorTest extends ValidatorTestUtilities {
 	@Parameters(method = "validDateParams")
 	public void testValidDates(Object dateAndTime)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		DataValidator.setUpDatabaseData();
 		boolean isDateValid = (boolean) validateDateTimeMethod.invoke(DataValidator.class, dateAndTime);
 		assertTrue(isDateValid);
-		connectionManager.closeDatabase();
 	}
 
 	@Test
 	@Parameters(method = "invalidDateParams")
 	public void testInvalidDates(Object dateAndTime)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		DataValidator.setUpDatabaseData();
 		boolean isDateValid = (boolean) validateDateTimeMethod.invoke(DataValidator.class, dateAndTime);
 		assertFalse(isDateValid);
-		connectionManager.closeDatabase();
 	}
 
 	@Test
 	@Parameters(method = "validEventIdParams")
 	public void testValidEventIds(Object eventId)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		DataValidator.setUpDatabaseData();
 		boolean isEventValid = (boolean) validateEventIdMethod.invoke(DataValidator.class, eventId);
 		assertTrue(isEventValid);
-		connectionManager.closeDatabase();
 	}
 
 	@Test
 	@Parameters(method = "invalidEventIdParams")
 	public void testInvalidEventIds(Object eventId)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		DataValidator.setUpDatabaseData();
 		boolean isEventValid = (boolean) validateEventIdMethod.invoke(DataValidator.class, eventId);
 		assertFalse(isEventValid);
-		connectionManager.closeDatabase();
 	}
 
 	@Test
 	@Parameters(method = "validFailureClassesParams")
 	public void testValidFailureClasses(Object failureClass)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		DataValidator.setUpDatabaseData();
 		boolean isFailureClassValid = (boolean) validateFailureClassMethod.invoke(DataValidator.class, failureClass);
 		assertTrue(isFailureClassValid);
-		connectionManager.closeDatabase();
 	}
 
 	@Test
 	@Parameters(method = "invalidFailureClassesParams")
 	public void testInvalidFailureClasses(Object failureClass)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		DataValidator.setUpDatabaseData();
 		boolean isFailureClassValid = (boolean) validateFailureClassMethod.invoke(DataValidator.class, failureClass);
 		assertFalse(isFailureClassValid);
-		connectionManager.closeDatabase();
 	}
 
 	@Test
 	@Parameters(method = "validUETypesParams")
 	public void testValidUETypes(Object UEType)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		DataValidator.setUpDatabaseData();
 		boolean isUETypeValid = (boolean) validateUETypesMethod.invoke(DataValidator.class, UEType);
 		assertFalse(isUETypeValid);
-		connectionManager.closeDatabase();
 	}
 
 	@Test
 	@Parameters(method = "invalidUETypesParams")
 	public void testInvalidUETypes(Object UEType) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		DataValidator.setUpDatabaseData();
 		boolean isUETypeValid = (boolean) validateUETypesMethod.invoke(DataValidator.class, UEType);
 		assertFalse(isUETypeValid);
-		connectionManager.closeDatabase();
 	}
 	
-//	@Test
-//	@Parameters(method = "validMarketAndOperatorParams")
-//	public void testValidMarketAndOperator(Object market, Object operator) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-//		DataValidator.setUpDatabaseData();
-//		boolean areMarketsAndOperatorsValid = (boolean) validateMarketAndOperator.invoke(DataValidator.class, market, operator);
-//		assertFalse(areMarketsAndOperatorsValid);
-//		connectionManager.closeDatabase();
-//	}
+	@Test
+	@Parameters(method = "validMarketAndOperatorParams")
+	public void testValidMarketAndOperator(Object market, Object operator) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
+		boolean areMarketsAndOperatorsValid = (boolean) validateMarketAndOperator.invoke(DataValidator.class, market, operator);
+		assertFalse(areMarketsAndOperatorsValid);
+	}
 }

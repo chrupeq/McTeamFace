@@ -51,6 +51,13 @@ public class DataValidator {
 		MCCValues = marketsAndOperators.get(1);
 
 		formatter = new DataFormatter();
+		
+		try {
+			databaseAccessor.closeDatabase();
+		} catch (SQLException e) {
+			System.out.println("Error closing the database connection...");
+			e.printStackTrace();
+		}
 
 	}
 
@@ -198,7 +205,7 @@ public class DataValidator {
 			}
 			}
 		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered.");
+			System.out.println("Invalid datatype encountered while validating EventID.");
 			return false;
 		}
 		return false;

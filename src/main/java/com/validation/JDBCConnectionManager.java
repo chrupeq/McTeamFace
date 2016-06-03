@@ -27,5 +27,6 @@ public class JDBCConnectionManager {
 	
 	public void closeDatabase() throws SQLException{
 		con.close();
+		con = null;
 	}
 }
