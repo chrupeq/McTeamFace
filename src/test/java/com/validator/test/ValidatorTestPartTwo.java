@@ -4,9 +4,6 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.SQLException;
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

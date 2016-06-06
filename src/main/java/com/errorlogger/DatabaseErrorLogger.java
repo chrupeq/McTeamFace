@@ -5,9 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 public class DatabaseErrorLogger extends DateManipulator {
 
@@ -15,7 +14,6 @@ public class DatabaseErrorLogger extends DateManipulator {
 	private static int overallErrorCount;
 	private static Date currentErrorLoggingDay = new Date();
 	private String errorLoggerName;
-	private static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yy");
 
 	public DatabaseErrorLogger(String errorLoggerName) {
 
@@ -23,25 +21,29 @@ public class DatabaseErrorLogger extends DateManipulator {
 
 	}
 
-	/*
-	 * Method that is called when an error is detected Increases both daily and
-	 * overall error count by calling relevant methods Also checks
+	/**
+	 * Method that is called when an error is detected. Increases both daily and
+	 * overall error count by calling relevant methods Also checks if a new day has begun
+	 * and resets error count based on that.
 	 */
 
 	public void errorsFound(String error, StringBuilder errorBuilder, String workingFileName, int fileErrorCount) {
 
-		if (!checkNewDay(currentErrorLoggingDay, new Date()))
-			resetDailyErrorCount();
-
+		if (!checkNewDay(currentErrorLoggingDay, new Date())){
+			editErrorCountTextFiles("daily_error_count.txt", 0);
+			dailyErrorCount = 0;
+		}else{
+			dailyErrorCount = readErrorCountsFromFile("daily_error_count.txt");
+		}
+		overallErrorCount = readErrorCountsFromFile("overall_error_count.txt");
+		
 		increaseDailyErrorCount();
 		increaseOverallErrorCount();
-		addErrorToFile(error, errorBuilder, workingFileName, fileErrorCount);
+		WriteErrorsToFile.addErrorToFile(error, errorBuilder, workingFileName, fileErrorCount);
 	}
 
 	public String getErrorLoggerName() {
-
 		return errorLoggerName;
-
 	}
 
 	private static void increaseDailyErrorCount() {
@@ -52,36 +54,6 @@ public class DatabaseErrorLogger extends DateManipulator {
 		overallErrorCount++;
 	}
 
-	private static void addErrorToFile(String error, StringBuilder errorString, String workingFileName,
-			int fileErrorCount) {
-
-		String todaysDate = dateFormatter.format(getCurrentDate());
-
-		File errorLog = new File(workingFileName + " " + todaysDate + ".txt");
-
-		if (errorLog.exists()) {
-			try {
-				PrintWriter errorWriter = new PrintWriter(new BufferedWriter(new FileWriter(errorLog, true)));
-				errorWriter.write(errorString.toString());
-				errorWriter.write("Error count for this file: " + fileErrorCount);
-				errorWriter.close();
-			} catch (IOException e) {
-				System.out.println("Error writing to file.");
-				e.printStackTrace();
-			}
-		} else {
-			try {
-				PrintWriter errorWriter = new PrintWriter(new BufferedWriter(new FileWriter(errorLog, false)));
-				errorWriter.write(errorString.toString());
-				errorWriter.write("Error count for this file: " + fileErrorCount);
-				errorWriter.close();
-			} catch (IOException e) {
-				System.out.println("Error writing to file.");
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public static int getDailyErrorCount() {
 		return dailyErrorCount;
 	}
@@ -90,7 +62,23 @@ public class DatabaseErrorLogger extends DateManipulator {
 		return overallErrorCount;
 	}
 
-	private static void resetDailyErrorCount() {
+	 static void editErrorCountTextFiles(String fileName, int newErrorCount) {
 		dailyErrorCount = 0;
+		File dailyErrors = new File(fileName);
+		try {
+			BufferedWriter dailyErrorResetter = new BufferedWriter(new FileWriter(dailyErrors));
+			PrintWriter errorOutput = new PrintWriter(dailyErrorResetter);
+			errorOutput.write(newErrorCount);
+			errorOutput.flush();
+			errorOutput.close();
+		} catch (IOException e) {
+			System.out.println("Error writing to file...");
+			e.printStackTrace();
+		}
+	}
+	
+	private static int readErrorCountsFromFile(String fileName){
+		Scanner errorFileScanner = new Scanner(fileName);
+		return errorFileScanner.nextInt();
 	}
 }
