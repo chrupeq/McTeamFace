@@ -1,10 +1,17 @@
 package com.errorlogger;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 public class DateManipulator {
 
@@ -45,5 +52,34 @@ public class DateManipulator {
 
 		return true;
 	}
-
+	protected static Date returnLastErrorLoggingDate() {
+		Scanner dateScanner;
+		try {
+			File errorDate = new File("most_current_logging_date.txt");
+			if(!errorDate.exists()){
+				writeTodaysDateToErrorFile();
+			}
+			dateScanner = new Scanner(errorDate);
+			Date errorDateToReturn = dateFormatter.parse(dateScanner.nextLine());
+			dateScanner.close();
+			return errorDateToReturn;
+		} catch (FileNotFoundException | ParseException e) {
+			System.out.println("File not found or parse exception in datemanipulator");
+			e.printStackTrace();
+		}
+		return new Date();	
+	}
+	
+	protected static void writeTodaysDateToErrorFile(){
+		File errorRecord = new File("most_current_logging_date.txt");
+		try {
+			BufferedWriter dateRecorder = new BufferedWriter(new FileWriter(errorRecord, false));
+			PrintWriter dateOutput = new PrintWriter(dateRecorder);
+			dateOutput.write(dateFormatter.format(new Date()));
+			dateOutput.close();
+		} catch (IOException e) {
+			System.out.println("Error writing to file...");
+			e.printStackTrace();
+		}
+	}
 }

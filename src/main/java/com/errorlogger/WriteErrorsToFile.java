@@ -15,7 +15,6 @@ public class WriteErrorsToFile extends DateManipulator{
 	
 	static void addErrorToFile(String error, StringBuilder errorString, String workingFileName,
 			int fileErrorCount) {
-
 		String todaysDate = dateFormatter.format(getCurrentDate());
 
 		File errorLog = new File(workingFileName + " " + todaysDate + ".txt");
@@ -26,6 +25,8 @@ public class WriteErrorsToFile extends DateManipulator{
 				errorWriter.write(errorString.toString());
 				errorWriter.write("Error count for this file: " + fileErrorCount);
 				errorWriter.close();
+				DatabaseErrorLogger.editErrorCountTextFiles("daily_error_count.txt", fileErrorCount + DatabaseErrorLogger.getDailyErrorCount());
+				DatabaseErrorLogger.editErrorCountTextFiles("overall_error_count.txt", DatabaseErrorLogger.getOverallErrorCount() + fileErrorCount);
 			} catch (IOException e) {
 				System.out.println("Error writing to file.");
 				e.printStackTrace();
