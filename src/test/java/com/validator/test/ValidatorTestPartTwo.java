@@ -24,6 +24,7 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 	Method validateDuration;
 	Method validateCauseCode;
 	Method validateNEVersion;
+	Method validateIMSI;
 
 	JDBCConnectionManager connectionManager;
 
@@ -107,6 +108,23 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 		};
 	}
 	
+	@Parameters
+	public Object[] validIMSIParams(){
+		return new Object[]{
+			new Object[]{new Long(344930000000011l)}, new Object[]{new Long(344930000000011l)}, new Object[]{new Long(34493000000001l)},
+			new Object[]{new Long(3449300000000l)}, new Object[]{new Long(344930000000l)}, new Object[]{new Long(34493000000l)}, 
+			new Object[]{new Long(3449300000l)}, new Object[]{new Long(34493000l)}, new Object[]{new Long(3449300l)}, new Object[]{new Long(34493)},
+			new Object[]{new Long(3)}, new Object[]{new Long(344)}, new Object[]{new Long(34)}
+		};
+	}
+	
+	@Parameters
+	public Object[] invalidIMSIParams(){
+		return new Object[]{
+			new Object[]{new Long(1234123412341232l)}, new Object[]{new Long(34493000000001111l)}, new Object[]{new Long("344930A000000011l")}, 
+			new Object[]{new Long("AAAABBNBNJJNBNM")}, new Object[]{new Long("./;'[")}, new Object[]{new Long("3449300090IInIl")}, new Object[]{new Long("000000000000000l")},    
+		};
+	}
 	@Before
 	public void setUp() {
 		try {
@@ -114,10 +132,12 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 			validateDuration = DataValidator.class.getDeclaredMethod("validateDuration", Object.class);
 			validateCauseCode = DataValidator.class.getDeclaredMethod("validateCauseCode", Object.class);
 			validateNEVersion = DataValidator.class.getDeclaredMethod("validateNEVersion", Object.class);
+			validateIMSI = DataValidator.class.getDeclaredMethod("validateIMSI", Object.class);
 			validateCellId.setAccessible(true);
 			validateDuration.setAccessible(true);
 			validateCauseCode.setAccessible(true);
 			validateNEVersion.setAccessible(true);
+			validateIMSI.setAccessible(true);
 
 			DataValidator.setUpDatabaseData();
 
@@ -183,5 +203,19 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 	public void testInvalidNEVersions(Object NEVersion) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		boolean isNEVersionValid = (boolean) validateNEVersion.invoke(DataValidator.class, NEVersion);
 		assertFalse(isNEVersionValid);
+	}
+	
+	@Test
+	@Parameters(method = "validIMSIParams")
+	public void testValidIMSI(Object IMSI) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		boolean isIMSIValid = (boolean) validateIMSI.invoke(DataValidator.class, IMSI);
+		assertTrue(isIMSIValid);
+	}
+	
+	@Test
+	@Parameters(method = "invalidIMSIParams")
+	public void testInvalidIMSI(Object IMSI) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+		boolean isIMSIValid = (boolean) validateIMSI.invoke(DataValidator.class, IMSI);
+		assertFalse(isIMSIValid);
 	}
 }
