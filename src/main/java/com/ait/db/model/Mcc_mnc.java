@@ -1,16 +1,33 @@
-package com.ait.dao;
+package com.ait.db.model;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Mcc_mnc {
+@IdClass(Mcc_mncKey.class)
+@Table(name = "mcc_mnc")
+public class Mcc_mnc implements Serializable, NetworkEntity {
 	
+	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(columnDefinition = "INT UNSIGNED", nullable = false)
 	private int mcc;
+	@Id
+	@Column(columnDefinition = "INT UNSIGNED", nullable = false)
 	private int mnc;
+	@Column(nullable = false)
 	private String country;
+	@Column(nullable = false)
 	private String operator;
+	@OneToMany(mappedBy="mcc_mnc")
+	List<Base_data> baseDataList;
 	
 	public Mcc_mnc() {}
 
