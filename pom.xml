@@ -26,7 +26,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.powermock</groupId>
-			<artifactId>powermock-api-mockito-common</artifactId>
+			<artifactId>powermock-module-test-mockito-junit4-delegate</artifactId>
 			<version>1.6.5</version>
 		</dependency>
 		<dependency>
