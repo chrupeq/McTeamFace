@@ -296,7 +296,7 @@ public class DataValidator {
 
 	private static boolean validateCauseCode(Object causeCode) {
 		try {
-			if (causeCode.toString().equals("(null)") || causeCode.toString().equals("") || causeCode.toString().equals(null)) {
+			if (causeCode.toString().equals("(null)") || causeCode.toString().equals(null)) {
 				return true;
 			}
 			int intValue = Integer.parseInt(causeCode.toString());
