@@ -17,7 +17,7 @@ public class DateManipulator {
 
 	private static DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
-	protected static Date getCurrentDate() {
+	public static Date getCurrentDate() {
 		Date todaysDate = new Date();
 		return todaysDate;
 	}
@@ -27,7 +27,7 @@ public class DateManipulator {
 		return todaysDateAndTime;
 	}
 
-	protected static boolean checkNewDay(Date oldDate, Date newDate) {
+	public static boolean checkNewDay(Date oldDate, Date newDate) {
 
 		Calendar oldCalendar = Calendar.getInstance();
 		Calendar newCalendar = Calendar.getInstance();
