@@ -35,6 +35,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
+			System.out.println(rowCount);
 			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
 			eventsList = new int[rowCount - 1];
@@ -64,6 +65,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
+			System.out.println(rowCount);
 			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
 			
@@ -94,6 +96,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
+			System.out.println(rowCount);
 			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
 			
@@ -122,6 +125,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
+			System.out.println(rowCount);
 			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
 			
@@ -152,6 +156,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			resultsGatherer = statement.executeQuery("SELECT DISTINCT mcc, mnc FROM mcc_mnc");
 			resultsGatherer.last();
 			int rowCount = resultsGatherer.getRow();
+			System.out.println(rowCount);
 		//	rowCount
 			resultsGatherer.beforeFirst();
 			resultsGatherer.next();
