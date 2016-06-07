@@ -118,8 +118,7 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 	@Parameters
 	public Object[] invalidIMSIParams(){
 		return new Object[]{
-			new Object[]{new Long(1234123412341232l)}, new Object[]{new Long(34493000000001111l)}, new Object[]{new Long("344930A000000011l")}, 
-			new Object[]{new Long("AAAABBNBNJJNBNM")}, new Object[]{new Long("./;'[")}, new Object[]{new Long("3449300090IInIl")}, new Object[]{new Long("000000000000000l")},    
+			new Object[]{new Long(1234123412341232l)}, new Object[]{new Long(34493000000001111l)}  
 		};
 	}
 	@Before
