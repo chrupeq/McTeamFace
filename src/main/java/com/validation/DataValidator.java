@@ -18,6 +18,8 @@ public class DataValidator {
 	private static List<int[]> marketsAndOperators;
 	private static int[] MNCValues;
 	private static int[] MCCValues;
+	
+	private static Object[][] arrayToBePersisted;
 
 	private static StringBuilder errorBuilder = new StringBuilder();
 	private static StringBuilder errorToString = new StringBuilder();
@@ -59,7 +61,7 @@ public class DataValidator {
 	}
 
 	public static void validateData(Object[][] tableValuesToValidate, String fileName) {
-
+		arrayToBePersisted = new Object[tableValuesToValidate.length][tableValuesToValidate[0].length];
 		setUpDatabaseData();
 
 		arrayLength = tableValuesToValidate.length;
@@ -149,6 +151,8 @@ public class DataValidator {
 
 			if (errorBuilder.length() > 0) {
 				logError(tableValuesToValidate[i], errorBuilder);
+			}else{
+				arrayToBePersisted[i] = tableValuesToValidate[i];
 			}
 		}
 	}
@@ -386,5 +390,9 @@ public class DataValidator {
 			dataErrorLogger.errorsFound(errorToString.toString(), errorToString, fileNameForErrorLogger, errorCount);
 
 		errorBuilder.setLength(0);
+	}
+	
+	private static void addEntryToArrayToBePersisted(Object[] rowFromDataset){
+		
 	}
 }
