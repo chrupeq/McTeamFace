@@ -2,50 +2,60 @@
 
 var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 
-
-
 $(document).ready(function() {
-	alert("Hello");
-
-	
-	
-	$.ajax ({
-		type: 'GET',
-		url: rootUrl,
-		dataType: "json",
-		success: loginAuthentication,
-		error: function() {
-			alert('error loading details');
-		}
-	})
+	displayError();
 });
 
-function loginAuthentication(details) {
-	var username = $('#username').value;
-	var password = $('#password').value;
+	var displayError = function(){
+		$("#errorMessage").css('display', 'none');
+		return false;
+	}
 	
+
+$(document).on("click", "button", function(){
+	getDetailsFromUser();
 	
-	$.each(details, function(i, detail){
-		alert(detail.username + " and " + detail.password);
-		if(username==detail.username) {
-			if(password==detail.password){
-				alert("Login success");
-			}
-		
-			
-			
-			
-		}else {
-			alert("FAIL");
-		}
-		
-		
-		
-	})	
+	return false;
+});
+	
+
+var getDetailsFromUser = function() {
+
+	$.ajax ({
+		type: 'POST',
+		url: rootUrl,
+		dataType: "json",
+		success: function(details){
+			loginAuthentication(details);
+				}
+	});
+	return false;
 }
 
 
-
+function loginAuthentication(details) {
+	var username = $('#username').val();
+	var password = $('#password').val();
+	var counter = 0;
+	
+	$.each(details, function(i, detail){
+		
+		if(username==detail.username && password==detail.password) {
+			counter++;
+			window.location = 'http://www.reddit.com';
+			
+			return false;
+		}		
+		
+	})	
+	
+	if(counter == 0){
+		$("#errorMessage").css("display", "inline");
+	}
+	
+	counter=0;	
+	return false;
+};
 
 
 

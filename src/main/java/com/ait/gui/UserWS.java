@@ -32,7 +32,7 @@ public class UserWS {
 	private UsersDAO userDao;
 	
 
-	@GET
+	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findAllUsers() {
 		List<User> users=userDao.getAllUsers();
