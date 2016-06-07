@@ -1,4 +1,4 @@
-package com.ait.project;
+package com.ait.reader;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -23,12 +22,12 @@ public class ReadDataSetIntoMainMemory {
 
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
-	private static String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
+	private static String fileName = "C:\\Users\\Garrett\\Documents\\AIT Group Project - Sample Dataset.xls";
+	private static String fileName2 = "C:\\Users\\Garrett\\Documents\\manualTest.xls";
 	private static String makeFileNameForErrorLog = "ErrorLog";
-	private static DataFormatter cellFormatter;
 
 	public static void main(String[] args) throws Exception {
-		readFileInFromHardDrive(fileName);
+		readFileInFromHardDrive(fileName2);
 	}
 
 	/**
@@ -49,6 +48,7 @@ public class ReadDataSetIntoMainMemory {
 
 		for (int sheetNumber = 0; sheetNumber <= 4; sheetNumber++) {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
+			System.out.println("Done");
 			arrayListOfSheets.add(sheet);
 		}
 		
@@ -95,12 +95,10 @@ public class ReadDataSetIntoMainMemory {
 			row = sheet.getRow(r);
 			for (int c = 0; c < columns; c++) {
 				if (sheetNumber == 0 && c == 0) {
-					System.out.println(c);
 					dateCell = row.getCell(c);
 					sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
 				} else {
 					cell = row.getCell(c);
-					System.out.println(c);
 					cell.setCellType(Cell.CELL_TYPE_STRING);
 					sheetObject[r][c] = (String) cell.toString();
 				}
