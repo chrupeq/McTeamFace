@@ -1,4 +1,4 @@
-package com.ait.gui;
+package com.ait.db.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

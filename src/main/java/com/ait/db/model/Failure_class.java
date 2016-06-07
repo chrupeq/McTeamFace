@@ -1,14 +1,25 @@
-package com.ait.dao;
+package com.ait.db.model;
 
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Failure_class {
+@Table(name="failure_class")
+public class Failure_class implements Serializable, NetworkEntity {
 	
+	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(columnDefinition = "INT UNSIGNED", nullable = false)
 	private int failure_class;
+	@Column(nullable = false)
 	private String description;
+	@OneToMany(mappedBy="failure_class")
+	List<Base_data> baseDataList;
 	
 	public Failure_class() {}
 	
