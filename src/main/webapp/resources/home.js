@@ -2,14 +2,32 @@
 
 var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 
-$(document).on("click", "#formButton", function(){
-	console.log("addUser");
-	addUser();
+$(document).ready(function() {
+	displayError();
 });
 
-window.onload = function () {
-	alert("some buzz says Ruaidhri!!");
+var displayError = function() {
+	$("#errorMessage").css('display', 'none');
+	return false;
 }
+
+
+
+
+$(document).on("click", "#formButton", function(){
+	var password = $("#passwordFormInput").val();
+	var reenterPassword = $("#reenterPasswordFormInput").val();
+	
+	if(password === reenterPassword){
+		addUser();
+	}else {
+		$("#errorMessage").css("display", "inline");
+	}
+	
+	
+	return false;
+});
+
 
 var addUser = function(){
 	console.log("addUser");
@@ -18,26 +36,32 @@ var addUser = function(){
 		type:"POST",
 		contentType: 'application/json',
 		url:rootUrl,
-		dataType: "json",
+		
 		data: formToJSON(),
-		success: function(data) {
-			
-			alert("user created sucessfully");
-			
-			
-			
+		success: function(data, textStatus, jqXHR) {
+			alert("USER FUCKTY created sucessfully");
+			$("#Id").val(data.id);
+			location.reload();
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("addWine error: " + textStatus);
 		}
 	});
 };
 
 
 var formToJSON =function() {
+	
+	var id = $('#Id').val();
+	alert(id);
 	return JSON.stringify({
+		"id": $('#Id').val(),
 		"firstname": $('#firstName').val(),
-		"lastname": $('#surname').val(),
+		"lastname": $('#lastName').val(),		
 		"username": $('#usernameFormInput').val(),
 		"password": $('#passwordFormInput').val(),
-		"job_title": $('#jobTitleSelectId').val(),
+		"job_title": $('#jobTitleSelectId').val()
+		
 		
 				
 	});

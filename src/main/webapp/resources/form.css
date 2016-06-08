@@ -2,3 +2,13 @@
 	padding-left: 35px;
 	padding-right: 40px;
 }
+
+#errorText {
+	font-family:"Helvetica Neue", Helvetica, sans-serif;
+	color: red;
+	font-weight: bold;
+	height:25px;
+	padding-top:25px;
+
+	
+}
