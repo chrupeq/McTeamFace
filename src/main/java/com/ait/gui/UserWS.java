@@ -45,18 +45,18 @@ public class UserWS {
 		return Response.status(200).entity(user).build();
 	}
 	
-	@PUT
+	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response saveStadium(final User user) {
+	public Response saveUser(final User user) {
 		userDao.save(user);
 		return Response.status(201).entity(user).build();
 	}
 
-	@POST
+	@PUT
 	@Path("/{id}")
 	@Consumes("application/json")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response updateStadium(final User user, @PathParam("id") final int userId) {
+	public Response updateUser(final User user, @PathParam("id") final int userId) {
 		user.setId(userId);
 		userDao.update(user);
 		return Response.status(200).entity(user).build();
@@ -64,7 +64,7 @@ public class UserWS {
 
 	@DELETE
 	@Path("/{id}")
-	public Response deleteStadium(@PathParam("id") final int userId) {
+	public Response deleteUser(@PathParam("id") final int userId) {
 		userDao.delete(userId);
 		return Response.status(204).build();
 	}
