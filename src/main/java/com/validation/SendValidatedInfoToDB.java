@@ -81,7 +81,7 @@ public class SendValidatedInfoToDB {
 	
 		URL obj;
 		HttpURLConnection con;
-		
+		obj = new URL("http://localhost:8080/GroupProject2016/")
 		ObjectOutputStream objout;
 		
 		con = (HttpURLConnection) obj.openConnection();
