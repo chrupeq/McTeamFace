@@ -1,10 +1,17 @@
 package com.validation;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -25,7 +32,6 @@ import com.ait.db.model.Failure_class;
 import com.ait.db.model.Mcc_mnc;
 import com.ait.db.model.User_equipment;
 import com.ait.db.rest.NetworkEntityRestService;
-import com.google.gson.Gson;
 
 @Stateless
 @LocalBean
@@ -38,7 +44,7 @@ public class SendValidatedInfoToDB {
 	private NetworkEntityType networkEntityTypeEnum;
 	
 	
-	public void sendData(Object[][] dataToImport, int entryCounter){
+	public void sendData(Object[][] dataToImport, int entryCounter) throws IOException{
 		NetworkEntityDAO ned = new NetworkEntityDAO();
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.UK);
@@ -72,8 +78,21 @@ public class SendValidatedInfoToDB {
 		Base_data bd = new Base_data(c, ev, f, ue, mcc, cellId, duration, neversion, imsi, hier3_id, hier32_id, hier321_id);
 		
 		
-	//	ner.persistBaseData(bd);
-		networkEntityDAO.saveNetworkEntity(bd);
+	
+		URL obj;
+		HttpURLConnection con;
+		
+		ObjectOutputStream objout;
+		
+		con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("GET");
+		
+		con.setDoOutput(true); //this is to enable writing
+	    con.setDoInput(true);  //this is to enable reading
+
+	    objout = new ObjectOutputStream(con.getOutputStream());
+	    objout.writeObject(bd);
+	   objout.close();
 		}
 	}
 }
