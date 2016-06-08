@@ -23,8 +23,9 @@ public class LoginSeleniumTest {
 
 	@Before
 	public void setUp() {
+		
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\A00236944\\Desktop\\chromedriver.exe");
 		driver = new ChromeDriver();
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\A00236944\\git\\McTeamFace\\chromedriver.exe");
 		driver.get("http://localhost:8080/GroupProject2016/welcome.html");
 		
 	}
@@ -115,7 +116,7 @@ public class LoginSeleniumTest {
 		password.sendKeys(passwordToTest);
 		WebElement loginButton = driver.findElement(By.id("button"));
 		loginButton.click();
-		WebElement someElement = (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id("errorMessage")));
+		WebElement someElement = (new WebDriverWait(driver, 15)).until(ExpectedConditions.presenceOfElementLocated(By.id("errorMessage")));
 		assertTrue(driver.findElement(By.id("errorMessage")).isDisplayed());
 	}
 	
