@@ -42,7 +42,7 @@ function loginAuthentication(details) {
 		
 		if(username==detail.username && password==detail.password) {
 			counter++;
-			window.location = 'http://localhost:8080/GroupProject2016/homeTabPages/home.html';
+			window.location = 'http://localhost:8080/GroupProject2016/home.html';
 			
 			return false;
 		}		
