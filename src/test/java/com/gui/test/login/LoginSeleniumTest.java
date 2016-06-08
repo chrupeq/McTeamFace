@@ -24,7 +24,7 @@ public class LoginSeleniumTest {
 	@Before
 	public void setUp() {
 		driver = new ChromeDriver();
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\A00236944\\git\\McTeamFace\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\A00226084\\Desktop\\chromedriver.exe");
 		driver.get("http://localhost:8080/GroupProject2016/welcome.html");
 		
 	}

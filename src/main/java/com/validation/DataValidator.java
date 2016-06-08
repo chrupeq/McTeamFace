@@ -28,6 +28,7 @@ public class DataValidator {
 	private static int rowCount = 2;
 	private static String fileNameForErrorLogger;
 	private static int errorCount;
+	private static int counterForDatabaseEntries = 0;
 
 	static DatabaseErrorLogger dataErrorLogger = new DatabaseErrorLogger("Validation Logger");
 
@@ -63,7 +64,6 @@ public class DataValidator {
 	public static void validateData(Object[][] tableValuesToValidate, String fileName) {
 		arrayToBePersisted = new Object[tableValuesToValidate.length][tableValuesToValidate[0].length];
 		setUpDatabaseData();
-
 		arrayLength = tableValuesToValidate.length;
 		fileNameForErrorLogger = fileName;
 
@@ -152,13 +152,17 @@ public class DataValidator {
 			if (errorBuilder.length() > 0) {
 				logError(tableValuesToValidate[i], errorBuilder);
 			}else{
-				arrayToBePersisted[i] = tableValuesToValidate[i];
+				arrayToBePersisted[counterForDatabaseEntries] = tableValuesToValidate[i];
+				counterForDatabaseEntries ++;
 			}
 		}
+		
+		System.out.println(arrayToBePersisted[2][0] + "hi2");
+		
+		sendInformationToTheDataLayer(arrayToBePersisted);
 	}
 
 	private static boolean validateDateTime(Object dateTime) {
-		// System.out.println(dateTime.toString());
 		if (dateTime instanceof String) {
 			String dateTimeValue = (String) dateTime;
 			if (dateTimeValue.matches("\\d{2,2}/\\d{2,2}/\\d{4,4}\\s\\d{2,2}:\\d{2,2}$")) {
@@ -235,9 +239,10 @@ public class DataValidator {
 
 	private static boolean validateUEType(Object ueType) {
 		
-		if(!ueType.toString().matches("\\d")){
+		if(!ueType.toString().matches("^[0-9]{1,45}$")){
 			return false;
 		}
+		
 		try {
 			int intValue = Integer.parseInt(ueType.toString());
 			for(int i = 0; i < UETypes.length; i ++){
@@ -392,7 +397,10 @@ public class DataValidator {
 		errorBuilder.setLength(0);
 	}
 	
-	private static void addEntryToArrayToBePersisted(Object[] rowFromDataset){
-		
+	private static void sendInformationToTheDataLayer(Object[][] arrayToBePersisted){
+		System.out.println(arrayToBePersisted[1][1].toString());
+		SendValidatedInfoToDB db = new SendValidatedInfoToDB();
+		db.sendData(arrayToBePersisted, counterForDatabaseEntries);
+		counterForDatabaseEntries = 0;
 	}
 }

@@ -22,12 +22,12 @@ public class ReadDataSetIntoMainMemory {
 
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
-	private static String fileName = "C:\\Users\\Garrett\\Documents\\AIT Group Project - Sample Dataset.xls";
-	private static String fileName2 = "C:\\Users\\Garrett\\Documents\\manualTest.xls";
+	private static String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
+//	private static String fileName2 = "C:\\Users\\Garrett\\Documents\\manualTest.xls";
 	private static String makeFileNameForErrorLog = "ErrorLog";
 
 	public static void main(String[] args) throws Exception {
-		readFileInFromHardDrive(fileName2);
+		readFileInFromHardDrive(fileName);
 	}
 
 	/**
@@ -46,9 +46,9 @@ public class ReadDataSetIntoMainMemory {
 
 		final Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
 
-		for (int sheetNumber = 0; sheetNumber <= 4; sheetNumber++) {
+		for (int sheetNumber = 0; sheetNumber <= 0; sheetNumber++) {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
-			System.out.println("Done");
+
 			arrayListOfSheets.add(sheet);
 		}
 		

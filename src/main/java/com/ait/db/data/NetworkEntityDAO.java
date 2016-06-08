@@ -56,6 +56,7 @@ public class NetworkEntityDAO {
 		return query;
 	}
 	public void saveNetworkEntity(NetworkEntity networkEntity) {
+		System.out.println(networkEntity.getClass());
 		entityManager.persist(networkEntity);
 	}
 	public void updateNetworkEntity(NetworkEntity networkEntity) {
@@ -125,5 +126,9 @@ public class NetworkEntityDAO {
 			}
 			return null;
 		}
+	}
+	
+	public void receiveBD(Base_data bd){
+		saveNetworkEntity(bd);
 	}
 }
