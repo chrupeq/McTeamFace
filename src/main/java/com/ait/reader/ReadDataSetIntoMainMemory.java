@@ -26,9 +26,9 @@ public class ReadDataSetIntoMainMemory {
 //	private static String fileName2 = "C:\\Users\\Garrett\\Documents\\manualTest.xls";
 	private static String makeFileNameForErrorLog = "ErrorLog";
 
-	public static void main(String[] args) throws Exception {
-		readFileInFromHardDrive(fileName);
-	}
+//	public static void main(String[] args) throws Exception {
+//		readFileInFromHardDrive(fileName);
+//	}
 
 	/**
 	 * Reads in the excel file from a specified location on the hard drive.
@@ -42,9 +42,15 @@ public class ReadDataSetIntoMainMemory {
 	 * @throws IOException
 	 */
 	public static ArrayList<Object[][]> readFileInFromHardDrive(final String fileName)
-			throws InvalidFormatException, IOException {
+			throws IOException {
 
-		final Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
+		Workbook dataSetWorkbook = null;
+		try {
+			dataSetWorkbook = WorkbookFactory.create(new File(fileName));
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		for (int sheetNumber = 0; sheetNumber <= 0; sheetNumber++) {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
