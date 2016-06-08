@@ -1,0 +1,7 @@
+another test error
+Error count for this file: 1another test error
+Error count for this file: 1another test error
+Error count for this file: 12another test error
+Error count for this file: 12another test error
+Error count for this file: 12another test error
+Error count for this file: 12

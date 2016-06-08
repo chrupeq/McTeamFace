@@ -189,7 +189,7 @@ public class ErrorLoggerTest {
 			counter ++;
 			errorFileReader.nextLine();		
 			}
-		assertEquals(4, counter);
+		assertEquals(3, counter);
 		errorFileReader.close();
 	}
 

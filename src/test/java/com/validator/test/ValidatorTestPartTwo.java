@@ -44,7 +44,9 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 				new Object[] { 0 }, new Object[] { 00000 }, new Object[] { 0000 }, new Object[] { 000 },
 				new Object[] { 00 }, new Object[] { -0 }, new Object[] { -00 }, new Object[] { -000 },
 				new Object[] { -0000 }, new Object[] { "a" }, new Object[] { "abc" }, new Object[] { "ab" },
-				new Object[] { "-o" }, new Object[] { ".,?" }, new Object[] { "?" }, new Object[] { ",?" } };
+				new Object[] { "-o" }, new Object[] { ".,?" }, new Object[] { "?" }, new Object[] { ",?" },
+				new Object[]{" "},
+				new Object[]{"  "}, new Object[]{"   "}, new Object[]{"    "}, new Object[]{""}};
 	}
 
 	@Parameters
@@ -64,7 +66,9 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 				new Object[] { 0 }, new Object[] { 00000 }, new Object[] { 0000 }, new Object[] { 000 },
 				new Object[] { 00 }, new Object[] { -0 }, new Object[] { -00 }, new Object[] { -000 },
 				new Object[] { -0000 }, new Object[] { "a" }, new Object[] { "abc" }, new Object[] { "ab" },
-				new Object[] { "-o" }, new Object[] { ".,?" }, new Object[] { "?" }, new Object[] { ",?" } };
+				new Object[] { "-o" }, new Object[] { ".,?" }, new Object[] { "?" }, new Object[] { ",?" },
+				new Object[]{" "},
+				new Object[]{"  "}, new Object[]{"   "}, new Object[]{"    "}, new Object[]{""}};
 	}
 	
 	@Parameters
@@ -83,7 +87,9 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 	public Object[] invalidCauseCodesParams(){
 		return new Object[]{
 				new Object[]{-2}, new Object[]{-1}, new Object[]{34}, new Object[]{35}, new Object[]{100}, new Object[]{",.()"}, new Object[]{"mn.,"}, 
-				new Object[]{-35}, new Object[]{"A26"}, new Object[]{"2A6"}, new Object[]{"26A"}, new Object[]{"suns out, guns out"}
+				new Object[]{-35}, new Object[]{"A26"}, new Object[]{"2A6"}, new Object[]{"26A"}, new Object[]{"suns out, guns out"}, new Object[]{" "},
+				new Object[]{"  "}, new Object[]{"   "}, new Object[]{"    "}, new Object[]{""}, new Object[]{" "},
+				new Object[]{"  "}, new Object[]{"   "}, new Object[]{"    "}, new Object[]{""}
 		};
 	}
 
@@ -101,7 +107,8 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 		return new Object[]{
 			new Object[]{"111B"}, new Object[]{"1B"}, new Object[]{"0B"}, new Object[]{"11BB"}, new Object[]{"11BBB"}, new Object[]{"11"}, new Object[]{"1B"}, 
 			new Object[]{"1BB"}, new Object[]{"1BBB"}, new Object[]{"-11B"}, new Object[]{"11AB"}, new Object[]{"11-B"}, new Object[]{"11@"}, new Object[]{"1-1B"}, 
-			new Object[]{"10-1B"}, new Object[]{"11 B"}, new Object[]{"1 1B"}, new Object[]{" 11B"}, new Object[]{"11B "}   
+			new Object[]{"10-1B"}, new Object[]{"11 B"}, new Object[]{"1 1B"}, new Object[]{" 11B"}, new Object[]{"11B "}, new Object[]{" "},
+			new Object[]{"  "}, new Object[]{"   "}, new Object[]{"    "}, new Object[]{""}   
 		};
 	}
 	
@@ -118,8 +125,8 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 	@Parameters
 	public Object[] invalidIMSIParams(){
 		return new Object[]{
-			new Object[]{new Long(1234123412341232l)}, new Object[]{new Long(34493000000001111l)}, new Object[]{new Long("344930A000000011l")}, 
-			new Object[]{new Long("AAAABBNBNJJNBNM")}, new Object[]{new Long("./;'[")}, new Object[]{new Long("3449300090IInIl")}, new Object[]{new Long("000000000000000l")},    
+			new Object[]{new Long(1234123412341232l)}, new Object[]{new Long(34493000000001111l)}, new Object[]{" "},
+			new Object[]{"  "}, new Object[]{"   "}, new Object[]{"    "}, new Object[]{""}  
 		};
 	}
 	@Before
