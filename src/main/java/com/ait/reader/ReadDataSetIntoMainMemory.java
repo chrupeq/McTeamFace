@@ -26,6 +26,7 @@ import com.ait.db.model.Event_cause;
 import com.ait.db.model.Failure_class;
 import com.ait.db.model.Mcc_mnc;
 import com.ait.db.model.NetworkEntity;
+import com.ait.db.model.NonBaseDataObjects;
 import com.ait.db.model.User_equipment;
 import com.validation.DataValidator;
 
@@ -93,23 +94,23 @@ public class ReadDataSetIntoMainMemory {
 		case 0: 
 			base_data = passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
 			return base_data;
-			break;
-		case 1:
-			failure_class = NonBaseDataObjects.createFailureClass(arrayListOfSheets.get(1));
-			return failure_class;
-			break;
+
 		case 2:
-			event_cause = NonBaseDataObjects.createEventCauseClass(arrayListOfSheets.get(2));
+			failure_class = NonBaseDataObjects.createFailureClass(arrayListOfSheets.get(2));
+			return failure_class;
+	
+		case 1:
+			event_cause = NonBaseDataObjects.createEventCauseClass(arrayListOfSheets.get(1));
 			return event_cause;
-			break;
-		case 3:
-			mcc_mnc = NonBaseDataObjects.createMccMncclass(arrayListOfSheets.get(3));
-			return mcc_mnc;
-			break;
+	
 		case 4:
-			user_equipment = NonBaseDataObjects.createUserEquipmentclass(arrayListOfSheets.get(4));
+			mcc_mnc = NonBaseDataObjects.createMccMncclass(arrayListOfSheets.get(4));
+			return mcc_mnc;
+	
+		case 3:
+			user_equipment = NonBaseDataObjects.createUserEquipment(arrayListOfSheets.get(3));
 			return user_equipment;
-			break;
+
 		}
 		
 		fos.close();

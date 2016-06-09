@@ -56,6 +56,7 @@ public class NetworkEntityDAO {
 		return query;
 	}
 	public void saveNetworkEntity(NetworkEntity networkEntity) {
+		System.out.println("in save");
 		entityManager.persist(networkEntity);
 	}
 	public void updateNetworkEntity(NetworkEntity networkEntity) {
