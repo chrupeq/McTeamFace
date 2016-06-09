@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="resources/file_uploader.js"></script>
+</head>
+<body>
+<script>
+$(document).on("click", "#submit", function(){
+	alert('here2');
+	uploadFile();
+
+	return false;
+});
+
+var uploadFile = function(){
+
+	alert('uploadFile');
+
+	input = document.getElementById('fileinput');
+
+	file = input.files[0];
+
+	fr = new FileReader();
+
+	fr.onload = receivedText;
+
+	fr.readAsDataURL(file);
+
+	receivedText();
+
+};
+
+function receivedText() {
+
+alert("jere");
+
+$.ajax({
+
+type: "POST",
+
+url: "http://localhost:8080/GroupProject2016/rest/upload/uploadfile",
+
+data: fr.result,
+
+contentType: "application/json; charset=utf-8",
+
+dataType: "json",
+
+success: function(data){alert(fr.result);},
+
+failure: function(errMsg) {
+
+alert(errMsg);
+
+}
+
+});
+
+};
+
+function receivedText2() {
+	alert('received2');
+}
+
+</script>
+	<div>
+		<input type="file" id="fileinput" />
+	</div>
+	<button type="submit" id="submit" name="submit">Submit</button>
+</body>
+</html>

@@ -1,9 +1,17 @@
 package com.ait.reader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -11,6 +19,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import com.ait.db.data.NetworkEntityDAO;
+import com.ait.db.data.NetworkEntityType;
+import com.ait.db.model.Base_data;
 import com.validation.DataValidator;
 
 /**
@@ -19,6 +30,13 @@ import com.validation.DataValidator;
  * location on the hard drive and then validated for errors.
  */
 public class ReadDataSetIntoMainMemory {
+	
+	@EJB
+	private NetworkEntityDAO networkEntityDAO;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
+	private NetworkEntityType networkEntityTypeEnum;
 
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
@@ -26,9 +44,9 @@ public class ReadDataSetIntoMainMemory {
 //	private static String fileName2 = "C:\\Users\\Garrett\\Documents\\manualTest.xls";
 	private static String makeFileNameForErrorLog = "ErrorLog";
 
-	public static void main(String[] args) throws Exception {
-		readFileInFromHardDrive(fileName);
-	}
+//	public static void main(String[] args) throws Exception {
+//		readFileInFromHardDrive("C:\\Users\\A00226084\\Desktop\\tempdsf.xls");
+//	}
 
 	/**
 	 * Reads in the excel file from a specified location on the hard drive.
@@ -41,10 +59,18 @@ public class ReadDataSetIntoMainMemory {
 	 * @throws InvalidFormatException
 	 * @throws IOException
 	 */
-	public static ArrayList<Object[][]> readFileInFromHardDrive(final String fileName)
-			throws InvalidFormatException, IOException {
+	public static Base_data[] readFileInFromHardDrive(final String fileName)
+			throws IOException {
 
-		final Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
+		FileInputStream fos = new FileInputStream(new File(fileName));
+		
+		Workbook dataSetWorkbook = null;
+		try {
+			dataSetWorkbook = WorkbookFactory.create(fos);
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		for (int sheetNumber = 0; sheetNumber <= 0; sheetNumber++) {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
@@ -52,8 +78,12 @@ public class ReadDataSetIntoMainMemory {
 			arrayListOfSheets.add(sheet);
 		}
 		
-		passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
-		return arrayListOfSheets;
+		Base_data[] bdArray = passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
+		fos.close();
+		
+		return bdArray;
+//		return arrayListOfSheets;
+		
 	}
 
 	/**
@@ -104,6 +134,7 @@ public class ReadDataSetIntoMainMemory {
 				}
 			}
 		}
+		
 		return sheetObject;
 	}
 
@@ -114,8 +145,9 @@ public class ReadDataSetIntoMainMemory {
 	 * @param objects
 	 * @param filename
 	 */
-	public static void passTheArrayToValidator(final Object[][] sheet,
+	public static Base_data[] passTheArrayToValidator(final Object[][] sheet,
 			final String makeFileNameForErrorLog) {
-			DataValidator.validateData(sheet, makeFileNameForErrorLog);
+			Base_data[] bdArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
+			return bdArray;
 	}
 }
