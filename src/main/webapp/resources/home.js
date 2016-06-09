@@ -3,17 +3,16 @@
 var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 
 $(document).ready(function() {
-	displayError();
+	displayErrors();
+	
 	
 });
 
-var displayError = function() {
+var displayErrors = function() {
 	$("#passwordErrorMessage").css('display', 'none');
 	$("#userExistsEerrorMessage").css('display', 'none');
 	return false;
 }
-
-
 
 
 $(document).on("click", "#formButton", function(){
@@ -43,11 +42,11 @@ var addUser = function(){
 		data: formToJSON(),
 		success: function(data, textStatus, jqXHR) {
 			alert("USER FUCKTY created sucessfully");
-			$("#Id").val(data.id);
+			
 			location.reload();
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			alert("addWine error: " + textStatus);
+			alert("addUser error: " + textStatus);
 		}
 	});
 };
@@ -98,9 +97,9 @@ function checkUsernameExists(details) {
 var formToJSON =function() {
 	
 	
-	alert(id);
+
 	return JSON.stringify({
-		"id": $('#Id').val(),
+		
 		"firstname": $('#firstName').val(),
 		"lastname": $('#lastName').val(),		
 		"username": $('#usernameFormInput').val(),

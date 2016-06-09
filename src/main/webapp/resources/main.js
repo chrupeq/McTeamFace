@@ -13,11 +13,28 @@ $(document).ready(function() {
 	
 
 $(document).on("click", "button", function(){
+	verifyAdmin();
 	getDetailsFromUser();
 	
 	return false;
 });
 	
+
+var verifyAdmin = function() {
+	console.log("verify admin");
+	
+	var loggedInUsername = $('#username').val();
+	
+	if(loggedInUsername == "SystemAdmin1") {
+		console.log("Admin logged in");
+	} else{
+		$("#home").hide();
+		$("#form").hide();
+	}
+	
+	return false;
+}
+
 
 var getDetailsFromUser = function() {
 
