@@ -175,7 +175,7 @@ public class ErrorLoggerTest {
 	}
 	
 	@Test
-	public void testThatErrorDocumentContainsfourLineWhenSingleErrorLogged() throws IOException{
+	public void testThatErrorDocumentContainsFourLinesWhenTwoErrorsLogged() throws IOException{
 		Path errorFilePath = Paths.get(errorFile);
 		File errorFileLocation = new File(errorFile);
 		if(errorFileLocation.exists()){
