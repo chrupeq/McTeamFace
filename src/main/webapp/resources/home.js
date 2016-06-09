@@ -20,8 +20,9 @@ $(document).on("click", "#formButton", function(){
 	var password = $("#passwordFormInput").val();
 	var reenterPassword = $("#reenterPasswordFormInput").val();
 	
-	if(password === reenterPassword){
-		addUser();
+	
+	if(password == reenterPassword){
+		getDatabaseDetails();
 	}else {
 		$("#passwordErrorMessage").css("display", "inline");
 	}
@@ -52,9 +53,51 @@ var addUser = function(){
 };
 
 
+var getDatabaseDetails = function() {
+	console.log("getting details");
+	
+	$.ajax ({
+		type: 'POST',
+		url: rootUrl,
+		dataType: "json",
+		success: function(details){
+			checkUsernameExists(details);
+				}
+	});
+	return false;
+}
+
+function checkUsernameExists(details) {
+	console.log("Checking username");
+	var username = $("#usernameFormInput").val();
+	var counter = 0;
+	
+	$.each(details, function(i, detail){
+		
+		if(username==detail.username) {
+			$("#userExistsEerrorMessage").css("display", "inline");
+			
+			counter++;
+		
+			
+			
+			return false;
+		}		
+		
+	})	
+	
+	if(counter == 0){
+		addUser();
+	}
+	
+	counter=0;	
+	return false;
+};
+
+
 var formToJSON =function() {
 	
-	var id = $('#Id').val();
+	
 	alert(id);
 	return JSON.stringify({
 		"id": $('#Id').val(),
