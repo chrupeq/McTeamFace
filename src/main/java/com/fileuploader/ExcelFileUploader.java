@@ -68,7 +68,8 @@ public class ExcelFileUploader {
 	
 	public void sendToFileReader(String path) throws IOException{
 		
-			bdArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path);
+			bdArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, 1);
+			
 			System.out.println(bdArray.length);
 			for(Base_data bda : bdArray){
 				System.out.println(bda.getNe_version());
