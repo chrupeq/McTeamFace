@@ -1,9 +1,17 @@
 package com.ait.reader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import javax.ejb.EJB;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -11,6 +19,15 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import com.ait.db.data.NetworkEntityDAO;
+import com.ait.db.data.NetworkEntityType;
+import com.ait.db.model.Base_data;
+import com.ait.db.model.Event_cause;
+import com.ait.db.model.Failure_class;
+import com.ait.db.model.Mcc_mnc;
+import com.ait.db.model.NetworkEntity;
+import com.ait.db.model.NonBaseDataObjects;
+import com.ait.db.model.User_equipment;
 import com.validation.DataValidator;
 
 /**
@@ -19,16 +36,28 @@ import com.validation.DataValidator;
  * location on the hard drive and then validated for errors.
  */
 public class ReadDataSetIntoMainMemory {
+	
+	@EJB
+	private NetworkEntityDAO networkEntityDAO;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
+	private NetworkEntityType networkEntityTypeEnum;
 
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
 	private static String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
 //	private static String fileName2 = "C:\\Users\\Garrett\\Documents\\manualTest.xls";
 	private static String makeFileNameForErrorLog = "ErrorLog";
+	static Base_data[] base_data;
+	static Failure_class[] failure_class;
+	static Event_cause[] event_cause;
+	static Mcc_mnc[] mcc_mnc;
+	static User_equipment[] user_equipment;
 
-	public static void main(String[] args) throws Exception {
-		readFileInFromHardDrive(fileName);
-	}
+//	public static void main(String[] args) throws Exception {
+//		readFileInFromHardDrive("C:\\Users\\A00226084\\Desktop\\tempdsf.xls");
+//	}
 
 	/**
 	 * Reads in the excel file from a specified location on the hard drive.
@@ -41,19 +70,54 @@ public class ReadDataSetIntoMainMemory {
 	 * @throws InvalidFormatException
 	 * @throws IOException
 	 */
-	public static ArrayList<Object[][]> readFileInFromHardDrive(final String fileName)
-			throws InvalidFormatException, IOException {
+	public static NetworkEntity[] readFileInFromHardDrive(final String fileName, int sheetValidationNumber)
+			throws IOException {
 
-		final Workbook dataSetWorkbook = WorkbookFactory.create(new File(fileName));
+		FileInputStream fos = new FileInputStream(new File(fileName));
+		
+		Workbook dataSetWorkbook = null;
+		try {
+			dataSetWorkbook = WorkbookFactory.create(fos);
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		for (int sheetNumber = 0; sheetNumber <= 0; sheetNumber++) {
+		for (int sheetNumber = 0; sheetNumber <= 4; sheetNumber++) {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
 
 			arrayListOfSheets.add(sheet);
 		}
 		
-		passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
-		return arrayListOfSheets;
+		
+		switch(sheetValidationNumber){
+		case 0: 
+			base_data = passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
+			return base_data;
+
+		case 2:
+			failure_class = NonBaseDataObjects.createFailureClass(arrayListOfSheets.get(2));
+			return failure_class;
+	
+		case 1:
+			event_cause = NonBaseDataObjects.createEventCauseClass(arrayListOfSheets.get(1));
+			return event_cause;
+	
+		case 4:
+			mcc_mnc = NonBaseDataObjects.createMccMncclass(arrayListOfSheets.get(4));
+			return mcc_mnc;
+	
+		case 3:
+			user_equipment = NonBaseDataObjects.createUserEquipment(arrayListOfSheets.get(3));
+			return user_equipment;
+
+		}
+		
+		fos.close();
+		
+		return null;
+//		return arrayListOfSheets;
+		
 	}
 
 	/**
@@ -104,6 +168,7 @@ public class ReadDataSetIntoMainMemory {
 				}
 			}
 		}
+		
 		return sheetObject;
 	}
 
@@ -114,8 +179,9 @@ public class ReadDataSetIntoMainMemory {
 	 * @param objects
 	 * @param filename
 	 */
-	public static void passTheArrayToValidator(final Object[][] sheet,
+	public static Base_data[] passTheArrayToValidator(final Object[][] sheet,
 			final String makeFileNameForErrorLog) {
-			DataValidator.validateData(sheet, makeFileNameForErrorLog);
+			Base_data[] bdArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
+			return bdArray;
 	}
 }

@@ -69,7 +69,6 @@ public class DatabaseErrorLogger extends DateManipulator {
 			errorOutput.write(String.valueOf(newErrorCount));
 			errorOutput.close();
 		} catch (IOException e) {
-			System.out.println("Error writing to file...");
 			e.printStackTrace();
 		}
 	}

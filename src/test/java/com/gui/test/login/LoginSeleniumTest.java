@@ -33,20 +33,28 @@ public class LoginSeleniumTest {
 	@Parameters
 	public Object[] validLoginDetails(){
 		return new Object[]{
-			new Object[]{"Manager2016", "password1"},
-			new Object[]{"LineWorker2016", "password2"}
+			new Object[]{"SystemAdmin1", "password1"},
+			new Object[]{"NetworkEng2", "password2"},
+			new Object[]{"SupportEng3", "password3"},
+			new Object[]{"CustomerServiceRep4", "password4"}
 		};
 	}
 	
 	@Parameters
 	public Object[] invalidLoginDetails(){
 		return new Object[]{
-			new Object[]{"Manager2016", "password2"},
-			new Object[]{"Manager2017", "password1"},
-			new Object[]{"Manager2017", "password2"},
-			new Object[]{"LineWorker2016", "password1"},
-			new Object[]{"LineWorker2017", "password2"},
-			new Object[]{"LineWorker2017", "password1"},
+			new Object[]{"SystemAdmin1", "password2"},
+			new Object[]{"SystemAdmin1", "password3"},
+			new Object[]{"SystemAdmin1", "password4"},
+			new Object[]{"NetworkEng2", "password1"},
+			new Object[]{"NetworkEng2", "password3"},
+			new Object[]{"NetworkEng2", "password4"},
+			new Object[]{"SupportEng3", "password1"},
+			new Object[]{"SupportEng3", "password2"},
+			new Object[]{"SupportEng3", "password4"},
+			new Object[]{"CustomerServiceRep4", "password1"},
+			new Object[]{"CustomerServiceRep4", "password2"},
+			new Object[]{"CustomerServiceRep4", "password3"},
 			new Object[]{"", ""}
 		};
 	}
@@ -67,9 +75,9 @@ public class LoginSeleniumTest {
 		password.sendKeys(passwordToTest);
 		WebElement loginButton = driver.findElement(By.id("button"));
 		loginButton.click();
-		WebElement someElement = (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id("config")));
-		assertEquals("https://www.reddit.com/", driver.getCurrentUrl());
-		assertEquals("reddit: the front page of the internet", driver.getTitle());
+		WebElement someElement = (new WebDriverWait(driver, 15)).until(ExpectedConditions.presenceOfElementLocated(By.id("home")));
+		assertEquals("http://localhost:8080/GroupProject2016/home.html", driver.getCurrentUrl());
+		assertEquals("Home Page", driver.getTitle());
 		
 	}
 	
@@ -101,7 +109,7 @@ public class LoginSeleniumTest {
 		password.sendKeys(passwordToTest);
 		WebElement loginButton = driver.findElement(By.id("button"));
 		loginButton.click();
-		WebElement someElement = (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id("config")));
+		WebElement someElement = (new WebDriverWait(driver, 15)).until(ExpectedConditions.presenceOfElementLocated(By.id("home")));
 		assertFalse(driver.findElements(By.id("errorMessage")).size() > 0);
 	}
 	

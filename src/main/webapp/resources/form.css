@@ -2,3 +2,37 @@
 	padding-left: 35px;
 	padding-right: 40px;
 }
+
+#errorText {
+	font-family:"Helvetica Neue", Helvetica, sans-serif;
+	color: red;
+	font-weight: bold;
+	height:25px;
+	padding-top:25px;
+
+	
+}
+
+#home{
+	padding-left: 35px;
+	padding-right: 40px;
+}
+
+#dataset {
+	padding-left: 35px;
+	padding-right: 40px;
+}
+
+#contactus {
+	padding-left: 35px;
+	padding-right: 40px;
+}
+
+#aboutus {
+	padding-left: 35px;
+	padding-right: 40px;
+}
+
+img {
+	border-radius: 25px;
+}

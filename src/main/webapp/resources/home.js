@@ -2,14 +2,34 @@
 
 var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 
-$(document).on("click", "#formButton", function(){
-	console.log("addUser");
-	addUser();
+$(document).ready(function() {
+	displayErrors();
+	
+	
 });
 
-window.onload = function () {
-	alert("some buzz says Ruaidhri!!");
+var displayErrors = function() {
+	$("#passwordErrorMessage").css('display', 'none');
+	$("#userExistsEerrorMessage").css('display', 'none');
+	return false;
 }
+
+
+$(document).on("click", "#formButton", function(){
+	var password = $("#passwordFormInput").val();
+	var reenterPassword = $("#reenterPasswordFormInput").val();
+	
+	
+	if(password == reenterPassword){
+		getDatabaseDetails();
+	}else {
+		$("#passwordErrorMessage").css("display", "inline");
+	}
+	
+	
+	return false;
+});
+
 
 var addUser = function(){
 	console.log("addUser");
@@ -18,26 +38,74 @@ var addUser = function(){
 		type:"POST",
 		contentType: 'application/json',
 		url:rootUrl,
-		dataType: "json",
+		
 		data: formToJSON(),
-		success: function(data) {
+		success: function(data, textStatus, jqXHR) {
+			alert("USER FUCKTY created sucessfully");
 			
-			alert("user created sucessfully");
-			
-			
-			
+			location.reload();
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("addUser error: " + textStatus);
 		}
 	});
 };
 
 
+var getDatabaseDetails = function() {
+	console.log("getting details");
+	
+	$.ajax ({
+		type: 'POST',
+		url: rootUrl,
+		dataType: "json",
+		success: function(details){
+			checkUsernameExists(details);
+				}
+	});
+	return false;
+}
+
+function checkUsernameExists(details) {
+	console.log("Checking username");
+	var username = $("#usernameFormInput").val();
+	var counter = 0;
+	
+	$.each(details, function(i, detail){
+		
+		if(username==detail.username) {
+			$("#userExistsEerrorMessage").css("display", "inline");
+			
+			counter++;
+		
+			
+			
+			return false;
+		}		
+		
+	})	
+	
+	if(counter == 0){
+		addUser();
+	}
+	
+	counter=0;	
+	return false;
+};
+
+
 var formToJSON =function() {
+	
+	
+
 	return JSON.stringify({
+		
 		"firstname": $('#firstName').val(),
-		"lastname": $('#surname').val(),
+		"lastname": $('#lastName').val(),		
 		"username": $('#usernameFormInput').val(),
 		"password": $('#passwordFormInput').val(),
-		"job_title": $('#jobTitleSelectId').val(),
+		"job_title": $('#jobTitleSelectId').val()
+		
 		
 				
 	});

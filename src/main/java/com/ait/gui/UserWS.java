@@ -29,7 +29,13 @@ public class UserWS {
 	@EJB
 	private UsersDAO userDao;
 	
-
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAllUsers() {
+		List<User> users=userDao.getAllUsers();
+		return Response.status(200).entity(users).build();
+	}
+	
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findAllUsers() {
@@ -47,6 +53,7 @@ public class UserWS {
 	
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes("application/json")
 	public Response saveUser(final User user) {
 		userDao.save(user);
 		return Response.status(201).entity(user).build();
@@ -54,7 +61,6 @@ public class UserWS {
 
 	@PUT
 	@Path("/{id}")
-	@Consumes("application/json")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response updateUser(final User user, @PathParam("id") final int userId) {
 		user.setId(userId);

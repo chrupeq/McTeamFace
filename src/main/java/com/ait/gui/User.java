@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * @author A00236958
@@ -17,21 +18,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int userId;
-	private String firstName;
-	private String lastName;
+	private int id;
+	private String firstname;
+	private String lastname;
 	private String username;
 	private String password;
-	private String jobTitle;
+	private String job_title;
 	
+	@JsonProperty("id")
 	public int getId() {
-		return userId;
+		return id;
 	}
 
-	public void setId(final int userId) {
-		this.userId = userId;
+	public void setId(final int id) {
+		this.id = id;
 	}
 
+	@JsonProperty("username")
 	public String getUsername() {
 		return this.username;
 	}
@@ -40,7 +43,7 @@ public class User {
 		this.username = username;
 	}
 	
-
+	@JsonProperty("password")
 	public String getPassword() {
 		return this.password;
 	}
@@ -49,28 +52,31 @@ public class User {
 		this.password = password;
 	}
 
+	@JsonProperty("job_title")
 	public String getJobTitle() {
-		return jobTitle;
+		return job_title;
 	}
 
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
+	public void setJobTitle(String job_title) {
+		this.job_title = job_title;
 	}
 
+	@JsonProperty("firstname")
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
 	}
 
+	@JsonProperty("lastname")
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
 	}
 
 }

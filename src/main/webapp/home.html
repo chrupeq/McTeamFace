@@ -5,79 +5,103 @@
 
 <title>Home Page</title>
 <link rel="stylesheet" href="resources/form.css" />
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="resources/home.js"></script>
+
 
 
 </head>
 <body>
 
 
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-  <li><a data-toggle="tab" href="#dataset">Data Sets</a></li>
-  <li><a data-toggle="tab" href="#form">Form</a></li>
-  <li><a data-toggle="tab" href="#contactus">Contact Us</a></li>
-  <li><a data-toggle="tab" href="#aboutus">About Us</a></li>
-</ul>
+	<ul class="nav nav-tabs" id="tabs">
+		<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+		<li><a data-toggle="tab" href="#dataset">Data Sets</a></li>
+		<li><a data-toggle="tab" href="#form">Add User Form</a></li>
+		<li><a data-toggle="tab" href="#contactus">Contact Us</a></li>
+		<li><a data-toggle="tab" href="#aboutus">About Us</a></li>
+	</ul>
 
-<div class="tab-content">
-  <div id="home" class="tab-pane fade in active">
-    <h3>HOME</h3>
-    <p>Some content.</p>
-  </div>
-  <div id="dataset" class="tab-pane fade">
-    <h3>Menu 1</h3>
-    <p>Some content in menu 1.</p>
-  </div>
-  <div id="form" class="tab-pane fade">
-    <h3>Form</h3>
-    <form class="form">
-	<label for="firstName">First Name</label> 
-	<input type="text" id="firstName" name="firstName" class="form-control" placeholder="Enter First Name"></br>
-	
-	<label for="lastName">Last Name</label>
-	<input type="text" id="lastName" name="lastName" class="form-control" placeholder="Enter Last Name"></br>
+	<div class="tab-content">
+		<div id="home" class="tab-pane fade in active">
+			<h3>HOME</h3>
+			<p>Some content here</p>
+		</div>
 
-  <fieldset class="usernameFormSection">
-    <label for="usernameFormInput">Username</label>
-    <input type="text" id="usernameFormInput" name="usernameFormInput" class="form-control" placeholder="Enter Username"></br>
-  </fieldset>
-  
-  <fieldset class="passwordFormSection">
-    <label for="passwordFormInput">Password</label>
-    <input type="text" id="passwordFormInput" name="passwordFormInput" class="form-control" placeholder="Enter Password"></br>
-  </fieldset>
-  
-  <fieldset class="reenterPasswordFormSection">
-    <label for="reenterPasswordFormInput">Re-enter Password</label>
-    <input type="text" id="reenterPasswordFormInput" name="reenterPasswordFormInput" class="form-control" placeholder="Enter Password"></br>
-  </fieldset>
- 
- <fieldset class="jobTitleSelect">
-    <label for="jobTitleSelectId">Please select a job description:</label>
-    <select class="form-control" id="jobTitleSelectId">
-      <option>Customer Service Representative</option>
-      <option>Support Engineer</option>
-      <option>Network Management Engineer</option>
-    </select>
-  </fieldset></br></br></br></br>
-  
 
-<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
-</form>
-  </div>
-  <div id="contactus" class="tab-pane fade">
-    <h3>Menu 1</h3>
-    <p>Some content in menu 1.</p>
-  </div>
-  <div id="aboutus" class="tab-pane fade">
-    <h3>Menu 1</h3>
-    <p>Some content in menu 1.</p>
-  </div>
-</div>
-</br></br>
+		<div id="dataset" class="tab-pane fade">
+			<h3>Data Set</h3>
+			<p>Some content in menu 2.</p>
+		</div>
+		<div id="form" class="tab-pane fade">
+			<h3>Add New User Form</h3>
+			<form class="form">
+				
+				<label for="firstName">First Name</label> <input type="text"
+					id="firstName" name="firstName" class="form-control"
+					placeholder="Enter First Name"></br> <label for="lastName">Last
+					Name</label> <input type="text" id="lastName" name="lastName"
+					class="form-control" placeholder="Enter Last Name"></br>
+
+				<fieldset class="usernameFormSection">
+					<label for="usernameFormInput">Username</label> <input type="text"
+						id="usernameFormInput" name="usernameFormInput"
+						class="form-control" placeholder="Enter Username"></br>
+				</fieldset>
+
+				<fieldset class="passwordFormSection">
+					<label for="passwordFormInput">Password</label> <input
+						type="password" id="passwordFormInput" name="passwordFormInput"
+						class="form-control" placeholder="Enter Password"></br>
+				</fieldset>
+
+				<fieldset class="reenterPasswordFormSection">
+					<label for="reenterPasswordFormInput">Re-enter Password</label> <input
+						type="password" id="reenterPasswordFormInput"
+						name="reenterPasswordFormInput" class="form-control"
+						placeholder="Enter Password"></br>
+				</fieldset>
+
+				<fieldset class="jobTitleSelect">
+					<label for="jobTitleSelectId">Please select a job
+						description:</label> <select class="form-control" id="jobTitleSelectId">
+						<option value="CSR">Customer Service Representative</option>
+						<option value="SE">Support Engineer</option>
+						<option value="NME">Network Management Engineer</option>
+					</select>
+				</fieldset>
+				</br>
+
+
+
+				<div id="passwordErrorMessage">
+					<p id="errorText">Password inputs do not match each other.
+						Please try again.</p>
+				</div>
+
+				<div id="userExistsEerrorMessage">
+					<p id="errorText">This user already exists in the user database</p>
+				</div>
+				</br> </br>
+
+				<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
+			</form>
+		</div>
+		<div id="contactus" class="tab-pane fade">
+			<h3>Contact Us</h3>
+			<p>Some content in menu 4.</p>
+		</div>
+		<div id="aboutus" class="tab-pane fade">
+			<h3>About Us</h3>
+			<p>Some content in menu 5.</p>
+		</div>
+	</div>
+	</br>
+	</br>
 </body>
 </html>
