@@ -93,6 +93,7 @@ public class ReadDataSetIntoMainMemory {
 		switch(sheetValidationNumber){
 		case 0: 
 			base_data = passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
+			System.out.println("base data length: " + base_data.length);
 			return base_data;
 
 		case 2:
