@@ -12,3 +12,27 @@
 
 	
 }
+
+#home{
+	padding-left: 35px;
+	padding-right: 40px;
+}
+
+#dataset {
+	padding-left: 35px;
+	padding-right: 40px;
+}
+
+#contactus {
+	padding-left: 35px;
+	padding-right: 40px;
+}
+
+#aboutus {
+	padding-left: 35px;
+	padding-right: 40px;
+}
+
+img {
+	border-radius: 25px;
+}

@@ -4,10 +4,12 @@ var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 
 $(document).ready(function() {
 	displayError();
+	
 });
 
 var displayError = function() {
-	$("#errorMessage").css('display', 'none');
+	$("#passwordErrorMessage").css('display', 'none');
+	$("#userExistsEerrorMessage").css('display', 'none');
 	return false;
 }
 
@@ -21,7 +23,7 @@ $(document).on("click", "#formButton", function(){
 	if(password === reenterPassword){
 		addUser();
 	}else {
-		$("#errorMessage").css("display", "inline");
+		$("#passwordErrorMessage").css("display", "inline");
 	}
 	
 	
