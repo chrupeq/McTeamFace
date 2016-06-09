@@ -56,7 +56,7 @@ public class NetworkEntityClientTest {
 	@Test
 	@InSequence(9)
 	public void getBaseDataIdByUsingClientRequest() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/get_by_id/2");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/base_data/2");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
         ClientResponse<String> responseObj = request.get(String.class);
@@ -68,7 +68,7 @@ public class NetworkEntityClientTest {
 	@Test 
 	@InSequence(2)
 	public void getAllNetworkEntities() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/get_all/base_data");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/base_data");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
         ClientResponse<String> responseObj = request.get(String.class);
@@ -94,7 +94,7 @@ public class NetworkEntityClientTest {
 	public void testPostFailureClass() throws Exception {
 		// insert into the failure_class table
 		jsonData = "{\"failure_class\":\"1\", \"description\":\"EMERGENCY\"}";
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/create_fc");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/failure_class");
 		request.accept("application/json").body(MediaType.APPLICATION_JSON, jsonData);
 		responseObj = request.post(String.class);
 		assertEquals(201, responseObj.getStatus());
@@ -106,7 +106,7 @@ public class NetworkEntityClientTest {
 	public void testPostMccMnc() throws Exception {
 		// insert into the mcc_mnc table
 		jsonData = "{\"mcc\":238,\"mnc\":3,\"country\":\"Denmark\",\"operator\":\"MIGway A/S DK\"}";
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/create_mcc_mnc");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/mcc_mnc");
 		request.accept("application/json").body(MediaType.APPLICATION_JSON, jsonData);
 		responseObj = request.post(String.class);
 		assertEquals(201, responseObj.getStatus());
@@ -118,7 +118,7 @@ public class NetworkEntityClientTest {
 	public void testPostEventCause() throws Exception {
 		// insert into the event_cause table
 		jsonData = "{\"cause_code\":3,\"event_id\":4097,\"description\":\"RRC CONN SETUP-EUTRAN GENERATED REASON\"}";
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/create_ec");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/event_cause");
 		request.accept("application/json").body(MediaType.APPLICATION_JSON, jsonData);
 		responseObj = request.post(String.class);
 		assertEquals(201, responseObj.getStatus());
@@ -132,7 +132,7 @@ public class NetworkEntityClientTest {
 		jsonData = "{\"tac\":100900,\"marketing_name\":\"Test IMEI\",\"manufacturer\":\"Sony\","
 				+ "\"access_capability\":\"GSM 1900\",\"model\":\"Test IMEI\",\"vendor_name\":\"Sony\","
 				+ "\"user_equipment_type\":null,\"operating_system\":null,\"input_mode\":null}";
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/create_ue");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/user_equipment");
 		request.accept("application/json").body(MediaType.APPLICATION_JSON, jsonData);
 		responseObj = request.post(String.class);
 		assertEquals(201, responseObj.getStatus());
@@ -155,7 +155,7 @@ public class NetworkEntityClientTest {
 				+ "\"ne_version\": \"11b\",\"imsi\":344930000000011,"
 				+ "\"hier3_id\":4809532081614990000,\"hier32_id\":8226896360947470000,"
 				+ "\"hier321_id\":1150444940909480000}";
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/create_bd");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/base_data");
 		request.accept("application/json").body(MediaType.APPLICATION_JSON, jsonData);
 		responseObj = request.post(String.class);
 		assertEquals(201, responseObj.getStatus());
