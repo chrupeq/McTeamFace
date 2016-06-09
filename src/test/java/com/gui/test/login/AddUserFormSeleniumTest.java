@@ -4,6 +4,7 @@ package com.gui.test.login;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -58,6 +59,16 @@ public class AddUserFormSeleniumTest {
 		};
 	}
 	
+	@Parameters
+	public Object[] existingUserDetails(){
+		return new Object[]{
+			new Object[]{"Network", "Engineer", "NetworkEng2", "password2", "password2", "NME"},
+			new Object[]{"Support", "Engineer", "SupportEng3", "password3", "password3", "SE"},
+			new Object[]{"Customer", "ServiceRep", "CustomerServiceRep4", "password4", "password4", "CSR"}
+			
+		};
+	}
+	
 	
 	
 	
@@ -69,7 +80,7 @@ public class AddUserFormSeleniumTest {
 	@Test
 	@Parameters(method = "passwordsDoNotMatch")
 	public void testAddUserFormPasswordsDoNotMatch(String firstNameToTest, String lastNameToTest, String usernameToTest, String passwordToTest1, 
-			String passwordToTest2, String jobTitleToTest){
+			String passwordToTest2, String jobTitleToTest) throws InterruptedException{
 	
 		Actions actions = new Actions(driver);
 		WebElement menuHoverLink = driver.findElement(By.linkText("Add User Form"));
@@ -77,6 +88,8 @@ public class AddUserFormSeleniumTest {
 		actions.click();
 		actions.perform();
 			
+		Thread.sleep(5000);
+		
 		WebElement firstName = driver.findElement(By.id("firstName"));
 		firstName.sendKeys(firstNameToTest);
 		
@@ -103,10 +116,60 @@ public class AddUserFormSeleniumTest {
 		WebElement formButton = driver.findElement(By.id("formButton"));
 		formButton.click();
 		
-		//WebElement someElement = (new WebDriverWait(driver, 20)).until(ExpectedConditions.presenceOfElementLocated(By.id("passwordErrorMessage")));
+		WebElement someElement = (new WebDriverWait(driver, 20)).until(ExpectedConditions.presenceOfElementLocated(By.id("passwordErrorMessage")));
 		assertTrue(driver.findElement(By.id("passwordErrorMessage")).isDisplayed());
 		
 		
+	}
+	
+	@Test
+	@Parameters(method = "existingUserDetails")
+	public void testUserAlreadyExists(String firstNameToTest, String lastNameToTest, String usernameToTest, String passwordToTest1, 
+			String passwordToTest2, String jobTitleToTest) throws InterruptedException{
+	
+		Actions actions = new Actions(driver);
+		WebElement menuHoverLink = driver.findElement(By.linkText("Add User Form"));
+		actions.moveToElement(menuHoverLink);
+		actions.click();
+		actions.perform();
+			
+		Thread.sleep(5000);
+		
+		WebElement firstName = driver.findElement(By.id("firstName"));
+		firstName.sendKeys(firstNameToTest);
+		
+		WebElement lastName = driver.findElement(By.id("lastName"));
+		lastName.sendKeys(lastNameToTest);
+		
+		WebElement username = driver.findElement(By.id("usernameFormInput"));
+		username.clear();
+		username.sendKeys(usernameToTest);
+		
+		
+		System.out.println("Getting here");
+		WebElement password1 = driver.findElement(By.id("passwordFormInput"));
+		password1.clear();
+		password1.sendKeys(passwordToTest1);
+		
+		WebElement password2 = driver.findElement(By.id("reenterPasswordFormInput"));
+		password2.clear();
+		password2.sendKeys(passwordToTest2);
+
+		Select dropdown = new Select(driver.findElement(By.id("jobTitleSelect")));
+		dropdown.selectByValue(jobTitleToTest);
+		
+		WebElement formButton = driver.findElement(By.id("formButton"));
+		formButton.click();
+		
+		WebElement someElement = (new WebDriverWait(driver, 20)).until(ExpectedConditions.presenceOfElementLocated(By.id("userExistsEerrorMessage")));
+		assertTrue(driver.findElement(By.id("userExistsEerrorMessage")).isDisplayed());
+		
+		
+	}
+	
+	@After
+	public void tearDown(){
+		driver.quit();
 	}
 	
 
