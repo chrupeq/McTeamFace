@@ -4,7 +4,7 @@ var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 
 $(document).ready(function() {
 	displayErrors();
-	
+
 	
 });
 
@@ -82,7 +82,6 @@ function checkUsernameExists(details) {
 			
 			return false;
 		}		
-		
 	})	
 	
 	if(counter == 0){

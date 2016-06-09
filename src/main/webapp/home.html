@@ -12,6 +12,7 @@
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="resources/home.js"></script>
+<script src="resources/main.js"></script>
 
 
 
@@ -22,7 +23,7 @@
 	<ul class="nav nav-tabs" id="tabs">
 		<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
 		<li><a data-toggle="tab" href="#dataset">Data Sets</a></li>
-		<li><a data-toggle="tab" href="#form">Add User Form</a></li>
+		<li><a data-toggle="tab" href="#form" id="formTab">Add User Form</a></li>
 		<li><a data-toggle="tab" href="#contactus">Contact Us</a></li>
 		<li><a data-toggle="tab" href="#aboutus">About Us</a></li>
 	</ul>
@@ -44,8 +45,9 @@
 				
 				<label for="firstName">First Name</label> <input type="text"
 					id="firstName" name="firstName" class="form-control"
-					placeholder="Enter First Name"></br> <label for="lastName">Last
-					Name</label> <input type="text" id="lastName" name="lastName"
+					placeholder="Enter First Name"></br> 
+					
+				<label for="lastName">Last Name</label> <input type="text" id="lastName" name="lastName"
 					class="form-control" placeholder="Enter Last Name"></br>
 
 				<fieldset class="usernameFormSection">
@@ -67,9 +69,9 @@
 						placeholder="Enter Password"></br>
 				</fieldset>
 
-				<fieldset class="jobTitleSelect">
-					<label for="jobTitleSelectId">Please select a job
-						description:</label> <select class="form-control" id="jobTitleSelectId">
+				<fieldset class="jobTitleOption">
+					<label for="jobTitleSelect">Please select a job
+						description:</label> <select class="form-control" id="jobTitleSelect">
 						<option value="CSR">Customer Service Representative</option>
 						<option value="SE">Support Engineer</option>
 						<option value="NME">Network Management Engineer</option>

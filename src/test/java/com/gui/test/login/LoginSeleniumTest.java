@@ -2,6 +2,7 @@ package com.gui.test.login;
 
 import static org.junit.Assert.*;
 
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -124,7 +125,7 @@ public class LoginSeleniumTest {
 		password.sendKeys(passwordToTest);
 		WebElement loginButton = driver.findElement(By.id("button"));
 		loginButton.click();
-		WebElement someElement = (new WebDriverWait(driver, 15)).until(ExpectedConditions.presenceOfElementLocated(By.id("errorMessage")));
+		WebElement someElement = (new WebDriverWait(driver, 20)).until(ExpectedConditions.presenceOfElementLocated(By.id("errorMessage")));
 		assertTrue(driver.findElement(By.id("errorMessage")).isDisplayed());
 	}
 	
