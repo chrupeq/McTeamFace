@@ -22,6 +22,11 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.Event_cause;
+import com.ait.db.model.Failure_class;
+import com.ait.db.model.Mcc_mnc;
+import com.ait.db.model.NetworkEntity;
+import com.ait.db.model.User_equipment;
 import com.validation.DataValidator;
 
 /**
@@ -43,6 +48,11 @@ public class ReadDataSetIntoMainMemory {
 	private static String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
 //	private static String fileName2 = "C:\\Users\\Garrett\\Documents\\manualTest.xls";
 	private static String makeFileNameForErrorLog = "ErrorLog";
+	static Base_data[] base_data;
+	static Failure_class[] failure_class;
+	static Event_cause[] event_cause;
+	static Mcc_mnc[] mcc_mnc;
+	static User_equipment[] user_equipment;
 
 //	public static void main(String[] args) throws Exception {
 //		readFileInFromHardDrive("C:\\Users\\A00226084\\Desktop\\tempdsf.xls");
@@ -59,7 +69,7 @@ public class ReadDataSetIntoMainMemory {
 	 * @throws InvalidFormatException
 	 * @throws IOException
 	 */
-	public static Base_data[] readFileInFromHardDrive(final String fileName)
+	public static NetworkEntity[] readFileInFromHardDrive(final String fileName, int sheetValidationNumber)
 			throws IOException {
 
 		FileInputStream fos = new FileInputStream(new File(fileName));
@@ -72,16 +82,39 @@ public class ReadDataSetIntoMainMemory {
 			e.printStackTrace();
 		}
 
-		for (int sheetNumber = 0; sheetNumber <= 0; sheetNumber++) {
+		for (int sheetNumber = 0; sheetNumber <= 4; sheetNumber++) {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
 
 			arrayListOfSheets.add(sheet);
 		}
 		
-		Base_data[] bdArray = passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
+		
+		switch(sheetValidationNumber){
+		case 0: 
+			base_data = passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
+			return base_data;
+			break;
+		case 1:
+			failure_class = NonBaseDataObjects.createFailureClass(arrayListOfSheets.get(1));
+			return failure_class;
+			break;
+		case 2:
+			event_cause = NonBaseDataObjects.createEventCauseClass(arrayListOfSheets.get(2));
+			return event_cause;
+			break;
+		case 3:
+			mcc_mnc = NonBaseDataObjects.createMccMncclass(arrayListOfSheets.get(3));
+			return mcc_mnc;
+			break;
+		case 4:
+			user_equipment = NonBaseDataObjects.createUserEquipmentclass(arrayListOfSheets.get(4));
+			return user_equipment;
+			break;
+		}
+		
 		fos.close();
 		
-		return bdArray;
+		return null;
 //		return arrayListOfSheets;
 		
 	}
