@@ -23,6 +23,8 @@ import com.ait.db.model.User_equipment;
 @LocalBean
 public class NetworkEntityDAO {
 	
+	int counter = 0;
+	
 	@PersistenceContext
     private EntityManager entityManager;
 	List<NetworkEntity> listOfNetworkEntities;
@@ -56,8 +58,9 @@ public class NetworkEntityDAO {
 		return query;
 	}
 	public void saveNetworkEntity(NetworkEntity networkEntity) {
-		System.out.println("in save");
+		counter ++;
 		entityManager.persist(networkEntity);
+		System.out.println(counter);
 	}
 	public void updateNetworkEntity(NetworkEntity networkEntity) {
 		entityManager.merge(networkEntity);
