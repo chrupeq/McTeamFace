@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.DataFormatter;
 
+import com.ait.db.model.Base_data;
 import com.errorlogger.DatabaseErrorLogger;
 import com.errorlogger.DateManipulator;
 
@@ -61,7 +62,8 @@ public class DataValidator {
 
 	}
 
-	public static void validateData(Object[][] tableValuesToValidate, String fileName) {
+	public static Base_data[] validateData(Object[][] tableValuesToValidate, String fileName) {
+	
 		arrayToBePersisted = new Object[tableValuesToValidate.length][tableValuesToValidate[0].length];
 		setUpDatabaseData();
 		arrayLength = tableValuesToValidate.length;
@@ -157,9 +159,8 @@ public class DataValidator {
 			}
 		}
 		
-		System.out.println(arrayToBePersisted[2][0] + "hi2");
-		
-		sendInformationToTheDataLayer(arrayToBePersisted);
+		Base_data[] bdArray = sendInformationToTheDataLayer(arrayToBePersisted);
+		return bdArray;
 	}
 
 	private static boolean validateDateTime(Object dateTime) {
@@ -397,10 +398,10 @@ public class DataValidator {
 		errorBuilder.setLength(0);
 	}
 	
-	private static void sendInformationToTheDataLayer(Object[][] arrayToBePersisted){
-		System.out.println(arrayToBePersisted[1][1].toString());
+	private static Base_data[] sendInformationToTheDataLayer(Object[][] arrayToBePersisted){
 		SendValidatedInfoToDB db = new SendValidatedInfoToDB();
-		db.sendData(arrayToBePersisted, counterForDatabaseEntries);
+		Base_data[] bdArray = db.sendData(arrayToBePersisted, counterForDatabaseEntries);
 		counterForDatabaseEntries = 0;
+		return bdArray;
 	}
 }
