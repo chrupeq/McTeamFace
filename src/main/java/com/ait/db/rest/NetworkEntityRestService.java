@@ -19,6 +19,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.persistence.annotations.PrimaryKey;
+
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
@@ -39,17 +41,37 @@ public class NetworkEntityRestService {
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
-	@Path("/{networkEntityType}/{report_id}")
-	public Response getNetworkEntityById(@PathParam("networkEntityType") String networkEntityType,@PathParam("report_id") int report_id) {
+	@Path("/{networkEntityType}/{id}")
+	public Response getNetworkEntityById(@PathParam("networkEntityType") String networkEntityType,@PathParam("id") int report_id) {
 		try{
 			networkEntityTypeEnum = getNetworkEntityType(networkEntityType);
 			NetworkEntity networkEntity = networkEntityDAO.getNetworkEntityById(networkEntityTypeEnum, report_id);
+			if(networkEntity.equals(null)){
+				return Response.status(404).build();
+			}
 			return Response.status(200).entity(networkEntity).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return Response.status(404).build();
 		}
 	}
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/{networkEntityType}/{id1}/{id2}")
+	public Response getNetworkEntityById(@PathParam("networkEntityType") String networkEntityType,@PathParam("id1") int id1,@PathParam("id2") int id2) {
+		try{
+			networkEntityTypeEnum = getNetworkEntityType(networkEntityType);
+			NetworkEntity networkEntity = networkEntityDAO.getNetworkEntityById(networkEntityTypeEnum, id1,id2);
+			if(networkEntity.equals(null)){
+				return Response.status(404).build();
+			}
+			return Response.status(200).entity(networkEntity).build();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return Response.status(404).build();
+		}
+	}
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{networkEntityType}")
@@ -70,6 +92,18 @@ public class NetworkEntityRestService {
 		try{
 			networkEntityTypeEnum = getNetworkEntityType(networkEntityType);
 			networkEntityDAO.deleteNetworkEntity(networkEntityDAO.getNetworkEntityById(networkEntityTypeEnum, id));
+			return Response.status(204).build();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return Response.status(404).build();
+		}
+	}
+	@DELETE
+	@Path("/{networkEntityType}/{id1}/{id2}")
+	public Response deleteBase_data(@PathParam("networkEntityType") String networkEntityType, @PathParam("id1") int id1, @PathParam("id2") int id2) {
+		try{
+			networkEntityTypeEnum = getNetworkEntityType(networkEntityType);
+			networkEntityDAO.deleteNetworkEntity(networkEntityDAO.getNetworkEntityById(networkEntityTypeEnum, id1,id2));
 			return Response.status(204).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -145,7 +179,7 @@ public class NetworkEntityRestService {
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
-	@Path("/mcc_mnc/{id}")
+	@Path("/mcc_mnc/{id1}/{id2}")
 	public Response updateMccMnc(Mcc_mnc mccMnc) {
 		networkEntityDAO.updateNetworkEntity(mccMnc);
 		return Response.status(200).entity(mccMnc).build();
@@ -161,7 +195,7 @@ public class NetworkEntityRestService {
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
-	@Path("/event_cause/{id}")
+	@Path("/event_cause/{id1}/{id2}")
 	public Response updateEventCause(Event_cause eventCause) {
 		networkEntityDAO.updateNetworkEntity(eventCause);
 		return Response.status(200).entity(eventCause).build();
@@ -197,7 +231,7 @@ public class NetworkEntityRestService {
 	@Path("/base_data/{id}")
 	public Response updateBaseData (Base_data baseData) {
 		networkEntityDAO.updateNetworkEntity(baseData);
-		return Response.status(201).entity(baseData).build();
+		return Response.status(200).entity(baseData).build();
 	}
 
 }
