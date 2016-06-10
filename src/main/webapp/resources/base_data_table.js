@@ -18,11 +18,11 @@ var loadTable = function(data){
 
             { data: "failure_class.failure_class" },
             
-            { data: "ue_type" },
+            { data: "user_equipment.tac" },
             
-            { data: "market"},
+            { data: "mcc_mnc.mcc"},
             
-            { data: "operator"},
+            { data: "mcc_mnc.mnc"},
             
             { data: "cell_id"},
             

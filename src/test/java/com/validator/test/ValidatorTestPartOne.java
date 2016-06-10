@@ -21,7 +21,7 @@ import utilities.ValidatorTestUtilities;
 public class ValidatorTestPartOne extends ValidatorTestUtilities {
 
 
-	Method validateEventIdMethod;
+	Method validateEventIdAndCauseCode;
 	Method validateFailureClassMethod;
 	Method validateUETypesMethod;
 
@@ -31,21 +31,23 @@ public class ValidatorTestPartOne extends ValidatorTestUtilities {
 
 	@Parameters
 	public Object[] validEventIdParams() {
-		return new Object[] { new Object[] { 4097 }, new Object[] { 4098 }, new Object[] { 4125 },
-				new Object[] { 4106 } };
+		return new Object[]{
+			new Object[]{0, 4097}, new Object[]{1, 4097}, new Object[]{2, 4097}, new Object[]{3, 4097}, new Object[]{4, 4097}, new Object[]{5, 4097},
+			new Object[]{0, 4098}, new Object[]{1, 4098}, new Object[]{2, 4098}, new Object[]{3, 4098}, new Object[]{0, 4106}, new Object[]{1, 4106}
+		};
 	}
 
 	@Parameters
 	public Object[] invalidEventIdParams() {
-		return new Object[] { new Object[] { 4096 }, new Object[] { 4095 }, new Object[] { 4099 },
-				new Object[] { 5000.0 }, new Object[] { 4123.0 }, new Object[] { 4124.0 }, new Object[] { 4126 },
-				new Object[] { 4127 }, new Object[] { 4105 }, new Object[] { 4104 }, new Object[] { 4107 },
-				new Object[] { 4109 }, new Object[] { 1 }, new Object[] { 12 }, new Object[] { 123 },
-				new Object[] { 12345 }, new Object[] { 123456 }, new Object[] { -1 }, new Object[] { -12 },
-				new Object[] { -123 }, new Object[] { -1234 }, new Object[] { 0 }, new Object[] { 0000 },
-				new Object[] { 000 }, new Object[] { 00 }, new Object[] { "A000" }, new Object[] { "A4097" },
-				new Object[] { 40970 }, new Object[] { "04097" }, new Object[] { "A4097" }, new Object[] { "-.,&" }, new Object[]{" "},
-				new Object[]{"  "}, new Object[]{"   "}, new Object[]{"    "}, new Object[]{""} };
+		return new Object[] { new Object[] { 0, 4096 }, new Object[] { 1, 4095 }, new Object[] { 2, 4099 },
+				new Object[] { 3, 5000.0 }, new Object[] { 4, 4123.0 }, new Object[] { 5, 4124.0 }, new Object[] { 6, 4126 },
+				new Object[] { 7, 4127 }, new Object[] {7, 4105 }, new Object[] {7, 4104 }, new Object[] {7, 4107 },
+				new Object[] {7, 4109 }, new Object[] {7, 1 }, new Object[] {7, 12 }, new Object[] {7, 123 },
+				new Object[] {7, 12345 }, new Object[] {7, 123456 }, new Object[] {7, -1 }, new Object[] {7, -12 },
+				new Object[] {7, -123 }, new Object[] {7, -1234 }, new Object[] {7, 0 }, new Object[] {7, 0000 },
+				new Object[] {7, 000 }, new Object[] {7, 00 }, new Object[] {7, "A000" }, new Object[] {7, "A4097" },
+				new Object[] {7, 40970 }, new Object[] { 7, "04097" }, new Object[] {7, "A4097" }, new Object[] {7, "-.,&" }, new Object[]{7," "},
+				new Object[]{7, "  "}, new Object[]{7, "   "}, new Object[]{7,"    "}, new Object[]{7,""} };
 	}
 
 	@Parameters
@@ -164,10 +166,10 @@ public class ValidatorTestPartOne extends ValidatorTestUtilities {
 	public void setUp() {
 		try {
 			
-			validateEventIdMethod = DataValidator.class.getDeclaredMethod("validateEventId", Object.class);
+			validateEventIdAndCauseCode = DataValidator.class.getDeclaredMethod("validateEventIdAndCauseCode", Object.class, Object.class);
 			validateFailureClassMethod = DataValidator.class.getDeclaredMethod("validateFailureClass", Object.class);
 			validateUETypesMethod = DataValidator.class.getDeclaredMethod("validateUEType", Object.class);
-			validateEventIdMethod.setAccessible(true);
+			validateEventIdAndCauseCode.setAccessible(true);
 			validateFailureClassMethod.setAccessible(true);
 			validateUETypesMethod.setAccessible(true);
 			
@@ -181,17 +183,17 @@ public class ValidatorTestPartOne extends ValidatorTestUtilities {
 
 	@Test
 	@Parameters(method = "validEventIdParams")
-	public void testValidEventIds(Object eventId)
+	public void testValidEventIds(Object eventId, Object causeCode)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		boolean isEventValid = (boolean) validateEventIdMethod.invoke(DataValidator.class, eventId);
+		boolean isEventValid = (boolean) validateEventIdAndCauseCode.invoke(DataValidator.class, causeCode, eventId);
 		assertTrue(isEventValid);
 	}
 
 	@Test
 	@Parameters(method = "invalidEventIdParams")
-	public void testInvalidEventIds(Object eventId)
+	public void testInvalidEventIds(Object eventId, Object causeCode)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
-		boolean isEventValid = (boolean) validateEventIdMethod.invoke(DataValidator.class, eventId);
+		boolean isEventValid = (boolean) validateEventIdAndCauseCode.invoke(DataValidator.class, causeCode, eventId);
 		assertFalse(isEventValid);
 	}
 

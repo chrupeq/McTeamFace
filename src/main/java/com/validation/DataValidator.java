@@ -77,7 +77,7 @@ public class DataValidator {
 				errorCount++;
 			}
 
-			if (!validateEventId(tableValuesToValidate[i][1])) {
+			if (!validateEventIdAndCauseCode(tableValuesToValidate[i][1], tableValuesToValidate[i][8])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid Event ID at column: 2 Line: " + i + "\r\n");
 				errorCount++;
@@ -110,12 +110,6 @@ public class DataValidator {
 			if (!validateDuration(tableValuesToValidate[i][7])) {
 				errorBuilder.append(DateManipulator.getCurrentDateAndTime()
 						+ ": Invalid call duration at column: 8 Line: " + i + "\r\n");
-				errorCount++;
-			}
-
-			if (!validateCauseCode(tableValuesToValidate[i][8])) {
-				errorBuilder.append(DateManipulator.getCurrentDateAndTime() + ": Invalid Cause Code at column: 9 Line: "
-						+ i + "\r\n");
 				errorCount++;
 			}
 
@@ -198,18 +192,28 @@ public class DataValidator {
 		return false;
 	}
 
-	private static boolean validateEventId(Object eventId) {
+	private static boolean validateEventIdAndCauseCode(Object eventId, Object causeCode) {
 		try {
 			if(eventId.toString().startsWith("0") && !eventId.toString().matches("^[1-9][1-9][1-9][1-9]$")){
 				return false;
 			}
 			int intValue = Integer.parseInt(eventId.toString());
-			for(int i = 0; i < eventIdList.length; i ++){
-			if (eventIdList[i] == intValue) {
+			if (causeCode.toString().equals("(null)") || causeCode.toString().equals(null)) {
+				for(int i = 0; i < eventIdList.length; i ++){
+					if (eventIdList[i] == intValue) {
+						return true;
+					}
+					}
+			}else{
+			
+			int causeCodeValue = Integer.parseInt(causeCode.toString());
+			for(int i = 0; i < causeCodes.length; i ++){
+			if (causeCodes[i] == causeCodeValue && eventIdList[i] == intValue) {
 				return true;
 			}
 			}
-		} catch (Exception e) {
+		}
+			} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating EventID.");
 			return false;
 		}
@@ -296,23 +300,6 @@ public class DataValidator {
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating duration.");
-		}
-		return false;
-	}
-
-	private static boolean validateCauseCode(Object causeCode) {
-		try {
-			if (causeCode.toString().equals("(null)") || causeCode.toString().equals(null)) {
-				return true;
-			}
-			int intValue = Integer.parseInt(causeCode.toString());
-			for(int i = 0; i < causeCodes.length; i ++){
-			if (causeCodes[i] == intValue) {
-				return true;
-			}
-			}
-		} catch (Exception e) {
-			System.out.println("Invalid datatype encountered while validating causeCode.");
 		}
 		return false;
 	}

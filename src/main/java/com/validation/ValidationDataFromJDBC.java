@@ -31,7 +31,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	public int[] getEventIdList() throws SQLException{
 		initiateDatabase();
 		try {
-			resultsGatherer = statement.executeQuery("SELECT DISTINCT(event_id) FROM event_cause");
+			resultsGatherer = statement.executeQuery("SELECT event_id FROM event_cause");
 			
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
@@ -61,7 +61,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 	public int[] getCauseCodes(){
 		
 		try {
-			resultsGatherer = statement.executeQuery("SELECT DISTINCT cause_code FROM event_cause");
+			resultsGatherer = statement.executeQuery("SELECT cause_code FROM event_cause");
 			
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
