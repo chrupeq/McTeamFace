@@ -70,16 +70,17 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 		
 		return Response.status(200).build();
 	}
-
+	
 	public void sendToFileReader(String path) throws IOException {
 
 		
 		for (int i = 4; i >= 1; i--) {
 			
 			networkEntityArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, i);
-			for (int j = 1; j < networkEntityArray.length; j ++) {
-				networkEntityDAO.saveNetworkEntity(networkEntityArray[j]);
-				}	
+			
+			
+				networkEntityDAO.saveNetworkEntity(networkEntityArray);
+					
 			}
 		networkEntityArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, 0);
 			jdbc.sendShitSomewhere(networkEntityArray);
