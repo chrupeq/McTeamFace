@@ -193,20 +193,24 @@ public class DataValidator {
 	}
 
 	private static boolean validateEventIdAndCauseCode(Object eventId, Object causeCode) {
+		int causeCodeValue;
 		try {
 			if(eventId.toString().startsWith("0") && !eventId.toString().matches("^[1-9][1-9][1-9][1-9]$")){
 				return false;
 			}
 			int intValue = Integer.parseInt(eventId.toString());
-			if (causeCode.toString().equals("(null)") || causeCode.toString().equals(null)) {
+			if (causeCode.toString().equals("(null)") && intValue == 4099) {
 				for(int i = 0; i < eventIdList.length; i ++){
 					if (eventIdList[i] == intValue) {
 						return true;
 					}
 					}
 			}else{
-			
-			int causeCodeValue = Integer.parseInt(causeCode.toString());
+			if(causeCode.toString().equals("0")){
+				 causeCodeValue = 0;
+			}else{
+			 causeCodeValue = Integer.parseInt(causeCode.toString());
+			}
 			for(int i = 0; i < causeCodes.length; i ++){
 			if (causeCodes[i] == causeCodeValue && eventIdList[i] == intValue) {
 				return true;
@@ -214,7 +218,9 @@ public class DataValidator {
 			}
 		}
 			} catch (Exception e) {
+				System.out.println("Event id: " + eventId.toString() + " Cause code: " + causeCode.toString());
 			System.out.println("Invalid datatype encountered while validating EventID.");
+			e.printStackTrace();
 			return false;
 		}
 		return false;
@@ -326,7 +332,7 @@ public class DataValidator {
 	private static boolean validateHier3(Object hier3) {
 		try {
 			Long longValue = Long.parseLong(hier3.toString());
-			if (longValue > 0 && hier3.toString().length() == 19) {
+			if (longValue > 0) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -338,7 +344,7 @@ public class DataValidator {
 	private static boolean validateHier32(Object hier32) {
 		try {
 			Long longValue = Long.parseLong(hier32.toString());
-			if (longValue > 0 && hier32.toString().length() == 19) {
+			if (longValue > 0) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -350,7 +356,7 @@ public class DataValidator {
 	private static boolean validateHier321(Object hier321) {
 		try {
 			Long longValue = Long.parseLong(hier321.toString());
-			if (longValue > 0 && hier321.toString().length() == 19) {
+			if (longValue > 0) {
 				return true;
 			}
 		} catch (Exception e) {

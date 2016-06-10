@@ -51,7 +51,7 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 		
 		String[] imageArray = imageInBase64.split(",");
 
-		String path = "C:\\Users\\Garrett\\Desktop\\temp.xls";
+		String path = "C:\\Users\\A00226084\\Desktop\\temp.xls";
 
 		FileOutputStream fos = new FileOutputStream(new File(path));
 		fos.write(DatatypeConverter.parseBase64Binary(imageArray[1].toString()));

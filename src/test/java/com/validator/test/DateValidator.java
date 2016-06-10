@@ -87,7 +87,7 @@ public class DateValidator extends ValidatorTestUtilities {
 				new Object[] { "31/06/1999 09:59" }, new Object[] { "31/11/1998 10:00" },
 				new Object[] { "32/11/1997 10:01" }, new Object[] { "32/09/1996 10:02" },
 				new Object[] { "32/04/1995 10:33" }, new Object[] { "32/06/1994 10:59" },
-				new Object[] { "29/02/1900 16:00" }, new Object[] { getDatesInTheFuture(1) },
+				new Object[] { "29/02/1900 16:00" },
 				new Object[] { getDatesInTheFuture(2) }, new Object[] { getDatesInTheFuture(3) },
 				new Object[] { getDatesInTheFuture(4) }, new Object[] { getDatesInTheFuture(5) }, new Object[]{" "},
 				new Object[]{"  "}, new Object[]{"   "}, new Object[]{"    "}, new Object[]{""} };

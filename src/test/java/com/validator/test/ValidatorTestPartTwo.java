@@ -19,7 +19,6 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 
 	Method validateCellId;
 	Method validateDuration;
-	Method validateCauseCode;
 	Method validateNEVersion;
 	Method validateIMSI;
 
@@ -134,12 +133,10 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 		try {
 			validateCellId = DataValidator.class.getDeclaredMethod("validateCellId", Object.class);
 			validateDuration = DataValidator.class.getDeclaredMethod("validateDuration", Object.class);
-			validateCauseCode = DataValidator.class.getDeclaredMethod("validateCauseCode", Object.class);
 			validateNEVersion = DataValidator.class.getDeclaredMethod("validateNEVersion", Object.class);
 			validateIMSI = DataValidator.class.getDeclaredMethod("validateIMSI", Object.class);
 			validateCellId.setAccessible(true);
 			validateDuration.setAccessible(true);
-			validateCauseCode.setAccessible(true);
 			validateNEVersion.setAccessible(true);
 			validateIMSI.setAccessible(true);
 
@@ -179,20 +176,6 @@ public class ValidatorTestPartTwo extends ValidatorTestUtilities {
 	public void testInvalidDuration(Object duration) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		boolean isDurationValid = (boolean) validateDuration.invoke(DataValidator.class, duration);
 		assertFalse(isDurationValid);
-	}
-	
-	@Test
-	@Parameters(method = "validCauseCodesParams")
-	public void testValidCauseCodes(Object causeCode) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
-		boolean isCauseCodeValid = (boolean) validateCauseCode.invoke(DataValidator.class, causeCode);
-		assertTrue(isCauseCodeValid);
-	}
-	
-	@Test
-	@Parameters(method = "invalidCauseCodesParams")
-	public void testInvalidCauseCodes(Object causeCode) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException{
-		boolean isCauseCodeValid = (boolean) validateCauseCode.invoke(DataValidator.class, causeCode);
-		assertFalse(isCauseCodeValid);
 	}
 	
 	@Test

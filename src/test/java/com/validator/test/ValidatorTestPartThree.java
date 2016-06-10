@@ -36,8 +36,7 @@ public class ValidatorTestPartThree extends ValidatorTestUtilities{
 				new Object[] { 344, 920 }, new Object[] { 344, 930 }, new Object[] { 405, 0 }, new Object[] { 405, 1 },
 				new Object[] { 405, 3 }, new Object[] { 405, 4 }, new Object[] { 405, 5 }, new Object[] { 440, 9 },
 				new Object[] { 440, 10 }, new Object[] { 440, 11 }, new Object[] { 505, 62 }, new Object[] { 505, 68 },
-				new Object[] { 505, 71 }, new Object[] { 505, 72 }, new Object[] { 505, 88 }, new Object[] { 505, 90 },
-				new Object[] { 0, 0 } };
+				new Object[] { 505, 71 }, new Object[] { 505, 72 }, new Object[] { 505, 88 }, new Object[] { 505, 90 }};
 	}
 
 	@Parameters

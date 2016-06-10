@@ -218,7 +218,7 @@ public class ValidatorTestPartOne extends ValidatorTestUtilities {
 	public void testValidUETypes(Object UEType)
 			throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, SQLException {
 		boolean isUETypeValid = (boolean) validateUETypesMethod.invoke(DataValidator.class, UEType);
-		assertFalse(isUETypeValid);
+		assertTrue(isUETypeValid);
 	}
 
 	@Test

@@ -36,8 +36,7 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
 			resultsGatherer.beforeFirst();
-			resultsGatherer.next();
-			eventsList = new int[rowCount - 1];
+			eventsList = new int[rowCount];
 			while(resultsGatherer.next()){
 				System.out.println(resultsGatherer.getInt("event_id"));
 				eventsList[counter] = resultsGatherer.getInt("event_id");
@@ -66,7 +65,6 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
 			resultsGatherer.beforeFirst();
-			resultsGatherer.next();
 			
 			causeCodes = new int[rowCount];
 			
@@ -96,7 +94,6 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
 			resultsGatherer.beforeFirst();
-			resultsGatherer.next();
 			
 			failureClass = new int[rowCount];
 			while(resultsGatherer.next()){
@@ -124,7 +121,6 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			resultsGatherer.last();
 			rowCount = resultsGatherer.getRow();
 			resultsGatherer.beforeFirst();
-			resultsGatherer.next();
 			
 			userEquipment = new int[rowCount];
 			
@@ -154,7 +150,6 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			resultsGatherer.last();
 			int rowCount = resultsGatherer.getRow();
 			resultsGatherer.beforeFirst();
-			resultsGatherer.next();
 			MCCValues = new int[rowCount];
 			MNCValues = new int[rowCount];
 			while(resultsGatherer.next()){
