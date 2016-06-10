@@ -163,6 +163,5 @@ public class NetworkEntityClientTest {
 		System.out.println("The response is: " + response);
 		
 	}
-	
 		
 }
