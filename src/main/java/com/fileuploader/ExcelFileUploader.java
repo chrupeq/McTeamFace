@@ -79,7 +79,7 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 			networkEntityArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, i);
 			
 			
-				networkEntityDAO.saveNetworkEntity(networkEntityArray);
+				networkEntityDAO.saveNetworkEntityArray(networkEntityArray);
 					
 			}
 		networkEntityArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, 0);

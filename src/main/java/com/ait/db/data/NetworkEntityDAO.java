@@ -61,15 +61,14 @@ public class NetworkEntityDAO {
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void saveNetworkEntity(NetworkEntity[] networkEntity) {
+	public void saveNetworkEntityArray(NetworkEntity[] networkEntity) {
 		counter ++;
 		for(int i = 1; i < networkEntity.length; i ++){
 		entityManager.persist(networkEntity[i]);
 		}
 	}
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void saveNetworkEntityArray(NetworkEntity networkEntity) {
+	public void saveNetworkEntity(NetworkEntity networkEntity) {
 		entityManager.persist(networkEntity);
 	}
 	public void updateNetworkEntity(NetworkEntity networkEntity) {
