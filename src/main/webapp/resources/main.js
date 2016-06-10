@@ -13,7 +13,6 @@ $(document).ready(function() {
 	
 
 $(document).on("click", "button", function(){
-	verifyAdmin();
 	getDetailsFromUser();
 	
 	return false;
@@ -27,9 +26,9 @@ var verifyAdmin = function() {
 	
 	if(loggedInUsername == "SystemAdmin1") {
 		console.log("Admin logged in");
-	} else{
-		$("#home").hide();
-		$("#form").hide();
+	} else {
+		console.log("Username not admin");
+		
 	}
 	
 	return false;
@@ -59,7 +58,8 @@ function loginAuthentication(details) {
 		
 		if(username==detail.username && password==detail.password) {
 			counter++;
-		
+			
+			verifyAdmin();
 			window.location = 'http://localhost:8080/GroupProject2016/home.html';
 			
 			return false;

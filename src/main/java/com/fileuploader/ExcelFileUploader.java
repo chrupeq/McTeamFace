@@ -48,9 +48,7 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 	@Path("/uploadfile")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response uploadFile(@FormDataParam("data") String imageInBase64) throws IOException, JSONException {
-		System.out.println("here");
-		System.out.println("String: " + imageInBase64);
-
+		
 		String[] imageArray = imageInBase64.split(",");
 
 		String path = "C:\\Users\\A00226084\\Desktop\\temp.xls";
@@ -70,18 +68,19 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 		
 		return Response.status(200).build();
 	}
-
+	
 	public void sendToFileReader(String path) throws IOException {
 
 		
 		for (int i = 4; i >= 1; i--) {
 			
 			networkEntityArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, i);
-			for (int j = 1; j < networkEntityArray.length; j ++) {
-				networkEntityDAO.saveNetworkEntity(networkEntityArray[j]);
-				}	
+			
+			
+				networkEntityDAO.saveNetworkEntityArray(networkEntityArray);
+					
 			}
 		networkEntityArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, 0);
-			jdbc.sendShitSomewhere(networkEntityArray);
+			jdbc.sendBaseDataToDB(networkEntityArray);
 		}
 	}

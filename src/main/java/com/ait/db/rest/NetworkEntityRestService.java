@@ -76,11 +76,13 @@ public class NetworkEntityRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/{networkEntityType}")
 	public Response getAllNetworkEntityEntiries(@PathParam("networkEntityType") String networkEntityType) {
+		System.out.println(networkEntityType);
 		try{
 			networkEntityTypeEnum = getNetworkEntityType(networkEntityType);
 			List<? extends NetworkEntity> networkEntities = networkEntityDAO.getAllNetworkEntityEntries(networkEntityTypeEnum);
 			return Response.status(200).entity(networkEntities).build();
 		}catch(Exception e){
+			System.out.println("hello");
 			System.out.println(e.getMessage());
 			return Response.status(404).build();
 		}
