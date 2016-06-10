@@ -37,14 +37,14 @@ public class JDBCConnectionManager {
 		try {
 			networkEntityArray = (Base_data[]) ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, 0);
 			JDBCConnectionManager jdbc = new JDBCConnectionManager();
-			jdbc.sendShitSomewhere(networkEntityArray);
+			jdbc.sendBaseDataToDB(networkEntityArray);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
-	public void sendShitSomewhere(NetworkEntity[] networkEntityArray) {
+	public void sendBaseDataToDB(NetworkEntity[] networkEntityArray) {
 		initiateDatabase();
 		
 		try {
