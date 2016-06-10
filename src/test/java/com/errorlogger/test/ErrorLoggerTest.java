@@ -28,6 +28,7 @@ import com.errorlogger.DatabaseErrorLogger;
 import com.errorlogger.DateManipulator;
 
 @RunWith(PowerMockRunner.class)
+@PrepareForTest
 public class ErrorLoggerTest {
 	
 	private static int counter;
