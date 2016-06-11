@@ -41,7 +41,7 @@ var addUser = function(){
 		
 		data: formToJSON(),
 		success: function(data, textStatus, jqXHR) {
-			alert("USER FUCKTY created sucessfully");
+			
 			
 			location.reload();
 		},
