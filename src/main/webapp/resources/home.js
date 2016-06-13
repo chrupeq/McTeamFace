@@ -1,6 +1,6 @@
 
 
-var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
+var rootUrl2="http://localhost:8080/GroupProject2016/rest/users";
 
 $(document).ready(function() {
 	displayErrors();
