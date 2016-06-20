@@ -55,10 +55,6 @@ public class ReadDataSetIntoMainMemory {
 	static Mcc_mnc[] mcc_mnc;
 	static User_equipment[] user_equipment;
 
-//	public static void main(String[] args) throws Exception {
-//		readFileInFromHardDrive("C:\\Users\\A00226084\\Desktop\\tempdsf.xls");
-//	}
-
 	/**
 	 * Reads in the excel file from a specified location on the hard drive.
 	 * Passes on the excel file to the readInTheData method, and then to the
@@ -70,7 +66,7 @@ public class ReadDataSetIntoMainMemory {
 	 * @throws InvalidFormatException
 	 * @throws IOException
 	 */
-	public static NetworkEntity[] readFileInFromHardDrive(final String fileName, int sheetValidationNumber)
+	public static ArrayList<Object[][]> readFileInFromHardDrive(final String fileName)
 			throws IOException {
 
 		FileInputStream fos = new FileInputStream(new File(fileName));
@@ -88,38 +84,10 @@ public class ReadDataSetIntoMainMemory {
 
 			arrayListOfSheets.add(sheet);
 		}
-		
-		
-		switch(sheetValidationNumber){
-		case 0: 
-			base_data = passTheArrayToValidator(arrayListOfSheets.get(0), makeFileNameForErrorLog);
-			System.out.println("base data length: " + base_data.length);
-			return base_data;
-
-		case 2:
-			failure_class = NonBaseDataObjects.createFailureClass(arrayListOfSheets.get(2));
-			return failure_class;
-	
-		case 1:
-			event_cause = NonBaseDataObjects.createEventCauseClass(arrayListOfSheets.get(1));
-			return event_cause;
-	
-		case 4:
-			mcc_mnc = NonBaseDataObjects.createMccMncclass(arrayListOfSheets.get(4));
-			return mcc_mnc;
-	
-		case 3:
-			user_equipment = NonBaseDataObjects.createUserEquipment(arrayListOfSheets.get(3));
-			return user_equipment;
-
+			
+			return arrayListOfSheets;
 		}
-		
-		fos.close();
-		
-		return null;
-//		return arrayListOfSheets;
-		
-	}
+
 
 	/**
 	 * The Workbook and sheetNumber are passed into this method for converting
@@ -157,6 +125,7 @@ public class ReadDataSetIntoMainMemory {
 
 		Object[][] sheetObject = new Object[rows][columns];
 		for (int r = 1; r < rows; r++) {
+			
 			row = sheet.getRow(r);
 			for (int c = 0; c < columns; c++) {
 				if (sheetNumber == 0 && c == 0) {

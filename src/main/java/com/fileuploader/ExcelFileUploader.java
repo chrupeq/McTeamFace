@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -26,6 +27,7 @@ import org.json.JSONException;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.NetworkEntity;
+import com.ait.db.model.NonBaseDataObjects;
 import com.ait.reader.ReadDataSetIntoMainMemory;
 import com.validation.JDBCConnectionManager;
 
@@ -42,7 +44,12 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	static NetworkEntity[] networkEntityArray;
+	static ArrayList<Object[][]> sheetArray;
+	static NetworkEntity[] eventCause;
+	static NetworkEntity[] failureClass;
+	static NetworkEntity[] userEquipment;
+	static NetworkEntity[] mccMnc;
+	static Object[] objectsToBePersisted = new Object[5];
 
 	@POST
 	@Path("/uploadfile")
@@ -56,31 +63,30 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 		FileOutputStream fos = new FileOutputStream(new File(path));
 		fos.write(DatatypeConverter.parseBase64Binary(imageArray[1].toString()));
 		fos.close();
-
-		try {
-			Thread.sleep(3000);
-			System.out.println("Sleeping complete...");
-		} catch (InterruptedException e) {
-			System.out.println("Threading failed...");
-			e.printStackTrace();
-		}
+		
 		sendToFileReader(path);
 		
 		return Response.status(200).build();
 	}
 	
 	public void sendToFileReader(String path) throws IOException {
-
+		sheetArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path);
+		eventCause = NonBaseDataObjects.createEventCauseClass(sheetArray.get(1));
+		objectsToBePersisted[4] = eventCause;
+		failureClass = NonBaseDataObjects.createFailureClass(sheetArray.get(2));
+		objectsToBePersisted[3] = failureClass;
+		userEquipment = NonBaseDataObjects.createUserEquipment(sheetArray.get(3));
+		objectsToBePersisted[2] = userEquipment;
+		mccMnc = NonBaseDataObjects.createMccMncclass(sheetArray.get(4));
+		objectsToBePersisted[1] = mccMnc;
+		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
+		objectsToBePersisted[0] = baseData;
 		
-		for (int i = 4; i >= 1; i--) {
+		for (int i = 4; i >= 0; i--) {
 			
-			networkEntityArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, i);
-			
-			
-				networkEntityDAO.saveNetworkEntityArray(networkEntityArray);
+			networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
 					
 			}
-		networkEntityArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path, 0);
-			jdbc.sendBaseDataToDB(networkEntityArray);
+
 		}
 	}

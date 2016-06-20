@@ -32,12 +32,6 @@ public class NonBaseDataObjects {
 			ec.setDescription(array[i][2].toString());
 			arrayOfEventCause[i] = ec;
 		}
-		if(arrayOfEventCause[0] == null){
-		System.out.println("event cause: null" );
-		}
-		if(arrayOfEventCause[1] == null){
-			System.out.println("event cause 2: null");
-		}
 		return arrayOfEventCause;
 	}
 	

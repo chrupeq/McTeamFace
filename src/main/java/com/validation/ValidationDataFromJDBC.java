@@ -38,7 +38,6 @@ public class ValidationDataFromJDBC extends JDBCConnectionManager{
 			resultsGatherer.beforeFirst();
 			eventsList = new int[rowCount];
 			while(resultsGatherer.next()){
-				System.out.println(resultsGatherer.getInt("event_id"));
 				eventsList[counter] = resultsGatherer.getInt("event_id");
 				counter ++;
 			}

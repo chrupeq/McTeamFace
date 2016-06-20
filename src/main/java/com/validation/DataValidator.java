@@ -1,5 +1,6 @@
 package com.validation;
 
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
@@ -63,7 +64,6 @@ public class DataValidator {
 	}
 
 	public static Base_data[] validateData(Object[][] tableValuesToValidate, String fileName) {
-	
 		arrayToBePersisted = new Object[tableValuesToValidate.length][tableValuesToValidate[0].length];
 		setUpDatabaseData();
 		arrayLength = tableValuesToValidate.length;
@@ -218,7 +218,6 @@ public class DataValidator {
 			}
 		}
 			} catch (Exception e) {
-				System.out.println("Event id: " + eventId.toString() + " Cause code: " + causeCode.toString());
 			System.out.println("Invalid datatype encountered while validating EventID.");
 			e.printStackTrace();
 			return false;
@@ -231,7 +230,7 @@ public class DataValidator {
 			if (!failureClass.toString().matches("^[0-4]$") && !failureClass.toString().equals("(null)")){
 				return false;
 			}
-			if(failureClass.toString().equals("(null)") || failureClass.toString().equals("") || failureClass.toString().equals(null)){
+			if(failureClass.toString().equals("(null)")){
 				return true;
 			}
 			int intValue = Integer.parseInt(failureClass.toString());
@@ -331,8 +330,7 @@ public class DataValidator {
 
 	private static boolean validateHier3(Object hier3) {
 		try {
-			Long longValue = Long.parseLong(hier3.toString());
-			if (longValue > 0) {
+			if(hier3.toString().matches("[0-9]+")) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -343,8 +341,7 @@ public class DataValidator {
 
 	private static boolean validateHier32(Object hier32) {
 		try {
-			Long longValue = Long.parseLong(hier32.toString());
-			if (longValue > 0) {
+			if(hier32.toString().matches("[0-9]+")) {
 				return true;
 			}
 		} catch (Exception e) {
@@ -355,8 +352,7 @@ public class DataValidator {
 
 	private static boolean validateHier321(Object hier321) {
 		try {
-			Long longValue = Long.parseLong(hier321.toString());
-			if (longValue > 0) {
+			if(hier321.toString().matches("[0-9]+")) {
 				return true;
 			}
 		} catch (Exception e) {

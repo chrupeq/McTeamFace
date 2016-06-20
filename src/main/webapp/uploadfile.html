@@ -9,7 +9,6 @@
 <body>
 <script>
 $(document).on("click", "#submit", function(){
-	alert('here2');
 	uploadFile();
 
 	return false;
@@ -17,25 +16,19 @@ $(document).on("click", "#submit", function(){
 
 var uploadFile = function(){
 
-	alert('uploadFile');
-
 	input = document.getElementById('fileinput');
 
 	file = input.files[0];
 
 	fr = new FileReader();
 
-	fr.onload = receivedText;
-
 	fr.readAsDataURL(file);
 
-	receivedText();
+	fr.onload = receivedText;
 
 };
 
 function receivedText() {
-
-alert("jere");
 
 $.ajax({
 

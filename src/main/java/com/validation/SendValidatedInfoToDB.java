@@ -31,7 +31,6 @@ public class SendValidatedInfoToDB {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
-	private NetworkEntityType networkEntityTypeEnum;
 	
 	private Base_data[] bdArray;
 	
@@ -40,7 +39,7 @@ public class SendValidatedInfoToDB {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm", Locale.UK);
 		
-		for(int i = 1; i < entryCounter; i ++){
+		for(int i = 0; i < entryCounter; i ++){
 		Calendar c = Calendar.getInstance();
 		
 		Base_data bd = new Base_data();
@@ -80,9 +79,23 @@ public class SendValidatedInfoToDB {
 		bd.setMcc_mnc(mcc);
 		bd.setNe_version(neversion);
 		bd.setUser_equipment(ue);
-		bdArray[i - 1] = bd;
+		bdArray[i] = bd;
+		if(i == 0){
+		System.out.println(bd.getCell_id());
+		System.out.println(bd.getDuration());
+		System.out.println(bd.getNe_version());
+		System.out.println(bd.getReport_id());
+		System.out.println(bd.getDate_time());
+		System.out.println(bd.getEvent_cause());
+		System.out.println(bd.getFailure_class());
+		System.out.println(bd.getHier321_id());
+		System.out.println(bd.getHier32_id());
+		System.out.println(bd.getHier3_id());
+		System.out.println(bd.getImsi());
+		System.out.println(bd.getMcc_mnc());
+		System.out.println(bd.getUser_equipment());
 		}
-		System.out.println("got here");
+		}
 		return bdArray;
 	}
 }
