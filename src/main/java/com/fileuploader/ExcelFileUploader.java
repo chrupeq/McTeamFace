@@ -58,7 +58,7 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 		
 		String[] imageArray = imageInBase64.split(",");
 
-		String path = "C:\\Users\\A00226084\\Desktop\\temp.xls";
+		String path = "temp.xls";
 
 		FileOutputStream fos = new FileOutputStream(new File(path));
 		fos.write(DatatypeConverter.parseBase64Binary(imageArray[1].toString()));
@@ -79,14 +79,14 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 		objectsToBePersisted[2] = userEquipment;
 		mccMnc = NonBaseDataObjects.createMccMncclass(sheetArray.get(4));
 		objectsToBePersisted[1] = mccMnc;
-		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
-		objectsToBePersisted[0] = baseData;
 		
-		for (int i = 4; i >= 0; i--) {
+		for (int i = 4; i > 0; i--) {
 			
 			networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
 					
 			}
-
+		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
+		objectsToBePersisted[0] = baseData;
+		networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0	]);
 		}
 	}
