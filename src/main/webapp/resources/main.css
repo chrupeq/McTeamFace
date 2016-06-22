@@ -5,21 +5,17 @@ html, body {
 	font-family:"Helvetica Neue", Helvetica, sans-serif;
 	color:#444;
 	background:#f0f0f0;
-	
-    
 
-	}
+}
+	
+/*Login and Logout CSS */
+
 .wrap {
 	width: 900px;
 	margin-left:auto;
 	margin-right:auto;
 }
 	
-form {
-	margin: 0 auto;
-	margin-top: 20px;	
-}
-
 .login {
   border-radius: 2px 2px 5px 5px;
   padding: 10px 20px 20px 20px;
@@ -30,17 +26,10 @@ form {
   padding-bottom: 80px;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
   margin-left:auto;
-  margin-right:auto;
-	 
+  margin-right:auto; 
 	
 }
 
-label {  
-  display: inline-block;
-  margin-left: 18px;
-  padding-top: 10px;
-  font-size: 14px;
-}
 
 .login .title {
   position: centre;
@@ -90,6 +79,39 @@ button {
 	font-weight: bold;
 	height:25px;
 	padding-top:25px;
-
 	
 }
+
+#logoutBtn {
+	float:right;
+}
+
+/*Home header CSS */
+
+#header {
+	height: 230px;
+    background-color:#2B2B2Bk;
+    color:white;
+    text-align:center;
+    padding:15px;
+    padding-right:30px;
+    border-bottom: thick double #ffffff;
+    background: -webkit-gradient(linear, left top, right top, from(#2F2727), to(#5877AC));
+}
+
+
+/*Form CSS */
+
+form {
+	margin: 0 auto;
+	margin-top: 20px;	
+}
+
+
+label {  
+  display: inline-block;
+  margin-left: 18px;
+  padding-top: 10px;
+  font-size: 14px;
+}
+

@@ -1,7 +1,7 @@
 
 
 var loadTable = function(data){
-	alert(data);
+	
     $('#dataFromDatabase').DataTable( {
     	
         data: data,
@@ -13,13 +13,11 @@ var loadTable = function(data){
             { data: "date_time",
                 render: function(data, type, row) {
                 	var date = new Date(data);
-                	alert(date);
                 	var day = date.getDate();
                 	var monthIndex = date.getMonth();
                 	var year = date.getFullYear();
                 	var hours = date.getHours();
                 	var minutes = date.getMinutes();
-                	alert(monthIndex);
                 	return day + '/' + monthIndex + 1 + '/' + year + ' ' + hours + ':' + minutes;
                 }
                 },
