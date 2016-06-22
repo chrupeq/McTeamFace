@@ -69,7 +69,7 @@ public class DataValidator {
 		arrayLength = tableValuesToValidate.length;
 		fileNameForErrorLogger = fileName;
 
-		for (int i = 1; i < tableValuesToValidate.length; i++) {
+		for (int i = 0; i < tableValuesToValidate.length; i++) {
 
 			if (!validateDateTime(tableValuesToValidate[i][0])) {
 				errorBuilder.append(

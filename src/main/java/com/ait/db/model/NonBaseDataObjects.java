@@ -14,7 +14,7 @@ public class NonBaseDataObjects {
 	
 	public static Failure_class[] createFailureClass(Object[][] array){
 		arrayOfFailureClasses = new Failure_class[array.length];
-		for(int i=1; i < array.length; i++){
+		for(int i=0; i < array.length; i++){
 			Failure_class fc = new Failure_class();
 			fc.setDescription(array[i][1].toString());
 			fc.setFailure_class(Integer.parseInt(array[i][0].toString()));
@@ -25,7 +25,7 @@ public class NonBaseDataObjects {
 	
 	public static Event_cause[] createEventCauseClass(Object[][] array){
 		arrayOfEventCause = new Event_cause[array.length];
-		for(int i = 1; i< array.length; i++){
+		for(int i = 0; i< array.length; i++){
 			Event_cause ec = new Event_cause();
 			ec.setCause_code(Integer.parseInt(array[i][0].toString()));
 			ec.setEvent_id(Integer.parseInt(array[i][1].toString()));
@@ -37,7 +37,7 @@ public class NonBaseDataObjects {
 	
 	public static Mcc_mnc[] createMccMncclass(Object[][] array){
 		arrayOfMccMncClasses = new Mcc_mnc[array.length];
-		for(int i=1; i < array.length; i++){
+		for(int i=0; i < array.length; i++){
 			Mcc_mnc mcc_mnc = new Mcc_mnc();
 			mcc_mnc.setMcc(Integer.parseInt(array[i][0].toString()));
 			mcc_mnc.setMnc(Integer.parseInt(array[i][1].toString()));
@@ -50,9 +50,7 @@ public class NonBaseDataObjects {
 	
 	public static User_equipment[] createUserEquipment(Object[][] array){
 		arrayOfUserEquipment = new User_equipment[array.length];
-		System.out.println("Num rows: " + array.length);
-		System.out.println("Num columns: " + array[0].length);
-		for(int i=1; i < array.length; i++){
+		for(int i=0; i < array.length; i++){
 			User_equipment ue = new User_equipment();
 			ue.setTac(Integer.parseInt(array[i][0].toString()));
 			ue.setMarketing_name(array[i][1].toString());

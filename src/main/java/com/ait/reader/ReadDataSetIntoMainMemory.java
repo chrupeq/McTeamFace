@@ -123,18 +123,18 @@ public class ReadDataSetIntoMainMemory {
 			}
 		}
 
-		Object[][] sheetObject = new Object[rows][columns];
+		Object[][] sheetObject = new Object[rows - 1][columns];
 		for (int r = 1; r < rows; r++) {
 			
 			row = sheet.getRow(r);
 			for (int c = 0; c < columns; c++) {
 				if (sheetNumber == 0 && c == 0) {
 					dateCell = row.getCell(c);
-					sheetObject[r][c] = dateFormatter.format(dateCell.getDateCellValue());
+					sheetObject[r - 1][c] = dateFormatter.format(dateCell.getDateCellValue());
 				} else {
 					cell = row.getCell(c);
 					cell.setCellType(Cell.CELL_TYPE_STRING);
-					sheetObject[r][c] = (String) cell.toString();
+					sheetObject[r - 1][c] = (String) cell.toString();
 				}
 			}
 		}
