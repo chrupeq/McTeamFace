@@ -66,6 +66,7 @@ public class NetworkEntityDAO {
 		entityManager.persist(networkEntity[i]);
 		
 			}
+		System.out.println("DONE");
 	}
 	
 	public void saveNetworkEntity(NetworkEntity networkEntity) {
