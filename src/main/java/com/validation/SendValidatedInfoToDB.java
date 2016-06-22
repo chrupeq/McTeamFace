@@ -51,8 +51,14 @@ public class SendValidatedInfoToDB {
 		}
 		Event_cause ev = new Event_cause();
 				ev.setEvent_id(Integer.parseInt(dataToImport[i][1].toString()));
-		Failure_class f = new Failure_class();
-		f.setFailure_class(Integer.parseInt(dataToImport[i][2].toString()));
+				Failure_class f;
+		if(dataToImport[i][2].toString().equals("(null)")){
+			f = new Failure_class();
+		}else{
+			f = new Failure_class();
+			f.setFailure_class(Integer.parseInt(dataToImport[i][2].toString()));
+		}
+		
 		User_equipment ue = new User_equipment();
 		ue.setTac(Integer.parseInt(dataToImport[i][3].toString()));
 		Mcc_mnc mcc = new Mcc_mnc();
