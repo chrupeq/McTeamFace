@@ -10,7 +10,19 @@ var loadTable = function(data){
 
             { data: "report_id" },
 
-            { data: "date_time" },
+            { data: "date_time",
+                render: function(data, type, row) {
+                	var date = new Date(data);
+                	alert(date);
+                	var day = date.getDate();
+                	var monthIndex = date.getMonth();
+                	var year = date.getFullYear();
+                	var hours = date.getHours();
+                	var minutes = date.getMinutes();
+                	alert(monthIndex);
+                	return day + '/' + monthIndex + 1 + '/' + year + ' ' + hours + ':' + minutes;
+                }
+                },
 
             { data: "event_cause.cause_code" },
 
