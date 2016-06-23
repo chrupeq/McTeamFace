@@ -11,10 +11,13 @@ $(document).ready(function() {
 	
 	$('#allFailuresForImsi').on('click', function(){
 		$('#imsiFailuresModal').modal('show');
+		$('#modalTitle2').html('IMSI Query');
 	})
+	
 });
 
 var loadDateModal = function(){
 	$('#modalTitle').html('Dates Query');
 	$('#dateQueryModal').modal('show');
 }
+

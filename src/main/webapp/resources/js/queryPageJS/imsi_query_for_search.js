@@ -1,12 +1,13 @@
 $(document).ready(function() {
 	findAllImsis();
+	$(".js-example-basic-multiple").select2();
 	});
 
-var rootUrl = "http://localhost:8080/GroupProject2016/rest/network_entities";
+var rootUrl = "http://localhost:8080/GroupProject2016/rest/unique_imsi";
 var findAllImsis = function() {
 	$.ajax({
 		type : 'GET',
-		url : rootUrl + "/" + "base_data",
+		url : rootUrl,
 		dataType : "json",
 		success : loadSearchParams
 	});
@@ -15,8 +16,10 @@ var findAllImsis = function() {
 var htmlOptionsForSearch = "";
 var loadSearchParams = function(data){
 	$.each(data, function(index, element) {
-		$('#searchByImsiBox').append('<option data-subtext="Rep California">' + element.imsi + '</option>');
+		$('#selectByImsi').append($("<option></option>")
+		                    .attr("value",element)
+		                    .text(element));
+		
 	});
-/*	$('.selectpicker').selectpicker('refresh'); */
 }
 
