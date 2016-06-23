@@ -1,7 +1,32 @@
 
 
 var loadTable = function(data){
-	
+	/*
+	 * Don't delete this, it reads column headings out of JSON object dynamically.
+	 */
+			
+//	for(var i in data){
+//	    var key = i;
+//	    var val = data[i];
+//	    for(var j in val){
+//	        var sub_key = j;
+//	        var sub_val = val[j];
+//	        if(sub_key == "event_cause"){
+//	        	for(var k in sub_val){
+//			var sub_sub_key = k;
+//	        	alert(sub_sub_key);
+//	        	}
+//	        }
+//	        if(sub_key == "event_cause"){
+//	        	for(var k in sub_val){
+//			var sub_sub_key = k;
+//	        	alert(sub_sub_key);
+//	        	}
+//	        }
+//	        alert(sub_key);
+//	    }
+//	    break;
+//	}
     $('#dataFromDatabase').DataTable( {
     	
         data: data,

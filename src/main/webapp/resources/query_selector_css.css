@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+
+#dropUpQuery {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#queryHeader {
+	position: fixed;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-family: thin font;
+	font-size: 50px;
+	background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@font-face {
+	font-family: 'thin font';
+	src: url('fonts/thin lines and curves.ttf');
+}
