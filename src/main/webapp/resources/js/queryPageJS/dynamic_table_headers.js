@@ -1,11 +1,8 @@
 $(document).ready(function() {
-$('#thisbutton').on("click", function(){
-	tableFunction();
-});
+	alert("hi");
 });
 
 var tableFunction = function(){
-	
 	var table = 'table class="table table-striped table-hover table-condensed"'
 		+ 'id="querysTable">'
 		+ '<thead>'
@@ -19,6 +16,5 @@ var tableFunction = function(){
 					+	'</tr>'
 				+	'</thead>'
 				+'</table>';
-	alert(table);
 	$('#tableDiv').html(table);
 }

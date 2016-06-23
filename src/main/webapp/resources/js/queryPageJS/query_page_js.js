@@ -15,7 +15,23 @@ $(document).ready(function() {
 		$('#imsiFailuresModal').addClass('animated bounceOut');
 	});
 	
-//	$('.searchButton').on("click", function()){
-//		
-//	}
+	$('.searchButton').on('click', function(){
+		$('#container').addClass('animated fadeOutUp');
+		changeContainerCSS();
+	});
 });
+
+var changeContainerCSS = function(){
+	
+	$('#container').remove();
+	
+	
+var newDiv = '<h2 id="queryHeader2">Query Selector</h2>';
+
+$('body').append(newDiv);
+$('#queryHeader2').hide();
+$('#queryHeader2').addClass('animated fadeInDown');
+$('#queryHeader2').show();
+tableFunction();
+	
+}
