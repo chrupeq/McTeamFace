@@ -27,7 +27,7 @@ public class DataValidator {
 	private static StringBuilder errorToString = new StringBuilder();
 
 	private static int arrayLength;
-	private static int rowCount = 2;
+	private static int rowCount = 1;
 	private static String fileNameForErrorLogger;
 	private static int errorCount;
 	private static int counterForDatabaseEntries = 0;
@@ -390,6 +390,7 @@ public class DataValidator {
 	private static Base_data[] sendInformationToTheDataLayer(Object[][] arrayToBePersisted){
 		SendValidatedInfoToDB db = new SendValidatedInfoToDB();
 		Base_data[] bdArray = db.sendData(arrayToBePersisted, counterForDatabaseEntries);
+		dataErrorLogger.errorsFound(errorToString.toString(), errorToString, fileNameForErrorLogger, errorCount);
 		counterForDatabaseEntries = 0;
 		return bdArray;
 	}

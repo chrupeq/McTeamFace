@@ -24,11 +24,11 @@
 	src: url('fonts/thin lines and curves.ttf');
 }
 
-#selectByImsi {
+#selectByModel {
 	width: 200%;
 }
 
-#imsiSearchDiv {
+#modelSearchDiv {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -38,3 +38,13 @@
 #queryHeader2 {
 	font-family: thin font;
 }
+
+#tableDiv {
+	position: fixed;
+	top: 5%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-family: thin font;
+}
+
+#modelHeader {}

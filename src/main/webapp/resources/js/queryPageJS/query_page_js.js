@@ -4,24 +4,29 @@ $(document).ready(function() {
 		$('#dateQueryModal').addClass('animated bounceIn');
 	});
 	
-	$('#allFailuresForImsi').on("click", function(){
-		$('#imsiFailuresModal').removeClass('animated bounceOut');
-		$('#imsiFailuresModal').addClass('animated bounceIn');
+	$('#allFailuresForModel').on("click", function(){
+		$('#modelFailuresModal').removeClass('animated bounceOut');
+		$('#modelFailuresModal').addClass('animated bounceIn');
 	});
 	$('#modalClose').on("click", function(){
-		$('#imsiFailuresModal').addClass('animated bounceOut');
+		$('#modelFailuresModal').addClass('animated bounceOut');
 	});
 	$('#modalClose2').on("click", function(){
-		$('#imsiFailuresModal').addClass('animated bounceOut');
+		$('#modelFailuresModal').addClass('animated bounceOut');
 	});
 	
-	$('.searchButton').on('click', function(){
+	$('#dateSearch').on('click', function(){
 		$('#container').addClass('animated fadeOutUp');
-		changeContainerCSS();
+		changeContainerCSS('imsiDates');
+	});
+	
+	$('#modelSearch').on('click', function(){
+		$('#container').addClass('animated fadeOutUp');
+		changeContainerCSS('modelsQuery');
 	});
 });
 
-var changeContainerCSS = function(){
+var changeContainerCSS = function(whichTable){
 	
 	$('#container').remove();
 	
@@ -32,6 +37,11 @@ $('body').append(newDiv);
 $('#queryHeader2').hide();
 $('#queryHeader2').addClass('animated fadeInDown');
 $('#queryHeader2').show();
-tableFunction();
+if(whichTable == 'imsiDates'){
+imsiWithDatesQuery();
+}
+if(whichTable == 'modelsQuery'){
+	modelQuery();
+}
 	
 }

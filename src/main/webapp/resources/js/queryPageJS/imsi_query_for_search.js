@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$(".js-example-basic-multiple").select2();
 	});
 
-var rootUrl = "http://localhost:8080/GroupProject2016/rest/unique_imsi";
+var rootUrl = "http://localhost:8080/GroupProject2016/rest/unique_model";
 var findAllImsis = function() {
 	$.ajax({
 		type : 'GET',
@@ -15,10 +15,11 @@ var findAllImsis = function() {
 
 var htmlOptionsForSearch = "";
 var loadSearchParams = function(data){
+	
 	$.each(data, function(index, element) {
-		$('#selectByImsi').append($("<option></option>")
-		                    .attr("value",element)
-		                    .text(element));
+		$('#selectByModel').append($("<option></option>")
+		                    .attr("value",element[0] + ' ' + element[1])
+		                    .text(element[0] + ' ' + element[1]));
 		
 	});
 }

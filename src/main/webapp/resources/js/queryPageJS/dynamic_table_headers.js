@@ -1,20 +1,37 @@
 $(document).ready(function() {
-	alert("hi");
+	
 });
 
-var tableFunction = function(){
-	var table = 'table class="table table-striped table-hover table-condensed"'
+var table = "";
+var imsiWithDatesQuery = function(){
+	
+	table = 'table class="table table-striped table-hover table-condensed"'
 		+ 'id="querysTable">'
 		+ '<thead>'
 						+'<tr>'
-						+	'<th align="left">ID No.</th>'
-						+	'<th align="left" class="col-sm-2">Title</th>'
-						+	'<th align="left">Director</th>'
-						+	'<th align="left">Year Made</th>'
-						+	'<th align="left">Picture</th>'
-						+	'<th align="left">More Info</th>'
+						+	'<th align="left">Report ID.</th>'
+						+	'<th align="left" class="col-sm-2">IMSI</th>'
 					+	'</tr>'
 				+	'</thead>'
 				+'</table>';
 	$('#tableDiv').html(table);
+	$('#tableDiv').hide();
+	$('#tableDiv').addClass('animated fadeInDown');
+	$('#tableDiv').show();
+}
+
+var modelQuery = function(){
+	table = 'table class="table table-striped table-hover table-condensed"'
+		+ 'id="querysTable">'
+		+ '<thead>'
+						+'<tr>'
+						+	'<th align="left">Model:</th>'
+						+	'<th align="left" class="col-sm-2">Failure Count</th>'
+					+	'</tr>'
+				+	'</thead>'
+				+'</table>';
+	$('#tableDiv').html(table);
+	$('#tableDiv').hide();
+	$('#tableDiv').addClass('animated fadeInDown');
+	$('#tableDiv').show();
 }

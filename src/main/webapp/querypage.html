@@ -43,7 +43,7 @@
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
       <li><a id="imsiWithDates" href="#">List of IMSI's for given dates</a></li>
-      <li><a id="allFailuresForImsi" href="#">List of failure details for IMSI</a></li>
+      <li><a id="allFailuresForModel" href="#">List of failure details for given Model</a></li>
     </ul>
   </div>
 </div>
@@ -87,7 +87,7 @@
     </div>
   </div>
 </div>
-<div id="imsiFailuresModal" class="modal fade" role="dialog">
+<div id="modelFailuresModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -100,9 +100,9 @@
     </div>
         <label for="id_label_multiple"> </label>
         <div class="form-group">
-        <h4>Type the first few digits...</h4>
-  <div id="imsiSearchDiv">
-  <select id="selectByImsi" class="js-example-basic-multiple" multiple="multiple">
+        <h4 id="modelHeader">Type the first few letters...</h4><br><br>
+  <div id="modelSearchDiv">
+  <select id="selectByModel" class="js-example-basic-multiple" multiple="multiple">
   </select>
   </div>
   </div>
@@ -111,7 +111,7 @@
     </div>
       </div>
       <div class="modal-footer">
-      <button id="imsiSearch" type="button" class="btn btn-default searchButton" data-dismiss="modal">Search</button>
+      <button id="modelSearch" type="button" class="btn btn-default searchButton" data-dismiss="modal">Search</button>
         <button id="modalClose2" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

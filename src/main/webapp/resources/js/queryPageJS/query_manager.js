@@ -9,9 +9,9 @@ $(document).ready(function() {
 		loadDateModal();
 	});
 	
-	$('#allFailuresForImsi').on('click', function(){
-		$('#imsiFailuresModal').modal('show');
-		$('#modalTitle2').html('IMSI Query');
+	$('#allFailuresForModel').on('click', function(){
+		$('#modelFailuresModal').modal('show');
+		$('#modalTitle2').html('Models Query');
 	})
 	
 });
