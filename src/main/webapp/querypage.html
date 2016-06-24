@@ -35,13 +35,17 @@
 	src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
 	<script
 	src="resources/js/queryPageJS/get_failures_by_model.js"></script>
+		<script
+	src="resources/js/queryPageJS/datatable_styling.js"></script>
 	<script
 	src="resources/js/queryPageJS/jquery.dataTables.js"></script>
 </head>
 <body>
-
+<h2 id="queryHeader2"></h2>
+ <div id="buttonDiv"></div>
 <div id="container" class="container">
    <h2 id="queryHeader">Query Selector</h2>
+  
   <div id="dropUpQuery" class="dropup">
     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Query Selection
     <span class="caret"></span></button>
@@ -100,13 +104,17 @@
       </div>
       <div class="modal-body">
   		 <div class="container">
+  		     <h4 id="modelHeader">Enter device you wish to query</h4>
     <div class="row">
+
     </div>
+    
         <label for="id_label_multiple"> </label>
+        
         <div class="form-group">
-        <h4 id="modelHeader">Type the first few letters...</h4><br><br>
+        
   <div id="modelSearchDiv">
-  <select id="selectByModel" class="js-example-basic-multiple" multiple="multiple">
+  <select id="selectByModel" class="js-example-basic-multiple select2-results" multiple="multiple">
   </select>
   </div>
   </div>
@@ -121,9 +129,7 @@
   </div>
 </div>
 <div id="tableDiv">
-					
 						
-					
 				</div>
 </body>
 </html>

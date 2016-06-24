@@ -10,9 +10,10 @@ var findAllUniqueModelFailures = function(tacNumber) {
 
 var loadUniqueModelFailuresTable = function(data){
 	 $('#querysTable').DataTable( {
-	    	
+		 pagingType: "full_numbers",
+		 
 	        data: data,
-
+	        
 	        columns: [
 
 	            { data: "date_time",
@@ -53,7 +54,8 @@ var loadUniqueModelFailuresTable = function(data){
 	            
 	            { data: "ne_version"}
 	           
-	        ]
+	        ],
+	        
 
 	    } );
 	};

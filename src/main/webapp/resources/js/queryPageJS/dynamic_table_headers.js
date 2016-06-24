@@ -21,7 +21,7 @@ var imsiWithDatesQuery = function(){
 }
 
 var modelQuery = function(){
-	table = '<table class="table table-striped table-hover table-condensed animated fadeInDown"'
+	table = '<div id="tableOuterDiv"><table class="display table table-striped table-hover table-condensed animated fadeInDown"'
 		+ 'id="querysTable">'
 		+ '<thead>'
 						+'<tr>'
@@ -41,9 +41,9 @@ var modelQuery = function(){
 						+	'<th align="left" class="col-sm-2">NE Version</th>'
 					+	'</tr>'
 				+	'</thead>'
-				+'</table>';
+				+'</table></div>';
 	$('#tableDiv').html(table);
 	$('#tableDiv').hide();
 	$('#tableDiv').addClass('animated fadeInDown');
-	$('#tableDiv').show();
+	$('#tableDiv').show();	
 }

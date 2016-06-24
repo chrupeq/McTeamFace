@@ -37,6 +37,7 @@
 
 #queryHeader2 {
 	font-family: thin font;
+	margin-left: 10%;
 }
 
 #tableDiv {
@@ -46,4 +47,33 @@
 	top: 5%;
 }
 
-#modelHeader {}
+#modelHeader {
+	font-family: 'thin font';
+	margin-right: 25%;
+	margin-bottom: 5%;
+}
+
+table#querysTable tr:hover {
+	background-color: #white;
+}
+
+table#querysTable tr.even td {
+    background-color: white;
+}
+
+table#querysTable tr.odd td {
+    background-color: #e1eaea;
+}
+
+#backToHomeButton {
+	font-family: thin font;
+	
+}
+
+#buttonDiv{
+	margin-left: 83%;
+}
+
+.bigdrop {
+    height: 600px !important;
+}
