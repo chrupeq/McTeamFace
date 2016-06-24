@@ -1,24 +1,22 @@
 $(document).ready(function() {
-	findAllImsis();
+	findAllUniqueModels();
 	$(".js-example-basic-multiple").select2();
 	});
 
-var rootUrl = "http://localhost:8080/GroupProject2016/rest/unique_model";
-var findAllImsis = function() {
+var rootUrlSelect = "http://localhost:8080/GroupProject2016/rest/unique_model";
+var findAllUniqueModels = function() {
 	$.ajax({
 		type : 'GET',
-		url : rootUrl,
+		url : rootUrlSelect,
 		dataType : "json",
 		success : loadSearchParams
 	});
 };
 
-var htmlOptionsForSearch = "";
 var loadSearchParams = function(data){
-	
 	$.each(data, function(index, element) {
 		$('#selectByModel').append($("<option></option>")
-		                    .attr("value",element[0] + ' ' + element[1])
+		                    .attr("value",element[2])
 		                    .text(element[0] + ' ' + element[1]));
 		
 	});

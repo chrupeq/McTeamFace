@@ -40,11 +40,10 @@
 }
 
 #tableDiv {
-	position: fixed;
+	margin: auto;
+	margin-top: 5%;
+	width: 80%;
 	top: 5%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-family: thin font;
 }
 
 #modelHeader {}

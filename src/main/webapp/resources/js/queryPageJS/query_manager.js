@@ -12,6 +12,11 @@ $(document).ready(function() {
 	$('#allFailuresForModel').on('click', function(){
 		$('#modelFailuresModal').modal('show');
 		$('#modalTitle2').html('Models Query');
+		$('#selectByModel').on('change', function() {
+			  var value = $(this).val();
+			  $('#container').addClass('animated fadeOutUp');
+			  $('#modelFailuresModal').modal('hide');
+			});
 	})
 	
 });

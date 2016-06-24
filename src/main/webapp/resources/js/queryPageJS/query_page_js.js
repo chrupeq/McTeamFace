@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
 	$('#imsiWithDates').on("click", function(){
 		$('#dateQueryModal').removeClass('animated bounceOut');
 		$('#dateQueryModal').addClass('animated bounceIn');
@@ -20,10 +21,13 @@ $(document).ready(function() {
 		changeContainerCSS('imsiDates');
 	});
 	
-	$('#modelSearch').on('click', function(){
+	$('#selectByModel').change(function(){
 		$('#container').addClass('animated fadeOutUp');
 		changeContainerCSS('modelsQuery');
-	});
+        var selectedTac = $('#selectByModel option:selected').val();
+        findAllUniqueModelFailures(selectedTac);
+        
+})
 });
 
 var changeContainerCSS = function(whichTable){
