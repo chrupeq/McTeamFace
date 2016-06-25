@@ -36,6 +36,9 @@ public class UniqueModelFailuresRestService {
 		try{
 			System.out.println(tacNumber);
 			List<Base_data> modelList = UniqueModelFailuresDao.getAllUniqueModels(tacNumber);
+			if(modelList.isEmpty()) {
+				return Response.status(404).build();
+			}
 			return Response.status(200).entity(modelList).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
