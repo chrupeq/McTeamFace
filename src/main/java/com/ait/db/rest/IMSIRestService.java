@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.model.IMSI;
 
-@Path("/unique_imsi")
+@Path("/imsi")
 @Stateless
 @LocalBean
 public class IMSIRestService {
@@ -28,6 +28,7 @@ public class IMSIRestService {
 	private EntityManager entityManager;
 	
 	@GET
+	@Path("/get_unique")
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getAllNetworkEntityEntiries() {
 		try{
