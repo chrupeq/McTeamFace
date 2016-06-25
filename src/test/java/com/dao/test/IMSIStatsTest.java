@@ -27,6 +27,7 @@ public class IMSIStatsTest {
 	private List<? extends NetworkEntity> baseDataList;
 	private IMSIStatsProducer imsiStatsProducer;
 	private Map<BigInteger, Integer> numOfFailures;
+	private Map<BigInteger, Integer> durationOfFailures;
 	private BigInteger testIMSI;
 	
 	@Deployment
@@ -74,6 +75,24 @@ public class IMSIStatsTest {
 		
 		testIMSI = new BigInteger("100000000000000");
 		assertFalse(numOfFailures.containsKey(testIMSI));	
+	}
+	@Test
+	public void testTotalFailureTimeCalculation() {
+		durationOfFailures = imsiStatsProducer.calculateTotalFailureTime();
+		assertFalse(durationOfFailures.isEmpty());
+		assertEquals(3, durationOfFailures.size());
+		
+		testIMSI = new BigInteger("344930000000011");
+		assertTrue(durationOfFailures.containsKey(testIMSI));
+		assertEquals(new Integer(4000), durationOfFailures.get(testIMSI));
+		
+		testIMSI = new BigInteger("310560000000012");
+		assertTrue(durationOfFailures.containsKey(testIMSI));
+		assertEquals(new Integer(3000), durationOfFailures.get(testIMSI));
+		
+		testIMSI = new BigInteger("240210000000013");
+		assertTrue(durationOfFailures.containsKey(testIMSI));
+		assertEquals(new Integer(3000), durationOfFailures.get(testIMSI));
 	}
 	
 	
