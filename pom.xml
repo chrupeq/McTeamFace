@@ -246,6 +246,14 @@
 			<version>1.0.0.Alpha8</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.jboss.arquillian.extension/arquillian-persistence-impl -->
+		<dependency>
+    		<groupId>org.jboss.arquillian.extension</groupId>
+    		<artifactId>arquillian-persistence-impl</artifactId>
+    		<version>1.0.0.Alpha6</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>

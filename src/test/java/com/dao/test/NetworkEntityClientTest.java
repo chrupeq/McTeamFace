@@ -43,7 +43,8 @@ public class NetworkEntityClientTest {
 	
 	@Deployment(testable = false)
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Base_data.class.getPackage())
+        return ShrinkWrap.create(WebArchive.class, "test.war")
+        		.addPackage(Base_data.class.getPackage())
         		.addPackage(NetworkEntityDAO.class.getPackage())
         		.addClasses(NetworkEntityRestService.class, JaxRsActivator.class)
         		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
@@ -93,13 +94,13 @@ public class NetworkEntityClientTest {
 	@InSequence(4)
 	public void testPostFailureClass() throws Exception {
 		// insert into the failure_class table
-		jsonData = "{\"failure_class\":\"1\", \"description\":\"EMERGENCY\"}";
+		jsonData = "{\"failure_class\":\"2\", \"description\":\"MT ACCESS\"}";
 		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/failure_class");
 		request.accept("application/json").body(MediaType.APPLICATION_JSON, jsonData);
 		responseObj = request.post(String.class);
 		assertEquals(201, responseObj.getStatus());
 		String response = responseObj.getEntity().trim();
-		assertEquals("{\"failure_class\":1,\"description\":\"EMERGENCY\"}", response);
+		assertEquals("{\"failure_class\":2,\"description\":\"MT ACCESS\"}", response);
 	}
 	@Test
 	@InSequence(5)

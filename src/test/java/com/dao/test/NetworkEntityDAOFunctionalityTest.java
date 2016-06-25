@@ -12,6 +12,7 @@ import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.persistence.ApplyScriptBefore;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -30,25 +31,24 @@ import com.ait.db.model.User_equipment;
 import com.ait.db.rest.JaxRsActivator;
 
 @RunWith(Arquillian.class)
+//@ApplyScriptBefore("resources/import.sql")
 public class NetworkEntityDAOFunctionalityTest {
 	@Deployment
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Base_data.class.getPackage())
 				.addPackage(NetworkEntityDAO.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml").addAsResource("import.sql")
+				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
 	            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
-//		public static Archive<?> createDeployment() {
-//		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Base_data.class.getPackage())
-//				.addPackage(NetworkEntityDAO.class.getPackage())
-//				.addPackage(JaxRsActivator.class.getPackage())
-//				.addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-//	            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-//	}
+
 	@EJB
 	NetworkEntityDAO networkEntityDAO;
+	
+	
 	@Test
+//	@ApplyScriptBefore("scripts/import2.sql")
 	public void testBaseDataNetworkEntityDAO() {
 		List<? extends NetworkEntity> baseDataList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA);
 		assertFalse(baseDataList.isEmpty());
