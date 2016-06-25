@@ -10,6 +10,7 @@ var imsiWithDatesQuery = function(){
 		+ '<thead>'
 						+'<tr>'
 						+	'<th align="left">Report ID.</th>'
+						+	'<th align="left">Date/Time</th>'
 						+	'<th align="left" class="col-sm-2">IMSI</th>'
 					+	'</tr>'
 				+	'</thead>'
