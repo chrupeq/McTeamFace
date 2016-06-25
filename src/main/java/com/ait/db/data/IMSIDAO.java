@@ -28,21 +28,14 @@ public class IMSIDAO {
 		return distinctIMSIs;
     }
 	
-	public List<Base_data> getIMSIsByDates(Date date1, Date date2){
-		Timestamp t = new Timestamp(date1.getTime());
-		Timestamp u = new Timestamp(date2.getTime());
-		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE date_time BETWEEN :date1 AND :date2");
-		System.out.println(date1.getTime());
-		System.out.println(date2.getTime());
-		query.setParameter("date1", t);
-		query.setParameter("date2", u);
-		System.out.println(date1 + " " + date2);
+	public List<Base_data> getIMSIsByDates(String date1, String date2){
+
+		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE date_time BETWEEN '" + date1 + "' AND '" + date2 + "'");
+//		query.setParameter("date1", t);
+//		query.setParameter("date2", u);
 		
 		
 		List<Base_data> iMSIsBetweenDates = query.getResultList();
-		for(Base_data i : iMSIsBetweenDates){
-			System.out.println(i.getReport_id());
-		}
 		System.out.println(iMSIsBetweenDates.size());
 		return iMSIsBetweenDates;
 	}

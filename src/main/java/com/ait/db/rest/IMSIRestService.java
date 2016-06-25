@@ -76,20 +76,10 @@ public class IMSIRestService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.UK);
 		String firstDate = date1.substring(6,10) + "/" + date1.substring(3, 5) + "/" + date1.substring(0,2) + " " + date1.substring(11,16);
 		String secondDate = date2.substring(6,10) + "/" + date2.substring(3, 5) + "/" + date2.substring(0,2) + " " + date2.substring(11,16);
-		System.out.println(firstDate);
-		System.out.println(secondDate);
+		secondDate = secondDate + ":00";
+		firstDate = firstDate + ":00";
 		try{
-		System.out.println(sdf.parse(firstDate));
-		System.out.println(sdf.parse(secondDate));
-		Calendar c = Calendar.getInstance();
-		c.setTime(sdf.parse(firstDate));
-		Calendar c2 = Calendar.getInstance();
-		c2.setTime(sdf.parse(firstDate));
-		
-		Date date = new Date(c.getTimeInMillis());
-		Date date3 = new Date(c2.getTimeInMillis());
-
-		List<Base_data> imsiList = IMSIDao.getIMSIsByDates(date, date3);
+		List<Base_data> imsiList = IMSIDao.getIMSIsByDates(firstDate, secondDate);
 		if(imsiList.isEmpty()) {
 			return Response.status(404).build();
 		}

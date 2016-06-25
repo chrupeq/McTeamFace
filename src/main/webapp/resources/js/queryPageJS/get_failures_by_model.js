@@ -61,6 +61,7 @@ var loadUniqueModelFailuresTable = function(data){
 	};
 	
 	var loadImsiTable = function(data){
+		alert("ere");
 		var querysTable = $('#querysTable').DataTable( {
 			 pagingType: "full_numbers",
 			 
