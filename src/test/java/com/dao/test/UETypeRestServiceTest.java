@@ -21,29 +21,51 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.ait.db.data.IMSIDAO;
+import com.ait.db.data.UETypeDAO;
+import com.ait.db.model.IMSI;
+import com.ait.db.model.User_equipment;
+import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
+import com.ait.db.rest.UETypeRestService;
 
 @RunWith(Arquillian.class)
 @RunAsClient
 public class UETypeRestServiceTest {
 
+	private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value().substring(1);
 	private ClientRequest request;
-	@Deployment
+	private ClientResponse<String> responseObj;
+	private String jsonData;
+	
+	@Deployment(testable=false)
 	public static Archive<?> createDeployment() {
-		WebArchive archive = ShrinkWrap.create(WebArchive.class).addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-		archive.addClass(JaxRsActivator.class);
-		return archive;
+		return ShrinkWrap.create(WebArchive.class, "test.war")
+        		.addPackage(User_equipment.class.getPackage())
+        		.addPackage(UETypeDAO.class.getPackage())
+        		.addClasses(UETypeRestService.class, JaxRsActivator.class)
+        		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
+                .addAsResource("import.sql")
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
+	@ArquillianResource
+    URL deploymentUrl;
+	
 	
 	@Test 
 	public void getAllManufacturersAndModelsTest() throws Exception {
-		request = new ClientRequest("http://localhost:8080/GroupProject2016/rest/unique_model");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/unique_model");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
         ClientResponse<String> responseObj = request.get(String.class);
         assertEquals(200, responseObj.getStatus());
-        System.out.println("GET /unique_model HTTP/get_all/ .1\n\n" + responseObj.getEntity());
         String response = responseObj.getEntity().trim();
         System.out.println("The response is: " + response);
+        assertEquals("[[\"Alcatel Radiotelephone (LAVAL)\","
+        		+ "\"Dirland Miniphone\",33000253],"
+        		+ "[\"Mitsubishi\",\"G410\",100100],"
+        		+ "[\"Siemens\",\"A53\",100200],"
+        		+ "[\"S.A.R.L. B  & B International\",\"VEA3\",21060800],"
+        		+ "[\"Alcatel Radiotelephone (LAVAL)\",\"9109 PA\",33000153]]", response);
 	}
 }
