@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	
+
 });
 
 var table = "";
@@ -21,29 +21,65 @@ var imsiWithDatesQuery = function(){
 }
 
 var modelQuery = function(){
-	table = '<div id="tableOuterDiv"><table class="display table table-striped table-hover table-condensed animated fadeInDown"'
-		+ 'id="querysTable">'
-		+ '<thead>'
-						+'<tr>'
-						+	'<th align="left">Date/Time</th>'
-						+	'<th align="left" class="col-sm-2">Cause Code</th>'
-						+	'<th align="left" class="col-sm-2">Event ID</th>'
-						+	'<th align="left" class="col-sm-2">Description</th>'
-						+	'<th align="left" class="col-sm-2">Failure Class</th>'
-						+	'<th align="left" class="col-sm-2">Failure Description</th>'
-						+	'<th align="left" class="col-sm-2">Manufacturer</th>'
-						+	'<th align="left" class="col-sm-2">Model</th>'
-						+	'<th align="left" class="col-sm-2">Access Capability</th>'
-						+	'<th align="left" class="col-sm-2">OS</th>'
-						+	'<th align="left" class="col-sm-2">Country</th>'
-						+	'<th align="left" class="col-sm-2">Operator</th>'
-						+	'<th align="left" class="col-sm-2">Cell ID</th>'
-						+	'<th align="left" class="col-sm-2">NE Version</th>'
-					+	'</tr>'
-				+	'</thead>'
-				+'</table></div>';
-	$('#tableDiv').html(table);
-	$('#tableDiv').hide();
-	$('#tableDiv').addClass('animated fadeInDown');
-	$('#tableDiv').show();	
+	renderModelQueryTable();
 }
+	TableView = Backbone.View.extend({
+		render:function(){
+			var template = _.template($('#model_data_table').html(), {});
+			$(this.el).html(template);
+			return this;
+		}
+	});
+
+
+var renderModelQueryTable = function(){
+	var tableView = new TableView();
+	$('#tableDiv').html(tableView.render().el);
+}
+
+var renderMainContainer = function(){
+	var mainView = new MainView();
+	$('#homeDiv').html(mainView.render().el);
+}
+
+var replaceContainer = function(){
+	renderMainContainer();
+	$('#container').removeClass('animated fadeOutUp');
+//	$('#homeDiv').addClass('animated bounceIn');
+}
+	MainView = Backbone.View.extend({
+		
+		events: {
+			"click #imsiWithDates":function(){
+				$('#dateQueryModal').removeClass('animated bounceOut');
+				$('#dateQueryModal').addClass('animated bounceIn');
+				$('#dateQueryModal').modal('show');
+			},
+			
+	"click #allFailuresForModel":function(){
+		$('#modelFailuresModal').removeClass('animated bounceOut');
+		$('#modelFailuresModal').addClass('animated bounceIn');
+		$('#modelFailuresModal').modal('show');
+		$('#selectByModel').empty();
+		findAllUniqueModels();
+		
+	},
+			"click #modalClose":function(){
+				$('#modelFailuresModal').addClass('animated bounceOut');
+			},
+	"click #modalClose2":function(){
+		$('#modelFailuresModal').addClass('animated bounceOut');
+	},
+			"click #dateSearch":function(){
+				$('#container').addClass('animated fadeOutUp');
+				changeContainerCSS('imsiDates');
+			}
+		},
+		render:function(){
+			alert("here2");
+			var template = _.template($('#main_page_div').html(), {});
+			$(this.el).html(template);
+			this.delegateEvents();
+			return this;
+		}
+	});

@@ -19,6 +19,41 @@
 	
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+<script type="text/template" id="model_data_table">
+<div id="tableOuterDiv"><table class="display table table-striped table-hover table-condensed" id="querysTable">
+<thead>
+<tr>
+<th align="left">Date/Time</th>
+<th align="left" class="col-sm-2">Cause Code</th>
+<th align="left" class="col-sm-2">Event ID</th>
+<th align="left" class="col-sm-2">Description</th>
+<th align="left" class="col-sm-2">Failure Class</th>
+<th align="left" class="col-sm-2">Failure Description</th>
+<th align="left" class="col-sm-2">Manufacturer</th>
+<th align="left" class="col-sm-2">Model</th>
+<th align="left" class="col-sm-2">Access Capability</th>
+<th align="left" class="col-sm-2">OS</th>
+<th align="left" class="col-sm-2">Country</th>
+<th align="left" class="col-sm-2">Operator</th>
+<th align="left" class="col-sm-2">Cell ID</th>
+<th align="left" class="col-sm-2">NE Version</th>
+</tr>
+</thead>
+</table></div>
+</script>
+<script type="text/template" id="main_page_div">
+<h2 id="queryHeader">Query Selector</h2>
+<div id="dropUpQuery" class="dropup">
+<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Query Selection
+<span class="caret"></span></button>
+<ul class="dropdown-menu">
+<li><a id="imsiWithDates" href="#">List of IMSI's for given dates</a></li>
+<li><a id="allFailuresForModel" href="#">List of failure details for given Model</a></li>
+</ul>
+</div>
+</script>
 <script
 	src="resources/js/bootstrap.js"></script>
 	<script
@@ -43,7 +78,8 @@
 <body>
 <h2 id="queryHeader2"></h2>
  <div id="buttonDiv"></div>
-<div id="container" class="container">
+<div id="container" class="container fadeInDown">
+<div id="homeDiv">
    <h2 id="queryHeader">Query Selector</h2>
   
   <div id="dropUpQuery" class="dropup">
@@ -54,6 +90,7 @@
       <li><a id="allFailuresForModel" href="#">List of failure details for given Model</a></li>
     </ul>
   </div>
+</div>
 </div>
 <div id="dateQueryModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -114,7 +151,7 @@
         <div class="form-group">
         
   <div id="modelSearchDiv">
-  <select id="selectByModel" class="js-example-basic-multiple select2-results" multiple="multiple">
+  <select id="selectByModel" class="js-example-basic-single select2-results" multiple="multiple">
   </select>
   </div>
   </div>

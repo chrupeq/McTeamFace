@@ -22,23 +22,23 @@ public class JDBCConnectionManager {
 	
 
 	public void initiateDatabase() {
-//		try {
-//			Class.forName("com.mysql.jdbc.Driver");
-//			String url = "jdbc:mysql://groupproject.cdauegtl908j.eu-west-1.rds.amazonaws.com:3306/ericsson_project";
-//			con = DriverManager.getConnection(url, "grouproject", "grouproject2016");
-//			statement = con.createStatement();
-//		} catch (Exception e) {
-//			System.out.println("Error: Failed to connect to database\n" + e.getMessage());
-//		}
-		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3307/ericsson_project";
-			con = DriverManager.getConnection(url, "root", "admin");
+			String url = "jdbc:mysql://groupproject.cdauegtl908j.eu-west-1.rds.amazonaws.com:3306/ericsson_project";
+			con = DriverManager.getConnection(url, "grouproject", "grouproject2016");
 			statement = con.createStatement();
 		} catch (Exception e) {
 			System.out.println("Error: Failed to connect to database\n" + e.getMessage());
 		}
+		
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver");
+//			String url = "jdbc:mysql://localhost:3307/ericsson_project";
+//			con = DriverManager.getConnection(url, "root", "admin");
+//			statement = con.createStatement();
+//		} catch (Exception e) {
+//			System.out.println("Error: Failed to connect to database\n" + e.getMessage());
+//		}
 	}
 
 	public void closeDatabase() throws SQLException {
