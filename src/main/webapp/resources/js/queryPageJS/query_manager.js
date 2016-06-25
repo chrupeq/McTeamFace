@@ -1,11 +1,13 @@
 $(document).ready(function() {
 	$('#imsiWithDates').on("click", function(){
 		 $('#datetimepicker1').datetimepicker({
-             viewMode: 'years'
+             viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
          });
 		 $('#datetimepicker2').datetimepicker({
-             viewMode: 'years'
-         });
+			 viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+        });
 		loadDateModal();
 	});
 	

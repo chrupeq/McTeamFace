@@ -18,8 +18,9 @@ $(document).ready(function() {
 	
 	$('#dateSearch').on('click', function(){
 		$('#container').addClass('animated fadeOutUp');
-		var firstDate = $('#dateSelection1').val();
-		var secondDate = $('#dateSelection2').val();
+		var firstDate = $("#datetimepicker1").find("input").val();
+		var secondDate = $("#datetimepicker2").find("input").val();
+		findAllImsisForDates(firstDate, secondDate);
 		changeContainerCSS('imsiDates');
 	});
 	
@@ -35,7 +36,6 @@ $(document).ready(function() {
 });
 
 var changeContainerCSS = function(whichTable){
-	alert("here");
 var newDiv = 'Query Selector';
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
 $('#tableDiv').removeClass('animated fadeOutUp');

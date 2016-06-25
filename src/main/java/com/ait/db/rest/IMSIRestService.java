@@ -1,6 +1,11 @@
 package com.ait.db.rest;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -9,7 +14,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -64,8 +71,35 @@ public class IMSIRestService {
 		}
 	}	
 	
-//	@GET
-//	@Path("/get_imsis_between_dates")
-//	@Produces({MediaType.APPLICATION_JSON})
-//	PUBLIC
+	@GET
+	@Path("/get_imsis_between_dates")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getImsisBetweenDates(@QueryParam("date1") String date1, @QueryParam("date2") String date2){
+
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.UK);
+		String firstDate = date1.substring(6,10) + "/" + date1.substring(3, 5) + "/" + date1.substring(0,2) + " " + date1.substring(11,16);
+		String secondDate = date2.substring(6,10) + "/" + date2.substring(3, 5) + "/" + date2.substring(0,2) + " " + date2.substring(11,16);
+		System.out.println(firstDate);
+		System.out.println(secondDate);
+		try{
+		System.out.println(sdf.parse(firstDate));
+		System.out.println(sdf.parse(secondDate));
+		Calendar c = Calendar.getInstance();
+		c.setTime(sdf.parse(firstDate));
+		Calendar c2 = Calendar.getInstance();
+		c2.setTime(sdf.parse(firstDate));
+		
+		Date date = new Date(c.getTimeInMillis());
+		Date date3 = new Date(c2.getTimeInMillis());
+
+		List<Base_data> imsiList = IMSIDao.getIMSIsByDates(date, date3);
+		if(imsiList.isEmpty()) {
+			return Response.status(404).build();
+		}
+		return Response.status(200).entity(imsiList).build();
+		}catch(Exception e){
+			return Response.status(400).build();
+		}
+	}
 }
