@@ -63,8 +63,6 @@ function loginAuthentication() {
 //			verifyAdmin();
 //			document.cookie = "username="+ username +"; expires="+ expiryDate.toUTCString();
 //			window.location = 'http://localhost:8080/GroupProject2016/home.html';
-			
-
 			$("#errorMessage").css("display", "inline");
 			return false;
 	};
