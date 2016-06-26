@@ -9,7 +9,7 @@ var findAllUniqueModelFailures = function(tacNumber) {
 };
 
 var loadUniqueModelFailuresTable = function(data){
-	 $('#querysTable').DataTable( {
+	var querysTable = $('#querysTable').DataTable( {
 		 pagingType: "full_numbers",
 		 
 	        data: data,

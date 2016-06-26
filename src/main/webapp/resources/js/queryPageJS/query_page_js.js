@@ -33,13 +33,12 @@ $(document).ready(function() {
 });
 
 var changeContainerCSS = function(whichTable){
-	
-	$('#container').remove();
-	
-	
+	alert("here");
 var newDiv = 'Query Selector';
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
-
+$('#tableDiv').removeClass('animated fadeOutUp');
+$('#queryHeader2').removeClass('animated fadeOutUp');
+$('#buttonDiv').removeClass('animated fadeOutUp');
 $('#queryHeader2').html(newDiv);
 $('#queryHeader2').hide();
 $('#queryHeader2').addClass('animated fadeInDown');
@@ -49,8 +48,13 @@ $('#buttonDiv').hide();
 $('#buttonDiv').addClass('animated fadeInDown');
 $('#buttonDiv').show();
 
-$('#backToHomeButton').on('click', function(){	
-	refreshPage();
+$('#backToHomeButton').on('click', function(){
+	$('#tableDiv').removeClass('animated fadeInDown');
+	$('#tableDiv').addClass('animated fadeOutUp');
+	$('#queryHeader2').addClass('animated fadeOutUp');
+	$('#buttonDiv').addClass('animated fadeOutUp');
+	$('#container').removeClass('animated fadeOutUp');
+	replaceContainer();
 });
 
 if(whichTable == 'imsiDates'){
@@ -59,16 +63,5 @@ imsiWithDatesQuery();
 if(whichTable == 'modelsQuery'){
 	modelQuery();
 }
-	
-}
-
-var refreshPage = function(){
-	$('#querysTable').addClass('animated fadeOutUp');
-	$('#queryHeader2').addClass('animated fadeOutUp');
-	$('#backToHomeButton').addClass('animated fadeOutUp');
-	
-	location.reload();
-	
-	
 	
 }
