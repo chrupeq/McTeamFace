@@ -2,6 +2,10 @@ var rootUrlUsers="http://localhost:8080/GroupProject2016/rest/users";
 
 $(document).ready(function() {
 	displayError();
+	$("#button").on("click", function(){
+		getDetailsFromUser();
+		return false;
+	});
 });
 
 	var displayError = function(){
@@ -9,14 +13,6 @@ $(document).ready(function() {
 		return false;
 	}
 	
-
-$(document).on("click", "loginButton", function(){
-	getDetailsFromUser();
-	
-	return false;
-});
-	
-
 var verifyAdmin = function() {
 	console.log("verify admin");
 	
@@ -43,8 +39,13 @@ var getDetailsFromUser = function() {
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
 		success: function(data, textStatus, xhr){
+			alert("here");
+			alert(data);
+			document.cookie = 'sessionId="'+ data +'"';
+			alert(document.cookie);
 			if(data == 200){
 				window.location.href = "http://localhost:8080/GroupProject2016/home.html";
+				
 			}else{
 				loginAuthentication();
 			}
