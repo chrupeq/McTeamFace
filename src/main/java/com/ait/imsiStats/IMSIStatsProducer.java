@@ -26,7 +26,7 @@ public class IMSIStatsProducer {
 	public Map<BigInteger, Integer> countTheNumberOfFailures() {
 		numberOfFailures = new HashMap<>();
 		for(NetworkEntity baseData : baseDataList) {
-			if(baseData instanceof Base_data) {
+			if(!baseDataList.isEmpty() && baseData instanceof Base_data) {
 				imsi =  ((Base_data) baseData).getImsi();
 				if(numberOfFailures.containsKey(imsi)) {
 					failuresCounter = numberOfFailures.get(imsi);

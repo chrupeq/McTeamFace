@@ -78,6 +78,25 @@ public class IMSIStatsTest {
 		assertFalse(numOfFailures.containsKey(testIMSI));	
 	}
 	@Test
+	public void numberOfFailuresMapShouldBeEmptyIfBaseDataListIsEmpty() {
+		baseDataList = new ArrayList<Base_data>(0);
+		imsiStatsProducer = new IMSIStatsProducer(baseDataList);
+		numOfFailures = imsiStatsProducer.countTheNumberOfFailures();
+		assertNotNull(numOfFailures);
+		assertTrue(numOfFailures.isEmpty());
+		
+	}
+	@Test
+	public void numberOfFailuresMapShouldBeEmptyIfBaseDataListDoedNotContainBaseDataObjects() {
+		baseDataList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.USER_EQUIPMENT);
+		assertFalse(baseDataList.isEmpty());
+		imsiStatsProducer = new IMSIStatsProducer(baseDataList);
+		numOfFailures = imsiStatsProducer.countTheNumberOfFailures();
+		assertNotNull(numOfFailures);
+		assertTrue(numOfFailures.isEmpty());
+	}
+	
+	@Test
 	public void testTotalFailureTimeCalculation() {
 		durationOfFailures = imsiStatsProducer.calculateTotalFailureTime();
 		assertFalse(durationOfFailures.isEmpty());
