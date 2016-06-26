@@ -5,9 +5,7 @@ import static org.junit.Assert.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
-
 import javax.ejb.EJB;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -17,7 +15,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import com.ait.db.data.CompositePrimaryKeyType;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
@@ -67,7 +64,16 @@ public class IMSIStatsTest {
 		assertTrue(numOfFailures.containsKey(testIMSI));
 		assertEquals(new Integer(4), numOfFailures.get(testIMSI));
 		
+		testIMSI = new BigInteger("310560000000012");
+		assertTrue(numOfFailures.containsKey(testIMSI));
+		assertEquals(new Integer(3), numOfFailures.get(testIMSI));
 		
+		testIMSI = new BigInteger("240210000000013");
+		assertTrue(numOfFailures.containsKey(testIMSI));
+		assertEquals(new Integer(3), numOfFailures.get(testIMSI));
+		
+		testIMSI = new BigInteger("100000000000000");
+		assertFalse(numOfFailures.containsKey(testIMSI));	
 	}
 	
 	

@@ -9,14 +9,14 @@ import com.ait.db.model.Base_data;
 import com.ait.db.model.NetworkEntity;
 
 public class IMSIStatsProducer {
-	private List<Base_data> baseDataList;
+	private List<? extends NetworkEntity> baseDataList;
 	private Map<BigInteger, Integer> numberOfFailures;
 	private int failuresCounter;
 	private BigInteger imsi;
 	
 	@SuppressWarnings("unchecked")
 	public IMSIStatsProducer(List<? extends NetworkEntity> baseDataList) {
-		this.baseDataList = (List<Base_data>) baseDataList;
+		this.baseDataList = baseDataList;
 	}
 	
 	
@@ -25,16 +25,19 @@ public class IMSIStatsProducer {
 	}
 	public Map<BigInteger, Integer> countTheNumberOfFailures() {
 		numberOfFailures = new HashMap<>();
-		for(Base_data baseData : baseDataList) {
-			imsi = baseData.getImsi();
-			if(numberOfFailures.containsKey(imsi)) {
-				failuresCounter = numberOfFailures.get(imsi);
-				failuresCounter++;
-				numberOfFailures.put(imsi, failuresCounter);
+		for(NetworkEntity baseData : baseDataList) {
+			if(baseData instanceof Base_data) {
+				imsi =  ((Base_data) baseData).getImsi();
+				if(numberOfFailures.containsKey(imsi)) {
+					failuresCounter = numberOfFailures.get(imsi);
+					failuresCounter++;
+					numberOfFailures.put(imsi, failuresCounter);
+				} else {
+					numberOfFailures.put(imsi, 1);
+				}	
 			} else {
-				numberOfFailures.put(imsi, 1);
+				return numberOfFailures;
 			}
-			
 		}
 		return numberOfFailures;
 	}
