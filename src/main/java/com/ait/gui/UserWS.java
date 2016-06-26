@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.servlet.http.Cookie;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -16,6 +17,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.ait.db.data.SessionDAO;
+import com.stringgenerator.SessionIdentifierGenerator;
 
 /**
  * @author A00236944
@@ -29,22 +33,22 @@ public class UserWS {
 	@EJB
 	private UsersDAO userDao;
 	
+	@EJB
+	private SessionDAO sessionDao;
+	
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
 	public Response findAllUsers(User userDetails) {
 		
 		List<User> users=userDao.getAllUsers();
-		
+		System.out.println("hello");
 		for(User u : users){
-			System.out.println(userDetails.getUsername().substring(1, userDetails.getUsername().length() - 1));
-			System.out.println(userDetails.getPassword().substring(1, userDetails.getPassword().length() - 1));
 			
-			System.out.println("u: " + u.getUsername());
-			System.out.println("u: " + u.getPassword());
 			if(userDetails.getUsername().substring(1, userDetails.getUsername().length() - 1).equals(u.getUsername()) && userDetails.getPassword().substring(1, userDetails.getPassword().length() - 1).equals(u.getPassword())){
-				System.out.println(" u " + u.getUsername() + " " + u.getPassword());
-				return Response.status(200).entity(200).build();
+				String sessionId = SessionIdentifierGenerator.nextSessionId();
+				sessionDao.addEntry(sessionId, u.getJobTitle(), u.getUsername());
+				return Response.status(200).entity(sessionId).build();
 			}
 		}
 		return Response.status(200).entity(300).build();
