@@ -19,8 +19,8 @@ var buildIMSIStatsTable = function(data) {
 	imsiStatsTable.append(tableHeader);
 	$.each(data, function(index, imsiStat) {
 		var row = '<tr><td>' + imsiStat.imsi + '</td>'
-					+ '<td>' + imsiStat.failureDuration + '</td>'
-					+ '<td>' + imsiStat.numberOfFailures + '</td></tr>';
+					+ '<td>' + imsiStat.numberOfFailures + '</td>'
+					+ '<td>' + imsiStat.failureDuration + '</td></tr>';
 		imsiStatsTable.append(row);	
 	});
 };
