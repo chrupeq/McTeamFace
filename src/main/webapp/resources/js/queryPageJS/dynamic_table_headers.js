@@ -76,7 +76,6 @@ var replaceContainer = function(){
 			}
 		},
 		render:function(){
-			alert("here2");
 			var template = _.template($('#main_page_div').html(), {});
 			$(this.el).html(template);
 			this.delegateEvents();

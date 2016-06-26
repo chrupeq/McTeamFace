@@ -18,6 +18,8 @@ $(document).ready(function() {
 	
 	$('#dateSearch').on('click', function(){
 		$('#container').addClass('animated fadeOutUp');
+		var firstDate = $('#dateSelection1').val();
+		var secondDate = $('#dateSelection2').val();
 		changeContainerCSS('imsiDates');
 	});
 	
