@@ -146,6 +146,36 @@ public class IMSIStatsTest {
 		assertNotNull(imsiStatsList.get(1));
 		assertNotNull(imsiStatsList.get(2));
 	}
+	@Test
+	public void IMSIObjectListShouldBeSorted() {
+		imsiStatsList = imsiStatsProducer.getListOfIMSIStatsObjects();
+		testIMSI = new BigInteger("240210000000013");
+		assertEquals(testIMSI, imsiStatsList.get(0).getImsi());
+		
+		testIMSI = new BigInteger("310560000000012");
+		assertEquals(testIMSI, imsiStatsList.get(1).getImsi());
+		
+		testIMSI = new BigInteger("344930000000011");
+		assertEquals(testIMSI, imsiStatsList.get(2).getImsi());	
+	}
+	@Test
+	public void IMSIOBjectStateShouldBeCorrect() {
+		imsiStatsList = imsiStatsProducer.getListOfIMSIStatsObjects();
+		testIMSI = new BigInteger("240210000000013");
+		assertEquals(testIMSI, imsiStatsList.get(0).getImsi());
+		assertEquals(3, imsiStatsList.get(0).getNumberOfFailures());
+		assertEquals(3000, imsiStatsList.get(0).getFailureDuration());
+		
+		testIMSI = new BigInteger("310560000000012");
+		assertEquals(testIMSI, imsiStatsList.get(1).getImsi());
+		assertEquals(3, imsiStatsList.get(1).getNumberOfFailures());
+		assertEquals(3000, imsiStatsList.get(1).getFailureDuration());
+		
+		testIMSI = new BigInteger("344930000000011");
+		assertEquals(testIMSI, imsiStatsList.get(2).getImsi());
+		assertEquals(4, imsiStatsList.get(2).getNumberOfFailures());
+		assertEquals(4000, imsiStatsList.get(2).getFailureDuration());
+	}
 	@Test 
 	public void testBooleanExpressionInGetIMSIObjectsMethod() {
 		baseDataList = new ArrayList<Base_data>(0);

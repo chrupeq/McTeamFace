@@ -2,6 +2,7 @@ package com.ait.imsiStats;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,10 +83,11 @@ public class IMSIStatsProducer {
 			if(durationOfFailures.containsKey(imsiKey)) {
 				int numberOfFailures = numOfFailures.get(imsiKey);
 				int failureDuration = durationOfFailures.get(imsiKey);
-				IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, failureDuration, numberOfFailures);
+				IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsiKey, failureDuration, numberOfFailures);
 				imsiStatsObjects.add(imsiStats);
 			}
 		}
+		Collections.sort(imsiStatsObjects);
 		return imsiStatsObjects;	
 	}
 }

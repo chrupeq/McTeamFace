@@ -2,7 +2,7 @@ package com.ait.imsiStats;
 
 import java.math.BigInteger;
 
-public class IMSIStats {
+public class IMSIStats implements Comparable<IMSIStats> {
 	private BigInteger imsi;
 	private int failureDuration;
 	private int numberOfFailures;
@@ -21,5 +21,9 @@ public class IMSIStats {
 	}
 	public int getNumberOfFailures() {
 		return numberOfFailures;
+	}
+	@Override
+	public int compareTo(IMSIStats o) {
+		return this.imsi.compareTo(o.imsi);
 	}	
 }
