@@ -61,5 +61,14 @@ public class IMSIRestServiceTest {
         System.out.println("The response is: " + response);
         assertEquals("[344930000000011,240210000000013,310560000000012]", response);
 	}
-
+	@Test
+	public void testGetIMSIsForStats() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("The response is: " + response);
+	}
 }
