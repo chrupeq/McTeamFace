@@ -21,6 +21,7 @@ import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.NetworkEntity;
+import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsProducer;
 
 @RunWith(Arquillian.class)
@@ -30,6 +31,7 @@ public class IMSIStatsTest {
 	private Map<BigInteger, Integer> numOfFailures;
 	private Map<BigInteger, Integer> durationOfFailures;
 	private BigInteger testIMSI;
+	private List<IMSIStats> imsiStatsList;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -131,7 +133,27 @@ public class IMSIStatsTest {
 		assertNotNull(durationOfFailures);
 		assertTrue(durationOfFailures.isEmpty());
 	}
-	
+	@Test
+	public void testIMSIObjectListProducer() {
+		imsiStatsList = imsiStatsProducer.getListOfIMSIStatsObjects();
+		assertNotNull(imsiStatsList);
+		assertEquals(3, imsiStatsList.size());
+	}
+	@Test
+	public void IMSIObjectListShouldNotContainNulls() {
+		imsiStatsList = imsiStatsProducer.getListOfIMSIStatsObjects();
+		assertNotNull(imsiStatsList.get(0));
+		assertNotNull(imsiStatsList.get(1));
+		assertNotNull(imsiStatsList.get(2));
+	}
+	@Test 
+	public void testBooleanExpressionInGetIMSIObjectsMethod() {
+		baseDataList = new ArrayList<Base_data>(0);
+		imsiStatsProducer = new IMSIStatsProducer(baseDataList);
+		imsiStatsList = imsiStatsProducer.getListOfIMSIStatsObjects();
+		assertNotNull(imsiStatsList);
+		assertTrue(imsiStatsList.isEmpty());
+	}
 	
 }
 

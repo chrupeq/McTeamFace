@@ -1,6 +1,7 @@
 package com.ait.imsiStats;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +14,10 @@ public class IMSIStatsProducer {
 	private List<? extends NetworkEntity> baseDataList;
 	private Map<BigInteger, Integer> numberOfFailures;
 	private Map<BigInteger, Integer> durationOfFailures;
+	private Set<BigInteger> imsiKeySet;
 	private int failuresCounter;
 	private BigInteger imsi;
 	
-	@SuppressWarnings("unchecked")
 	public IMSIStatsProducer(List<? extends NetworkEntity> baseDataList) {
 		this.baseDataList = baseDataList;
 	}
@@ -45,9 +46,9 @@ public class IMSIStatsProducer {
 		Map<BigInteger, Integer> numOfFailures = countTheNumberOfFailures();
 		durationOfFailures = new HashMap<>();
 		if(!numOfFailures.isEmpty()) {
-			Set<BigInteger> imsiKeys = numOfFailures.keySet();
+			imsiKeySet = numOfFailures.keySet();
 			int failureDuration = 0;
-			for(BigInteger imsiKey : imsiKeys) {
+			for(BigInteger imsiKey : imsiKeySet) {
 				for(NetworkEntity baseData : baseDataList) {
 					if(baseData instanceof Base_data) {
 						imsi =  ((Base_data) baseData).getImsi();
@@ -68,6 +69,23 @@ public class IMSIStatsProducer {
 			return durationOfFailures;
 		}	
 	}
-	
-	
+	public List<IMSIStats> getListOfIMSIStatsObjects() {
+		Map<BigInteger, Integer> numOfFailures = countTheNumberOfFailures();
+		Map<BigInteger, Integer> durationOfFailures = calculateTotalFailureTime();
+		
+		if(numOfFailures.isEmpty() || durationOfFailures.isEmpty()) {
+			return new ArrayList<IMSIStats>();
+		} 
+		imsiKeySet = numOfFailures.keySet();
+		List<IMSIStats> imsiStatsObjects = new ArrayList<IMSIStats>();
+		for(BigInteger imsiKey : imsiKeySet) {
+			if(durationOfFailures.containsKey(imsiKey)) {
+				int numberOfFailures = numOfFailures.get(imsiKey);
+				int failureDuration = durationOfFailures.get(imsiKey);
+				IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, failureDuration, numberOfFailures);
+				imsiStatsObjects.add(imsiStats);
+			}
+		}
+		return imsiStatsObjects;	
+	}
 }
