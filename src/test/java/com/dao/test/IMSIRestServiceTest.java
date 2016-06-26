@@ -27,6 +27,7 @@ import com.ait.db.model.IMSI;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
 import com.ait.db.rest.NetworkEntityRestService;
+import com.ait.imsiStats.IMSIStatsProducer;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -41,6 +42,7 @@ public class IMSIRestServiceTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
         		.addPackage(IMSI.class.getPackage())
+        		.addPackage(IMSIStatsProducer.class.getPackage())
         		.addPackage(IMSIDAO.class.getPackage())
         		.addClasses(IMSIRestService.class, JaxRsActivator.class)
         		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
@@ -70,5 +72,11 @@ public class IMSIRestServiceTest {
         assertEquals(200, responseObj.getStatus());
         String response = responseObj.getEntity().trim();
         System.out.println("The response is: " + response);
+        assertEquals("[{\"imsi\":240210000000013,"
+        		+ "\"failureDuration\":3000,\"numberOfFailures\":3}"
+        		+ ",{\"imsi\":310560000000012,\"failureDuration\":3000,"
+        		+ "\"numberOfFailures\":3},{\"imsi\":344930000000011,"
+        		+ "\"failureDuration\":4000,\"numberOfFailures\":4}]", 
+        response);
 	}
 }

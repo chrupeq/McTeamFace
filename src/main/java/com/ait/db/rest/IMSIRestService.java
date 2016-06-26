@@ -19,6 +19,8 @@ import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.IMSI;
 import com.ait.db.model.NetworkEntity;
+import com.ait.imsiStats.IMSIStats;
+import com.ait.imsiStats.IMSIStatsProducer;
 
 @Path("/imsi")
 @Stateless
@@ -54,7 +56,9 @@ public class IMSIRestService {
 			if(baseDataList.isEmpty()) {
 				return Response.status(404).build();
 			}
-			return Response.status(200).entity(baseDataList).build();
+			IMSIStatsProducer imsiStatsProducer = new IMSIStatsProducer(baseDataList);
+			List<IMSIStats> imsiStats = imsiStatsProducer.getListOfIMSIStatsObjects();
+			return Response.status(200).entity(imsiStats).build();
 		} catch(Exception e) {
 			return Response.status(404).build();
 		}
