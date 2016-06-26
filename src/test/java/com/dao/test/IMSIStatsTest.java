@@ -3,6 +3,7 @@ package com.dao.test;
 import static org.junit.Assert.*;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -93,6 +94,23 @@ public class IMSIStatsTest {
 		testIMSI = new BigInteger("240210000000013");
 		assertTrue(durationOfFailures.containsKey(testIMSI));
 		assertEquals(new Integer(3000), durationOfFailures.get(testIMSI));
+	}
+	@Test
+	public void shouldReturnAnEmptyMapIfFailureMapEmpty() {
+		baseDataList = new ArrayList<Base_data>(0);
+		imsiStatsProducer = new IMSIStatsProducer(baseDataList);
+		durationOfFailures = imsiStatsProducer.calculateTotalFailureTime();
+		assertNotNull(durationOfFailures);
+		assertTrue(durationOfFailures.isEmpty());
+	}
+	@Test
+	public void shouldReturnAnEmptyMapIfBaseDataListDoesNotContainBaseDataObjects() {
+		baseDataList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.USER_EQUIPMENT);
+		assertFalse(baseDataList.isEmpty());
+		imsiStatsProducer = new IMSIStatsProducer(baseDataList);
+		durationOfFailures = imsiStatsProducer.calculateTotalFailureTime();
+		assertNotNull(durationOfFailures);
+		assertTrue(durationOfFailures.isEmpty());
 	}
 	
 	
