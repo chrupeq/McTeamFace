@@ -39,10 +39,11 @@ var getDetailsFromUser = function() {
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
 		success: function(data, textStatus, xhr){
-			alert("here");
 			alert(data);
 			document.cookie = 'sessionId="'+ data +'"';
 			alert(document.cookie);
+			alert(data);
+
 			if(data == 200){
 				window.location.href = "http://localhost:8080/GroupProject2016/home.html";
 				
@@ -63,8 +64,6 @@ function loginAuthentication() {
 //			verifyAdmin();
 //			document.cookie = "username="+ username +"; expires="+ expiryDate.toUTCString();
 //			window.location = 'http://localhost:8080/GroupProject2016/home.html';
-			
-
 			$("#errorMessage").css("display", "inline");
 			return false;
 	};

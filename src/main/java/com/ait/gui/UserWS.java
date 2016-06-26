@@ -2,7 +2,6 @@ package com.ait.gui;
 
 import java.util.List;
 
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.EJB;
@@ -16,6 +15,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.ait.db.data.SessionDAO;
+import com.stringgenerator.SessionIdentifierGenerator;
 
 /**
  * @author A00236944
@@ -36,6 +38,10 @@ public class UserWS {
 		return Response.status(200).entity(users).build();
 	}
 	
+
+	@EJB
+	private SessionDAO sessionDao;
+
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findAllUsers() {
@@ -43,6 +49,23 @@ public class UserWS {
 		return Response.status(200).entity(users).build();
 	}
 	
+		@Consumes({ MediaType.APPLICATION_JSON })
+	public Response findAllUsers(User userDetails) {
+
+		List<User> users = userDao.getAllUsers();
+		for (User u : users) {
+
+			if (userDetails.getUsername().substring(1, userDetails.getUsername().length() - 1).equals(u.getUsername())
+					&& userDetails.getPassword().substring(1, userDetails.getPassword().length() - 1)
+							.equals(u.getPassword())) {
+				String sessionId = SessionIdentifierGenerator.nextSessionId();
+				sessionDao.addEntry(sessionId, u.getJobTitle(), u.getUsername());
+				return Response.status(200).entity(sessionId).build();
+			}
+		}
+		return Response.status(200).entity(300).build();
+	}
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
@@ -59,6 +82,16 @@ public class UserWS {
 		return Response.status(201).entity(user).build();
 	}
 
+
+	// @POST
+	// @Produces({ MediaType.APPLICATION_JSON })
+	// @Consumes("application/json")
+	// public Response saveUser(final User user) {
+	// userDao.save(user);
+	// return Response.status(201).entity(user).build();
+	// }
+
+
 	@PUT
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -74,7 +107,5 @@ public class UserWS {
 		userDao.delete(userId);
 		return Response.status(204).build();
 	}
-	
-	//hello
-	
+
 }
