@@ -50,14 +50,6 @@ public class UserIntegrationTest {
 
 	@EJB
 	private UsersDAO userDAO;
-<<<<<<< HEAD
-	
-//	@Test
-//	public void testAAFindAllUsers() {
-//		assertEquals(userWS.findAllUsers().toString(), 200, userWS.findAllUsers().getStatus());
-//	}
-	
-=======
 
 	@Test
 	@InSequence(1)
@@ -75,7 +67,6 @@ public class UserIntegrationTest {
 				response);
 	}
 
->>>>>>> refs/remotes/origin/RuaidhriBranch
 	@Test
 	@InSequence(2)
 	public void shouldGetOneUserInData() throws Exception {
