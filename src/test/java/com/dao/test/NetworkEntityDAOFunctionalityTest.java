@@ -31,14 +31,13 @@ import com.ait.db.model.User_equipment;
 import com.ait.db.rest.JaxRsActivator;
 
 @RunWith(Arquillian.class)
-//@ApplyScriptBefore("resources/import.sql")
 public class NetworkEntityDAOFunctionalityTest {
 	@Deployment
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Base_data.class.getPackage())
 				.addPackage(NetworkEntityDAO.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-				.addAsResource("import.sql")
+//				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
 	            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
@@ -48,11 +47,11 @@ public class NetworkEntityDAOFunctionalityTest {
 	
 	
 	@Test
-//	@ApplyScriptBefore("scripts/import2.sql")
+//	@ApplyScriptBefore("resources/import.sql")
 	public void testBaseDataNetworkEntityDAO() {
 		List<? extends NetworkEntity> baseDataList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA);
 		assertFalse(baseDataList.isEmpty());
-		assertEquals(1, baseDataList.size());
+		assertEquals(10, baseDataList.size());
 		// update
 		Base_data baseData = (Base_data) networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA).get(0);
 		assertEquals(4, baseData.getCell_id());
@@ -66,13 +65,13 @@ public class NetworkEntityDAOFunctionalityTest {
 		assertEquals(6, baseData.getCell_id());
 		// delete 
 		networkEntityDAO.deleteNetworkEntity(baseData);
-		assertTrue(networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA).isEmpty());
+		assertEquals(9, networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA).size());
 	}
 	@Test
 	public void testMccMncNetworkEntity() {
 		List<? extends NetworkEntity> mccMncList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.MCC_MNC);
 		assertFalse(mccMncList.isEmpty());
-		assertEquals(2, mccMncList.size());
+		assertEquals(5, mccMncList.size());
 		// update based on the id
 		assertNotNull(networkEntityDAO.getNetworkEntityById(NetworkEntityType.MCC_MNC, 238, 1));
 		Mcc_mnc mccMnc = (Mcc_mnc) networkEntityDAO.getNetworkEntityById(NetworkEntityType.MCC_MNC, 238, 1);
@@ -94,7 +93,7 @@ public class NetworkEntityDAOFunctionalityTest {
 	public void testEventCauseNetworkEntity() {
 		List<? extends NetworkEntity> eventCauseList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.EVENT_CAUSE);
 		assertFalse(eventCauseList.isEmpty());
-		assertEquals(2, eventCauseList.size());
+		assertEquals(8, eventCauseList.size());
 		// update based on id
 		assertNotNull(networkEntityDAO.getNetworkEntityById(NetworkEntityType.EVENT_CAUSE, 0, 4097));
 		Event_cause eventCause = (Event_cause) networkEntityDAO.getNetworkEntityById(NetworkEntityType.EVENT_CAUSE, 0, 4097);
@@ -116,7 +115,7 @@ public class NetworkEntityDAOFunctionalityTest {
 	public void testFailureClassEntity() {
 		List<? extends NetworkEntity> failureClassList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.FAILURE_CLASS);
 		assertFalse(failureClassList.isEmpty());
-		assertEquals(1, failureClassList.size());
+		assertEquals(3, failureClassList.size());
 		// update based on id
 		assertNotNull(networkEntityDAO.getNetworkEntityById(NetworkEntityType.FAILURE_CLASS, 0));
 		Failure_class failureClass = (Failure_class) networkEntityDAO.getNetworkEntityById(NetworkEntityType.FAILURE_CLASS, 0);
@@ -125,17 +124,17 @@ public class NetworkEntityDAOFunctionalityTest {
 		assertEquals("EMERGENCY", failureClass.getDescription());
 		failureClass.setDescription("NOT SO BAD");
 		networkEntityDAO.updateNetworkEntity(failureClass);
-		failureClass = (Failure_class) networkEntityDAO.getNetworkEntityById(NetworkEntityType.FAILURE_CLASS, 0);
-		assertEquals("NOT SO BAD", failureClass.getDescription());
+		failureClass = (Failure_class) networkEntityDAO.getNetworkEntityById(NetworkEntityType.FAILURE_CLASS, 6);
+		assertEquals("NUCLEAR MELTDOWN", failureClass.getDescription());
 		// delete 
 		networkEntityDAO.deleteNetworkEntity(failureClass);
-		assertNull(networkEntityDAO.getNetworkEntityById(NetworkEntityType.FAILURE_CLASS, 0));
+		assertNull(networkEntityDAO.getNetworkEntityById(NetworkEntityType.FAILURE_CLASS, 6));
 	}
 	@Test
 	public void testUserEquipmentNetworkEntity() {
 		List<? extends NetworkEntity> userEquipment = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.USER_EQUIPMENT);
 		assertNotNull(userEquipment);
-		assertEquals(2, userEquipment.size());
+		assertEquals(5, userEquipment.size());
 		// update based on id
 		assertNotNull(networkEntityDAO.getNetworkEntityById(NetworkEntityType.USER_EQUIPMENT, 100200));
 		User_equipment userEquipmentReference = (User_equipment) networkEntityDAO.getNetworkEntityById(NetworkEntityType.USER_EQUIPMENT, 100200);

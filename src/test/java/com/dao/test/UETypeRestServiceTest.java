@@ -36,7 +36,6 @@ public class UETypeRestServiceTest {
 	private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value().substring(1);
 	private ClientRequest request;
 	private ClientResponse<String> responseObj;
-	private String jsonData;
 	
 	@Deployment(testable=false)
 	public static Archive<?> createDeployment() {
@@ -57,7 +56,7 @@ public class UETypeRestServiceTest {
 		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/unique_model");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
-        ClientResponse<String> responseObj = request.get(String.class);
+		responseObj = request.get(String.class);
         assertEquals(200, responseObj.getStatus());
         String response = responseObj.getEntity().trim();
         System.out.println("The response is: " + response);

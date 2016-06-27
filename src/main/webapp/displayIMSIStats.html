@@ -5,12 +5,18 @@
 <title>IMSI Statistics</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.min.js"></script>
 <script src="resources/js/displayIMSIStats.js"></script>
 </head>
 <body>
 <button type="button" id="imsiStatsButton">View IMSI Statistics</button>
 <h3 id="tableHeader"></h3>
-<table border="1" id="imsiStatsTable">
+<table class="table table-striped table-hover table-condensed" id="imsiStatsTable">
+<tbody> </tbody>
 </table>
 </body>
 </html>

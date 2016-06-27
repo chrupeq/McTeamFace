@@ -14,15 +14,18 @@ var buildIMSIStatsTable = function(data) {
 	$('#imsiStatsButton').hide();
 	var imsiStatsTable = $('#imsiStatsTable');
 	$('#tableHeader').text('IMSI Statistics');
-	var tableHeader = '<tr><th>IMSI</th><th>Number of failures</th>' +
-		'<th>Total duration of failure (in msc)</th><tr>';
+	var tableHeader = '<thead><tr><th>IMSI</th><th>Number of failures</th>' +
+		'<th>Total duration of failure (in msc)</th><tr></thead>';
 	imsiStatsTable.append(tableHeader);
+	var imsiStatsTableBody = $('#imsiStatsTable tbody');
 	$.each(data, function(index, imsiStat) {
 		var row = '<tr><td>' + imsiStat.imsi + '</td>'
 					+ '<td>' + imsiStat.numberOfFailures + '</td>'
 					+ '<td>' + imsiStat.failureDuration + '</td></tr>';
-		imsiStatsTable.append(row);	
+		imsiStatsTableBody.append(row);	
 	});
+	$('#imsiStatsTable').DataTable();
+	$('#imsiStatsTable').show();
 };
 $(document).ready(function(){
 	console.log("imsi stats js script ready!");
