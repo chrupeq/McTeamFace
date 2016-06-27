@@ -5,7 +5,7 @@ $(document).ready(function() {
 var table = "";
 var imsiWithDatesQuery = function(){
 	
-	table = 'table class="table table-striped table-hover table-condensed"'
+	table = '<table class="table table-striped table-hover table-condensed animated fadeInDown"'
 		+ 'id="querysTable">'
 		+ '<thead>'
 						+'<tr>'
@@ -55,6 +55,14 @@ var replaceContainer = function(){
 				$('#dateQueryModal').removeClass('animated bounceOut');
 				$('#dateQueryModal').addClass('animated bounceIn');
 				$('#dateQueryModal').modal('show');
+				 $('#datetimepicker1').datetimepicker({
+		             viewMode: 'years',
+					 format: 'DD/MM/YYYY HH:mm'
+		         });
+				 $('#datetimepicker2').datetimepicker({
+					 viewMode: 'years',
+					 format: 'DD/MM/YYYY HH:mm'
+		        });
 			},
 			
 	"click #allFailuresForModel":function(){
