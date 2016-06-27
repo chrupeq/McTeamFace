@@ -1,8 +1,8 @@
-var rootUrl = "http://localhost:8080/GroupProject2016/rest/unique_model_failures";
+var rootUrlUMF = "http://localhost:8080/GroupProject2016/rest/unique_model_failures";
 var findAllUniqueModelFailures = function(tacNumber) {
 	$.ajax({
 		type : 'GET',
-		url : rootUrl + "/" + tacNumber,
+		url : rootUrlUMF + "/" + tacNumber,
 		dataType : "json",
 		success : loadUniqueModelFailuresTable
 	});

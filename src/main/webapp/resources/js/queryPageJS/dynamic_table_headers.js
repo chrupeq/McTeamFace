@@ -46,9 +46,11 @@ var renderMainContainer = function(){
 var replaceContainer = function(){
 	renderMainContainer();
 	$('#container').removeClass('animated fadeOutUp');
-//	$('#homeDiv').addClass('animated bounceIn');
 }
 	MainView = Backbone.View.extend({
+		initialize: function () {
+			$(".js-example-basic-single").select2();
+		},
 		
 		events: {
 			"click #imsiWithDates":function(){
@@ -64,6 +66,7 @@ var replaceContainer = function(){
 					 format: 'DD/MM/YYYY HH:mm'
 		        });
 			},
+			
 			
 	"click #allFailuresForModel":function(){
 		$('#modelFailuresModal').removeClass('animated bounceOut');
