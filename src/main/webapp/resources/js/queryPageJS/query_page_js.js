@@ -18,8 +18,9 @@ $(document).ready(function() {
 	
 	$('#dateSearch').on('click', function(){
 		$('#container').addClass('animated fadeOutUp');
-		var firstDate = $('#dateSelection1').val();
-		var secondDate = $('#dateSelection2').val();
+		var firstDate = $("#datetimepicker1").find("input").val();
+		var secondDate = $("#datetimepicker2").find("input").val();
+		findAllImsisForDates(firstDate, secondDate);
 		changeContainerCSS('imsiDates');
 	});
 	
@@ -35,8 +36,13 @@ $(document).ready(function() {
 });
 
 var changeContainerCSS = function(whichTable){
-	alert("here");
-var newDiv = 'Query Selector';
+	var newDiv = "";
+	if(whichTable == 'modelsQuery'){
+ newDiv = '<h2>Query Selector<h2><br><h4 style="color: blue;">You are viewing all falures for ' + $("#selectByModel option:selected").text() + '</h4>';
+	}
+	if(whichTable == 'imsiDates'){
+		 newDiv = '<h2>Query Selector<h2><br><h4 style="color: blue;">You are viewing all falures for dates between ' + $("#datetimepicker1").find("input").val() + ' and ' + $("#datetimepicker2").find("input").val() + '</h4>';
+	}
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
 $('#tableDiv').removeClass('animated fadeOutUp');
 $('#queryHeader2').removeClass('animated fadeOutUp');

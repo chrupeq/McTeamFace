@@ -38,7 +38,7 @@ var verifyAdmin = function() {
 var getDetailsFromUser = function() {
 
 	$.ajax ({
-		type: 'POST',
+		type: 'GET',
 		url: rootUrl,
 		dataType: "json",
 		success: function(details){

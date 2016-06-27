@@ -5,11 +5,12 @@ $(document).ready(function() {
 var table = "";
 var imsiWithDatesQuery = function(){
 	
-	table = 'table class="table table-striped table-hover table-condensed"'
+	table = '<table class="table table-striped table-hover table-condensed animated fadeInDown"'
 		+ 'id="querysTable">'
 		+ '<thead>'
 						+'<tr>'
 						+	'<th align="left">Report ID.</th>'
+						+	'<th align="left">Date/Time</th>'
 						+	'<th align="left" class="col-sm-2">IMSI</th>'
 					+	'</tr>'
 				+	'</thead>'
@@ -45,16 +46,27 @@ var renderMainContainer = function(){
 var replaceContainer = function(){
 	renderMainContainer();
 	$('#container').removeClass('animated fadeOutUp');
-//	$('#homeDiv').addClass('animated bounceIn');
 }
 	MainView = Backbone.View.extend({
+		initialize: function () {
+			$(".js-example-basic-single").select2();
+		},
 		
 		events: {
 			"click #imsiWithDates":function(){
 				$('#dateQueryModal').removeClass('animated bounceOut');
 				$('#dateQueryModal').addClass('animated bounceIn');
 				$('#dateQueryModal').modal('show');
+				 $('#datetimepicker1').datetimepicker({
+		             viewMode: 'years',
+					 format: 'DD/MM/YYYY HH:mm'
+		         });
+				 $('#datetimepicker2').datetimepicker({
+					 viewMode: 'years',
+					 format: 'DD/MM/YYYY HH:mm'
+		        });
 			},
+			
 			
 	"click #allFailuresForModel":function(){
 		$('#modelFailuresModal').removeClass('animated bounceOut');

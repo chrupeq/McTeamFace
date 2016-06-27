@@ -1,8 +1,8 @@
-var rootUrl = "http://localhost:8080/GroupProject2016/rest/unique_model_failures";
+var rootUrlUMF = "http://localhost:8080/GroupProject2016/rest/unique_model_failures";
 var findAllUniqueModelFailures = function(tacNumber) {
 	$.ajax({
 		type : 'GET',
-		url : rootUrl + "/" + tacNumber,
+		url : rootUrlUMF + "/" + tacNumber,
 		dataType : "json",
 		success : loadUniqueModelFailuresTable
 	});
@@ -59,4 +59,34 @@ var loadUniqueModelFailuresTable = function(data){
 
 	    } );
 	};
+	
+	var loadImsiTable = function(data){
+		$('#querysTable').DataTable( {
+			 pagingType: "full_numbers",
+			 
+		        data: data,
+		        
+		        columns: [
+		            
+		            { data: "report_id" },
+		            
+		            { data: "date_time",
+		                render: function(data, type, row) {
+		                	var date = new Date(data);
+		                	var day = date.getDate();
+		                	var monthIndex = date.getMonth();
+		                	var year = date.getFullYear();
+		                	var hours = date.getHours();
+		                	var minutes = date.getMinutes();
+		                	return day + '/' + monthIndex + 1 + '/' + year + ' ' + hours + ':' + minutes;
+		                }
+		                },
+
+		            { data: "imsi" }
+		           
+		        ],
+		        
+
+		    } );
+		};
 	
