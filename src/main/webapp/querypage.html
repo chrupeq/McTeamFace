@@ -21,7 +21,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/template" id="model_data_table">
 <div id="tableOuterDiv"><table class="display table table-striped table-hover table-condensed" id="querysTable">
 <thead>
@@ -77,7 +76,8 @@
 	src="resources/js/queryPageJS/jquery.dataTables.js"></script>
 </head>
 <body>
-<h2 id="queryHeader2"></h2>
+<div id="queryHeader2">
+</div>
  <div id="buttonDiv"></div>
 <div id="container" class="container fadeInDown">
 <div id="homeDiv">
@@ -106,7 +106,7 @@
         <div class="form-group">
         <h4>From:</h4>
             <div class='input-group date' id='datetimepicker1'>
-                <input type='text' class="form-control" id="dateSelection1"/>
+                <input type='text' class="form-control" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar">
                     </span>
@@ -115,8 +115,8 @@
         </div>
          <div class="form-group">
           <h4>To:</h4>
-            <div class='input-group date' id='datetimepicker2'>
-                <input type='text' id="dateSelection2" class="form-control" />
+            <div class='input-group date'  data-date-format="mm/dd/yyyy" id='datetimepicker2'>
+                <input type='text' class="form-control" />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar">
                     </span>

@@ -39,10 +39,10 @@ public class UserIntegrationTest {
 	@EJB
 	private UsersDAO userDAO;
 	
-	@Test
-	public void testAAFindAllUsers() {
-		assertEquals(userWS.findAllUsers().toString(), 200, userWS.findAllUsers().getStatus());
-	}
+//	@Test
+//	public void testAAFindAllUsers() {
+//		assertEquals(userWS.findAllUsers().toString(), 200, userWS.findAllUsers().getStatus());
+//	}
 	
 	@Test
 	public void testABFindUserByID() {

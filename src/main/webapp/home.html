@@ -7,35 +7,88 @@
 <link rel="stylesheet" href="resources/form.css" />
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/query_selector_css.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="resources/animate.css">
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+<link rel="stylesheet" href="resources/select2.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+<script type="text/template" id="model_data_table">
+<div id="tableOuterDiv"><table class="display table table-striped table-hover table-condensed" id="querysTable">
+<thead>
+<tr>
+<th align="left">Date/Time</th>
+<th align="left" class="col-sm-2">Cause Code</th>
+<th align="left" class="col-sm-2">Event ID</th>
+<th align="left" class="col-sm-2">Description</th>
+<th align="left" class="col-sm-2">Failure Class</th>
+<th align="left" class="col-sm-2">Failure Description</th>
+<th align="left" class="col-sm-2">Manufacturer</th>
+<th align="left" class="col-sm-2">Model</th>
+<th align="left" class="col-sm-2">Access Capability</th>
+<th align="left" class="col-sm-2">OS</th>
+<th align="left" class="col-sm-2">Country</th>
+<th align="left" class="col-sm-2">Operator</th>
+<th align="left" class="col-sm-2">Cell ID</th>
+<th align="left" class="col-sm-2">NE Version</th>
+</tr>
+</thead>
+</table></div>
+</script>
+<script type="text/template" id="main_page_div">
+<h2 id="queryHeader">Query Selector</h2>
+<div id="dropUpQuery" class="dropup">
+<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Query Selection
+<span class="caret"></span></button>
+<ul class="dropdown-menu">
+<li><a id="imsiWithDates" href="#">List of IMSI's for given dates</a></li>
+<li><a id="allFailuresForModel" href="#">List of failure details for given Model</a></li>
+</ul>
+</div>
+</script>
+<script src="resources/js/bootstrap.js"></script>
+<script src="resources/js/moment.min.js"></script>
+<script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
+<script src="resources/js/queryPageJS/query_manager.js"></script>
+<script src="resources/js/queryPageJS/query_page_js.js"></script>
 <script src="resources/js/home.js"></script>
 <script src="resources/js/main.js"></script>
-<script src="resources/js/base_data_table.js"></script>
-<script src="resources/js/base_data_retrieval_functions.js"></script>
-<script src="resources/js/jquery.dataTables.js"></script>
+<script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script src="resources/js/queryPageJS/select2.full.js"></script>
+<script src="resources/js/queryPageJS/get_failures_by_model.js"></script>
+<script src="resources/js/queryPageJS/datatable_styling.js"></script>
+<script src="resources/js/queryPageJS/jquery.dataTables.js"></script>
 
 
 
 </head>
 <body>
 
-<div id="header">
-	
-	<h1>Base Data</h1>
-	<button id="logoutBtn">Logout</button>
-	
+	<div id="header">
 
-</div>
+		<h1>Base Data</h1>
+		<button id="logoutBtn">Logout</button>
+
+
+	</div>
 
 	<ul class="nav nav-tabs" id="tabs">
 		<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-		<li><a data-toggle="tab" href="#dataset">Data Sets</a></li>
-		<li><a data-toggle="tab" href="#form" id="formTab">Add User Form</a></li>
+		<li><a data-toggle="tab" href="#queryBody">Queries</a></li>
+		<li><a data-toggle="tab" href="#form" id="formTab">Add User
+				Form</a></li>
 		<li><a data-toggle="tab" href="#contactus">Contact Us</a></li>
 		<li><a data-toggle="tab" href="#aboutus">About Us</a></li>
+
 	</ul>
 
 	<div class="tab-content">
@@ -43,8 +96,6 @@
 			<h3>HOME</h3>
 			<p>Some content here</p>
 		</div>
-
-
 		<div id="dataset" class="tab-pane fade">
 			<h3>Data Set</h3>
 			<p>Some content in menu 2.</p>
@@ -74,12 +125,11 @@
 		<div id="form" class="tab-pane fade">
 			<h3>Add New User Form</h3>
 			<form class="form">
-				
+
 				<label for="firstName">First Name</label> <input type="text"
 					id="firstName" name="firstName" class="form-control"
-					placeholder="Enter First Name"></br> 
-					
-				<label for="lastName">Last Name</label> <input type="text" id="lastName" name="lastName"
+					placeholder="Enter First Name"></br> <label for="lastName">Last
+					Name</label> <input type="text" id="lastName" name="lastName"
 					class="form-control" placeholder="Enter Last Name"></br>
 
 				<fieldset class="usernameFormSection">
@@ -123,7 +173,7 @@
 				</div>
 				</br> </br>
 
-				<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
+				<button id="loginButton" type="submit" class="btn btn-primary" id="formButton">Submit</button>
 			</form>
 		</div>
 		<div id="contactus" class="tab-pane fade">
@@ -132,10 +182,110 @@
 		</div>
 		<div id="aboutus" class="tab-pane fade">
 			<h3>About Us</h3>
-			<p>Some content in menu 5.</p>á
+			<p>Some content in menu 5.</p>
+			á
+		</div>
+		<div id="queryBody" class="tab-pane fade in">
+			<div id="queryHeader2"></div>
+			<div id="buttonDiv"></div>
+			<div id="container" class="container fadeInDown">
+				<div id="homeDiv">
+					<h2 id="queryHeader">Query Selector</h2>
+
+					<div id="dropUpQuery" class="dropup">
+						<button class="btn btn-default dropdown-toggle" type="button"
+							data-toggle="dropdown">
+							Query Selection <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a id="imsiWithDates" href="#">List of IMSI's for
+									given dates</a></li>
+							<li><a id="allFailuresForModel" href="#">List of failure
+									details for given Model</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="dateQueryModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 id="modalTitle" class="modal-title"></h4>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<div class="col-sm-6" style="height: 130px;">
+									<div class="form-group">
+										<h4>From:</h4>
+										<div class='input-group date' id='datetimepicker1'>
+											<input type='text' class="form-control" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"> </span>
+											</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<h4>To:</h4>
+										<div class='input-group date' data-date-format="mm/dd/yyyy"
+											id='datetimepicker2'>
+											<input type='text' class="form-control" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"> </span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id="dateSearch" type="button"
+								class="btn btn-default searchButton" data-dismiss="modal">Search</button>
+							<button id="modalClose" type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="modelFailuresModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 id="modalTitle2" class="modal-title"></h4>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<h4 id="modelHeader">Enter device you wish to query</h4>
+								<div class="row"></div>
+
+								<label for="id_label_multiple"> </label>
+
+								<div class="form-group">
+
+									<div id="modelSearchDiv">
+										<select id="selectByModel"
+											class="js-example-basic-single select2-results"
+											multiple="multiple">
+										</select>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id="modalClose2" type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="tableDiv"></div>
 		</div>
 	</div>
 	</br>
 	</br>
+
 </body>
 </html>

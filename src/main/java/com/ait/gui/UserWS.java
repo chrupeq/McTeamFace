@@ -29,18 +29,25 @@ public class UserWS {
 	@EJB
 	private UsersDAO userDao;
 	
-	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getAllUsers() {
-		List<User> users=userDao.getAllUsers();
-		return Response.status(200).entity(users).build();
-	}
-	
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response findAllUsers() {
+	@Consumes({ MediaType.APPLICATION_JSON })
+	public Response findAllUsers(User userDetails) {
+		
 		List<User> users=userDao.getAllUsers();
-		return Response.status(200).entity(users).build();
+		
+		for(User u : users){
+			System.out.println(userDetails.getUsername().substring(1, userDetails.getUsername().length() - 1));
+			System.out.println(userDetails.getPassword().substring(1, userDetails.getPassword().length() - 1));
+			
+			System.out.println("u: " + u.getUsername());
+			System.out.println("u: " + u.getPassword());
+			if(userDetails.getUsername().substring(1, userDetails.getUsername().length() - 1).equals(u.getUsername()) && userDetails.getPassword().substring(1, userDetails.getPassword().length() - 1).equals(u.getPassword())){
+				System.out.println(" u " + u.getUsername() + " " + u.getPassword());
+				return Response.status(200).entity(200).build();
+			}
+		}
+		return Response.status(200).entity(300).build();
 	}
 	
 	@GET
@@ -51,13 +58,13 @@ public class UserWS {
 		return Response.status(200).entity(user).build();
 	}
 	
-	@POST
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Consumes("application/json")
-	public Response saveUser(final User user) {
-		userDao.save(user);
-		return Response.status(201).entity(user).build();
-	}
+//	@POST
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	@Consumes("application/json")
+//	public Response saveUser(final User user) {
+//		userDao.save(user);
+//		return Response.status(201).entity(user).build();
+//	}
 
 	@PUT
 	@Path("/{id}")

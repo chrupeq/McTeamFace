@@ -22,3 +22,12 @@ var loadSearchParams = function(data){
 	});
 }
 
+var rootUrlSelectDates = "http://localhost:8080/GroupProject2016/rest/imsi/get_imsis_between_dates";
+var findAllImsisForDates = function(date1, date2) {
+	$.ajax({
+		type : 'GET',
+		url : rootUrlSelectDates + "?date1=" + date1 + "&date2=" + date2,
+		dataType : "json",
+		success : loadImsiTable
+	});
+};
