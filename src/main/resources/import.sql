@@ -42,3 +42,7 @@ INSERT INTO base_data(date_time, cause_code, event_id, failure_class, ue_type, m
 INSERT INTO base_data(date_time, cause_code, event_id, failure_class, ue_type, market, operator, cell_id, duration, ne_version, imsi, hier3_id, hier32_id, hier321_id) VALUES('2013-01-11 17:17:00', 11, 4106, 1, 33000253, 240, 21, 4, 1000, '11b', 240210000000013, 4809532081614990000, 8226896360947470000, 1150444940909480000)
 INSERT INTO base_data(date_time, cause_code, event_id, failure_class, ue_type, market, operator, cell_id, duration, ne_version, imsi, hier3_id, hier32_id, hier321_id) VALUES('2013-01-11 17:15:00', 13, 4097, 1, 21060800, 344, 930, 4, 1000, '11b', 344930000000011, 4809532081614990000, 8226896360947470000, 1150444940909480000)
 INSERT INTO base_data(date_time, cause_code, event_id, failure_class, ue_type, market, operator, cell_id, duration, ne_version, imsi, hier3_id, hier32_id, hier321_id) VALUES('2013-01-11 17:15:00', NULL, 4097, NULL, 100100, 238, 1, 4, 1000, '11b', 344930000000011, 4809532081614990000, 8226896360947470000, 1150444940909480000)
+-- users table --
+INSERT INTO users(id, firstname, lastname, username, password, job_title) VALUES(1,'Mitja', 'Suncic', 'Suncho', 'nullypointer', 'SE')
+INSERT INTO users(id, firstname, lastname, username, password, job_title) VALUES(2,'Laura', 'Hunt', 'FairyMonkey', 'princess', 'CSR')
+INSERT INTO users(id, firstname, lastname, username, password, job_title) VALUES(3,'Ruaidhri', 'Garrett', 'TheBest', 'TheBestest', 'SA')

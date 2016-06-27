@@ -29,6 +29,7 @@ public class UserWS {
 	@EJB
 	private UsersDAO userDao;
 	
+<<<<<<< HEAD
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -48,6 +49,13 @@ public class UserWS {
 			}
 		}
 		return Response.status(200).entity(300).build();
+=======
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response getAllUsers() {
+		List<User> users=userDao.getAllUsers();
+		return Response.status(200).entity(users).build();
+>>>>>>> refs/remotes/origin/RuaidhriBranch
 	}
 	
 	@GET
