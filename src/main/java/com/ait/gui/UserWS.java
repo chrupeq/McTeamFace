@@ -36,6 +36,13 @@ public class UserWS {
 		return Response.status(200).entity(users).build();
 	}
 	
+	@POST
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response findAllUsers() {
+		List<User> users=userDao.getAllUsers();
+		return Response.status(200).entity(users).build();
+	}
+	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
@@ -67,5 +74,7 @@ public class UserWS {
 		userDao.delete(userId);
 		return Response.status(204).build();
 	}
+	
+	//hello
 	
 }
