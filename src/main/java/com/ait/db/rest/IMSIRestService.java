@@ -1,10 +1,7 @@
 package com.ait.db.rest;
 
 import java.math.BigInteger;
-import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -24,7 +20,7 @@ import javax.ws.rs.core.Response;
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
-import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.NetworkEntity;
 import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsProducer;
@@ -83,7 +79,7 @@ public class IMSIRestService {
 		secondDate = secondDate + ":00";
 		firstDate = firstDate + ":00";
 		try{
-		List<Base_data> imsiList = IMSIDao.getIMSIsByDates(firstDate, secondDate);
+		List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(firstDate, secondDate);
 		if(imsiList.isEmpty()) {
 			return Response.status(404).build();
 		}

@@ -14,6 +14,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithFailuresFactory;
+import com.ait.db.model.IMSIWithValidFailureClasses;
 
 @Stateless
 @LocalBean
@@ -43,15 +45,15 @@ public class IMSIDAO {
 		}
 		return calendarArray;
 	}
-	public List<Base_data> getIMSIsByDates(String date1, String date2) throws ParseException{
+	public List<IMSIWithValidFailureClasses> getIMSIsByDates(String date1, String date2) throws ParseException{
 		Calendar[] dateArray = parseStringIntoCalendarObject(date1, date2);
 		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE i.date_time BETWEEN :startDate AND :endDate");
 		query.setParameter("startDate", dateArray[0]);
 		query.setParameter("endDate", dateArray[1]);
 		
-		List<Base_data> iMSIsBetweenDates = query.getResultList();
-		System.out.println(iMSIsBetweenDates.size());
-		return iMSIsBetweenDates;
+		List<Base_data> IMSIsBetweenDates = query.getResultList();
+		List<IMSIWithValidFailureClasses> imsiWithValidFailureClasses = IMSIWithFailuresFactory.getImsiFailureClassList(IMSIsBetweenDates);
+		return imsiWithValidFailureClasses;
 	}
 	
 }

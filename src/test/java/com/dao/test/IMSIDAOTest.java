@@ -21,6 +21,7 @@ import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithValidFailureClasses;
 
 @RunWith(Arquillian.class)
 public class IMSIDAOTest {
@@ -31,8 +32,8 @@ public class IMSIDAOTest {
 	private String dateFive;
 	private String dateSix;
 	private String dateSeven;
-	private List<Base_data> baseDataList;
 	private List<BigInteger> IMSIList;
+	private List<IMSIWithValidFailureClasses> imsiWithValidFailureClassses;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -60,37 +61,37 @@ public class IMSIDAOTest {
 	}
 	@Test
 	public void shouldReturnBaseDataBetweenTwoDatesPartOne() throws ParseException {
-		baseDataList = imsiDAO.getIMSIsByDates(dateOne, dateTwo);
-		assertNotNull(baseDataList);
-		assertFalse(baseDataList.isEmpty());
-		assertEquals(7, baseDataList.size());
+		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateOne, dateTwo);
+		assertNotNull(imsiWithValidFailureClassses);
+		assertFalse(imsiWithValidFailureClassses.isEmpty());
+		assertEquals(6, imsiWithValidFailureClassses.size());
 	}
 	@Test
 	public void shouldReturnBaseDataBetweenTwoDatesPartTwo() throws ParseException {
-		baseDataList = imsiDAO.getIMSIsByDates(dateOne, dateThree);
-		assertNotNull(baseDataList);
-		assertFalse(baseDataList.isEmpty());
-		assertEquals(10, baseDataList.size());
+		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateOne, dateThree);
+		assertNotNull(imsiWithValidFailureClassses);
+		assertFalse(imsiWithValidFailureClassses.isEmpty());
+		assertEquals(9, imsiWithValidFailureClassses.size());
 	}
 	@Test
 	public void shouldReturnBaseDataBetweenTwoDatesPartThree() throws ParseException {
-		baseDataList = imsiDAO.getIMSIsByDates(dateTwo, dateThree);
-		assertNotNull(baseDataList);
-		assertFalse(baseDataList.isEmpty());
-		assertEquals(6, baseDataList.size());
+		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateTwo, dateThree);
+		assertNotNull(imsiWithValidFailureClassses);
+		assertFalse(imsiWithValidFailureClassses.isEmpty());
+		assertEquals(6, imsiWithValidFailureClassses.size());
 	}
 	@Test
 	public void shouldReturnBaseDataBetweenTwoDatesPartFour() throws ParseException {
-		baseDataList = imsiDAO.getIMSIsByDates(dateFour, dateFive);
-		assertNotNull(baseDataList);
-		assertFalse(baseDataList.isEmpty());
-		assertEquals(10, baseDataList.size());
+		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateFour, dateFive);
+		assertNotNull(imsiWithValidFailureClassses);
+		assertFalse(imsiWithValidFailureClassses.isEmpty());
+		assertEquals(9, imsiWithValidFailureClassses.size());
 	}
 	@Test
 	public void shouldReturnAnEmptyListIfDatesOutOfRange() throws ParseException {
-		baseDataList = imsiDAO.getIMSIsByDates(dateSix, dateSeven);
-		assertNotNull(baseDataList);
-		assertTrue(baseDataList.isEmpty());
+		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateSix, dateSeven);
+		assertNotNull(imsiWithValidFailureClassses);
+		assertTrue(imsiWithValidFailureClassses.isEmpty());
 	}
 	@Test
 	public void shouldReturnAPArsedCalendarObject() throws ParseException {
@@ -118,6 +119,4 @@ public class IMSIDAOTest {
 		imsi = new BigInteger("310560000000012");
 		assertEquals(imsi, IMSIList.get(2));	
 	}
-	
-
 }
