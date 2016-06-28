@@ -2,12 +2,13 @@ package com.dao.test;
 
 import static org.junit.Assert.*;
 
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
-
+import static org.hamcrest.CoreMatchers.*;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -20,7 +21,6 @@ import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.model.Base_data;
-import com.ait.db.model.IMSI;
 
 @RunWith(Arquillian.class)
 public class IMSIDAOTest {
@@ -32,7 +32,7 @@ public class IMSIDAOTest {
 	private String dateSix;
 	private String dateSeven;
 	private List<Base_data> baseDataList;
-	private List<IMSI> IMSIList;
+	private List<BigInteger> IMSIList;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -109,7 +109,14 @@ public class IMSIDAOTest {
 	@Test
 	public void shouldReturnCorrectIMSIs() {
 		IMSIList = imsiDAO.getAllUniqueIMSIs();
-//		assertNotNull()
+		BigInteger imsi = new BigInteger("344930000000011");
+		assertEquals(imsi, IMSIList.get(0));
+		
+		imsi = new BigInteger("240210000000013");
+		assertEquals(imsi, IMSIList.get(1));
+		
+		imsi = new BigInteger("310560000000012");
+		assertEquals(imsi, IMSIList.get(2));	
 	}
 	
 

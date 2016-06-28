@@ -1,5 +1,6 @@
 package com.ait.db.rest;
 
+import java.math.BigInteger;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,6 @@ import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
-import com.ait.db.model.IMSI;
 import com.ait.db.model.NetworkEntity;
 import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsProducer;
@@ -47,7 +47,7 @@ public class IMSIRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getAllNetworkEntityEntiries() {
 		try{
-			List<IMSI> IMSIList = IMSIDao.getAllUniqueIMSIs();
+			List<BigInteger> IMSIList = IMSIDao.getAllUniqueIMSIs();
 			return Response.status(200).entity(IMSIList).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());

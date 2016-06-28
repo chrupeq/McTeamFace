@@ -23,7 +23,6 @@ import org.junit.runner.RunWith;
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.model.Base_data;
-import com.ait.db.model.IMSI;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
 import com.ait.db.rest.NetworkEntityRestService;
@@ -41,7 +40,7 @@ public class IMSIRestServiceTest {
 	@Deployment(testable=false)
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
-        		.addPackage(IMSI.class.getPackage())
+				.addPackage(Base_data.class.getPackage())
         		.addPackage(IMSIStatsProducer.class.getPackage())
         		.addPackage(IMSIDAO.class.getPackage())
         		.addClasses(IMSIRestService.class, JaxRsActivator.class)

@@ -61,7 +61,7 @@ public class Failure_classClientWebServiceLifecycleTest {
 	@Test
 	@InSequence(2)
 	public void testFailure_classNotFoundById() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/failure_class/6");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "7");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
         responseObj = request.get(String.class);
@@ -73,7 +73,7 @@ public class Failure_classClientWebServiceLifecycleTest {
 	@Test
 	@InSequence(3)
 	public void testPostFailure_class() throws Exception {
-		jsonData = "{\"failure_class\":\"1\", \"description\":\"EMERGENCY\"}";
+		jsonData = "{\"failure_class\":\"4\", \"description\":\"MO DATA\"}";
 		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/failure_class");
 		request.accept("application/json").body(MediaType.APPLICATION_JSON, jsonData);
 		responseObj = request.post(String.class);

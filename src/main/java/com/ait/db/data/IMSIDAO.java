@@ -1,5 +1,6 @@
 package com.ait.db.data;
 
+import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -12,9 +13,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import com.ait.db.model.Base_data;
-import com.ait.db.model.IMSI;
 
 @Stateless
 @LocalBean
@@ -24,10 +23,11 @@ public class IMSIDAO {
     private EntityManager entityManager;
 	private Query query;
 	
-	public List<IMSI> getAllUniqueIMSIs() {
+	public List<BigInteger> getAllUniqueIMSIs() {
 		query = entityManager.createQuery("SELECT DISTINCT(i.imsi) FROM Base_data i");
-		List<IMSI> distinctIMSIs = query.getResultList();
-		return distinctIMSIs;
+		List<BigInteger> imsisAsBigInts = query.getResultList();
+//		List<IMSI> distinctIMSIs = IMSIFactory.getIMSIObjects(imsisAsBigInts);
+		return imsisAsBigInts;
     }
 	public Calendar[] parseStringIntoCalendarObject(String date1, String date2) throws ParseException {
 		String[] dateArray = new String[2];
