@@ -29,6 +29,8 @@ public class IMSIDAOTest {
 	private String dateThree;
 	private String dateFour;
 	private String dateFive;
+	private String dateSix;
+	private String dateSeven;
 	private List<Base_data> baseDataList;
 	private List<IMSI> IMSIList;
 	
@@ -52,7 +54,8 @@ public class IMSIDAOTest {
 		dateThree = "2013-01-11 17:17:00";
 		dateFour = "2013-01-11 17:00:00";
 		dateFive = "2013-01-11 17:30:00";
-//		dateSix = "2016-06-28 00:00:00";
+		dateSix = "2016-06-28 00:00:00";
+		dateSeven = "2016-06-28 23:59:00";
 		
 	}
 	@Test
@@ -83,7 +86,12 @@ public class IMSIDAOTest {
 		assertFalse(baseDataList.isEmpty());
 		assertEquals(10, baseDataList.size());
 	}
-	
+	@Test
+	public void shouldReturnAnEmptyListIfDatesOutOfRange() throws ParseException {
+		baseDataList = imsiDAO.getIMSIsByDates(dateSix, dateSeven);
+		assertNotNull(baseDataList);
+		assertTrue(baseDataList.isEmpty());
+	}
 	@Test
 	public void shouldReturnAPArsedCalendarObject() throws ParseException {
 		Calendar[] datesAsCalendarObjects = imsiDAO.parseStringIntoCalendarObject(dateOne, dateTwo);
