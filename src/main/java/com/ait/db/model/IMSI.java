@@ -10,13 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Stateless
-@LocalBean
 public class IMSI {
 	
-	@Id
-	@Column(name="imsi")
 	private Long imsiNumber;
 	
 	public Long getImsiNumber(){

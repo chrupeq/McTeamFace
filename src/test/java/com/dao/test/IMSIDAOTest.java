@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSI;
 import com.ait.gui.User;
 
 @RunWith(Arquillian.class)
@@ -28,6 +29,7 @@ public class IMSIDAOTest {
 	private String dateTwo;
 	private String dateThree;
 	private List<Base_data> baseDataList;
+	private List<IMSI> IMSIList;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -76,6 +78,13 @@ public class IMSIDAOTest {
 		Calendar[] datesAsCalendarObjects = imsiDAO.parseStringIntoCalendarObject(dateOne, dateTwo);
 		assertNotNull(datesAsCalendarObjects);
 		assertEquals(2, datesAsCalendarObjects.length);
+	}
+	@Test
+	public void shouldReturnDistinctIMSIs() {
+		IMSIList = imsiDAO.getAllUniqueIMSIs();
+		assertNotNull(IMSIList);
+		assertFalse(IMSIList.isEmpty());
+		assertEquals(3, IMSIList.size());
 	}
 
 }

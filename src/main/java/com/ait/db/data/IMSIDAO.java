@@ -25,7 +25,7 @@ public class IMSIDAO {
 	private Query query;
 	
 	public List<IMSI> getAllUniqueIMSIs() {
-		query = entityManager.createQuery("SELECT DISTINCT imsi FROM Base_data");
+		query = entityManager.createQuery("SELECT DISTINCT(i.imsi) FROM Base_data i");
 		List<IMSI> distinctIMSIs = query.getResultList();
 		return distinctIMSIs;
     }
