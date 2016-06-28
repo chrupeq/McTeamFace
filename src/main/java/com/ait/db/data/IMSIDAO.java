@@ -50,10 +50,8 @@ public class IMSIDAO {
 		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE i.date_time BETWEEN :startDate AND :endDate");
 		query.setParameter("startDate", dateArray[0]);
 		query.setParameter("endDate", dateArray[1]);
-		
 		List<Base_data> IMSIsBetweenDates = query.getResultList();
 		List<IMSIWithValidFailureClasses> imsiWithValidFailureClasses = IMSIWithFailuresFactory.getImsiFailureClassList(IMSIsBetweenDates);
 		return imsiWithValidFailureClasses;
 	}
-	
 }

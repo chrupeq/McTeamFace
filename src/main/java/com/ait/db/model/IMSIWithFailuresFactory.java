@@ -1,6 +1,7 @@
 package com.ait.db.model;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,16 +14,18 @@ public class IMSIWithFailuresFactory {
 		Calendar dateTime;
 		int failureClass;
 		BigInteger imsi;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
 		imsisWithValidFailureClassesList = new ArrayList<>();
 		for(Base_data baseData : baseDataList) {
 			if(baseData.getFailure_class() == null) {
 				continue;
 			}
 				dateTime = baseData.getDate_time();
+				String dateTimeAsString = simpleDateFormat.format(dateTime.getTime());
 				failureClass = baseData.getFailure_class().getFailure_class();
 				imsi = baseData.getImsi();
 				IMSIWithValidFailureClasses imsiWithValidFailureClasses 
-					= new IMSIWithValidFailureClasses(dateTime, failureClass, imsi);
+					= new IMSIWithValidFailureClasses(dateTimeAsString, failureClass, imsi);
 				imsisWithValidFailureClassesList.add(imsiWithValidFailureClasses);
 			}
 		return imsisWithValidFailureClassesList;

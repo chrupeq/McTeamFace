@@ -94,6 +94,12 @@ public class IMSIDAOTest {
 		assertTrue(imsiWithValidFailureClassses.isEmpty());
 	}
 	@Test
+	public void shouldREturnDateAsAFormattedString() throws ParseException {
+		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateTwo, dateThree);
+		String dateTime = "2013-11-01 17:16:00";
+		assertEquals(dateTime, imsiWithValidFailureClassses.get(0).getDate_time());
+	}
+	@Test
 	public void shouldReturnAPArsedCalendarObject() throws ParseException {
 		Calendar[] datesAsCalendarObjects = imsiDAO.parseStringIntoCalendarObject(dateOne, dateTwo);
 		assertNotNull(datesAsCalendarObjects);
