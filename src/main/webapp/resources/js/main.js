@@ -2,6 +2,10 @@ var rootUrlUsers="http://localhost:8080/GroupProject2016/rest/users";
 
 $(document).ready(function() {
 	displayError();
+	$('#loginButton').on("click", function(){
+		getDetailsFromUser();
+		return false;
+	});
 });
 
 	var displayError = function(){
@@ -10,11 +14,7 @@ $(document).ready(function() {
 	}
 	
 
-$(document).on("click", "loginButton", function(){
-	getDetailsFromUser();
-	
-	return false;
-});
+
 	
 
 var verifyAdmin = function() {
@@ -43,7 +43,13 @@ var getDetailsFromUser = function() {
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
 		success: function(data, textStatus, xhr){
-			alert(data);
+			var d = new Date();
+			d.setTime(d.getTime() + (1*24*60*60*1000));
+			
+			document.cookie = "username="+username+";"
+					document.cookie = "expires="+ d.toUTCString() +";";
+			document.cookie =  "sessionId="+xhr.getResponseHeader('sessionId')+";";
+
 			if(data == 200){
 				window.location.href = "http://localhost:8080/GroupProject2016/home.html";
 			}else{
@@ -67,7 +73,27 @@ function loginAuthentication() {
 			return false;
 	};
 
-	
+	function getCookie(name) {
+
+		  var start = document.cookie.indexOf(name + "=");
+
+		  var len = start + name.length + 1;
+
+		  if ((!start) && (name != document.cookie.substring(0, name.length))) {
+
+		    return null;
+
+		  }
+
+		  if (start == -1) return null;
+
+		  var end = document.cookie.indexOf(';', len);
+
+		  if (end == -1) end = document.cookie.length;
+
+		  return unescape(document.cookie.substring(len, end));
+
+		}
 
 
 

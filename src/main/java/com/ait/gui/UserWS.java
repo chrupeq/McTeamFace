@@ -48,7 +48,7 @@ public class UserWS {
 							.equals(u.getPassword())) {
 				String sessionId = SessionIdentifierGenerator.nextSessionId();
 				sessionDao.addEntry(sessionId, u.getJobTitle(), u.getUsername());
-				return Response.status(200).entity(sessionId).build();
+				return Response.status(200).entity(200).header("sessionId", sessionId).build();
 			}
 		}
 		return Response.status(200).entity(300).build();
