@@ -4,17 +4,17 @@ import java.math.BigInteger;
 import java.util.Calendar;
 
 public class IMSIWithValidFailureClasses {
-	private Calendar dateTime;
+	private String dateTime;
 	private int failureClass;
 	private BigInteger imsi;
 	
-	public IMSIWithValidFailureClasses(Calendar dateTime, int failureClass, BigInteger imsi) {
+	public IMSIWithValidFailureClasses(String dateTime, int failureClass, BigInteger imsi) {
 		this.dateTime = dateTime;
 		this.failureClass = failureClass;
 		this.imsi = imsi;
 	}
 	
-	public Calendar getDate_time() {
+	public String getDate_time() {
 		return dateTime;
 	}
 	public int getFailureClass() {
@@ -23,7 +23,4 @@ public class IMSIWithValidFailureClasses {
 	public BigInteger getImsi() {
 		return imsi;
 	}
-	
-	
-
 }
