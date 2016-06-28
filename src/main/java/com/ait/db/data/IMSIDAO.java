@@ -16,7 +16,7 @@ import javax.persistence.Query;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
-
+//
 @Stateless
 @LocalBean
 public class IMSIDAO {
