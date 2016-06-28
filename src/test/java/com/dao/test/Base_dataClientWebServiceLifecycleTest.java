@@ -60,7 +60,7 @@ public class Base_dataClientWebServiceLifecycleTest {
 	@Test
 	@InSequence(2)
 	public void testBase_dataNotFoundById() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/base_data/2");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/base_data/11");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
         responseObj = request.get(String.class);

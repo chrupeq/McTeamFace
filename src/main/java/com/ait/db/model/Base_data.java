@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
+@Table(name="base_data")
 public class Base_data implements Serializable, NetworkEntity {
 
 	private static final long serialVersionUID = 1L;

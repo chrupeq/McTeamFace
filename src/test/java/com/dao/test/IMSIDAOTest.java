@@ -86,5 +86,10 @@ public class IMSIDAOTest {
 		assertFalse(IMSIList.isEmpty());
 		assertEquals(3, IMSIList.size());
 	}
+	@Test
+	public void shouldReturnCorrectIMSIs() {
+		IMSIList = imsiDAO.getAllUniqueIMSIs();
+//		assertNotNull()
+	}
 
 }

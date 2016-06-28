@@ -61,7 +61,7 @@ public class Failure_classClientWebServiceLifecycleTest {
 	@Test
 	@InSequence(2)
 	public void testFailure_classNotFoundById() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/failure_class/1");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/failure_class/6");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
         responseObj = request.get(String.class);

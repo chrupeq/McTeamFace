@@ -37,7 +37,7 @@ public class NetworkEntityDAOFunctionalityTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Base_data.class.getPackage())
 				.addPackage(NetworkEntityDAO.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-//				.addAsResource("import.sql")
+				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
 	            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
