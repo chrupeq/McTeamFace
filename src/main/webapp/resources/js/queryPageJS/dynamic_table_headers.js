@@ -1,5 +1,9 @@
 $(document).ready(function() {
-
+	$('#selectByModel').on('change', function() {
+		  var value = $(this).val();
+		  $('#container').addClass('animated fadeOutUp');
+		  $('#modelFailuresModal').modal('hide');
+		});
 });
 
 var table = "";
@@ -36,11 +40,13 @@ var modelQuery = function(){
 var renderModelQueryTable = function(){
 	var tableView = new TableView();
 	$('#tableDiv').html(tableView.render().el);
+	$('#tableDiv').html(tableView.initialize().el);
 }
 
 var renderMainContainer = function(){
 	var mainView = new MainView();
 	$('#homeDiv').html(mainView.render().el);
+	$('#homeDiv').html(mainView.initialize().el);
 }
 
 var replaceContainer = function(){
@@ -49,7 +55,13 @@ var replaceContainer = function(){
 }
 	MainView = Backbone.View.extend({
 		initialize: function () {
-			$(".js-example-basic-single").select2();
+			$(".js-example-basic-multiple").select2();
+			
+			$('#selectByModel').on('change', function() {
+				  var value = $(this).val();
+				  $('#container').addClass('animated fadeOutUp');
+				  $('#modelFailuresModal').modal('hide');
+				});
 		},
 		
 		events: {
@@ -66,7 +78,6 @@ var replaceContainer = function(){
 					 format: 'DD/MM/YYYY HH:mm'
 		        });
 			},
-			
 			
 	"click #allFailuresForModel":function(){
 		$('#modelFailuresModal').removeClass('animated bounceOut');
@@ -87,6 +98,7 @@ var replaceContainer = function(){
 				changeContainerCSS('imsiDates');
 			}
 		},
+		
 		render:function(){
 			var template = _.template($('#main_page_div').html(), {});
 			$(this.el).html(template);
