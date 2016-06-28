@@ -24,8 +24,11 @@ import com.ait.gui.User;
 
 @RunWith(Arquillian.class)
 public class IMSIDAOTest {
-	String dateOne;
-	String dateTwo;
+	private String dateOne;
+	private String dateTwo;
+	private String dateThree;
+	private List<Base_data> baseDataList;
+	
 	@Deployment
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
@@ -44,15 +47,30 @@ public class IMSIDAOTest {
 	public void setUp() {
 		dateOne = "2013-01-11 17:15:00";
 		dateTwo = "2013-01-11 17:16:00";
+		dateThree = "2013-01-11 17:17:00";
 	}
 	@Test
-	public void shouldReturnBaseDataByDate() throws ParseException {
-		
-		List<Base_data> baseDataList = imsiDAO.getIMSIsByDates(dateOne, dateTwo);
+	public void shouldReturnBaseDataBetweenTwoDatesPartOne() throws ParseException {
+		baseDataList = imsiDAO.getIMSIsByDates(dateOne, dateTwo);
 		assertNotNull(baseDataList);
 		assertFalse(baseDataList.isEmpty());
 		assertEquals(7, baseDataList.size());
 	}
+	@Test
+	public void shouldReturnBaseDataBetweenTwoDatesPartTwo() throws ParseException {
+		baseDataList = imsiDAO.getIMSIsByDates(dateOne, dateThree);
+		assertNotNull(baseDataList);
+		assertFalse(baseDataList.isEmpty());
+		assertEquals(10, baseDataList.size());
+	}
+	@Test
+	public void shouldReturnBaseDataBetweenTwoDatesPartThree() throws ParseException {
+		baseDataList = imsiDAO.getIMSIsByDates(dateTwo, dateThree);
+		assertNotNull(baseDataList);
+		assertFalse(baseDataList.isEmpty());
+		assertEquals(6, baseDataList.size());
+	}
+	
 	@Test
 	public void shouldReturnAPArsedCalendarObject() throws ParseException {
 		Calendar[] datesAsCalendarObjects = imsiDAO.parseStringIntoCalendarObject(dateOne, dateTwo);
