@@ -23,7 +23,6 @@ import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.UETypeDAO;
-import com.ait.db.model.IMSI;
 import com.ait.db.model.User_equipment;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
