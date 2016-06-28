@@ -9,13 +9,11 @@ $(document).ready(function() {
 		getDetailsFromUser();
 		return false;
 	});
-	$('#queryTabClick').on('click', function(){
-		checkLevel();
-	});
+});
 });
 
 	var displayError = function(){
-		$("#errorMessage"), 'display', 'none');
+		$("#errorMessage").hide();
 		return false;
 	}
 	
@@ -70,41 +68,8 @@ var getDetailsFromUser = function() {
 	return false;
 }
 
-
 function loginAuthentication() {
 
 			$("#errorMessage").css("display", "inline");
 			return false;
 	};
-
-	function getCookie(name) {
-
-		  var start = document.cookie.indexOf(name + "=");
-
-		  var len = start + name.length + 1;
-
-		  if ((!start) && (name != document.cookie.substring(0, name.length))) {
-
-		    return null;
-
-		  }
-
-		  if (start == -1) return null;
-
-		  var end = document.cookie.indexOf(';', len);
-
-		  if (end == -1) end = document.cookie.length;
-
-		  return unescape(document.cookie.substring(len, end));
-
-		}
-
-var checkLevel = function(){
-	if(getCookie("username") == "testusername"){
-		alert("correct username!");
-	}
-	
-	if(getCookie("username") == "BOOZERNAME"){
-		alert("ha, no.");
-	}
-}
