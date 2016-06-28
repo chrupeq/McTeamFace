@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.ait.db.data.SessionDAO;
+import com.ait.db.model.User;
 import com.stringgenerator.SessionIdentifierGenerator;
 
 /**

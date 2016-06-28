@@ -21,13 +21,14 @@ import org.junit.runner.RunWith;
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.IMSI;
-import com.ait.gui.User;
 
 @RunWith(Arquillian.class)
 public class IMSIDAOTest {
 	private String dateOne;
 	private String dateTwo;
 	private String dateThree;
+	private String dateFour;
+	private String dateFive;
 	private List<Base_data> baseDataList;
 	private List<IMSI> IMSIList;
 	
@@ -36,7 +37,6 @@ public class IMSIDAOTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Base_data.class.getPackage())
 				.addPackage(IMSIDAO.class.getPackage())
-				.addPackage(User.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
@@ -50,6 +50,10 @@ public class IMSIDAOTest {
 		dateOne = "2013-01-11 17:15:00";
 		dateTwo = "2013-01-11 17:16:00";
 		dateThree = "2013-01-11 17:17:00";
+		dateFour = "2013-01-11 17:00:00";
+		dateFive = "2013-01-11 17:30:00";
+//		dateSix = "2016-06-28 00:00:00";
+		
 	}
 	@Test
 	public void shouldReturnBaseDataBetweenTwoDatesPartOne() throws ParseException {
@@ -72,6 +76,13 @@ public class IMSIDAOTest {
 		assertFalse(baseDataList.isEmpty());
 		assertEquals(6, baseDataList.size());
 	}
+	@Test
+	public void shouldReturnBaseDataBetweenTwoDatesPartFour() throws ParseException {
+		baseDataList = imsiDAO.getIMSIsByDates(dateFour, dateFive);
+		assertNotNull(baseDataList);
+		assertFalse(baseDataList.isEmpty());
+		assertEquals(10, baseDataList.size());
+	}
 	
 	@Test
 	public void shouldReturnAPArsedCalendarObject() throws ParseException {
@@ -79,6 +90,7 @@ public class IMSIDAOTest {
 		assertNotNull(datesAsCalendarObjects);
 		assertEquals(2, datesAsCalendarObjects.length);
 	}
+	
 	@Test
 	public void shouldReturnDistinctIMSIs() {
 		IMSIList = imsiDAO.getAllUniqueIMSIs();
@@ -91,5 +103,6 @@ public class IMSIDAOTest {
 		IMSIList = imsiDAO.getAllUniqueIMSIs();
 //		assertNotNull()
 	}
+	
 
 }

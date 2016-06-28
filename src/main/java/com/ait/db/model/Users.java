@@ -1,4 +1,4 @@
-	package com.ait.gui;
+	package com.ait.db.model;
 
 public abstract class Users {
 	
