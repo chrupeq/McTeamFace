@@ -6,6 +6,9 @@ $(document).ready(function() {
 		getDetailsFromUser();
 		return false;
 	});
+	$('#queryTabClick').on('click', function(){
+		checkLevel();
+	});
 });
 
 	var displayError = function(){
@@ -52,6 +55,7 @@ var getDetailsFromUser = function() {
 
 			if(data == 200){
 				window.location.href = "http://localhost:8080/GroupProject2016/home.html";
+				alert(getCookie("sessionId"));
 			}else{
 				loginAuthentication();
 			}
@@ -63,12 +67,6 @@ var getDetailsFromUser = function() {
 
 function loginAuthentication() {
 
-//			var date = new Date();
-//			var expiryDate = date.getTime() + diff*60000;
-//			
-//			verifyAdmin();
-//			document.cookie = "username="+ username +"; expires="+ expiryDate.toUTCString();
-//			window.location = 'http://localhost:8080/GroupProject2016/home.html';
 			$("#errorMessage").css("display", "inline");
 			return false;
 	};
@@ -95,7 +93,15 @@ function loginAuthentication() {
 
 		}
 
-
+var checkLevel = function(){
+	if(getCookie("username") == "testusername"){
+		alert("correct username!");
+	}
+	
+	if(getCookie("username") == "BOOZERNAME"){
+		alert("ha, no.");
+	}
+}
 
 
 
