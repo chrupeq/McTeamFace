@@ -24,32 +24,17 @@ public class IMSIDAO {
 	@PersistenceContext
     private EntityManager entityManager;
 	private Query query;
+	private DateParser dateParser;
 	
 	public List<BigInteger> getAllUniqueIMSIs() {
 		query = entityManager.createQuery("SELECT DISTINCT(i.imsi) FROM Base_data i");
 		List<BigInteger> imsisAsBigInts = query.getResultList();
 		return imsisAsBigInts;
     }
-	public Calendar[] parseStringIntoCalendarObject (String date1, String date2) {
-		String[] dateArray = new String[2];
-		dateArray[0] = date1;
-		dateArray[1] = date2;
-		Calendar[] calendarArray = new Calendar[2];
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		try {
-			for(int i=0; i < dateArray.length; i++) {
-				Calendar calendar = Calendar.getInstance();
-				calendar.setTime(simpleDateFormat.parse(dateArray[i]));
-				calendarArray[i] = calendar;
-			}
-		} catch(ParseException e) {
-			System.out.println("Date could not be parsed. " + e.toString());
-		}
-		return calendarArray;
-	}
 	public List<IMSIWithValidFailureClasses> getIMSIsByDates(String date1, String date2) {
-	
-		Calendar[] calendarArray = parseStringIntoCalendarObject(date1, date2);
+		dateParser = new DateParser();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
 		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE i.date_time BETWEEN :startDate AND :endDate");
 		query.setParameter("startDate", calendarArray[0]);
 		query.setParameter("endDate", calendarArray[1]);
