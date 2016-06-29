@@ -1,13 +1,59 @@
 var rootUrl2 = "http://localhost:8080/GroupProject2016/rest/users";
 
 $(document).on("click", 'button.clickToAdd', function() {
-
-	$("#myModalEdit").modal('show');
-	findById(this.id);
+	$("#myModalAdd").modal('show');
 });
 
+$(document).on("click", 'button.editButton', function() {
+	var userId = this.id;
+	findById(userId);
+	$("#userExistsErrorMessageEdit").css('display', 'none');
+	$("#myModalEdit").modal('show');
+	
+	$(document).on("click", "#formButtonEdit", function() {
+		$("#userExistsErrorMessageEdit").hide();
+			getDatabaseDetailsEdit(userId);
+
+		return false;
+	});
+
+	
+	
+});
+
+$(document).on("click", 'button.deleteButton', function() {
+	
+});
+
+var findAll = function() {
+	$.ajax({
+		type : 'GET',
+		url : rootUrl2,
+		dataType : 'json',
+		success : loadDataTable
+	});
+};
+
+var findById = function(id){
+	console.log('findById: ' + id);
+	$.ajax({
+		type: 'GET',
+		url: rootUrl2 + '/' + id,
+		dataType: "json",
+		success: renderEditDetails
+		});
+	};
+	
+var renderEditDetails = function(data){
+	$('#firstNameEdit').val(data.firstname);
+	$('#lastNameEdit').val(data.lastname);
+	$('#usernameFormInputEdit').val(data.username);
+	$('#passwordFormInputEdit').val(data.password);
+	$('#jobTitleSelectEdit').val(data.job_title);
+}
+
 var loadDataTable = function(data) {
-	var table = $('#carTable')
+	var table = $('#userInfoTable')
 			.DataTable(
 					{
 
@@ -21,6 +67,10 @@ var loadDataTable = function(data) {
 
 								{
 									data : "firstname"
+								},
+								
+								{
+									data : "lastname"
 								},
 
 								{
@@ -40,7 +90,7 @@ var loadDataTable = function(data) {
 									render : function(data) {
 										return '<button type="button" id="'
 												+ data
-												+ '" class="btn btn-primary btn-sm moreInfoClicks">More Information</button>';
+												+ '" class="btn btn-primary btn-sm editButton">Edit</button>';
 									}
 								},
 
@@ -49,7 +99,7 @@ var loadDataTable = function(data) {
 									render : function(data) {
 										return '<button type="button" id="'
 												+ data
-												+ '" class = "btn btn-default btn-sm buttonTrigger">Edit</button>';
+												+ '" class = "btn btn-danger btn-sm deleteButton">Delete</button>';
 									}
 
 								},
@@ -62,23 +112,25 @@ var loadDataTable = function(data) {
 
 $(document).ready(function() {
 	displayErrors();
-
-	$(document).on("click", "#formButton", function() {
-		$("#userExistsEerrorMessage").hide();
-		$("#passwordErrorMessage").hide();
-		var password = $("#passwordFormInput").val();
-		var reenterPassword = $("#reenterPasswordFormInput").val();
-
-		if (password == reenterPassword) {
-			getDatabaseDetails();
-		} else {
-			$("#passwordErrorMessage").css("display", "inline");
-		}
-
-		return false;
-	});
+	findAll();
 
 });
+
+$(document).on("click", "#formButton", function() {
+	$("#userExistsEerrorMessage").hide();
+	$("#passwordErrorMessage").hide();
+	var password = $("#passwordFormInput").val();
+	var reenterPassword = $("#reenterPasswordFormInput").val();
+
+	if (password == reenterPassword) {
+		getDatabaseDetails();
+	} else {
+		$("#passwordErrorMessage").css("display", "inline");
+	}
+
+	return false;
+});
+
 
 /*Login and Logout functions*/
 var displayErrors = function() {
@@ -86,6 +138,70 @@ var displayErrors = function() {
 	$("#userExistsEerrorMessage").css('display', 'none');
 	return false;
 }
+
+var getDatabaseDetailsEdit = function(userId) {
+	console.log("getting details");
+
+	$.ajax({
+		type : 'POST',
+		url : rootUrl2,
+		dataType : "json",
+		success : function(details) {
+			checkUsernameExistsEdit(details, userId);
+		}
+	});
+	return false;
+}
+
+function checkUsernameExistsEdit(details, userId) {
+	console.log("Checking username");
+	var username = $("#usernameFormInputEdit").val();
+	var counter = 0;
+
+	
+	$.each(details, function(i, detail) {
+
+		console.log(userId);
+
+		if (userId != detail.id) {
+
+			if (username == detail.username) {
+				$("#userExistsErrorMessageEdit").css("display", "inline");
+
+				counter++;
+
+				return false;
+			}
+		}
+	})
+
+	if (counter == 0) {
+		alert("here");
+		editUser();
+	}
+
+	counter = 0;
+	return false;
+};
+
+var editUser = function() {
+	console.log("editUser");
+
+	$.ajax({
+		type : "PUT",
+		contentType : 'application/json',
+		url : rootUrl2 + '/' + id,
+
+		data : formToJSONEdit(),
+		success : function(data, textStatus, jqXHR) {
+
+			location.reload();
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert("addUser error: " + textStatus);
+		}
+	});
+};
 
 var getDatabaseDetails = function() {
 	console.log("getting details");
@@ -162,6 +278,20 @@ var formToJSON = function() {
 		"username" : $('#usernameFormInput').val(),
 		"password" : $('#passwordFormInput').val(),
 		"job_title" : $('#jobTitleSelect').val()
+
+	});
+
+};
+
+var formToJSONEdit = function() {
+
+	return JSON.stringify({
+
+		"firstname" : $('#firstNameEdit').val(),
+		"lastname" : $('#lastNameEdit').val(),
+		"username" : $('#usernameFormInputEdit').val(),
+		"password" : $('#passwordFormInputEdit').val(),
+		"job_title" : $('#jobTitleSelectEdit').val()
 
 	});
 

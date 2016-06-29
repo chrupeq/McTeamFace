@@ -20,17 +20,17 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
-	<script src="resources/js/bootstrap.js"></script>
-	<script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
-	<script src="resources/js/moment.min.js"></script>
-	<script src="resources/js/home.js"></script>
+<script src="resources/js/bootstrap.js"></script>
+<script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
+<script src="resources/js/moment.min.js"></script>
+<script src="resources/js/home.js"></script>
 <script src="resources/js/queryPageJS/query_manager.js"></script>
 <script src="resources/js/queryPageJS/query_page_js.js"></script>
 
 <script src="resources/js/main.js"></script>
 <script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
 <script
-src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script src="resources/js/queryPageJS/select2.full.js"></script>
 <script src="resources/js/queryPageJS/get_failures_by_model.js"></script>
 <script src="resources/js/queryPageJS/jquery.dataTables.js"></script>
@@ -71,11 +71,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 <body>
 
 	<div id="header">
-
 		<h1>Base Data</h1>
 		<button id="logoutBtn">Logout</button>
-
-
 	</div>
 
 	<ul class="nav nav-tabs" id="tabs">
@@ -120,105 +117,127 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 			</table>
 		</div>
 		<!-- -----------------------------FORM------------------------------------------- -->
-		
 		<div id="form" class="tab-pane fade">
 			<h3>Add New User Form</h3>
-			
-			<button id = "btnAddUser" class="btn btn-primary btn-sm clickToAdd">Add New User</button>
-	
-			<table class="table table-striped table-hover table-condensed" width="90%"
-				id="userInfoTable">
+			<button id="btnAddUser" class="btn btn-primary btn-sm clickToAdd">Add
+				New User</button>
+			<table class="table table-striped table-hover table-condensed"
+				width="90%" id="userInfoTable">
 				<thead>
 					<tr>
 						<th align="left">Id</th>
-						<th align="left">firstname</th>
-						<th align="left">lastname</th>
-						<th align="left">username</th>
-						<th align="left">password</th>
-						<th align="left">job_title</th>
-						
+						<th align="left">First Name</th>
+						<th align="left">Last Name</th>
+						<th align="left">Username</th>
+						<th align="left">Password</th>
+						<th align="left">Job Title</th>
+						<th align="left">Edit</th>
+						<th align="left">Delete</th>
 					</tr>
 				</thead>
 			</table>
-			
-			
-			
-			<div id="myModalEdit" class="modal fade" tabindex="-1"  role="dialog" aria-hidden="true">
- 		<div class="modal-dialog modal-sm">
-    	
-		<div id="modalPopUPEdit">
-		
-			<form action="#">
-		
-			<div class= "modalTable" >
-			 
-			 	<form class="form">
 
-				<label for="firstName">First Name</label> <input type="text"
-					id="firstName" name="firstName" class="form-control"
-					placeholder="Enter First Name"></br> <label for="lastName">Last
-					Name</label> <input type="text" id="lastName" name="lastName"
-					class="form-control" placeholder="Enter Last Name"></br>
+			<div id="myModalAdd" class="modal fade" tabindex="-1" role="dialog"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div id="modalPopUPAdd">
+						<form action="#">
+							<div class="modalTable">
+								<form class="form">
+									<label for="firstName">First Name</label> <input type="text"
+										id="firstName" name="firstName" class="form-control"
+										placeholder="Enter First Name"></br> <label for="lastName">Last
+										Name</label> <input type="text" id="lastName" name="lastName"
+										class="form-control" placeholder="Enter Last Name"></br>
+									<fieldset class="usernameFormSection">
+										<label for="usernameFormInput">Username</label> <input
+											type="text" id="usernameFormInput" name="usernameFormInput"
+											class="form-control" placeholder="Enter Username"></br>
+									</fieldset>
+									<fieldset class="passwordFormSection">
+										<label for="passwordFormInput">Password</label> <input
+											type="password" id="passwordFormInput"
+											name="passwordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="reenterPasswordFormSection">
+										<label for="reenterPasswordFormInput">Re-enter
+											Password</label> <input type="password" id="reenterPasswordFormInput"
+											name="reenterPasswordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="jobTitleOption">
+										<label for="jobTitleSelect">Please select a job
+											description:</label> <select class="form-control" id="jobTitleSelect">
+											<option value="CSR">Customer Service Representative</option>
+											<option value="SE">Support Engineer</option>
+											<option value="NME">Network Management Engineer</option>
+										</select>
+									</fieldset>
+									<div id="passwordErrorMessage">
+										<p id="errorText">Password inputs do not match each other.
+											Please try again.</p>
+									</div>
+									<div id="userExistsEerrorMessage">
+										<p id="errorText">This user already exists in the user
+											database</p>
+									</div>
+									</br> </br>
+									<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
+								</form>
 
-				<fieldset class="usernameFormSection">
-					<label for="usernameFormInput">Username</label> <input type="text"
-						id="usernameFormInput" name="usernameFormInput"
-						class="form-control" placeholder="Enter Username"></br>
-				</fieldset>
-
-				<fieldset class="passwordFormSection">
-					<label for="passwordFormInput">Password</label> <input
-						type="password" id="passwordFormInput" name="passwordFormInput"
-						class="form-control" placeholder="Enter Password"></br>
-				</fieldset>
-
-				<fieldset class="reenterPasswordFormSection">
-					<label for="reenterPasswordFormInput">Re-enter Password</label> <input
-						type="password" id="reenterPasswordFormInput"
-						name="reenterPasswordFormInput" class="form-control"
-						placeholder="Enter Password"></br>
-				</fieldset>
-
-				<fieldset class="jobTitleOption">
-					<label for="jobTitleSelect">Please select a job
-						description:</label> <select class="form-control" id="jobTitleSelect">
-						<option value="CSR">Customer Service Representative</option>
-						<option value="SE">Support Engineer</option>
-						<option value="NME">Network Management Engineer</option>
-					</select>
-				</fieldset>
-				
-
-
-
-				<div id="passwordErrorMessage">
-					<p id="errorText">Password inputs do not match each other.
-						Please try again.</p>
+							</div>
+						</form>
+					</div>
 				</div>
-
-				<div id="userExistsEerrorMessage">
-					<p id="errorText">This user already exists in the user database</p>
-				</div>
-				</br></br>
-
-				<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
-			</form>
-
 			</div>
-			</form>
-			
-		
-		
-		
-	</div>
-	</div>
-	</div>
-			
-			
-		
+			<div id="myModalEdit" class="modal fade" tabindex="-1" role="dialog"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div id="modalPopUPEdit">
+						<form action="#">
+							<div class="modalTable">
+								<form class="form">
+									<label for="firstName">First Name</label> <input type="text"
+										id="firstNameEdit" name="firstName" class="form-control"
+										placeholder="Enter First Name"></br> <label for="lastName">Last
+										Name</label> <input type="text" id="lastNameEdit" name="lastName"
+										class="form-control" placeholder="Enter Last Name"></br>
+									<fieldset class="usernameFormSection">
+										<label for="usernameFormInput">Username</label> <input
+											type="text" id="usernameFormInputEdit" name="usernameFormInput"
+											class="form-control" placeholder="Enter Username"></br>
+									</fieldset>
+									<fieldset class="passwordFormSection">
+										<label for="passwordFormInput">Password</label> <input
+											type="text" id="passwordFormInputEdit"
+											name="passwordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="jobTitleOption">
+										<label for="jobTitleSelect">Please select a job
+											description:</label> <select class="form-control" id="jobTitleSelectEdit">
+											<option value="CSR">Customer Service Representative</option>
+											<option value="SE">Support Engineer</option>
+											<option value="NME">Network Management Engineer</option>
+										</select>
+									</fieldset>
+									<div id="userExistsErrorMessageEdit">
+										<p id="errorText">This user already exists in the user
+											database</p>
+									</div>
+									</br> </br>
+									<button type="submit" class="btn btn-primary" id="formButtonEdit"">Submit</button>
+								</form>
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-		
-			    <!-- -----------------------------END OF FORM------------------------------------------- -->
+
+		<!-- -----------------------------END OF FORM------------------------------------------- -->
 
 		<div id="contactus" class="tab-pane fade">
 			<h3>Contact Us</h3>
@@ -227,7 +246,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 		<div id="aboutus" class="tab-pane fade">
 			<h3>About Us</h3>
 			<p>Some content in menu 5.</p>
-			ፊ		</div>
+			ፊ
+		</div>
 		<div id="queryBody" class="tab-pane fade in">
 			<div id="queryHeader2"></div>
 			<div id="buttonDiv"></div>
@@ -236,8 +256,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 					<h2 id="queryHeader">Query Selector</h2>
 
 					<div id="dropUpQuery" class="dropup">
-						<button id="dropUpButton" class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown">
+						<button id="dropUpButton" class="btn btn-default dropdown-toggle"
+							type="button" data-toggle="dropdown">
 							Query Selection <span class="caret"></span>
 						</button>
 						<ul id="dropDownQueryList" class="dropdown-menu">
