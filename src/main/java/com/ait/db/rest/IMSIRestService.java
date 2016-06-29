@@ -76,14 +76,9 @@ public class IMSIRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getImsisBetweenDates(@QueryParam("date1") String date1, @QueryParam("date2") 
 		String date2){
-		
-		String firstDate = date1.substring(6,10) + "-" + date1.substring(3, 5) + "-" + date1.substring(0,2) + " " + date1.substring(11,16);
-		String secondDate = date2.substring(6,10) + "-" + date2.substring(3, 5) + "-" + date2.substring(0,2) + " " + date2.substring(11,16);
-		secondDate = secondDate + ":00";
-		firstDate = firstDate + ":00";
-	
+
 		try{
-			List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(firstDate, secondDate);
+			List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(date1, date2);
 		if(imsiList.isEmpty()) {
 			return Response.status(404).build();
 		}
