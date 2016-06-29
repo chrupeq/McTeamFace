@@ -20,6 +20,20 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
+	<script src="resources/js/moment.min.js"></script>
+	<script src="resources/js/home.js"></script>
+<script src="resources/js/queryPageJS/query_manager.js"></script>
+<script src="resources/js/queryPageJS/query_page_js.js"></script>
+
+<script src="resources/js/main.js"></script>
+<script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+<script src="resources/js/queryPageJS/select2.full.js"></script>
+<script src="resources/js/queryPageJS/get_failures_by_model.js"></script>
+<script src="resources/js/queryPageJS/jquery.dataTables.js"></script>
 <script type="text/template" id="model_data_table">
 <div id="tableOuterDiv"><table class="display table table-striped table-hover table-condensed" id="querysTable">
 <thead>
@@ -53,23 +67,6 @@
 </ul>
 </div>
 </script>
-<script src="resources/js/bootstrap.js"></script>
-<script src="resources/js/moment.min.js"></script>
-<script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
-<script src="resources/js/queryPageJS/query_manager.js"></script>
-<script src="resources/js/queryPageJS/query_page_js.js"></script>
-<script src="resources/js/home.js"></script>
-<script src="resources/js/main.js"></script>
-<script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
-<script
-src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-<script src="resources/js/queryPageJS/select2.full.js"></script>
-<script src="resources/js/queryPageJS/get_failures_by_model.js"></script>
-<script src="resources/js/queryPageJS/datatable_styling.js"></script>
-<script src="resources/js/queryPageJS/jquery.dataTables.js"></script>
-
-
-
 </head>
 <body>
 
@@ -173,7 +170,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 				</div>
 				</br> </br>
 
-				<button id="loginButton" type="submit" class="btn btn-primary" id="formButton">Submit</button>
+				<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
 			</form>
 		</div>
 		<div id="contactus" class="tab-pane fade">
@@ -183,8 +180,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 		<div id="aboutus" class="tab-pane fade">
 			<h3>About Us</h3>
 			<p>Some content in menu 5.</p>
-			á
-		</div>
+			ፊ		</div>
 		<div id="queryBody" class="tab-pane fade in">
 			<div id="queryHeader2"></div>
 			<div id="buttonDiv"></div>
@@ -193,11 +189,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 					<h2 id="queryHeader">Query Selector</h2>
 
 					<div id="dropUpQuery" class="dropup">
-						<button class="btn btn-default dropdown-toggle" type="button"
+						<button id="dropUpButton" class="btn btn-default dropdown-toggle" type="button"
 							data-toggle="dropdown">
 							Query Selection <span class="caret"></span>
 						</button>
-						<ul class="dropdown-menu">
+						<ul id="dropDownQueryList" class="dropdown-menu">
 							<li><a id="imsiWithDates" href="#">List of IMSI's for
 									given dates</a></li>
 							<li><a id="allFailuresForModel" href="#">List of failure
@@ -270,8 +266,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 										</select>
 									</div>
 								</div>
-
-
 							</div>
 						</div>
 						<div class="modal-footer">
