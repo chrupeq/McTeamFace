@@ -32,9 +32,8 @@ public class IMSIDAO {
 		return imsisAsBigInts;
     }
 	public List<IMSIWithValidFailureClasses> getIMSIsByDates(String date1, String date2) {
+		
 		dateParser = new DateParser();
-		date1 = dateParser.convertFromEuropeanToAmericanDateFormat(date1);
-		date2 = dateParser.convertFromEuropeanToAmericanDateFormat(date2);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
 		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE i.date_time BETWEEN :startDate AND :endDate");

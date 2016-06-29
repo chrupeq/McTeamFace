@@ -21,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.ait.db.data.DateParser;
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
@@ -38,7 +39,7 @@ public class IMSIRestService {
 	IMSIDAO IMSIDao;
 	@EJB
 	NetworkEntityDAO networkEntityDAO;
-	
+	DateParser dateParser;
 	@PersistenceContext
 	private EntityManager entityManager;
 	
@@ -76,7 +77,10 @@ public class IMSIRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getImsisBetweenDates(@QueryParam("date1") String date1, @QueryParam("date2") 
 		String date2){
-
+		
+		dateParser = new DateParser();
+		date1 = dateParser.convertFromEuropeanToAmericanDateFormat(date1);
+		date2 = dateParser.convertFromEuropeanToAmericanDateFormat(date2);
 		try{
 			List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(date1, date2);
 		if(imsiList.isEmpty()) {
