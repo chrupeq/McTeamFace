@@ -15,7 +15,7 @@ $(document).ready(function() {
 });
 
 	var displayError = function(){
-		$("#errorMessage"), 'display', 'none');
+		$(("#errorMessage"), 'display', 'none');
 		return false;
 	}
 	
@@ -108,3 +108,5 @@ var checkLevel = function(){
 		alert("ha, no.");
 	}
 }
+});
+

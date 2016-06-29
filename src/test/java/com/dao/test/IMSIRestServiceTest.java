@@ -78,4 +78,16 @@ public class IMSIRestServiceTest {
         		+ "\"failureDuration\":4000,\"numberOfFailures\":4}]", 
         response);
 	}
+	@Test
+	public void testGetIMSIsBetweenDates() throws Exception {
+		
+		request = new ClientRequest(deploymentUrl.toString() + 
+				RESOURCE_PREFIX + "/imsi/get_imsis_between_dates?date1=11/01/2013+17:00&date2=11/01/2013+17:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        String response = responseObj.getEntity().trim();
+        System.out.println("The response is: " + response);
+        assertEquals(200, responseObj.getStatus());
+	}
 }
