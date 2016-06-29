@@ -34,8 +34,6 @@ public class IMSIDAOTest {
 	private String dateFive;
 	private String dateSix;
 	private String dateSeven;
-	private String invalidDateOne;
-	private String invalidDateTwo;
 	private List<BigInteger> IMSIList;
 	private List<IMSIWithValidFailureClasses> imsiWithValidFailureClassses;
 	
@@ -103,12 +101,6 @@ public class IMSIDAOTest {
 		String dateTime = "11/01/2013 17:16:00";
 		assertEquals(dateTime, imsiWithValidFailureClassses.get(0).getDate_time());
 	}
-//	@Test
-//	public void shouldReturnAParsedCalendarObject() throws ParseException {
-//		Calendar[] datesAsCalendarObjects = imsiDAO.parseStringIntoCalendarObject(dateOne, dateTwo);
-//		assertNotNull(datesAsCalendarObjects);
-//		assertEquals(2, datesAsCalendarObjects.length);
-//	}
 	@Test
 	public void shouldReturnDistinctIMSIs() {
 		IMSIList = imsiDAO.getAllUniqueIMSIs();
