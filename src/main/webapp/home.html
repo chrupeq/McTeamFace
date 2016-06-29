@@ -83,7 +83,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 		<li><a data-toggle="tab" href="#queryBody" id="queryTabClick">Queries</a></li>
 		<li><a data-toggle="tab" href="#form" id="formTab">Add User
 				Form</a></li>
-		<li><a data-toggle="tab" href="#contactus">Contact Us</a></li>
+		<li><a data-toggle="tab" href="#uploadDataset">Upload Dataset</a></li>
 		<li><a data-toggle="tab" href="#aboutus">About Us</a></li>
 
 	</ul>
@@ -173,10 +173,69 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 				<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
 			</form>
 		</div>
-		<div id="contactus" class="tab-pane fade">
-			<h3>Contact Us</h3>
-			<p>Some content in menu 4.</p>
-		</div>
+		<div id="uploadDataset" class="tab-pane fade">
+			<script>
+$(document).on("click", "#submit", function(){
+	uploadFile();
+
+	return false;
+});
+
+var uploadFile = function(){
+
+	input = document.getElementById('fileinput');
+
+	file = input.files[0];
+
+	fr = new FileReader();
+
+	fr.readAsDataURL(file);
+
+	fr.onload = receivedText;
+
+};
+
+function receivedText() {
+
+$.ajax({
+
+type: "POST",
+
+url: "http://localhost:8080/GroupProject2016/rest/upload/uploadfile",
+
+data: fr.result,
+
+contentType: "application/json; charset=utf-8",
+
+dataType: "json",
+
+success: function(data){alert(fr.result);},
+
+failure: function(errMsg) {
+
+alert(errMsg);
+
+}
+
+});
+
+};
+
+function receivedText2() {
+	alert('received2');
+}
+
+</script>
+</div>
+	<div>
+	
+	<label class="btn btn-default btn-file">
+    Browse <input type="file" id="fileinput" style="display: none;">
+</label>
+<!--  		<input type="file" id="fileinput" />
+	</div>
+	<button type="submit" id="submit" name="submit">Submit</button>
+		</div> --></div>
 		<div id="aboutus" class="tab-pane fade">
 			<h3>About Us</h3>
 			<p>Some content in menu 5.</p>
