@@ -32,7 +32,7 @@ var loadDataTable = function(data) {
 								},
 
 								{
-									data : ""
+									data : "job_title"
 								},
 
 								{
@@ -64,6 +64,8 @@ $(document).ready(function() {
 	displayErrors();
 
 	$(document).on("click", "#formButton", function() {
+		$("#userExistsEerrorMessage").hide();
+		$("#passwordErrorMessage").hide();
 		var password = $("#passwordFormInput").val();
 		var reenterPassword = $("#reenterPasswordFormInput").val();
 
@@ -159,7 +161,7 @@ var formToJSON = function() {
 		"lastname" : $('#lastName').val(),
 		"username" : $('#usernameFormInput').val(),
 		"password" : $('#passwordFormInput').val(),
-		"job_title" : $('#jobTitleSelectId').val()
+		"job_title" : $('#jobTitleSelect').val()
 
 	});
 
