@@ -11,21 +11,23 @@ public class IMSIWithFailuresFactory {
 	private static List<IMSIWithValidFailureClasses> imsisWithValidFailureClassesList;
 	
 	public static List<IMSIWithValidFailureClasses> getImsiFailureClassList(List<Base_data> baseDataList) {
+		int reportId;
 		Calendar dateTime;
 		int failureClass;
 		BigInteger imsi;
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		imsisWithValidFailureClassesList = new ArrayList<>();
 		for(Base_data baseData : baseDataList) {
 			if(baseData.getFailure_class() == null) {
 				continue;
 			}
-				dateTime = baseData.getDate_time();
-				String dateTimeAsString = simpleDateFormat.format(dateTime.getTime());
-				failureClass = baseData.getFailure_class().getFailure_class();
-				imsi = baseData.getImsi();
-				IMSIWithValidFailureClasses imsiWithValidFailureClasses 
-					= new IMSIWithValidFailureClasses(dateTimeAsString, failureClass, imsi);
+			reportId = baseData.getReport_id();	
+			dateTime = baseData.getDate_time();
+			String dateTimeAsString = simpleDateFormat.format(dateTime.getTime());
+			failureClass = baseData.getFailure_class().getFailure_class();
+			imsi = baseData.getImsi();
+			IMSIWithValidFailureClasses imsiWithValidFailureClasses 
+					= new IMSIWithValidFailureClasses(reportId, dateTimeAsString, failureClass, imsi);
 				imsisWithValidFailureClassesList.add(imsiWithValidFailureClasses);
 			}
 		return imsisWithValidFailureClassesList;
