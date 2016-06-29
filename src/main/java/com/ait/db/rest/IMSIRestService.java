@@ -1,6 +1,7 @@
 package com.ait.db.rest;
 
 import java.math.BigInteger;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -12,10 +13,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.NetworkEntityDAO;
@@ -70,14 +74,14 @@ public class IMSIRestService {
 	@GET
 	@Path("/get_imsis_between_dates")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getImsisBetweenDates(@QueryParam("date1") String date1, @QueryParam("date2") String date2){
-
+	public Response getImsisBetweenDates(@QueryParam("date1") String date1, @QueryParam("date2") 
+		String date2){
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.UK);
-		String firstDate = date1.substring(6,10) + "/" + date1.substring(3, 5) + "/" + date1.substring(0,2) + " " + date1.substring(11,16);
-		String secondDate = date2.substring(6,10) + "/" + date2.substring(3, 5) + "/" + date2.substring(0,2) + " " + date2.substring(11,16);
+		String firstDate = date1.substring(6,10) + "-" + date1.substring(3, 5) + "-" + date1.substring(0,2) + " " + date1.substring(11,16);
+		String secondDate = date2.substring(6,10) + "-" + date2.substring(3, 5) + "-" + date2.substring(0,2) + " " + date2.substring(11,16);
 		secondDate = secondDate + ":00";
 		firstDate = firstDate + ":00";
+		System.out.println("the format of the dates after being parsed inside the rest method: " + firstDate + " " + secondDate);
 		try{
 		List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(firstDate, secondDate);
 		if(imsiList.isEmpty()) {
@@ -85,7 +89,9 @@ public class IMSIRestService {
 		}
 		return Response.status(200).entity(imsiList).build();
 		}catch(Exception e){
+			e.printStackTrace();
 			return Response.status(400).build();
 		}
 	}
 }
+
