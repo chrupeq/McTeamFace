@@ -76,10 +76,7 @@ public class IMSIRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getImsisBetweenDates(@QueryParam("date1") String date1, @QueryParam("date2") 
 		String date2){
-		System.out.println("the format that the dates arrive to the method: " + date1 + " " + date2);
-//		date1 = "30/06/2016 00:00";
-//		date2 = "30/06/2016 00:00";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.UK);
+		
 		String firstDate = date1.substring(6,10) + "-" + date1.substring(3, 5) + "-" + date1.substring(0,2) + " " + date1.substring(11,16);
 		String secondDate = date2.substring(6,10) + "-" + date2.substring(3, 5) + "-" + date2.substring(0,2) + " " + date2.substring(11,16);
 		secondDate = secondDate + ":00";
@@ -95,22 +92,6 @@ public class IMSIRestService {
 			e.printStackTrace();
 			return Response.status(400).build();
 		}
-	}
-	@GET
-	@Path("/imsi_between_dates/{dateOne}")
-	@Produces({MediaType.APPLICATION_JSON})
-	public Response returnIMSIsBetweenDates(@PathParam("dateOne")String dateOne) {
-		System.out.println("Inside the imsis between dates method.");
-//		try{
-//			List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(dateOne, dateTwo);
-//			if(imsiList.isEmpty()) {
-//				return Response.status(404).build();
-//			}
-//			return Response.status(200).entity(imsiList).build();
-//			}catch(Exception e){
-//				return Response.status(400).build();
-//			}
-		return Response.status(400).build(); 
 	}
 }
 
