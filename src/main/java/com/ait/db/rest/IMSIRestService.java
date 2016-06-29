@@ -81,7 +81,7 @@ public class IMSIRestService {
 		String secondDate = date2.substring(6,10) + "-" + date2.substring(3, 5) + "-" + date2.substring(0,2) + " " + date2.substring(11,16);
 		secondDate = secondDate + ":00";
 		firstDate = firstDate + ":00";
-		System.out.println("the format of the dates after being parsed inside the rest method: " + firstDate + " " + secondDate);
+	
 		try{
 			List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(firstDate, secondDate);
 		if(imsiList.isEmpty()) {
