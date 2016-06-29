@@ -16,7 +16,9 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
@@ -49,7 +51,8 @@ public class IMSIDAOTest {
 	}
 	@EJB
 	IMSIDAO imsiDAO;
-	
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
 	@Before
 	public void setUp() {
 		dateOne = "2013-01-11 17:15:00";
@@ -59,9 +62,6 @@ public class IMSIDAOTest {
 		dateFive = "2013-01-11 17:30:00";
 		dateSix = "2016-06-28 00:00:00";
 		dateSeven = "2016-06-28 23:59:00";
-		invalidDateOne = "29/06/2016 00:00";
-		invalidDateTwo = "29/06/2016 00:01";
-		
 	}
 	@Test
 	public void shouldReturnBaseDataBetweenTwoDatesPartOne() throws ParseException {
@@ -100,7 +100,7 @@ public class IMSIDAOTest {
 	@Test
 	public void shouldREturnDateAsAFormattedString() throws ParseException {
 		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateTwo, dateThree);
-		String dateTime = "2013-11-01 17:16:00";
+		String dateTime = "11/01/2013 17:16:00";
 		assertEquals(dateTime, imsiWithValidFailureClassses.get(0).getDate_time());
 	}
 	@Test
@@ -108,13 +108,6 @@ public class IMSIDAOTest {
 		Calendar[] datesAsCalendarObjects = imsiDAO.parseStringIntoCalendarObject(dateOne, dateTwo);
 		assertNotNull(datesAsCalendarObjects);
 		assertEquals(2, datesAsCalendarObjects.length);
-	}
-	@Test
-	public void shouldNotParseAnInvalidFormat() throws ParseException {
-		Calendar[] datesAsCalendarObjects = imsiDAO.parseStringIntoCalendarObject(invalidDateOne, invalidDateTwo);
-		assertNotNull(datesAsCalendarObjects);
-		assertEquals(2, datesAsCalendarObjects.length);
-		
 	}
 	@Test
 	public void shouldReturnDistinctIMSIs() {

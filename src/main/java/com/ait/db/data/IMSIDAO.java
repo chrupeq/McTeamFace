@@ -30,7 +30,7 @@ public class IMSIDAO {
 		List<BigInteger> imsisAsBigInts = query.getResultList();
 		return imsisAsBigInts;
     }
-	public Calendar[] parseStringIntoCalendarObject(String date1, String date2) throws ParseException {
+	public Calendar[] parseStringIntoCalendarObject (String date1, String date2) {
 		String[] dateArray = new String[2];
 		dateArray[0] = date1;
 		dateArray[1] = date2;
@@ -43,11 +43,11 @@ public class IMSIDAO {
 				calendarArray[i] = calendar;
 			}
 		} catch(ParseException e) {
-			e.printStackTrace();
+			System.out.println("Date could not be parsed. " + e.toString());
 		}
 		return calendarArray;
 	}
-	public List<IMSIWithValidFailureClasses> getIMSIsByDates(String date1, String date2) throws ParseException{
+	public List<IMSIWithValidFailureClasses> getIMSIsByDates(String date1, String date2) {
 	
 		Calendar[] calendarArray = parseStringIntoCalendarObject(date1, date2);
 		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE i.date_time BETWEEN :startDate AND :endDate");

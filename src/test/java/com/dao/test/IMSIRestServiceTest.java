@@ -21,11 +21,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
-import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
-import com.ait.db.rest.NetworkEntityRestService;
 import com.ait.imsiStats.IMSIStatsProducer;
 
 @RunWith(Arquillian.class)
