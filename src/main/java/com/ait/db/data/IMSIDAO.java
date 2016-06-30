@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -41,6 +42,7 @@ public class IMSIDAO {
 		query.setParameter("endDate", calendarArray[1]);
 		List<Base_data> IMSIsBetweenDates = query.getResultList();
 		List<IMSIWithValidFailureClasses> imsiWithValidFailureClasses = IMSIWithFailuresFactory.getImsiFailureClassList(IMSIsBetweenDates);
+		Collections.sort(imsiWithValidFailureClasses);
 		return imsiWithValidFailureClasses;
 	}
 }

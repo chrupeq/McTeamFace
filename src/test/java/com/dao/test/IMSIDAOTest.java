@@ -96,9 +96,9 @@ public class IMSIDAOTest {
 		assertTrue(imsiWithValidFailureClassses.isEmpty());
 	}
 	@Test
-	public void shouldREturnDateAsAFormattedString() throws ParseException {
+	public void shouldReturnDateAsAFormattedString() throws ParseException {
 		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateTwo, dateThree);
-		String dateTime = "11/01/2013 17:16:00";
+		String dateTime = "11/01/2013 17:17:00";
 		assertEquals(dateTime, imsiWithValidFailureClassses.get(0).getDate_time());
 	}
 	@Test
@@ -119,5 +119,21 @@ public class IMSIDAOTest {
 		
 		imsi = new BigInteger("310560000000012");
 		assertEquals(imsi, IMSIList.get(2));	
+	}
+	@Test
+	public void getIMSIsByDateShouldReturnOrderedIMSIs() {
+		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateFour, dateFive);
+		
+		BigInteger imsi = new BigInteger("240210000000013");
+		// the first element
+		assertEquals(imsiWithValidFailureClassses.get(0).getImsi(), imsi);
+		
+		imsi = new BigInteger("310560000000012");
+		// element in the middle
+		assertEquals(imsiWithValidFailureClassses.get(imsiWithValidFailureClassses.size()/2).getImsi(), imsi);
+		
+		imsi = new BigInteger("344930000000011");
+		// last element in the list
+		assertEquals(imsiWithValidFailureClassses.get(imsiWithValidFailureClassses.size()-1).getImsi(), imsi);
 	}
 }
