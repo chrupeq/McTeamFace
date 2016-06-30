@@ -75,7 +75,7 @@ public class IMSIRestService {
 			return Response.status(200).entity(imsiStats).build();
 		} catch(Exception e) {
 			e.printStackTrace();
-			return Response.status(404).build();
+			return Response.status(400).build();
 		}
 	}	
 	

@@ -19,6 +19,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.ait.db.data.DateParser;
 import com.ait.db.data.SessionDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.User;
@@ -38,7 +39,8 @@ public class UserIntegrationTest {
 
 	@Deployment(testable = false)
 	public static Archive<?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(User.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war")
+				.addPackage(User.class.getPackage())
 				.addPackage(UserWS.class.getPackage())
 				.addClasses(JaxRsActivator.class, SessionDAO.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
