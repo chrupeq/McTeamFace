@@ -103,6 +103,7 @@ public class UniqueModelFailureRestServiceTest {
 	@Test 
 	@InSequence(1)
 	public void nonexistentTACCodeTest() throws Exception {
+		// request a tac number that does not exist
 		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX 
 				+ "/unique_model_failures/404"); 
 		// we're expecting a String back

@@ -22,6 +22,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
+import com.ait.db.data.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 
@@ -36,6 +37,7 @@ public class IMSIDAOTest {
 	private String dateSeven;
 	private List<BigInteger> IMSIList;
 	private List<IMSIWithValidFailureClasses> imsiWithValidFailureClassses;
+	private List<IMSIWithEventIDAndCauseCode> imsisWithEventIDsAndCauseCodes;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -135,5 +137,14 @@ public class IMSIDAOTest {
 		imsi = new BigInteger("344930000000011");
 		// last element in the list
 		assertEquals(imsiWithValidFailureClassses.get(imsiWithValidFailureClassses.size()-1).getImsi(), imsi);
+	}
+	@Test
+	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnAListOfObjects() {
+		BigInteger imsi = new BigInteger("240210000000013");
+//		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
+		List<Base_data> baseDataList = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
+		assertNotNull(baseDataList);
+		assertFalse(baseDataList.isEmpty());
+		assertEquals(3, baseDataList.size());
 	}
 }

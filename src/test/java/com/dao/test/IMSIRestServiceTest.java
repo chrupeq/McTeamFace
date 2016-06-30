@@ -100,4 +100,27 @@ public class IMSIRestServiceTest {
         System.out.println("The response is: " + response);
         assertEquals(404, responseObj.getStatus());
 	}
+	@Test
+	public void getIMSIsWithEventIDAndCauseCodeShouldReturn200() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + 
+				RESOURCE_PREFIX + "/imsi/imsi_event_id/240210000000013");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+		ClientResponse<String> responseObj = request.get(String.class);
+        String response = responseObj.getEntity().trim();
+        System.out.println("The response is: " + response);
+        assertEquals(200, responseObj.getStatus());
+	}
+	@Test
+	public void getIMSIsWithEventIDAndCauseCodeShouldReturn404() throws Exception {
+		// pass in a non-existent imsi code
+		request = new ClientRequest(deploymentUrl.toString() + 
+				RESOURCE_PREFIX + "/imsi/imsi_event_id/404");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+		ClientResponse<String> responseObj = request.get(String.class);
+        String response = responseObj.getEntity().trim();
+        System.out.println("The response is: " + response);
+        assertEquals(404, responseObj.getStatus());
+	}
 }

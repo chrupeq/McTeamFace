@@ -51,7 +51,7 @@ public class UETypeRestServiceTest {
 	
 	
 	@Test 
-	public void getAllManufacturersAndModelsTest() throws Exception {
+	public void getAllManufacturersAndModelsTestShouldReturn200() throws Exception {
 		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/unique_model");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back

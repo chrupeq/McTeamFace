@@ -1,5 +1,6 @@
 package com.ait.db.rest;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
 import java.text.SimpleDateFormat;
@@ -25,6 +26,7 @@ import com.ait.db.data.DateParser;
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
+import com.ait.db.model.Base_data;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.NetworkEntity;
 import com.ait.imsiStats.IMSIStats;
@@ -88,6 +90,21 @@ public class IMSIRestService {
 		}
 		return Response.status(200).entity(imsiList).build();
 		}catch(Exception e){
+			e.printStackTrace();
+			return Response.status(400).build();
+		}
+	}
+	@GET
+	@Path("/imsi_event_id/{imsi}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
+		try {
+			List<Base_data> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
+			if(imsiList.isEmpty()) {
+				return Response.status(404).build();
+			} 
+			return Response.status(200).entity(imsiList).build();
+		} catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(400).build();
 		}

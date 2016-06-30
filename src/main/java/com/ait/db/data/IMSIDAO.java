@@ -45,4 +45,12 @@ public class IMSIDAO {
 		Collections.sort(imsiWithValidFailureClasses);
 		return imsiWithValidFailureClasses;
 	}
+//	public List<IMSIWithEventIDAndCauseCode> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) {
+	public List<Base_data> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) {
+		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
+		query.setParameter("imsi", imsi);
+		List<Base_data> baseDataWithIMSI = query.getResultList();
+		return baseDataWithIMSI;
+	}
+	
 }
