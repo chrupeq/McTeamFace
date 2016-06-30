@@ -16,14 +16,21 @@ $(document).on("click", 'button.editButton', function() {
 
 		return false;
 	});
-
-	
 	
 });
 
 $(document).on("click", 'button.deleteButton', function() {
-	
+	deleteUser(this.id);
 });
+
+$(document).on("click", 'formButtonClose', function() {
+	$("#myModalAdd").modal('hide');
+});
+
+$(document).on("click", 'formButtonCloseEdit', function() {
+	$("#myModalEdit").modal('hide');
+});
+
 
 var findAll = function() {
 	$.ajax({
@@ -64,7 +71,7 @@ var addUser = function() {
 };
 
 
-var editUser = function() {
+var editUser = function(id) {
 	console.log("editUser");
 
 	$.ajax({
@@ -75,7 +82,7 @@ var editUser = function() {
 		data : formToJSONEdit(),
 		success : function(data, textStatus, jqXHR) {
 
-			loadDataTable;
+			findAll();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			alert("editUser error: " + textStatus);
@@ -83,6 +90,23 @@ var editUser = function() {
 	});
 };
 	
+var deleteUser = function(id) {
+	console.log("deleteUser");
+	
+	$.ajax({
+		type: "DELETE",
+		url: rootUrl2 + "/" + id,
+		success: function(data, textStatus, jqXHR){
+			findAll();
+
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("deleteUser Error");
+		}
+			
+	});
+};
+
 var renderEditDetails = function(data){
 	$('#firstNameEdit').val(data.firstname);
 	$('#lastNameEdit').val(data.lastname);
@@ -94,8 +118,9 @@ var renderEditDetails = function(data){
 var loadDataTable = function(data) {
 	var table = $('#userInfoTable')
 			.DataTable(
+	
 					{
-
+						destroy: true,
 						data : data,
 
 						columns : [
@@ -218,7 +243,7 @@ function checkUsernameExistsEdit(details, userId) {
 
 	if (counter == 0) {
 		alert("here");
-		editUser();
+		editUser(userId);
 	}
 
 	counter = 0;
@@ -275,26 +300,6 @@ $(document).on("click", "#logoutBtn", function() {
 /*form functions*/
 
 
-
-var editUser = function() {
-	console.log("editUser");
-	
-	$.ajax({
-		type: "PUT",
-		contentType: "application/json",
-		url: rootUrl + id,
-		dataType: "json",
-		data: formToJSON(),
-		success: function(data, textStatus, jqXHR) {
-			alert("Car updated successfully");
-			location.reload();
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			alert("UpdateCar error: " + textStatus);
-		}
-	
-	});
-}
 var formToJSON = function() {
 
 	return JSON.stringify({
