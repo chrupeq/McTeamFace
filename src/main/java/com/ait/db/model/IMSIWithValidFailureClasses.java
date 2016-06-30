@@ -3,13 +3,13 @@ package com.ait.db.model;
 import java.math.BigInteger;
 import java.util.Calendar;
 
-public class IMSIWithValidFailureClasses {
+public class IMSIWithValidFailureClasses implements Comparable<IMSIWithValidFailureClasses> {
 	private int report_id;
 	private String dateTime;
 	private int failureClass;
 	private BigInteger imsi;
 	
-	public IMSIWithValidFailureClasses(int reportId, String dateTime, int failureClass, BigInteger imsi) {
+	public IMSIWithValidFailureClasses (int reportId, String dateTime, int failureClass, BigInteger imsi) {
 		this.report_id = reportId;
 		this.dateTime = dateTime;
 		this.failureClass = failureClass;
@@ -26,5 +26,9 @@ public class IMSIWithValidFailureClasses {
 	}
 	public BigInteger getImsi() {
 		return imsi;
+	}
+	@Override
+	public int compareTo(IMSIWithValidFailureClasses o) {
+		return this.imsi.compareTo(o.imsi);
 	}
 }
