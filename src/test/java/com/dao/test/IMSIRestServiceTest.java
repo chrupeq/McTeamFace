@@ -136,7 +136,7 @@ public class IMSIRestServiceTest {
         assertEquals("[{\"event_id\":4125,\"cause_code\":\"23\",\"failure_class\":\"0\",\"imsi\":344930000000011},"
         		+ "{\"event_id\":4106,\"cause_code\":\"11\",\"failure_class\":\"1\",\"imsi\":344930000000011},"
         		+ "{\"event_id\":4097,\"cause_code\":\"13\",\"failure_class\":\"1\",\"imsi\":344930000000011},"
-        		+ "{\"event_id\":4097,\"cause_code\":\"Cause code could not be determined\","
+        		+ "{\"event_id\":-1,\"cause_code\":\"Cause code could not be determined\","
         		+ "\"failure_class\":\"Failure class could not be determined.\",\"imsi\":344930000000011}]", response);
 	}
 }

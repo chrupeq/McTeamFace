@@ -50,7 +50,6 @@ public class IMSIDAO {
 		return imsiWithValidFailureClasses;
 	}
 	public List<IMSIWithEventIDAndCauseCode> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) throws Exception {
-//	public List<Base_data> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) {
 		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
 		query.setParameter("imsi", imsi);
 		List<Base_data> baseDataList = query.getResultList();

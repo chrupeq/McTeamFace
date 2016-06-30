@@ -21,17 +21,10 @@ public class IMSIWithEventIDAndCauseCodeFactory {
 		imsiWithEventIDAndCauseCodeList = new ArrayList<>();
 		for(Base_data baseData : baseDataList) {
 			System.out.println("Iteration number " + ++index);
-			if(baseData.getEvent_cause() != null) {
-				eventId = baseData.getEvent_cause().getEvent_id();
-				causeCode = Integer.toString(baseData.getEvent_cause().getCause_code());
-			} else {
-				causeCode = "Cause code could not be determined";
-			}
-			if(baseData.getFailure_class() == null) {
-				failureClass = "Failure class could not be determined.";
-			} else {
-				failureClass = Integer.toString(baseData.getFailure_class().getFailure_class());
-			}
+			Object[] eventCauseKeys = processEventCause(baseData);
+			eventId = (int) eventCauseKeys[0];
+			causeCode = (String) eventCauseKeys[1];
+			failureClass = processFailureClass(baseData);
 			imsi = baseData.getImsi();
 			IMSIWithEventIDAndCauseCode imsiWithEventIDAndCauseCode 
 				= new IMSIWithEventIDAndCauseCode(eventId, causeCode, failureClass, imsi);
@@ -39,5 +32,28 @@ public class IMSIWithEventIDAndCauseCodeFactory {
 		}
 		return imsiWithEventIDAndCauseCodeList;
 	}
-
+	private Object[] processEventCause(Base_data baseData) {
+		Integer eventId = null;
+		String causeCode;
+		Object[] eventCauseKeyArray = new Object[2];
+		if(baseData.getEvent_cause() != null) {
+			eventId = baseData.getEvent_cause().getEvent_id();
+			causeCode = Integer.toString(baseData.getEvent_cause().getCause_code());
+		} else {
+			eventId = -1;
+			causeCode = "Cause code could not be determined";
+		}
+		eventCauseKeyArray[0] = eventId;
+		eventCauseKeyArray[1] = causeCode;
+		return eventCauseKeyArray;
+	}
+	private String processFailureClass(Base_data baseData) {
+		String failureClass;
+		if(baseData.getFailure_class() == null) {
+			failureClass = "Failure class could not be determined.";
+		} else {
+			failureClass = Integer.toString(baseData.getFailure_class().getFailure_class());
+		}
+		return failureClass;
+	}
 }
