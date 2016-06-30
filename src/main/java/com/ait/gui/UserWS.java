@@ -84,15 +84,6 @@ public class UserWS {
 	}
 
 
-	// @POST
-	// @Produces({ MediaType.APPLICATION_JSON })
-	// @Consumes("application/json")
-	// public Response saveUser(final User user) {
-	// userDao.save(user);
-	// return Response.status(201).entity(user).build();
-	// }
-
-
 	@PUT
 	@Path("/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
