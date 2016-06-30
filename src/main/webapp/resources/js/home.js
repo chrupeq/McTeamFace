@@ -42,7 +42,46 @@ var findById = function(id){
 		dataType: "json",
 		success: renderEditDetails
 		});
-	};
+};
+
+var addUser = function() {
+	console.log("addUser");
+
+	$.ajax({
+		type : "POST",
+		contentType : 'application/json',
+		url : rootUrl2,
+
+		data : formToJSON(),
+		success : function(data, textStatus, jqXHR) {
+
+			location.reload();
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert("addUser error: " + textStatus);
+		}
+	});
+};
+
+
+var editUser = function() {
+	console.log("editUser");
+
+	$.ajax({
+		type : "PUT",
+		contentType : 'application/json',
+		url : rootUrl2 + '/' + id,
+
+		data : formToJSONEdit(),
+		success : function(data, textStatus, jqXHR) {
+
+			loadDataTable;
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert("editUser error: " + textStatus);
+		}
+	});
+};
 	
 var renderEditDetails = function(data){
 	$('#firstNameEdit').val(data.firstname);
@@ -151,7 +190,9 @@ var getDatabaseDetailsEdit = function(userId) {
 		}
 	});
 	return false;
-}
+};
+
+
 
 function checkUsernameExistsEdit(details, userId) {
 	console.log("Checking username");
@@ -184,24 +225,7 @@ function checkUsernameExistsEdit(details, userId) {
 	return false;
 };
 
-var editUser = function() {
-	console.log("editUser");
 
-	$.ajax({
-		type : "PUT",
-		contentType : 'application/json',
-		url : rootUrl2 + '/' + id,
-
-		data : formToJSONEdit(),
-		success : function(data, textStatus, jqXHR) {
-
-			location.reload();
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			alert("addUser error: " + textStatus);
-		}
-	});
-};
 
 var getDatabaseDetails = function() {
 	console.log("getting details");
@@ -250,25 +274,27 @@ $(document).on("click", "#logoutBtn", function() {
 
 /*form functions*/
 
-var addUser = function() {
-	console.log("addUser");
 
+
+var editUser = function() {
+	console.log("editUser");
+	
 	$.ajax({
-		type : "POST",
-		contentType : 'application/json',
-		url : rootUrl2,
-
-		data : formToJSON(),
-		success : function(data, textStatus, jqXHR) {
-
+		type: "PUT",
+		contentType: "application/json",
+		url: rootUrl + id,
+		dataType: "json",
+		data: formToJSON(),
+		success: function(data, textStatus, jqXHR) {
+			alert("Car updated successfully");
 			location.reload();
 		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			alert("addUser error: " + textStatus);
+		error: function(jqXHR, textStatus, errorThrown) {
+			alert("UpdateCar error: " + textStatus);
 		}
+	
 	});
-};
-
+}
 var formToJSON = function() {
 
 	return JSON.stringify({
@@ -284,7 +310,8 @@ var formToJSON = function() {
 };
 
 var formToJSONEdit = function() {
-
+	console.log("editStringify");
+	
 	return JSON.stringify({
 
 		"firstname" : $('#firstNameEdit').val(),

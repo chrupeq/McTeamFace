@@ -43,6 +43,10 @@
   margin:auto;	
 }
 
+#btnAddUser {
+	float:right;
+}
+
 #contactus {
 	padding-left: 35px;
 	padding-right: 40px;
