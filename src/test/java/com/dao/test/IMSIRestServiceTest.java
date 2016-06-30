@@ -62,7 +62,7 @@ public class IMSIRestServiceTest {
 	}
 	@Test
 	public void testGetIMSIsForStats() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats");
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats?dateOne=11/01/2013+17:00&dateTwo=11/01/2013+17:30");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
         ClientResponse<String> responseObj = request.get(String.class);
