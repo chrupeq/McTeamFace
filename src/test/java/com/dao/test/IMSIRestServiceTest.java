@@ -21,11 +21,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
-import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
-import com.ait.db.rest.NetworkEntityRestService;
 import com.ait.imsiStats.IMSIStatsProducer;
 
 @RunWith(Arquillian.class)
@@ -79,7 +77,7 @@ public class IMSIRestServiceTest {
         response);
 	}
 	@Test
-	public void testGetIMSIsBetweenDates() throws Exception {
+	public void getIMSIsBetweenDatesShouldReturn200() throws Exception {
 		
 		request = new ClientRequest(deploymentUrl.toString() + 
 				RESOURCE_PREFIX + "/imsi/get_imsis_between_dates?date1=11/01/2013+17:00&date2=11/01/2013+17:30");
@@ -89,5 +87,17 @@ public class IMSIRestServiceTest {
         String response = responseObj.getEntity().trim();
         System.out.println("The response is: " + response);
         assertEquals(200, responseObj.getStatus());
+	}
+	@Test
+	public void getIMSIsBetweenDatesShouldReturn404() throws Exception {
+		// pass in two dates that cannot possibly be in the database
+		request = new ClientRequest(deploymentUrl.toString() + 
+				RESOURCE_PREFIX + "/imsi/get_imsis_between_dates?date1=01/01/1988+17:00&date2=02/01/1988+17:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        String response = responseObj.getEntity().trim();
+        System.out.println("The response is: " + response);
+        assertEquals(404, responseObj.getStatus());
 	}
 }
