@@ -27,6 +27,7 @@ import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.NetworkEntity;
 import com.ait.imsiStats.IMSIStats;
@@ -99,7 +100,7 @@ public class IMSIRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
 		try {
-			List<Base_data> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
+			List<IMSIWithEventIDAndCauseCode> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
 			if(imsiList.isEmpty()) {
 				return Response.status(404).build();
 			} 

@@ -1,15 +1,19 @@
-package com.ait.db.data;
+package com.ait.db.model;
+
+import java.math.BigInteger;
 
 public class IMSIWithEventIDAndCauseCode {
 	private int event_id;
 	private String cause_code;
 	private String failure_class;
+	private BigInteger imsi;
 	
-	public IMSIWithEventIDAndCauseCode(int event_id, String cause_code, String failure_class) {
+	public IMSIWithEventIDAndCauseCode(int event_id, String cause_code, String failure_class, BigInteger imsi) {
 		super();
 		this.event_id = event_id;
 		this.cause_code = cause_code;
 		this.failure_class = failure_class;
+		this.imsi = imsi;
 	}
 
 	public int getEvent_id() {
@@ -22,5 +26,8 @@ public class IMSIWithEventIDAndCauseCode {
 
 	public String getFailure_class() {
 		return failure_class;
+	}
+	public BigInteger getImsi() {
+		return imsi;
 	}
 }

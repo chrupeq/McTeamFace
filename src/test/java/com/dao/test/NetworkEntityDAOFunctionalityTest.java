@@ -97,8 +97,8 @@ public class NetworkEntityDAOFunctionalityTest {
 		// update based on id
 		assertNotNull(networkEntityDAO.getNetworkEntityById(NetworkEntityType.EVENT_CAUSE, 0, 4097));
 		Event_cause eventCause = (Event_cause) networkEntityDAO.getNetworkEntityById(NetworkEntityType.EVENT_CAUSE, 0, 4097);
-		assertEquals(0, eventCause.getCause_code());
-		assertEquals(4097, eventCause.getEvent_id());
+		assertEquals(new Integer(0), eventCause.getCause_code());
+		assertEquals(new Integer(4097), eventCause.getEvent_id());
 		// update
 		assertEquals("RRC CONN SETUP-SUCCESS", eventCause.getDescription());
 		eventCause.setDescription("CONNECTION FAILURE");

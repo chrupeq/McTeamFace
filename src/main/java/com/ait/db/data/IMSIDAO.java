@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
@@ -15,6 +16,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithEventIDAndCauseCode;
+import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 
@@ -26,6 +29,7 @@ public class IMSIDAO {
     private EntityManager entityManager;
 	private Query query;
 	private DateParser dateParser;
+	private IMSIWithEventIDAndCauseCodeFactory imsiWithEventIDAndCauseCodeFactory;
 	
 	public List<BigInteger> getAllUniqueIMSIs() {
 		query = entityManager.createQuery("SELECT DISTINCT(i.imsi) FROM Base_data i");
@@ -45,12 +49,19 @@ public class IMSIDAO {
 		Collections.sort(imsiWithValidFailureClasses);
 		return imsiWithValidFailureClasses;
 	}
-//	public List<IMSIWithEventIDAndCauseCode> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) {
-	public List<Base_data> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) {
+	public List<IMSIWithEventIDAndCauseCode> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) throws Exception {
+//	public List<Base_data> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) {
 		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
 		query.setParameter("imsi", imsi);
-		List<Base_data> baseDataWithIMSI = query.getResultList();
-		return baseDataWithIMSI;
+		List<Base_data> baseDataList = query.getResultList();
+		if(baseDataList.isEmpty()) {
+			List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = new ArrayList<>(0);
+			return imsiWithEventIDAndCauseCodeList;
+		}
+		imsiWithEventIDAndCauseCodeFactory = new IMSIWithEventIDAndCauseCodeFactory(baseDataList);
+		List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = 
+				imsiWithEventIDAndCauseCodeFactory.getIMSIWithEventIDAndCauseCodeList();
+		return imsiWithEventIDAndCauseCodeList;
 	}
 	
 }
