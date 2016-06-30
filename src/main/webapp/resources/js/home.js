@@ -1,5 +1,44 @@
 var rootUrl2 = "http://localhost:8080/GroupProject2016/rest/users";
 
+$(document).ready(function(jobTitle) {
+	displayErrors();
+	findAll();
+    userAccessControl(jobTitle);
+
+});
+
+
+var userAccessControl = function(jobTitle){
+	console.log("heloo");
+	if(jobTitle == "SA"){
+		
+		$("#queryTabClick").hide();
+		$("#contact").hide();
+		$("#about").hide();
+		console.log(jobTitle);
+		
+	}else if(jobTitle == "NME"){
+		
+		$("#queryTabClick").hide();
+		$("#contact").hide();
+		$("#about").hide();
+		
+		
+	}else if(jobTitle == "SE"){
+		
+		$("#queryTabClick").hide();
+		$("#contact").hide();
+		$("#about").hide();
+		
+	}else if(jobTitle == "CSR"){
+		
+		$("#queryTabClick").hide();
+		$("#contact").hide();
+		$("#about").hide();
+	}
+};
+
+
 $(document).on("click", 'button.clickToAdd', function() {
 	$("#myModalAdd").modal('show');
 });
@@ -174,11 +213,9 @@ var loadDataTable = function(data) {
 
 };
 
-$(document).ready(function() {
-	displayErrors();
-	findAll();
 
-});
+
+
 
 $(document).on("click", "#formButton", function() {
 	$("#userExistsEerrorMessage").hide();
