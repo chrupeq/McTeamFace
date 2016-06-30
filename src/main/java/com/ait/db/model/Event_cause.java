@@ -18,10 +18,10 @@ public class Event_cause implements Serializable, NetworkEntity {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(columnDefinition = "INT UNSIGNED", nullable = false)
-	private int cause_code;
+	private Integer cause_code;
 	@Id
 	@Column(columnDefinition = "INT UNSIGNED", nullable = false)
-	private int event_id;
+	private Integer event_id;
 	@Column(nullable = false)
 	private String description;
 	@OneToMany(mappedBy="event_cause")
@@ -30,19 +30,19 @@ public class Event_cause implements Serializable, NetworkEntity {
 	public Event_cause() {
 		
 	}
-	public Event_cause(int causeCode, int eventId, String description) {
+	public Event_cause(Integer causeCode, Integer eventId, String description) {
 		cause_code = causeCode;
 		event_id = eventId;
 		this.description = description;
 	}
 	
-	public int getCause_code() {
+	public Integer getCause_code() {
 		return cause_code;
 	}
 	public void setCause_code(int cause_code) {
 		this.cause_code = cause_code;
 	}
-	public int getEvent_id() {
+	public Integer getEvent_id() {
 		return event_id;
 	}
 	public void setEvent_id(int event_id) {

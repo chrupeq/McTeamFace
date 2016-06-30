@@ -22,8 +22,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
-import com.ait.db.data.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 
 @RunWith(Arquillian.class)
@@ -139,12 +139,26 @@ public class IMSIDAOTest {
 		assertEquals(imsiWithValidFailureClassses.get(imsiWithValidFailureClassses.size()-1).getImsi(), imsi);
 	}
 	@Test
-	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnAListOfObjects() {
+	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnAListOfObjects() throws Exception {
 		BigInteger imsi = new BigInteger("240210000000013");
-//		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
-		List<Base_data> baseDataList = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
-		assertNotNull(baseDataList);
-		assertFalse(baseDataList.isEmpty());
-		assertEquals(3, baseDataList.size());
+		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
+		assertNotNull(imsisWithEventIDsAndCauseCodes);
+		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
+		assertEquals(3, imsisWithEventIDsAndCauseCodes.size());
+		
+		imsi = new BigInteger("310560000000012");
+		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
+		assertNotNull(imsisWithEventIDsAndCauseCodes);
+		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
+		assertEquals(3, imsisWithEventIDsAndCauseCodes.size());	
 	}
+	@Test
+	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnCustomMessagesForNullObjects() throws Exception {
+		BigInteger imsi = new BigInteger("344930000000011");
+		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
+		assertNotNull(imsisWithEventIDsAndCauseCodes);
+		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
+		assertEquals(4, imsisWithEventIDsAndCauseCodes.size());
+	}
+	
 }
