@@ -29,10 +29,25 @@ var buildIMSIStatsTable = function(data) {
 };
 $(document).ready(function(){
 	console.log("imsi stats js script ready!");
+	$('#select_box').hide();
 	$('#imsiStatsButton').click(function(){
 		console.log("the IMSI stats button has been pressed.");
 		getIMSIDataForTable();
 	});
+	$('#imsiEventCauseButton').click(function() {
+		console.log('imsi event cause button pressed')
+		$('#imsiStatsButton').hide();
+		$('#select_box').show();
+		$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
+		    var options = $('select');
+		    //don't forget error handling!
+		    $.each(result, function(index, item) {
+		        options.append('<option value="'+item+'">'+item+'</option>');
+		    });
+		});
+	});
 	
 });
+
+
 
