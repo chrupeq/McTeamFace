@@ -1,9 +1,14 @@
 //javascript document
 
 var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
-
+var jobTitle = "";
 $(document).ready(function() {
 	displayError();
+	$("#queryTabClick").hide();
+	$("#contact").hide();
+	$("#about").hide();
+	$("#importDatasetTab").hide();
+	$("#formTab").hide();
 });
 
 	var displayError = function(){
@@ -12,27 +17,13 @@ $(document).ready(function() {
 	}
 	
 
+	
 $(document).on("click", "button", function(){
 	getDetailsFromUser();
 	
 	return false;
 });
 	
-
-var verifyAdmin = function() {
-	console.log("verify admin");
-	
-	var loggedInUsername = $('#username').val();
-	
-	if(loggedInUsername == "SystemAdmin1") {
-		console.log("Admin logged in");
-	} else {
-		console.log("Username not admin");
-		
-	}
-	
-	return false;
-}
 
 
 var getDetailsFromUser = function() {
@@ -57,12 +48,15 @@ function loginAuthentication(details) {
 	$.each(details, function(i, detail){
 		
 		if(username==detail.username && password==detail.password) {
-			counter++;
 			
-			verifyAdmin();
+			counter++;
+			jobTitle = detail.job_title;
+			document.cookie = "jobTitle=" + detail.job_title + "";
 			window.location = 'http://localhost:8080/GroupProject2016/home.html';
 			
-			return false;
+		//	userAccessControl(detail.job_title);
+			console.log("here");
+			
 		}		
 		
 	})	
@@ -75,8 +69,9 @@ function loginAuthentication(details) {
 	return false;
 };
 
-
-
-
+var updateGlobal = function(jobDetail){
+	console.log("variable: " + jobDetail);
+	jobTitle = jobDetail;
+};
 
 

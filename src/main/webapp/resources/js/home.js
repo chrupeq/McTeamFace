@@ -1,42 +1,44 @@
 var rootUrl2 = "http://localhost:8080/GroupProject2016/rest/users";
-
-$(document).ready(function(jobTitle) {
+var jobTitle2 = "";
+$(document).ready(function() {
+	userAccessControl();
 	displayErrors();
+	jobTitle2 = jobTitle;
 	findAll();
-    userAccessControl(jobTitle);
 
 });
 
 
-var userAccessControl = function(jobTitle){
-	console.log("heloo");
-	if(jobTitle == "SA"){
+var userAccessControl = function(){
+	var accessLevel = document.cookie.substring(9);
+	if(accessLevel == "SA"){
+		$("#importDatasetTab").show();
+		$("#formTab").show();
 		
-		$("#queryTabClick").hide();
-		$("#contact").hide();
-		$("#about").hide();
-		console.log(jobTitle);
+	}else if(accessLevel == "NME"){
+		$("#importDatasetTab").show();
+		$("#queryTabClick").show();
+		$("#contact").show();
+		$("#about").show();
 		
-	}else if(jobTitle == "NME"){
+	}else if(accessLevel == "SE"){
 		
-		$("#queryTabClick").hide();
-		$("#contact").hide();
-		$("#about").hide();
+		$("#queryTabClick").show();
+		$("#contact").show();
+		$("#about").show();
 		
+	}else if(accessLevel == "CSR"){
 		
-	}else if(jobTitle == "SE"){
-		
-		$("#queryTabClick").hide();
-		$("#contact").hide();
-		$("#about").hide();
-		
-	}else if(jobTitle == "CSR"){
-		
-		$("#queryTabClick").hide();
-		$("#contact").hide();
-		$("#about").hide();
+		$("#queryTabClick").show();
+		$("#contact").show();
+		$("#about").show();
 	}
 };
+
+var showTabs = function(){
+	$("#importDatasetTab").show();
+	$("#formTab").show();
+}
 
 
 $(document).on("click", 'button.clickToAdd', function() {
@@ -71,14 +73,14 @@ $(document).on("click", 'formButtonCloseEdit', function() {
 });
 
 
-var findAll = function() {
-	$.ajax({
-		type : 'GET',
-		url : rootUrl2,
-		dataType : 'json',
-		success : loadDataTable
-	});
-};
+//var findAll = function() {
+//	$.ajax({
+//		type : 'GET',
+//		url : rootUrl2,
+//		dataType : 'json',
+//		success : loadDataTable
+//	});
+//};
 
 var findById = function(id){
 	console.log('findById: ' + id);
@@ -155,8 +157,7 @@ var renderEditDetails = function(data){
 }
 
 var loadDataTable = function(data) {
-	var table = $('#userInfoTable')
-			.DataTable(
+	var table = $('#userInfoTable').DataTable(
 	
 					{
 						destroy: true,
@@ -279,7 +280,7 @@ function checkUsernameExistsEdit(details, userId) {
 	})
 
 	if (counter == 0) {
-		alert("here");
+
 		editUser(userId);
 	}
 
@@ -328,6 +329,7 @@ function checkUsernameExists(details) {
 };
 
 $(document).on("click", "#logoutBtn", function() {
+	document.cookie = "jobTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	window.location = 'http://localhost:8080/GroupProject2016/welcome.html';
 
 	$('#username').val("");
