@@ -7,16 +7,24 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="js/dataTables.bootstrap.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.dataTables.min.js"></script>
+<script src="resources/js/dataTables.bootstrap.min.js"></script>
 <script src="resources/js/displayIMSIStats.js"></script>
 </head>
 <body>
-<button type="button" id="imsiStatsButton">View IMSI Statistics</button>
-<h3 id="tableHeader"></h3>
-<table class="table table-striped table-hover table-condensed" id="imsiStatsTable">
+<button type="button" id="imsiEventCauseButton">View IMSI Codes With Event Ids and Cause Codes</button>
+<div id="select_box">
+		Select IMSI Code:
+		<select id="IMSIs" name="IMSIs">
+		<option></option>
+		</select><br>
+		</div>
+<h3 id="tableName"></h3>
+<table class="table table-striped table-hover table-condensed" id="imsiTable">
+<thead id="tableHeader"></thead>
 <tbody> </tbody>
 </table>
+
 </body>
 </html>
