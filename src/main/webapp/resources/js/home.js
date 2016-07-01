@@ -8,7 +8,6 @@ $(document).ready(function() {
 
 });
 
-
 var userAccessControl = function(){
 	var accessLevel = document.cookie.substring(9);
 	if(accessLevel == "SA"){
@@ -73,14 +72,14 @@ $(document).on("click", 'formButtonCloseEdit', function() {
 });
 
 
-//var findAll = function() {
-//	$.ajax({
-//		type : 'GET',
-//		url : rootUrl2,
-//		dataType : 'json',
-//		success : loadDataTable
-//	});
-//};
+var findAll = function() {
+	$.ajax({
+		type : 'GET',
+		url : rootUrl2,
+		dataType : 'json',
+		success : loadDataTable
+	});
+};
 
 var findById = function(id){
 	console.log('findById: ' + id);

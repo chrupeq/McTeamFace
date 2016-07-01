@@ -1,4 +1,14 @@
+var imsiStatsURL = "http://localhost:8080/GroupProject2016/rest/imsi/get_stats";
+
 $(document).ready(function() {
+	var accessLevel = document.cookie.substring(9);
+	if(accessLevel == "SE"){
+		$('#imsiStats').hide();
+	}
+	if(accessLevel == "NME"){
+		$('#allFailuresForModel').hide();
+		$('#imsiWithDates').hide();
+	}
 	$('#selectByModel').on('change', function() {
 		  var value = $(this).val();
 		  $('#container').addClass('animated fadeOutUp');
@@ -13,7 +23,6 @@ var imsiWithDatesQuery = function(){
 		+ 'id="querysTable">'
 		+ '<thead>'
 						+'<tr>'
-						+	'<th align="left">Report ID.</th>'
 						+	'<th align="left">Date/Time</th>'
 						+	'<th align="left" class="col-sm-2">IMSI</th>'
 					+	'</tr>'
@@ -40,13 +49,11 @@ var modelQuery = function(){
 var renderModelQueryTable = function(){
 	var tableView = new TableView();
 	$('#tableDiv').html(tableView.render().el);
-	$('#tableDiv').html(tableView.initialize().el);
 }
 
 var renderMainContainer = function(){
 	var mainView = new MainView();
 	$('#homeDiv').html(mainView.render().el);
-	$('#homeDiv').html(mainView.initialize().el);
 }
 
 var replaceContainer = function(){
@@ -61,7 +68,12 @@ var replaceContainer = function(){
 				  var value = $(this).val();
 				  $('#container').addClass('animated fadeOutUp');
 				  $('#modelFailuresModal').modal('hide');
+				  findAllUniqueModelFailures(value);
 				});
+			
+			$('#imsiStats').on('click', function(){
+				changeContainerCSS('imsiStats');
+			})
 		},
 		
 		events: {
@@ -78,6 +90,11 @@ var replaceContainer = function(){
 					 format: 'DD/MM/YYYY HH:mm'
 		        });
 			},
+			
+			"click #imsiStats":function(){
+					changeContainerCSS('imsiStats');
+				},
+			
 			
 	"click #allFailuresForModel":function(){
 		$('#modelFailuresModal').removeClass('animated bounceOut');
@@ -106,3 +123,52 @@ var replaceContainer = function(){
 			return this;
 		}
 	});
+	
+	var imsiQuery = function(){
+		$('#container').addClass('animated fadeOutUp');
+			console.log("inside the getIMSIData function");
+			$.ajax({
+				type:'GET',
+				url: imsiStatsURL,
+				dataType:'json',
+				success:buildIMSIStatsTable
+			});
+	}
+		var buildIMSIStatsTable = function(data) {
+			
+			imsiTable = '<table class="table table-striped table-hover table-condensed animated fadeInDown"'
+				+ 'id="querysTable">'
+				+ '<thead>'
+								+'<tr>'
+								+	'<th align="left">IMSI</th>'
+								+	'<th align="left">Number of Failures</th>'
+								+	'<th align="left" class="col-sm-2">Total duration of failure (in msc)</th>'
+							+	'</tr>'
+						+	'</thead>'
+						+'</table>';
+			$('#tableDiv').html(imsiTable);
+			$('#tableDiv').hide();
+			$('#tableDiv').addClass('animated fadeInDown');
+			$('#tableDiv').show();
+			
+			$('#querysTable').DataTable( {
+				 pagingType: "full_numbers",
+				 
+			        data: data,
+			        
+			        columns: [
+			            
+			            { data: "imsi" },
+			            
+			            { data: "numberOfFailures" },
+
+			            { data: "failureDuration" }
+			           
+			        ],
+			        
+
+			    } );
+		};
+		
+		
+		

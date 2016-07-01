@@ -77,3 +77,13 @@ table#querysTable tr.odd td {
 .bigdrop {
     height: 600px !important;
 }
+
+#logoutBtn {
+	margin-right: 5%;
+	float: right;
+}
+
+#costanzaLogo {
+	width: 10%;
+	height: 5%;
+}

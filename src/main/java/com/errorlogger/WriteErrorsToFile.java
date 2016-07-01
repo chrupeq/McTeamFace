@@ -17,7 +17,7 @@ public class WriteErrorsToFile extends DateManipulator{
 			int fileErrorCount) {
 		String todaysDate = dateFormatter.format(getCurrentDate());
 
-		File errorLog = new File("C:\\Users\\A00226084\\Desktop\\" + workingFileName + " " + todaysDate + ".txt");
+		File errorLog = new File("C:\\Users\\Garrett\\Desktop\\" + workingFileName + " " + todaysDate + ".txt");
 
 		if (errorLog.exists()) {
 			try {
