@@ -124,16 +124,7 @@ var replaceContainer = function(){
 		}
 	});
 	
-	var imsiQuery = function(){
-		$('#container').addClass('animated fadeOutUp');
-			console.log("inside the getIMSIData function");
-			$.ajax({
-				type:'GET',
-				url: imsiStatsURL,
-				dataType:'json',
-				success:buildIMSIStatsTable
-			});
-	}
+
 		var buildIMSIStatsTable = function(data) {
 			
 			imsiTable = '<table class="table table-striped table-hover table-condensed animated fadeInDown"'

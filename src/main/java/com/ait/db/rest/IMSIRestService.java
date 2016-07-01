@@ -65,6 +65,8 @@ public class IMSIRestService {
 		dateParser = new DateParser();
 		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
 		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
+		System.out.println(dateOne);
+		System.out.println(dateTwo);
 		try {
 			List<Base_data> baseDataList = IMSIDao.getAllBaseDataBetweenDates(dateOne, dateTwo);
 			if(baseDataList.isEmpty()) {
