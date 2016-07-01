@@ -61,8 +61,8 @@ public class IMSIRestServiceTest {
         assertEquals("[344930000000011,240210000000013,310560000000012]", response);
 	}
 	@Test
-	public void testGetIMSIsForStats() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats");
+	public void testGetIMSIsForStats200ResponseOne() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats?dateOne=11/01/2013+17:00&dateTwo=11/01/2013+17:30");
 		request.header("Accept", MediaType.APPLICATION_JSON);
 		// we're expecting a String back
         ClientResponse<String> responseObj = request.get(String.class);
@@ -76,6 +76,53 @@ public class IMSIRestServiceTest {
         		+ "\"failureDuration\":4000,\"numberOfFailures\":4}]", 
         response);
 	}
+	@Test
+	public void testGetIMSIsForStats200ResponseTwo() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats?dateOne=11/01/2013+17:15&dateTwo=11/01/2013+17:16");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("The response is: " + response);
+        assertEquals("[{\"imsi\":310560000000012,\"failureDuration\":3000,"
+        		+ "\"numberOfFailures\":3},{\"imsi\":344930000000011,"
+        		+ "\"failureDuration\":4000,\"numberOfFailures\":4}]", 
+        		response);
+	}
+	@Test
+	public void testGetIMSIsForStats200ResponseThree() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats?dateOne=11/01/2013+17:16&dateTwo=11/01/2013+17:17");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("The response is: " + response);
+        assertEquals("[{\"imsi\":240210000000013,\"failureDuration\":3000,"
+        		+ "\"numberOfFailures\":3},{\"imsi\":310560000000012,"
+        		+ "\"failureDuration\":3000,\"numberOfFailures\":3}]", response);
+	}
+	@Test
+	public void testGetIMSIsForStats200ResponseFour() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats?dateOne=11/01/2013+17:15&dateTwo=11/01/2013+17:15");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("The response is: " + response);
+        assertEquals("[{\"imsi\":344930000000011,\"failureDuration\":4000,\"numberOfFailures\":4}]", response);
+	}
+	@Test
+	public void testGetIMSIsForStatsShouldReturn404() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_stats?dateOne=01/01/1988+17:00&dateTwo=02/01/1988+17:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(404, responseObj.getStatus());
+	}
+	
 	@Test
 	public void getIMSIsBetweenDatesShouldReturn200() throws Exception {
 		

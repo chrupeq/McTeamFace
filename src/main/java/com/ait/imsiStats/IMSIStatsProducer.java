@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.ait.db.data.DateParser;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.NetworkEntity;
 
@@ -18,6 +19,7 @@ public class IMSIStatsProducer {
 	private Set<BigInteger> imsiKeySet;
 	private int failuresCounter;
 	private BigInteger imsi;
+	private DateParser dateParser;
 	
 	public IMSIStatsProducer(List<? extends NetworkEntity> baseDataList) {
 		this.baseDataList = baseDataList;

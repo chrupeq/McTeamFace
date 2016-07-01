@@ -62,5 +62,14 @@ public class IMSIDAO {
 				imsiWithEventIDAndCauseCodeFactory.getIMSIWithEventIDAndCauseCodeList();
 		return imsiWithEventIDAndCauseCodeList;
 	}
-	
+	public List<Base_data> getAllBaseDataBetweenDates(String date1, String date2) {
+		dateParser = new DateParser();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
+		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE i.date_time BETWEEN :startDate AND :endDate");
+		query.setParameter("startDate", calendarArray[0]);
+		query.setParameter("endDate", calendarArray[1]);
+		List<Base_data> baseDataBetweenDates = query.getResultList();
+		return baseDataBetweenDates;
+	}
 }

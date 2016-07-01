@@ -61,9 +61,12 @@ public class IMSIRestService {
 	@GET
 	@Path("/get_stats")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getIMSIStats() {
+	public Response getIMSIStats(@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo) {
+		dateParser = new DateParser();
+		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
+		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
 		try {
-			List<? extends NetworkEntity> baseDataList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA);
+			List<Base_data> baseDataList = IMSIDao.getAllBaseDataBetweenDates(dateOne, dateTwo);
 			if(baseDataList.isEmpty()) {
 				return Response.status(404).build();
 			}
@@ -71,7 +74,8 @@ public class IMSIRestService {
 			List<IMSIStats> imsiStats = imsiStatsProducer.getListOfIMSIStatsObjects();
 			return Response.status(200).entity(imsiStats).build();
 		} catch(Exception e) {
-			return Response.status(404).build();
+			e.printStackTrace();
+			return Response.status(400).build();
 		}
 	}	
 	
