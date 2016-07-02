@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -130,7 +131,9 @@ public class IMSIRestService {
 			List<Base_data> baseDataList = IMSIDao.getAllBaseDataByIMSIAndDate(imsi, dateOne, dateTwo);
 		if(baseDataList.isEmpty()) {
 			IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, 0);
-			return Response.status(200).entity(imsiStats).build();
+			List<IMSIStats> imsiList = new ArrayList<>();
+			imsiList.add(imsiStats);
+			return Response.status(200).entity(imsiList).build();
 		}
 		IMSIStatsProducer imsiStatsProducer = new IMSIStatsProducer(baseDataList);
 		List<IMSIStats> imsiList = imsiStatsProducer.getListOfIMSIStatsObjectsWithFailuresBetweenDates();

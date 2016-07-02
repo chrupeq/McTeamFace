@@ -237,7 +237,7 @@ public class IMSIRestServiceTest {
         assertEquals(200, responseObj.getStatus());
         String response = responseObj.getEntity().trim();
         System.out.println("getIMSICountBetweenDatesShouldReturnIMSICodeAndAZeroCount:: " + response);
-        assertEquals("{\"imsi\":240210000000013,\"failureDuration\":0,\"numberOfFailures\":0}", response);
+        assertEquals("[{\"imsi\":240210000000013,\"failureDuration\":0,\"numberOfFailures\":0}]", response);
 	}
 	@Test
 	public void getIMSICountBetweenDatesShouldReturn200WhenDateIsMalformed() throws Exception {
@@ -248,6 +248,6 @@ public class IMSIRestServiceTest {
         assertEquals(200, responseObj.getStatus());
         String response = responseObj.getEntity().trim();
         System.out.println("getIMSICountBetweenDatesShouldReturn200WhenDateIsMalformed::" + response);
-        assertEquals("{\"imsi\":240210000000013,\"failureDuration\":0,\"numberOfFailures\":0}", response);   
+        assertEquals("[{\"imsi\":240210000000013,\"failureDuration\":0,\"numberOfFailures\":0}]", response);   
 	}
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Find the Number of Failures for an IMSI Between Two Dates</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.dataTables.min.js"></script>
+<script src="resources/js/dataTables.bootstrap.min.js"></script>
+<script src="resources/js/countIMSIFailuresBetweenTwoDates.js"></script>
+</head>
+<body>
+<h2 id="findText"></h2>
+<br>
+<form>
+	<div id="select_box">
+		<label>Select IMSI Code:</label>
+		<select id="IMSIs" name="imsi">
+		<option></option>
+		</select><br>
+	</div>
+	<label>Start Date-Time:</label>
+	<input type="text" name="dateOne">
+	<br>
+	<label>End Date-Time:</label>
+	<input type="text" name="dateTwo">
+	<br>
+	<input type="submit" value="Submit">
+</form>
+<h3 id="tableName"></h3>
+<table class="table table-striped table-hover table-condensed" id="imsiFailureCountTable">
+<thead id="tableHeader"></thead>
+<tbody> </tbody>
+</table>
+
+</body>
+</html>
