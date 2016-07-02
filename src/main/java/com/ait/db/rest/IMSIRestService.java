@@ -31,6 +31,7 @@ import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.NetworkEntity;
 import com.ait.imsiStats.IMSIStats;
+import com.ait.imsiStats.IMSIStatsObjectFactory;
 import com.ait.imsiStats.IMSIStatsProducer;
 
 @Path("/imsi")
@@ -112,6 +113,29 @@ public class IMSIRestService {
 			} 
 			return Response.status(200).entity(imsiList).build();
 		} catch(Exception e) {
+			e.printStackTrace();
+			return Response.status(400).build();
+		}
+	}
+	@GET
+	@Path("/imsi_count_between_dates")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getIMSICountBetweenDates(@QueryParam("imsi") BigInteger imsi, 
+			@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo) {
+		dateParser = new DateParser();
+		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
+		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
+		
+		try{
+			List<Base_data> baseDataList = IMSIDao.getAllBaseDataByIMSIAndDate(imsi, dateOne, dateTwo);
+		if(baseDataList.isEmpty()) {
+			IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, 0);
+			return Response.status(200).entity(imsiStats).build();
+		}
+		IMSIStatsProducer imsiStatsProducer = new IMSIStatsProducer(baseDataList);
+		List<IMSIStats> imsiList = imsiStatsProducer.getListOfIMSIStatsObjectsWithFailuresBetweenDates();
+		return Response.status(200).entity(imsiList).build();
+		}catch(Exception e){
 			e.printStackTrace();
 			return Response.status(400).build();
 		}

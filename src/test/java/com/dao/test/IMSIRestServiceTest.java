@@ -125,7 +125,6 @@ public class IMSIRestServiceTest {
 	
 	@Test
 	public void getIMSIsBetweenDatesShouldReturn200() throws Exception {
-		
 		request = new ClientRequest(deploymentUrl.toString() + 
 				RESOURCE_PREFIX + "/imsi/get_imsis_between_dates?date1=11/01/2013+17:00&date2=11/01/2013+17:30");
 		request.header("Accept", MediaType.APPLICATION_JSON);
@@ -185,5 +184,70 @@ public class IMSIRestServiceTest {
         		+ "{\"event_id\":4097,\"cause_code\":\"13\",\"failure_class\":\"1\",\"imsi\":344930000000011},"
         		+ "{\"event_id\":-1,\"cause_code\":\"Cause code could not be determined\","
         		+ "\"failure_class\":\"Failure class could not be determined.\",\"imsi\":344930000000011}]", response);
+	}
+	@Test
+	public void getIMSICountBetweenDatesShouldReturn200One() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/imsi_count_between_dates?imsi=344930000000011&dateOne=11/01/2013+17:00&dateTwo=11/01/2013+17:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("IMSICountBetweenDatesReturns: " + response);
+        assertEquals("[{\"imsi\":344930000000011,\"failureDuration\":0,\"numberOfFailures\":4}]", response);
+	}
+	@Test
+	public void getIMSICountBetweenDatesShouldReturn200Two() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/imsi_count_between_dates?imsi=310560000000012&dateOne=11/01/2013+17:00&dateTwo=11/01/2013+17:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getIMSICountBetweenDatesShouldReturn200Two():: " + response);
+        assertEquals("[{\"imsi\":310560000000012,\"failureDuration\":0,\"numberOfFailures\":3}]", response);
+	}
+	@Test
+	public void getIMSICountBetweenDatesShouldReturn200Three() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/imsi_count_between_dates?imsi=240210000000013&dateOne=11/01/2013+17:00&dateTwo=11/01/2013+17:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getIMSICountBetweenDatesShouldReturn200Three():: " + response);
+        assertEquals("[{\"imsi\":240210000000013,\"failureDuration\":0,\"numberOfFailures\":3}]", response);
+	}
+	@Test
+	public void getIMSICountBetweenDatesShouldReturn200Four() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/imsi_count_between_dates?imsi=240210000000013&dateOne=01/01/1970+00:00&dateTwo=02/07/2016+11:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getIMSICountBetweenDatesShouldReturn200Four:: " + response);
+	}
+	@Test
+	public void getIMSICountBetweenDatesShouldReturnIMSICodeAndAZeroCount() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/imsi_count_between_dates?imsi=240210000000013&dateOne=01/01/1970+00:00&dateTwo=02/01/1970+11:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getIMSICountBetweenDatesShouldReturnIMSICodeAndAZeroCount:: " + response);
+        assertEquals("{\"imsi\":240210000000013,\"failureDuration\":0,\"numberOfFailures\":0}", response);
+	}
+	@Test
+	public void getIMSICountBetweenDatesShouldReturn200WhenDateIsMalformed() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/imsi_count_between_dates?imsi=240210000000013&dateOne=01{/01$/1970+00:00&dateTwo=x2/0;1/1970+11:30");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getIMSICountBetweenDatesShouldReturn200WhenDateIsMalformed::" + response);
+        assertEquals("{\"imsi\":240210000000013,\"failureDuration\":0,\"numberOfFailures\":0}", response);   
 	}
 }

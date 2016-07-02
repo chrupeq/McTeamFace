@@ -36,6 +36,18 @@ public class IMSIDAO {
 		List<BigInteger> imsisAsBigInts = query.getResultList();
 		return imsisAsBigInts;
     }
+	public List<Base_data> getAllBaseDataByIMSIAndDate(BigInteger imsi, String dateOne, String dateTwo) {
+		dateParser = new DateParser();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, dateOne, dateTwo);
+		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi AND b.date_time BETWEEN :startDate AND :endDate");
+		query.setParameter("imsi", imsi);
+		query.setParameter("startDate", calendarArray[0]);
+		query.setParameter("endDate", calendarArray[1]);
+		List<Base_data> baseDataList = query.getResultList();
+		return baseDataList;
+		
+	}
 	public List<IMSIWithValidFailureClasses> getIMSIsByDates(String date1, String date2) {
 		
 		dateParser = new DateParser();

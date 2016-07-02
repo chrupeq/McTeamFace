@@ -10,6 +10,8 @@ public class IMSIStatsObjectFactory {
 	public static IMSIStats getIMSIStatsInstance(BigInteger imsi, int failureDuration, int numberOfFailures) {
 		return new IMSIStats(imsi, failureDuration, numberOfFailures);	
 	}
-	
+	public static IMSIStats getIMSIStatsInstance(BigInteger imsi, int numberOfFailures) {
+		return new IMSIStats(imsi, numberOfFailures);
+	}
 
 }

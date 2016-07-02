@@ -92,4 +92,21 @@ public class IMSIStatsProducer {
 		Collections.sort(imsiStatsObjects);
 		return imsiStatsObjects;	
 	}
+	public List<IMSIStats> getListOfIMSIStatsObjectsWithFailuresBetweenDates() {
+		if(baseDataList.isEmpty()) {
+			
+		}
+		Map<BigInteger, Integer> numOfFailures = countTheNumberOfFailures();
+		imsiKeySet = numOfFailures.keySet();
+		List<IMSIStats> imsiStatsObjects = new ArrayList<IMSIStats>();
+		for(BigInteger imsiKey : imsiKeySet) {
+			if(numberOfFailures.containsKey(imsiKey)) {
+				int numberOfFailures = numOfFailures.get(imsiKey);
+				IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsiKey, numberOfFailures);
+				imsiStatsObjects.add(imsiStats);
+			}
+		}
+		Collections.sort(imsiStatsObjects);
+		return imsiStatsObjects;
+	}
 }

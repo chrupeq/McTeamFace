@@ -38,6 +38,7 @@ public class IMSIDAOTest {
 	private List<BigInteger> IMSIList;
 	private List<IMSIWithValidFailureClasses> imsiWithValidFailureClassses;
 	private List<IMSIWithEventIDAndCauseCode> imsisWithEventIDsAndCauseCodes;
+	private List<Base_data> baseDataList;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -159,6 +160,15 @@ public class IMSIDAOTest {
 		assertNotNull(imsisWithEventIDsAndCauseCodes);
 		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
 		assertEquals(4, imsisWithEventIDsAndCauseCodes.size());
+	}
+	@Test
+	public void getAllBaseDataByIMSIShouldReturnAList() {
+		BigInteger imsi = new BigInteger("344930000000011");
+		baseDataList = imsiDAO.getAllBaseDataByIMSIAndDate(imsi, dateFour, dateFive);
+		assertNotNull(baseDataList);
+		assertFalse(baseDataList.isEmpty());
+		assertEquals(4, baseDataList.size());
+		
 	}
 	
 }
