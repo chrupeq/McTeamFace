@@ -5,6 +5,12 @@ $(document).ready(function() {
 		$('#dateQueryModal').addClass('animated bounceIn');
 	});
 	
+	$('#imsiStats').on("click", function(){
+		$('#imsiStatsModal').removeClass('animated bounceOut');
+		$('#imsiStatsModal').addClass('animated bounceIn');
+		$('#imsiStatsModal').modal('show');
+	});
+	
 	$('#allFailuresForModel').on("click", function(){
 		$('#modelFailuresModal').removeClass('animated bounceOut');
 		$('#modelFailuresModal').addClass('animated bounceIn');
@@ -24,6 +30,17 @@ $(document).ready(function() {
 		changeContainerCSS('imsiDates');
 	});
 	
+	$('#imsiStatsModalSearch').on('click', function(){
+		$('#container').addClass('animated fadeOutUp');
+		var thirdDate = $("#datetimepicker3").find("input").val();
+		var fourthDate = $("#datetimepicker4").find("input").val();
+		imsiQuery(thirdDate, fourthDate);
+		changeContainerCSS('imsiStats');
+	});
+	
+//	$('#imsiStats').on('click', function(){
+//		changeContainerCSS('imsiStats');
+//	})
 	
 	
 	$('#selectByModel').change(function(){
@@ -41,7 +58,7 @@ var changeContainerCSS = function(whichTable){
  newDiv = '<h2>Query Selector<h2><br><h4 style="color: blue;">You are viewing all falures for ' + $("#selectByModel option:selected").text() + '</h4>';
 	}
 	if(whichTable == 'imsiDates'){
-		 newDiv = '<h2>Query Selector<h2><br><h4 style="color: blue;">You are viewing all falures for dates between ' + $("#datetimepicker1").find("input").val() + ' and ' + $("#datetimepicker2").find("input").val() + '</h4>';
+		 newDiv = '<h2>Query Selector<h2><br><h4 style="color: blue;">You are viewing all failures for dates between ' + $("#datetimepicker1").find("input").val() + ' and ' + $("#datetimepicker2").find("input").val() + '</h4>';
 	}
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
 $('#tableDiv').removeClass('animated fadeOutUp');
@@ -62,6 +79,7 @@ $('#backToHomeButton').on('click', function(){
 	$('#queryHeader2').addClass('animated fadeOutUp');
 	$('#buttonDiv').addClass('animated fadeOutUp');
 	$('#container').removeClass('animated fadeOutUp');
+	$('#querysTable').destroy();
 	replaceContainer();
 });
 
@@ -71,5 +89,6 @@ imsiWithDatesQuery();
 if(whichTable == 'modelsQuery'){
 	modelQuery();
 }
+
 	
 }

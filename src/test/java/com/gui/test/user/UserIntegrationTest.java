@@ -19,6 +19,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.ait.db.data.DateParser;
 import com.ait.db.data.SessionDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.User;
@@ -38,7 +39,8 @@ public class UserIntegrationTest {
 
 	@Deployment(testable = false)
 	public static Archive<?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(User.class.getPackage())
+		return ShrinkWrap.create(WebArchive.class, "test.war")
+				.addPackage(User.class.getPackage())
 				.addPackage(UserWS.class.getPackage())
 				.addClasses(JaxRsActivator.class, SessionDAO.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
@@ -62,9 +64,7 @@ public class UserIntegrationTest {
 		String response = responseObj.getEntity().trim();
 		System.out.println("The response is: " + response);
 		assertEquals(
-				"[{\"id\":1,\"username\":\"Suncho\",\"password\":\"nullypointer\",\"firstname\":\"Mitja\",\"job_title\":\"SE\",\"lastname\""
-						+ ":\"Suncic\"},{\"id\":2,\"username\":\"FairyMonkey\",\"password\":\"princess\",\"firstname\":\"Laura\",\"job_title\":\"CSR\",\"lastname\":"
-						+ "\"Hunt\"},{\"id\":3,\"username\":\"TheBest\",\"password\":\"TheBestest\",\"firstname\":\"Ruaidhri\",\"job_title\":\"SA\",\"lastname\":\"Garrett\"}]",
+				"[{\"id\":1,\"username\":\"Suncho\",\"password\":\"nullypointer\",\"job_title\":\"SE\",\"firstname\":\"Mitja\",\"lastname\":\"Suncic\"},{\"id\":2,\"username\":\"FairyMonkey\",\"password\":\"princess\",\"job_title\":\"CSR\",\"firstname\":\"Laura\",\"lastname\":\"Hunt\"},{\"id\":3,\"username\":\"TheBest\",\"password\":\"TheBestest\",\"job_title\":\"SA\",\"firstname\":\"Ruaidhri\",\"lastname\":\"Garrett\"}]",
 				response);
 	}
 
@@ -78,7 +78,7 @@ public class UserIntegrationTest {
 		String response = responseObj.getEntity().trim();
 		System.out.println("The response is: " + response);
 		assertEquals(
-				"{\"id\":1,\"username\":\"Suncho\",\"password\":\"nullypointer\",\"firstname\":\"Mitja\",\"job_title\":\"SE\",\"lastname\":\"Suncic\"}",
+				"{\"id\":1,\"username\":\"Suncho\",\"password\":\"nullypointer\",\"job_title\":\"SE\",\"firstname\":\"Mitja\",\"lastname\":\"Suncic\"}",
 				response);
 	}
 
@@ -93,7 +93,7 @@ public class UserIntegrationTest {
 		String response = responseObj.getEntity().trim();
 		System.out.println("The response is: " + response);
 		assertEquals(
-				"{\"id\":4,\"username\":\"BELTERS\",\"password\":\"PorkBelly\",\"firstname\":\"Lukasz\",\"job_title\":\"NME\",\"lastname\":\"Stanowski\"}",
+				"{\"id\":4,\"username\":\"BELTERS\",\"password\":\"PorkBelly\",\"job_title\":\"NME\",\"firstname\":\"Lukasz\",\"lastname\":\"Stanowski\"}",
 				response);
 	}
 
@@ -108,7 +108,7 @@ public class UserIntegrationTest {
 		String response = responseObj.getEntity().trim();
 		System.out.println("The response is: " + response);
 		assertEquals(
-				"{\"id\":4,\"username\":\"NOBELTERS\",\"password\":\"PorkBelly\",\"firstname\":\"Lukasz\",\"job_title\":\"NME\",\"lastname\":\"Stanowski\"}",
+				"{\"id\":4,\"username\":\"NOBELTERS\",\"password\":\"PorkBelly\",\"job_title\":\"NME\",\"firstname\":\"Lukasz\",\"lastname\":\"Stanowski\"}",
 				response);
 	}
 

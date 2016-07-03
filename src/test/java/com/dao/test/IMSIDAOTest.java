@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 
 @RunWith(Arquillian.class)
@@ -34,10 +35,10 @@ public class IMSIDAOTest {
 	private String dateFive;
 	private String dateSix;
 	private String dateSeven;
-	private String invalidDateOne;
-	private String invalidDateTwo;
 	private List<BigInteger> IMSIList;
 	private List<IMSIWithValidFailureClasses> imsiWithValidFailureClassses;
+	private List<IMSIWithEventIDAndCauseCode> imsisWithEventIDsAndCauseCodes;
+	private List<Base_data> baseDataList;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -98,16 +99,10 @@ public class IMSIDAOTest {
 		assertTrue(imsiWithValidFailureClassses.isEmpty());
 	}
 	@Test
-	public void shouldREturnDateAsAFormattedString() throws ParseException {
+	public void shouldReturnDateAsAFormattedString() throws ParseException {
 		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateTwo, dateThree);
-		String dateTime = "11/01/2013 17:16:00";
+		String dateTime = "11/01/2013 17:17:00";
 		assertEquals(dateTime, imsiWithValidFailureClassses.get(0).getDate_time());
-	}
-	@Test
-	public void shouldReturnAParsedCalendarObject() throws ParseException {
-		Calendar[] datesAsCalendarObjects = imsiDAO.parseStringIntoCalendarObject(dateOne, dateTwo);
-		assertNotNull(datesAsCalendarObjects);
-		assertEquals(2, datesAsCalendarObjects.length);
 	}
 	@Test
 	public void shouldReturnDistinctIMSIs() {
@@ -128,4 +123,52 @@ public class IMSIDAOTest {
 		imsi = new BigInteger("310560000000012");
 		assertEquals(imsi, IMSIList.get(2));	
 	}
+	@Test
+	public void getIMSIsByDateShouldReturnOrderedIMSIs() {
+		imsiWithValidFailureClassses = imsiDAO.getIMSIsByDates(dateFour, dateFive);
+		
+		BigInteger imsi = new BigInteger("240210000000013");
+		// the first element
+		assertEquals(imsiWithValidFailureClassses.get(0).getImsi(), imsi);
+		
+		imsi = new BigInteger("310560000000012");
+		// element in the middle
+		assertEquals(imsiWithValidFailureClassses.get(imsiWithValidFailureClassses.size()/2).getImsi(), imsi);
+		
+		imsi = new BigInteger("344930000000011");
+		// last element in the list
+		assertEquals(imsiWithValidFailureClassses.get(imsiWithValidFailureClassses.size()-1).getImsi(), imsi);
+	}
+	@Test
+	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnAListOfObjects() throws Exception {
+		BigInteger imsi = new BigInteger("240210000000013");
+		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
+		assertNotNull(imsisWithEventIDsAndCauseCodes);
+		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
+		assertEquals(3, imsisWithEventIDsAndCauseCodes.size());
+		
+		imsi = new BigInteger("310560000000012");
+		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
+		assertNotNull(imsisWithEventIDsAndCauseCodes);
+		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
+		assertEquals(3, imsisWithEventIDsAndCauseCodes.size());	
+	}
+	@Test
+	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnCustomMessagesForNullObjects() throws Exception {
+		BigInteger imsi = new BigInteger("344930000000011");
+		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
+		assertNotNull(imsisWithEventIDsAndCauseCodes);
+		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
+		assertEquals(4, imsisWithEventIDsAndCauseCodes.size());
+	}
+	@Test
+	public void getAllBaseDataByIMSIShouldReturnAList() {
+		BigInteger imsi = new BigInteger("344930000000011");
+		baseDataList = imsiDAO.getAllBaseDataByIMSIAndDate(imsi, dateFour, dateFive);
+		assertNotNull(baseDataList);
+		assertFalse(baseDataList.isEmpty());
+		assertEquals(4, baseDataList.size());
+		
+	}
+	
 }

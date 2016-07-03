@@ -28,32 +28,16 @@ var loadUniqueModelFailuresTable = function(data){
 	                }
 	                },
 
-	            { data: "event_cause.cause_code" },
-
+	            { data: "hier3_id" },
+	            
+	            { data: "user_equipment.manufacturer" },
+	            
+	            { data: "user_equipment.marketing_name" },
+	            
 	            { data: "event_cause.event_id" },
 	            
-	            { data: "event_cause.description" },
-
-            { data: "failure_class.failure_class" },
-            
-            { data: "failure_class.description" },	            
-            
-            {data: "user_equipment.manufacturer"},
-            
-            {data: "user_equipment.model"},
-            
-            {data: "user_equipment.access_capability"},
-            
-            {data: "user_equipment.operating_system"},
-            
-            {data: "mcc_mnc.country"},
-            
-            {data: "mcc_mnc.operator"},
-            
-	            { data: "cell_id"},
-	            
-	            { data: "ne_version"}
-	           
+	            { data: "event_cause.cause_code" },
+    
 	        ],
 	        
 
@@ -67,8 +51,6 @@ var loadUniqueModelFailuresTable = function(data){
 		        data: data,
 		        
 		        columns: [
-		            
-		            { data: "report_id" },
 		            
 		            { data: "date_time",
 		                render: function(data, type, row) {

@@ -23,14 +23,71 @@
 	padding-right: 40px;
 }
 
-#myModalEdit {
+
+#userInfoTable{
+	margin-bottom:25px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#userInfoTable_filter input{
+	margin-left:20px;
+	margin-top:10px;
+	margin-bottom:30px;
+}
+
+#userInfoTable_info{
+	padding-top:10px;
+	padding-bottom:30px;
+	
+}
+
+.paginate_button{
+	padding-right:10px;
+}
+.paginate_button:hover{
+	text-decoration: underline;
+}
+
+
+#userInfoTable_previous{
+	float:left;
+	padding-right:660px;
+}
+
+#userInfoTable_next{
+	float:right;
+	padding-right:25px;
+}
+
+#modalPopUPAdd {
   border-radius: 5px 5px 5px 5px;
-  padding: 10px 20px 20px 20px;
+  padding: 25px 25px 25px 25px;
   width: 400px;
-  height: 620px;
+  height: 570px;
   background: #ffffff;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
   margin:auto;	
+}
+
+#modalPopUPEdit {
+  border-radius: 5px 5px 5px 5px;
+  padding: 25px 25px 25px 25px;
+  width: 370px;
+  height: 510px;
+  background: #ffffff;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+  margin:auto;	
+}
+
+#btnAddUser {
+	float:left;
+	margin-top:15px;
+	margin-bottom:15px;
+}
+
+#importDataset {
+	padding-left: 35px;
+	padding-right: 40px;	
 }
 
 #contactus {

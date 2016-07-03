@@ -63,7 +63,7 @@ public class NetworkEntityDAO {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void saveNetworkEntityArray(NetworkEntity[] networkEntity) {
 		for(int i = 0; i < networkEntity.length; i ++){
-		entityManager.persist(networkEntity[i]);
+		entityManager.merge(networkEntity[i]);
 		
 			}
 	}

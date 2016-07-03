@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import com.ait.db.data.UniqeModelFailuresDAO;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.UniqueFailures;
 
 @Stateless
 @LocalBean

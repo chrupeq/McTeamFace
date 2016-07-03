@@ -20,17 +20,18 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
-	<script src="resources/js/bootstrap.js"></script>
-	<script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
-	<script src="resources/js/moment.min.js"></script>
-	<script src="resources/js/home.js"></script>
+<script src="resources/js/bootstrap.js"></script>
+<script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
+<script src="resources/js/moment.min.js"></script>
+<script src="resources/js/main.js"></script>
+<script src="resources/js/home.js"></script>
 <script src="resources/js/queryPageJS/query_manager.js"></script>
 <script src="resources/js/queryPageJS/query_page_js.js"></script>
 
-<script src="resources/js/main.js"></script>
+
 <script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
 <script
-src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 <script src="resources/js/queryPageJS/select2.full.js"></script>
 <script src="resources/js/queryPageJS/get_failures_by_model.js"></script>
 <script src="resources/js/queryPageJS/jquery.dataTables.js"></script>
@@ -39,19 +40,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 <thead>
 <tr>
 <th align="left">Date/Time</th>
-<th align="left" class="col-sm-2">Cause Code</th>
-<th align="left" class="col-sm-2">Event ID</th>
-<th align="left" class="col-sm-2">Description</th>
-<th align="left" class="col-sm-2">Failure Class</th>
-<th align="left" class="col-sm-2">Failure Description</th>
+<th align="left" class="col-sm-2">Number of Failures</th>
 <th align="left" class="col-sm-2">Manufacturer</th>
-<th align="left" class="col-sm-2">Model</th>
-<th align="left" class="col-sm-2">Access Capability</th>
-<th align="left" class="col-sm-2">OS</th>
-<th align="left" class="col-sm-2">Country</th>
-<th align="left" class="col-sm-2">Operator</th>
-<th align="left" class="col-sm-2">Cell ID</th>
-<th align="left" class="col-sm-2">NE Version</th>
+<th align="left" class="col-sm-2">Marketing Name</th>
+<th align="left" class="col-sm-2">Event ID</th>
+<th align="left" class="col-sm-2">Cause Code</th>
 </tr>
 </thead>
 </table></div>
@@ -64,6 +57,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 <ul class="dropdown-menu">
 <li><a id="imsiWithDates" href="#">List of IMSI's for given dates</a></li>
 <li><a id="allFailuresForModel" href="#">List of failure details for given Model</a></li>
+<li><a id="imsiStats" href="#">View IMSI Statistics</a></li>
 </ul>
 </div>
 </script>
@@ -71,20 +65,18 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 <body>
 
 	<div id="header">
-
-		<h1>Base Data</h1>
-		<button id="logoutBtn">Logout</button>
-
-
+		<img  id="costanzaLogo" src="resources/images/seinfeld.png"></img>
+		<button type="button" id="logoutBtn" class="btn btn-default">Logout</button>
+		
 	</div>
 
 	<ul class="nav nav-tabs" id="tabs">
 		<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
 		<li><a data-toggle="tab" href="#queryBody" id="queryTabClick">Queries</a></li>
-		<li><a data-toggle="tab" href="#form" id="formTab">Add User
-				Form</a></li>
-		<li><a data-toggle="tab" href="#uploadDataset">Upload Dataset</a></li>
-		<li><a data-toggle="tab" href="#aboutus">About Us</a></li>
+		<li><a data-toggle="tab" href="#form" id="formTab">User Information</a></li>
+		<li><a data-toggle="tab" href="#importDataset" id="importDatasetTab">Import Datasets</a></li>
+		<li><a data-toggle="tab" href="#contactus" id="contact">Contact Us</a></li>
+		<li><a data-toggle="tab" href="#aboutus" id="about">About Us</a></li>
 
 	</ul>
 
@@ -120,105 +112,131 @@ src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/
 			</table>
 		</div>
 		<!-- -----------------------------FORM------------------------------------------- -->
-		
 		<div id="form" class="tab-pane fade">
-			<h3>Add New User Form</h3>
-			
-			<button id = "btnAddUser" class="btn btn-primary btn-sm clickToAdd">Add New User</button>
-	
-			<table class="table table-striped table-hover table-condensed" width="90%"
-				id="userInfoTable">
+			<h3>User Database Information</h3>
+			<button id="btnAddUser" class="btn btn-primary btn-sm clickToAdd">Add
+				New User</button>
+			<br><br><br>	
+				
+			<table class="table table-striped table-hover table-condensed"
+				width="90%" id="userInfoTable">
 				<thead>
 					<tr>
 						<th align="left">Id</th>
-						<th align="left">firstname</th>
-						<th align="left">lastname</th>
-						<th align="left">username</th>
-						<th align="left">password</th>
-						<th align="left">job_title</th>
-						
+						<th align="left">First Name</th>
+						<th align="left">Last Name</th>
+						<th align="left">Username</th>
+						<th align="left">Password</th>
+						<th align="left">Job Title</th>
+						<th align="left">Edit</th>
+						<th align="left">Delete</th>
 					</tr>
 				</thead>
 			</table>
-			
-			
-			
-			<div id="myModalEdit" class="modal fade" tabindex="-1"  role="dialog" aria-hidden="true">
- 		<div class="modal-dialog modal-sm">
-    	
-		<div id="modalPopUPEdit">
-		
-			<form action="#">
-		
-			<div class= "modalTable" >
-			 
-			 	<form class="form">
 
-				<label for="firstName">First Name</label> <input type="text"
-					id="firstName" name="firstName" class="form-control"
-					placeholder="Enter First Name"></br> <label for="lastName">Last
-					Name</label> <input type="text" id="lastName" name="lastName"
-					class="form-control" placeholder="Enter Last Name"></br>
+			<div id="myModalAdd" class="modal fade" tabindex="-1" role="dialog"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div id="modalPopUPAdd">
+						<form action="#">
+							<div class="modalTable">
+								<form class="form">
+									<label for="firstName">First Name</label> <input type="text"
+										id="firstName" name="firstName" class="form-control"
+										placeholder="Enter First Name"></br> <label for="lastName">Last
+										Name</label> <input type="text" id="lastName" name="lastName"
+										class="form-control" placeholder="Enter Last Name"></br>
+									<fieldset class="usernameFormSection">
+										<label for="usernameFormInput">Username</label> <input
+											type="text" id="usernameFormInput" name="usernameFormInput"
+											class="form-control" placeholder="Enter Username"></br>
+									</fieldset>
+									<fieldset class="passwordFormSection">
+										<label for="passwordFormInput">Password</label> <input
+											type="password" id="passwordFormInput"
+											name="passwordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="reenterPasswordFormSection">
+										<label for="reenterPasswordFormInput">Re-enter
+											Password</label> <input type="password" id="reenterPasswordFormInput"
+											name="reenterPasswordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="jobTitleOption">
+										<label for="jobTitleSelect">Please select a job
+											description:</label> <select class="form-control" id="jobTitleSelect">
+											<option value="CSR">Customer Service Representative</option>
+											<option value="SE">Support Engineer</option>
+											<option value="NME">Network Management Engineer</option>
+										</select>
+									</fieldset>
+									<div id="passwordErrorMessage">
+										<p id="errorText">Password inputs do not match each other.
+											Please try again.</p>
+									</div>
+									<div id="userExistsEerrorMessage">
+										<p id="errorText">This user already exists in the user
+											database</p>
+									</div>
+									</br> </br>
+									<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
+								</form>
 
-				<fieldset class="usernameFormSection">
-					<label for="usernameFormInput">Username</label> <input type="text"
-						id="usernameFormInput" name="usernameFormInput"
-						class="form-control" placeholder="Enter Username"></br>
-				</fieldset>
-
-				<fieldset class="passwordFormSection">
-					<label for="passwordFormInput">Password</label> <input
-						type="password" id="passwordFormInput" name="passwordFormInput"
-						class="form-control" placeholder="Enter Password"></br>
-				</fieldset>
-
-				<fieldset class="reenterPasswordFormSection">
-					<label for="reenterPasswordFormInput">Re-enter Password</label> <input
-						type="password" id="reenterPasswordFormInput"
-						name="reenterPasswordFormInput" class="form-control"
-						placeholder="Enter Password"></br>
-				</fieldset>
-
-				<fieldset class="jobTitleOption">
-					<label for="jobTitleSelect">Please select a job
-						description:</label> <select class="form-control" id="jobTitleSelect">
-						<option value="CSR">Customer Service Representative</option>
-						<option value="SE">Support Engineer</option>
-						<option value="NME">Network Management Engineer</option>
-					</select>
-				</fieldset>
-				
-
-
-
-				<div id="passwordErrorMessage">
-					<p id="errorText">Password inputs do not match each other.
-						Please try again.</p>
+							</div>
+						</form>
+					</div>
 				</div>
-
-				<div id="userExistsEerrorMessage">
-					<p id="errorText">This user already exists in the user database</p>
-				</div>
-				</br></br>
-
-				<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
-			</form>
-
 			</div>
-			</form>
-			
-		
-		
-		
-	</div>
-	</div>
-	</div>
-			
-			
-		
+			<div id="myModalEdit" class="modal fade" tabindex="-1" role="dialog"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div id="modalPopUPEdit">
+						<form action="#">
+							<div class="modalTable">
+								<form class="form">
+									<label for="firstName">First Name</label> <input type="text"
+										id="firstNameEdit" name="firstName" class="form-control"
+										placeholder="Enter First Name"></br> <label for="lastName">Last
+										Name</label> <input type="text" id="lastNameEdit" name="lastName"
+										class="form-control" placeholder="Enter Last Name"></br>
+									<fieldset class="usernameFormSection">
+										<label for="usernameFormInput">Username</label> <input
+											type="text" id="usernameFormInputEdit" name="usernameFormInput"
+											class="form-control" placeholder="Enter Username"></br>
+									</fieldset>
+									<fieldset class="passwordFormSection">
+										<label for="passwordFormInput">Password</label> <input
+											type="text" id="passwordFormInputEdit"
+											name="passwordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="jobTitleOption">
+										<label for="jobTitleSelect">Please select a job
+											description:</label> <select class="form-control" id="jobTitleSelectEdit">
+											<option value="CSR">Customer Service Representative</option>
+											<option value="SE">Support Engineer</option>
+											<option value="NME">Network Management Engineer</option>
+										</select>
+									</fieldset>
+									<div id="userExistsErrorMessageEdit">
+										<p id="errorText">This user already exists in the user
+											database</p>
+									</div>
+									</br> </br>
+									<button type="submit" class="btn btn-primary" id="formButtonEdit"">Submit</button>
+								</form>
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-<<<<<<< HEAD
-		<div id="uploadDataset" class="tab-pane fade">
+
+		<!-- -----------------------------END OF FORM------------------------------------------- -->
+
+		<div id="importDataset" class="tab-pane fade">
 			<script>
 $(document).on("click", "#submit", function(){
 	uploadFile();
@@ -271,22 +289,20 @@ function receivedText2() {
 }
 
 </script>
-</div>
 	<div>
-	
-	<label class="btn btn-default btn-file">
-    Browse <input type="file" id="fileinput" style="display: none;">
-</label>
-<!--  		<input type="file" id="fileinput" />
+		<input type="file" id="fileinput" />
 	</div>
 	<button type="submit" id="submit" name="submit">Submit</button>
-		</div> --></div>
-		
-			    <!-- -----------------------------END OF FORM------------------------------------------- -->
+		</div>
+		<div id="contactus" class="tab-pane fade">
+			<h3>Contact Us</h3>
+			<p>Some content in menu 5.</p>
+		</div>
 		<div id="aboutus" class="tab-pane fade">
 			<h3>About Us</h3>
-			<p>Some content in menu 5.</p>
-			ፊ		</div>
+			<p>Some content in menu 6.</p>
+			ፊ
+		</div>
 		<div id="queryBody" class="tab-pane fade in">
 			<div id="queryHeader2"></div>
 			<div id="buttonDiv"></div>
@@ -295,8 +311,8 @@ function receivedText2() {
 					<h2 id="queryHeader">Query Selector</h2>
 
 					<div id="dropUpQuery" class="dropup">
-						<button id="dropUpButton" class="btn btn-default dropdown-toggle" type="button"
-							data-toggle="dropdown">
+						<button id="dropUpButton" class="btn btn-default dropdown-toggle"
+							type="button" data-toggle="dropdown">
 							Query Selection <span class="caret"></span>
 						</button>
 						<ul id="dropDownQueryList" class="dropdown-menu">
@@ -304,6 +320,7 @@ function receivedText2() {
 									given dates</a></li>
 							<li><a id="allFailuresForModel" href="#">List of failure
 									details for given Model</a></li>
+									<li><a id="imsiStats" href="#">View IMSI Statistics</a></li>
 						</ul>
 					</div>
 				</div>
@@ -342,6 +359,47 @@ function receivedText2() {
 						</div>
 						<div class="modal-footer">
 							<button id="dateSearch" type="button"
+								class="btn btn-default searchButton" data-dismiss="modal">Search</button>
+							<button id="modalClose" type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="imsiStatsModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 id="modalTitle" class="modal-title"></h4>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<div class="col-sm-6" style="height: 130px;">
+									<div class="form-group">
+										<h4>From:</h4>
+										<div class='input-group date' id='datetimepicker3'>
+											<input type='text' class="form-control" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"> </span>
+											</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<h4>To:</h4>
+										<div class='input-group date' data-date-format="mm/dd/yyyy"
+											id='datetimepicker4'>
+											<input type='text' class="form-control" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"> </span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id="imsiStatsModalSearch" type="button"
 								class="btn btn-default searchButton" data-dismiss="modal">Search</button>
 							<button id="modalClose" type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>

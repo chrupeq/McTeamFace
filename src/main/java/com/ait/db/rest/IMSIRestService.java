@@ -1,8 +1,10 @@
 package com.ait.db.rest;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,12 +23,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.ait.db.data.DateParser;
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
+import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.NetworkEntity;
 import com.ait.imsiStats.IMSIStats;
+import com.ait.imsiStats.IMSIStatsObjectFactory;
 import com.ait.imsiStats.IMSIStatsProducer;
 
 @Path("/imsi")
@@ -38,7 +44,7 @@ public class IMSIRestService {
 	IMSIDAO IMSIDao;
 	@EJB
 	NetworkEntityDAO networkEntityDAO;
-	
+	DateParser dateParser;
 	@PersistenceContext
 	private EntityManager entityManager;
 	
@@ -57,9 +63,14 @@ public class IMSIRestService {
 	@GET
 	@Path("/get_stats")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getIMSIStats() {
+	public Response getIMSIStats(@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo) {
+		dateParser = new DateParser();
+		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
+		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
+		System.out.println(dateOne);
+		System.out.println(dateTwo);
 		try {
-			List<? extends NetworkEntity> baseDataList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA);
+			List<Base_data> baseDataList = IMSIDao.getAllBaseDataBetweenDates(dateOne, dateTwo);
 			if(baseDataList.isEmpty()) {
 				return Response.status(404).build();
 			}
@@ -67,7 +78,8 @@ public class IMSIRestService {
 			List<IMSIStats> imsiStats = imsiStatsProducer.getListOfIMSIStatsObjects();
 			return Response.status(200).entity(imsiStats).build();
 		} catch(Exception e) {
-			return Response.status(404).build();
+			e.printStackTrace();
+			return Response.status(400).build();
 		}
 	}	
 	
@@ -77,16 +89,54 @@ public class IMSIRestService {
 	public Response getImsisBetweenDates(@QueryParam("date1") String date1, @QueryParam("date2") 
 		String date2){
 		
-		String firstDate = date1.substring(6,10) + "-" + date1.substring(3, 5) + "-" + date1.substring(0,2) + " " + date1.substring(11,16);
-		String secondDate = date2.substring(6,10) + "-" + date2.substring(3, 5) + "-" + date2.substring(0,2) + " " + date2.substring(11,16);
-		secondDate = secondDate + ":00";
-		firstDate = firstDate + ":00";
-	
+		dateParser = new DateParser();
+		date1 = dateParser.convertFromEuropeanToAmericanDateFormat(date1);
+		date2 = dateParser.convertFromEuropeanToAmericanDateFormat(date2);
 		try{
-			List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(firstDate, secondDate);
+			List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(date1, date2);
 		if(imsiList.isEmpty()) {
 			return Response.status(404).build();
 		}
+		return Response.status(200).entity(imsiList).build();
+		}catch(Exception e){
+			e.printStackTrace();
+			return Response.status(400).build();
+		}
+	}
+	@GET
+	@Path("/imsi_event_id/{imsi}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
+		try {
+			List<IMSIWithEventIDAndCauseCode> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
+			if(imsiList.isEmpty()) {
+				return Response.status(404).build();
+			} 
+			return Response.status(200).entity(imsiList).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+			return Response.status(400).build();
+		}
+	}
+	@GET
+	@Path("/imsi_count_between_dates")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getIMSICountBetweenDates(@QueryParam("imsi") BigInteger imsi, 
+			@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo) {
+		dateParser = new DateParser();
+		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
+		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
+		
+		try{
+			List<Base_data> baseDataList = IMSIDao.getAllBaseDataByIMSIAndDate(imsi, dateOne, dateTwo);
+		if(baseDataList.isEmpty()) {
+			IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, 0);
+			List<IMSIStats> imsiList = new ArrayList<>();
+			imsiList.add(imsiStats);
+			return Response.status(200).entity(imsiList).build();
+		}
+		IMSIStatsProducer imsiStatsProducer = new IMSIStatsProducer(baseDataList);
+		List<IMSIStats> imsiList = imsiStatsProducer.getListOfIMSIStatsObjectsWithFailuresBetweenDates();
 		return Response.status(200).entity(imsiList).build();
 		}catch(Exception e){
 			e.printStackTrace();

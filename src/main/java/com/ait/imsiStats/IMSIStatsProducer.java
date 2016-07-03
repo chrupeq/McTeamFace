@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.ait.db.data.DateParser;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.NetworkEntity;
 
@@ -18,6 +19,7 @@ public class IMSIStatsProducer {
 	private Set<BigInteger> imsiKeySet;
 	private int failuresCounter;
 	private BigInteger imsi;
+	private DateParser dateParser;
 	
 	public IMSIStatsProducer(List<? extends NetworkEntity> baseDataList) {
 		this.baseDataList = baseDataList;
@@ -89,5 +91,22 @@ public class IMSIStatsProducer {
 		}
 		Collections.sort(imsiStatsObjects);
 		return imsiStatsObjects;	
+	}
+	public List<IMSIStats> getListOfIMSIStatsObjectsWithFailuresBetweenDates() {
+		if(baseDataList.isEmpty()) {
+			
+		}
+		Map<BigInteger, Integer> numOfFailures = countTheNumberOfFailures();
+		imsiKeySet = numOfFailures.keySet();
+		List<IMSIStats> imsiStatsObjects = new ArrayList<IMSIStats>();
+		for(BigInteger imsiKey : imsiKeySet) {
+			if(numberOfFailures.containsKey(imsiKey)) {
+				int numberOfFailures = numOfFailures.get(imsiKey);
+				IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsiKey, numberOfFailures);
+				imsiStatsObjects.add(imsiStats);
+			}
+		}
+		Collections.sort(imsiStatsObjects);
+		return imsiStatsObjects;
 	}
 }

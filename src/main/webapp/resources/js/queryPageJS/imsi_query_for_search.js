@@ -31,3 +31,14 @@ var findAllImsisForDates = function(date1, date2) {
 		success : loadImsiTable
 	});
 };
+
+var imsiQuery = function(dateThree, dateFour){
+	$('#container').addClass('animated fadeOutUp');
+		console.log("dates: " + dateThree + " " + dateFour);
+		$.ajax({
+			type:'GET',
+			url: imsiStatsURL + '?dateOne=' + dateThree + '&dateTwo=' + dateFour,
+			dataType:'json',
+			success:buildIMSIStatsTable
+		});
+}

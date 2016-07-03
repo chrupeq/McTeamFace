@@ -7,12 +7,20 @@ public class IMSIStats implements Comparable<IMSIStats> {
 	private int failureDuration;
 	private int numberOfFailures;
 	
+	IMSIStats() {
+		
+	}
+	IMSIStats(BigInteger imsi, int numberOfFailures) {
+		this.imsi = imsi;
+		this.numberOfFailures = numberOfFailures;
+	}
 	IMSIStats(BigInteger imsi, int failureDuration, int numberOfFailures) {
 		super();
 		this.imsi = imsi;
 		this.failureDuration = failureDuration;
 		this.numberOfFailures = numberOfFailures;
 	}
+
 	public BigInteger getImsi() {
 		return imsi;
 	}
@@ -25,5 +33,5 @@ public class IMSIStats implements Comparable<IMSIStats> {
 	@Override
 	public int compareTo(IMSIStats o) {
 		return this.imsi.compareTo(o.imsi);
-	}	
+	}
 }
