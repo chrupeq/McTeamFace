@@ -1,44 +1,51 @@
 var rootUrl2 = "http://localhost:8080/GroupProject2016/rest/users";
 var jobTitle2 = "";
 $(document).ready(function() {
-	userAccessControl();
 	displayErrors();
 	jobTitle2 = jobTitle;
 	findAll();
-
 });
 
-var userAccessControl = function(){
-	var accessLevel = document.cookie.substring(9);
-	if(accessLevel == "SA"){
-		$("#importDatasetTab").show();
-		$("#formTab").show();
-		
-	}else if(accessLevel == "NME"){
-		$("#importDatasetTab").show();
-		$("#queryTabClick").show();
-		$("#contact").show();
-		$("#about").show();
-		
-	}else if(accessLevel == "SE"){
-		
-		$("#queryTabClick").show();
-		$("#contact").show();
-		$("#about").show();
-		
-	}else if(accessLevel == "CSR"){
-		
-		$("#queryTabClick").show();
-		$("#contact").show();
-		$("#about").show();
+var userAccessControl = function() {
+	$('#home').addClass('hiddenbycostanza');
+	var accessLevel = getTheCookieYouNeed('job_title');
+	if (accessLevel == "SA") {
+		$('#formTab').click();
+		$('#queryBody').addClass('hiddenbycostanza');
+		$('#wilkommen').addClass('hiddenbycostanza');
+		$("#importtab").removeClass('hiddenbycostanza');
+		$("#formtab").removeClass('hiddenbycostanza');
+		$('#form').removeClass('hiddenbycostanza');
+
+	} else if (accessLevel == "NME") {
+		$('#queryBody').click();
+		$('#home').addClass('hiddenbycostanza');
+		$("#importtab").removeClass('hiddenbycostanza');
+		$("#querytab").removeClass('hiddenbycostanza');
+		$("#contacttab").removeClass('hiddenbycostanza');
+		$("#abouttab").removeClass('hiddenbycostanza');
+
+	} else if (accessLevel == "SE") {
+		$('#queryBody').click();
+		$('#home').addClass('hiddenbycostanza');
+		$("#querytab").removeClass('hiddenbycostanza');
+		$("#contacttab").removeClass('hiddenbycostanza');
+		$("#abouttab").removeClass('hiddenbycostanza');
+
+	} else if (accessLevel == "CSR") {
+		$('#queryTabClick').click();
+		$('#home').addClass('hiddenbycostanza');
+		$("#querytab").removeClass('hiddenbycostanza');
+		$("#queryBody").removeClass('hiddenbycostanza');
+		$("#contacttab").removeClass('hiddenbycostanza');
+		$("#abouttab").removeClass('hiddenbycostanza');
 	}
 };
 
-var showTabs = function(){
-	$("#importDatasetTab").show();
-	$("#formTab").show();
+var showTabs = function() {
+	$("#importtab").removeClass('hiddenbycostanza');
+	$("#formtab").removeClass('hiddenbycostanza');
 }
-
 
 $(document).on("click", 'button.clickToAdd', function() {
 	$("#myModalAdd").modal('show');
@@ -49,18 +56,27 @@ $(document).on("click", 'button.editButton', function() {
 	findById(userId);
 	$("#userExistsErrorMessageEdit").css('display', 'none');
 	$("#myModalEdit").modal('show');
-	
+
 	$(document).on("click", "#formButtonEdit", function() {
 		$("#userExistsErrorMessageEdit").hide();
-			getDatabaseDetailsEdit(userId);
+		getDatabaseDetailsEdit(userId);
 
 		return false;
 	});
-	
+
 });
 
 $(document).on("click", 'button.deleteButton', function() {
-	deleteUser(this.id);
+		if(this.id == getTheCookieYouNeed('id')){
+			if(getTheCookieYouNeed('job_title') == 'SA'){
+				alert("You can't delete system admin accounts, silly.");
+			}else{
+			deleteUser(this.id);
+			$('#logoutBtn').click();
+			}
+		}else{
+			deleteUser(this.id);
+		}
 });
 
 $(document).on("click", 'formButtonClose', function() {
@@ -71,7 +87,6 @@ $(document).on("click", 'formButtonCloseEdit', function() {
 	$("#myModalEdit").modal('hide');
 });
 
-
 var findAll = function() {
 	$.ajax({
 		type : 'GET',
@@ -81,14 +96,14 @@ var findAll = function() {
 	});
 };
 
-var findById = function(id){
+var findById = function(id) {
 	console.log('findById: ' + id);
 	$.ajax({
-		type: 'GET',
-		url: rootUrl2 + '/' + id,
-		dataType: "json",
-		success: renderEditDetails
-		});
+		type : 'GET',
+		url : rootUrl2 + '/' + id,
+		dataType : "json",
+		success : renderEditDetails
+	});
 };
 
 var addUser = function() {
@@ -110,7 +125,6 @@ var addUser = function() {
 	});
 };
 
-
 var editUser = function(id) {
 	console.log("editUser");
 
@@ -129,25 +143,25 @@ var editUser = function(id) {
 		}
 	});
 };
-	
+
 var deleteUser = function(id) {
 	console.log("deleteUser");
-	
+
 	$.ajax({
-		type: "DELETE",
-		url: rootUrl2 + "/" + id,
-		success: function(data, textStatus, jqXHR){
+		type : "DELETE",
+		url : rootUrl2 + "/" + id,
+		success : function(data, textStatus, jqXHR) {
 			findAll();
 
 		},
-		error: function(jqXHR, textStatus, errorThrown) {
+		error : function(jqXHR, textStatus, errorThrown) {
 			alert("deleteUser Error");
 		}
-			
+
 	});
 };
 
-var renderEditDetails = function(data){
+var renderEditDetails = function(data) {
 	$('#firstNameEdit').val(data.firstname);
 	$('#lastNameEdit').val(data.lastname);
 	$('#usernameFormInputEdit').val(data.username);
@@ -156,10 +170,11 @@ var renderEditDetails = function(data){
 }
 
 var loadDataTable = function(data) {
-	var table = $('#userInfoTable').DataTable(
-	
+	var table = $('#userInfoTable')
+			.DataTable(
+
 					{
-						destroy: true,
+						destroy : true,
 						data : data,
 
 						columns : [
@@ -171,7 +186,7 @@ var loadDataTable = function(data) {
 								{
 									data : "firstname"
 								},
-								
+
 								{
 									data : "lastname"
 								},
@@ -193,7 +208,7 @@ var loadDataTable = function(data) {
 									render : function(data) {
 										return '<button type="button" id="'
 												+ data
-												+ '" class="btn btn-primary btn-sm editButton">Edit</button>';
+												+ '" class="btn btn-primary btn-sm editButton databutton">Edit</button>';
 									}
 								},
 
@@ -202,20 +217,15 @@ var loadDataTable = function(data) {
 									render : function(data) {
 										return '<button type="button" id="'
 												+ data
-												+ '" class = "btn btn-danger btn-sm deleteButton">Delete</button>';
+												+ '" class = "btn btn-danger btn-sm deleteButton databutton">Delete</button>';
 									}
 
 								},
 
 						],
-
+						
 					});
-
 };
-
-
-
-
 
 $(document).on("click", "#formButton", function() {
 	$("#userExistsEerrorMessage").hide();
@@ -231,7 +241,6 @@ $(document).on("click", "#formButton", function() {
 
 	return false;
 });
-
 
 /*Login and Logout functions*/
 var displayErrors = function() {
@@ -254,14 +263,11 @@ var getDatabaseDetailsEdit = function(userId) {
 	return false;
 };
 
-
-
 function checkUsernameExistsEdit(details, userId) {
 	console.log("Checking username");
 	var username = $("#usernameFormInputEdit").val();
 	var counter = 0;
 
-	
 	$.each(details, function(i, detail) {
 
 		console.log(userId);
@@ -286,8 +292,6 @@ function checkUsernameExistsEdit(details, userId) {
 	counter = 0;
 	return false;
 };
-
-
 
 var getDatabaseDetails = function() {
 	console.log("getting details");
@@ -328,15 +332,28 @@ function checkUsernameExists(details) {
 };
 
 $(document).on("click", "#logoutBtn", function() {
-	document.cookie = "jobTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-	window.location = 'http://localhost:8080/GroupProject2016/welcome.html';
-
+	document.cookie = 'jobTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+	document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+	document.cookie = 'name=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
+	$('#wilkommen').click();
+	$('#welcometab').removeClass('hiddenbycostanza');
+	$('#home').removeClass('hiddenbycostanza');
+	$("#importtab").addClass('hiddenbycostanza');
+	$("#querytab").addClass('hiddenbycostanza');
+	$("#contacttab").addClass('hiddenbycostanza');
+	$("#abouttab").addClass('hiddenbycostanza');
+	$("#formtab").addClass('hiddenbycostanza');
+	$('#queryBody').addClass('hiddenbycostanza');
+	$('#form').addClass('hiddenbycostanza');
+	$('#importDataset').addClass('hiddenbycostanza');
+	$('#customHeader').addClass('hiddenbycostanza');
 	$('#username').val("");
 	$('#password').val("");
+
+	hideError();
 });
 
 /*form functions*/
-
 
 var formToJSON = function() {
 
@@ -354,7 +371,7 @@ var formToJSON = function() {
 
 var formToJSONEdit = function() {
 	console.log("editStringify");
-	
+
 	return JSON.stringify({
 
 		"firstname" : $('#firstNameEdit').val(),
@@ -366,3 +383,11 @@ var formToJSONEdit = function() {
 	});
 
 };
+
+var revealCustomHeader = function() {
+	var name = getTheCookieYouNeed('name');
+	if (name != "") {
+		$('#customHeader').html('<h2>Hi, '+ name +'!</h2>');
+		$('#customHeader').removeClass('hiddenbycostanza');
+	}
+}

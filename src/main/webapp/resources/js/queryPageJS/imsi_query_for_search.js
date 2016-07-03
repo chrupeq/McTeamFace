@@ -33,7 +33,6 @@ var findAllImsisForDates = function(date1, date2) {
 };
 
 var imsiQuery = function(dateThree, dateFour){
-	$('#container').addClass('animated fadeOutUp');
 		console.log("dates: " + dateThree + " " + dateFour);
 		$.ajax({
 			type:'GET',
