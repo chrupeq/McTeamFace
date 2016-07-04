@@ -45,6 +45,7 @@ public class IMSIDAO {
 		query.setParameter("startDate", calendarArray[0]);
 		query.setParameter("endDate", calendarArray[1]);
 		List<Base_data> baseDataList = query.getResultList();
+		System.out.println(baseDataList.size());
 		return baseDataList;
 		
 	}

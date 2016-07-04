@@ -11,6 +11,10 @@ $(document).ready(function() {
 		$('#imsiStatsModal').modal('show');
 	});
 	
+	$('#allImsiFailuresBetweenDates').on('click', function(){
+		$('#simgleImsiModal').modal('show');
+	})
+	
 	$('#allFailuresForModel').on("click", function(){
 		$('#modelFailuresModal').removeClass('animated bounceOut');
 		$('#modelFailuresModal').addClass('animated bounceIn');
@@ -36,6 +40,8 @@ $(document).ready(function() {
 	$('#imsiStatsModalSearch').on('click', function(){
 		var thirdDate = $("#datetimepicker3").find("input").val();
 		var fourthDate = $("#datetimepicker4").find("input").val();
+		var date = new Date();
+		console.log(date.getTime());
 		imsiQuery(thirdDate, fourthDate);
 		changeContainerCSS('imsiStats');
 	});

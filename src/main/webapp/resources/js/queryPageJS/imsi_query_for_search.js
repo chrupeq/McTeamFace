@@ -16,8 +16,8 @@ var findAllUniqueModels = function() {
 var loadSearchParams = function(data){
 	$.each(data, function(index, element) {
 		$('#selectByModel').append($("<option></option>")
-		                    .attr("value",element[2])
-		                    .text(element[0] + ' ' + element[1]));
+		                    .attr("value", element.tac)
+		                    .text(element.manufacturer + ' ' + element.marketing_name));
 		
 	});
 }
