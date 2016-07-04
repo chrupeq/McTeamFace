@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -42,13 +43,9 @@ public class ReadDataSetIntoMainMemory {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
-	private NetworkEntityType networkEntityTypeEnum;
 
 	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
-	private static String fileName = "C:\\Users\\A00226084\\Downloads\\AIT Group Project - Sample Dataset.xls";
-//	private static String fileName2 = "C:\\Users\\Garrett\\Documents\\manualTest.xls";
-	private static String makeFileNameForErrorLog = "ErrorLog";
 	static Base_data[] base_data;
 	static Failure_class[] failure_class;
 	static Event_cause[] event_cause;
@@ -70,6 +67,9 @@ public class ReadDataSetIntoMainMemory {
 			throws IOException {
 
 		FileInputStream fos = new FileInputStream(new File(fileName));
+		
+		Date startTimer = new Date();
+		System.out.println("Start timer: "+startTimer);
 		
 		Workbook dataSetWorkbook = null;
 		try {

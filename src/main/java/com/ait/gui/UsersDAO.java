@@ -11,25 +11,25 @@ import javax.persistence.Query;
 import com.ait.db.model.User;
 
 /**
- * @author A00236944
+ * Users Data Access Object Class
  *
  */
 @Stateless
 @LocalBean
 public class UsersDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-    
+	@PersistenceContext
+	private EntityManager entityManager;
+
 	public List<User> getAllUsers() {
-    	Query query=entityManager.createQuery("SELECT u FROM User u");
-        return query.getResultList();
-    }
-		
-	public User getUser(int id ) {
-        return entityManager.find(User.class, id);
-    }
-	
+		Query query = entityManager.createQuery("SELECT u FROM User u");
+		return query.getResultList();
+	}
+
+	public User getUser(int id) {
+		return entityManager.find(User.class, id);
+	}
+
 	public void save(final User user) {
 		entityManager.persist(user);
 	}
@@ -41,5 +41,5 @@ public class UsersDAO {
 	public void delete(final int userId) {
 		entityManager.remove(getUser(userId));
 	}
-    
+
 }

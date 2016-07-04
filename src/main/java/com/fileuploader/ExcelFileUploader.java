@@ -34,9 +34,9 @@ import com.validation.JDBCConnectionManager;
 @Path("/upload")
 @Stateless
 @LocalBean
-public class ExcelFileUploader extends JDBCConnectionManager{
+public class ExcelFileUploader extends JDBCConnectionManager {
 
-JDBCConnectionManager jdbc = new JDBCConnectionManager();
+	JDBCConnectionManager jdbc = new JDBCConnectionManager();
 
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
@@ -55,7 +55,7 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 	@Path("/uploadfile")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response uploadFile(@FormDataParam("data") String imageInBase64) throws IOException, JSONException {
-		
+
 		String[] imageArray = imageInBase64.split(",");
 
 		String path = "temp.xls";
@@ -63,12 +63,12 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 		FileOutputStream fos = new FileOutputStream(new File(path));
 		fos.write(DatatypeConverter.parseBase64Binary(imageArray[1].toString()));
 		fos.close();
-		
+
 		sendToFileReader(path);
-		
+
 		return Response.status(200).build();
 	}
-	
+
 	public void sendToFileReader(String path) throws IOException {
 		sheetArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path);
 		eventCause = NonBaseDataObjects.createEventCauseClass(sheetArray.get(1));
@@ -79,14 +79,14 @@ JDBCConnectionManager jdbc = new JDBCConnectionManager();
 		objectsToBePersisted[2] = userEquipment;
 		mccMnc = NonBaseDataObjects.createMccMncclass(sheetArray.get(4));
 		objectsToBePersisted[1] = mccMnc;
-		
+
 		for (int i = 4; i > 0; i--) {
-			
+
 			networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
-					
-			}
+
+		}
 		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
 		objectsToBePersisted[0] = baseData;
-		networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0	]);
-		}
+		networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
 	}
+}
