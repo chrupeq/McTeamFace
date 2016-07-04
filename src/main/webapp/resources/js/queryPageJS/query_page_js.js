@@ -23,30 +23,29 @@ $(document).ready(function() {
 	});
 	
 	$('#dateSearch').on('click', function(){
-		$('#container').addClass('animated fadeOutUp');
 		var firstDate = $("#datetimepicker1").find("input").val();
 		var secondDate = $("#datetimepicker2").find("input").val();
+		$('#queryHeader').addClass('animated fadeOutUp');
+		$('#queryHeader2').removeClass('animated fadeOutUp');
+		$('#queryHeader2').addClass('animated fadeInDown');
 		findAllImsisForDates(firstDate, secondDate);
+		$('#querysTable').addClass('animated fadeOutUp');
 		changeContainerCSS('imsiDates');
 	});
 	
 	$('#imsiStatsModalSearch').on('click', function(){
-		$('#container').addClass('animated fadeOutUp');
 		var thirdDate = $("#datetimepicker3").find("input").val();
 		var fourthDate = $("#datetimepicker4").find("input").val();
 		imsiQuery(thirdDate, fourthDate);
 		changeContainerCSS('imsiStats');
 	});
 	
-//	$('#imsiStats').on('click', function(){
-//		changeContainerCSS('imsiStats');
-//	})
-	
-	
 	$('#selectByModel').change(function(){
-		$('#container').addClass('animated fadeOutUp');
 		changeContainerCSS('modelsQuery');
         var selectedTac = $('#selectByModel option:selected').val();
+        $('#tableDiv').removeClass('animated fadeOutUp');
+    	$('#tableDiv').addClass('animated fadeInDown');
+        modelQuery();
         findAllUniqueModelFailures(selectedTac);
         
 })
@@ -58,37 +57,46 @@ var changeContainerCSS = function(whichTable){
  newDiv = '<h2>Query Selector<h2><br><h4 style="color: blue;">You are viewing all falures for ' + $("#selectByModel option:selected").text() + '</h4>';
 	}
 	if(whichTable == 'imsiDates'){
+		$('#tableDiv').removeClass('animated fadeOutUp');
+		$('#tableDiv').addClass('animated fadeInDown');
 		 newDiv = '<h2>Query Selector<h2><br><h4 style="color: blue;">You are viewing all failures for dates between ' + $("#datetimepicker1").find("input").val() + ' and ' + $("#datetimepicker2").find("input").val() + '</h4>';
+			clearDatePickers();
 	}
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
-$('#tableDiv').removeClass('animated fadeOutUp');
-$('#queryHeader2').removeClass('animated fadeOutUp');
-$('#buttonDiv').removeClass('animated fadeOutUp');
-$('#queryHeader2').html(newDiv);
-$('#queryHeader2').hide();
-$('#queryHeader2').addClass('animated fadeInDown');
-$('#queryHeader2').show();
-$('#buttonDiv').html(closeButton);
-$('#buttonDiv').hide();
-$('#buttonDiv').addClass('animated fadeInDown');
-$('#buttonDiv').show();
 
+$('#buttonDiv').html(closeButton);
+$('#infoDiv').html(newDiv);
+$('#buttonDiv').removeClass('animated fadeOutUp');
+$('#infoDiv').removeClass('animated fadeOutUp');
+$('#buttonDiv').addClass('animated fadeInDown');
+$('#infoDiv').addClass('animated fadeInDown');
 $('#backToHomeButton').on('click', function(){
+	$('#queryHeader').removeClass('animated fadeOutUp');
+	$('#queryHeader').addClass('animated fadeInDown');
+	$('#buttonDiv').removeClass('animated fadeInDown');
+	$('#infoDiv').removeClass('animated fadeInDown');
+	$('#buttonDiv').addClass('animated fadeOutUp');
+	$('#infoDiv').addClass('animated fadeOutUp');
 	$('#tableDiv').removeClass('animated fadeInDown');
 	$('#tableDiv').addClass('animated fadeOutUp');
-	$('#queryHeader2').addClass('animated fadeOutUp');
-	$('#buttonDiv').addClass('animated fadeOutUp');
-	$('#container').removeClass('animated fadeOutUp');
-	$('#querysTable').destroy();
-	replaceContainer();
+	
 });
 
 if(whichTable == 'imsiDates'){
+	
 imsiWithDatesQuery();
 }
-if(whichTable == 'modelsQuery'){
-	modelQuery();
+
+if(whichTable == 'imsiStats'){
+	$('#queryHeader').addClass('animated fadeOutUp');
+	$('#queryHeader2').addClass('animated fadeInDown');
+	clearDatePickers();
+}
 }
 
-	
-}
+var clearDatePickers = function(){
+	  $('#datetimepicker1').find('input').val("");
+	  $('#datetimepicker2').find('input').val("");
+	  $('#datetimepicker3').find('input').val("");
+	  $('#datetimepicker4').find('input').val("");
+	};

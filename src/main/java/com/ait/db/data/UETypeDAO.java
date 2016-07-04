@@ -19,7 +19,7 @@ public class UETypeDAO {
 	private Query query;
 	
 	public List<User_equipment> getAllUniqueModels() {
-		query = entityManager.createQuery("SELECT DISTINCT manufacturer, model, tac FROM User_equipment");
+		query = entityManager.createQuery("SELECT DISTINCT manufacturer, model, tac FROM User_equipment WHERE tac IN (SELECT ue_type FROM Base_data)");
 		List<User_equipment> distinctModels = query.getResultList();
 		System.out.println(distinctModels.size());
 		return distinctModels;

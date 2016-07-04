@@ -15,8 +15,9 @@ $(document).ready(function() {
 		$('#modelFailuresModal').modal('show');
 		$('#modalTitle2').html('Models Query');
 		$('#selectByModel').on('change', function() {
+			$('#queryHeader').addClass('animated fadeOutUp');
+			$('#queryHeader2').addClass('animated fadeInDown');
 			  var value = $(this).val();
-			  $('#container').addClass('animated fadeOutUp');
 			  $('#modelFailuresModal').modal('hide');
 			});
 	})

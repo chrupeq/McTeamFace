@@ -1,4 +1,8 @@
 var rootUrlUMF = "http://localhost:8080/GroupProject2016/rest/unique_model_failures";
+var querysTable = "";
+$(document).ready(function(){
+})
+
 var findAllUniqueModelFailures = function(tacNumber) {
 	$.ajax({
 		type : 'GET',
@@ -9,24 +13,12 @@ var findAllUniqueModelFailures = function(tacNumber) {
 };
 
 var loadUniqueModelFailuresTable = function(data){
-	var querysTable = $('#querysTable').DataTable( {
+	 querysTable = $('#querysTable').DataTable( {
 		 pagingType: "full_numbers",
 		 
 	        data: data,
 	        
 	        columns: [
-
-	            { data: "date_time",
-	                render: function(data, type, row) {
-	                	var date = new Date(data);
-	                	var day = date.getDate();
-	                	var monthIndex = date.getMonth();
-	                	var year = date.getFullYear();
-	                	var hours = date.getHours();
-	                	var minutes = date.getMinutes();
-	                	return day + '/' + monthIndex + 1 + '/' + year + ' ' + hours + ':' + minutes;
-	                }
-	                },
 
 	            { data: "hier3_id" },
 	            
@@ -40,12 +32,17 @@ var loadUniqueModelFailuresTable = function(data){
     
 	        ],
 	        
-
+	        
 	    } );
+	
+	$('#querysTable').removeClass('animated fadeOutUp');
+	$('#querysTable').addClass('animated fadeInDown');
+	$('#tableDiv').append('<table id="querysTable2></table>');
 	};
 	
 	var loadImsiTable = function(data){
-		$('#querysTable').DataTable( {
+		$('#querysTable').addClass('animated fadeInDown');
+		querysTable = $('#querysTable').DataTable( {
 			 pagingType: "full_numbers",
 			 
 		        data: data,
@@ -70,5 +67,5 @@ var loadUniqueModelFailuresTable = function(data){
 		        
 
 		    } );
+		
 		};
-	

@@ -1,7 +1,6 @@
 var imsiStatsURL = "http://localhost:8080/GroupProject2016/rest/imsi/get_stats";
-
 $(document).ready(function() {
-	var accessLevel = document.cookie.substring(9);
+	var accessLevel = getTheCookieYouNeed('job_title');
 	if(accessLevel == "SE"){
 		$('#imsiStats').hide();
 	}
@@ -11,7 +10,6 @@ $(document).ready(function() {
 	}
 	$('#selectByModel').on('change', function() {
 		  var value = $(this).val();
-		  $('#container').addClass('animated fadeOutUp');
 		  $('#modelFailuresModal').modal('hide');
 		});
 });
@@ -35,20 +33,22 @@ var imsiWithDatesQuery = function(){
 }
 
 var modelQuery = function(){
-	renderModelQueryTable();
-}
-	TableView = Backbone.View.extend({
-		render:function(){
-			var template = _.template($('#model_data_table').html(), {});
-			$(this.el).html(template);
-			return this;
-		}
-	});
-
-
-var renderModelQueryTable = function(){
-	var tableView = new TableView();
-	$('#tableDiv').html(tableView.render().el);
+	table = '<table class="table table-striped table-hover table-condensed animated fadeInDown"'
+		+ 'id="querysTable">'
+		+ '<thead>'
+						+'<tr>'
+						+	'<th align="left">Number of Failures</th>'
+						+	'<th align="left" class="col-sm-2">Manufacturer</th>'
+						+	'<th align="left" class="col-sm-2">Marketing Name</th>'
+						+	'<th align="left" class="col-sm-2">Event ID</th>'
+						+	'<th align="left" class="col-sm-2">Cause Code</th>'
+					+	'</tr>'
+				+	'</thead>'
+				+'</table>';
+	$('#tableDiv').html(table);
+	$('#tableDiv').hide();
+	$('#tableDiv').addClass('animated fadeInDown');
+	$('#tableDiv').show();
 }
 
 var renderMainContainer = function(){
@@ -58,15 +58,44 @@ var renderMainContainer = function(){
 
 var replaceContainer = function(){
 	renderMainContainer();
+	$('#queryHeader2').addClass('animated fadeOutUp');
+	$('#tableDiv').addClass('animated fadeOutUp');
+	$('#infoDiv').addClass('animated fadeOutUp');
+	$('#buttonDiv').addClass('animated fadeOutUp');
 	$('#container').removeClass('animated fadeOutUp');
+	$('#queryHeader').removeClass('animated fadeOutUp');
+	$('#queryHeader').addClass('animated fadeInDown');
 }
 	MainView = Backbone.View.extend({
+		
+		events: {
+			"click #imsiWithDates":function(){
+				$('#dateQueryModal').modal('show');
+				 $('#datetimepicker1').datetimepicker({
+		             viewMode: 'years',
+					 format: 'DD/MM/YYYY HH:mm'
+		         });
+				 $('#datetimepicker2').datetimepicker({
+					 viewMode: 'years',
+					 format: 'DD/MM/YYYY HH:mm'
+		        });
+			},
+			
+			"click #imsiStats":function(){
+					changeContainerCSS('imsiStats');
+				},
+				
+				"click #backToHomeButton":function(){
+					renderMainContainer();
+					$('#querysTable').removeClass('animated fadeInDown');
+					$('#querysTable').addClass('animated fadeOutUp');
+				}
+		},
+		
 		initialize: function () {
 			$(".js-example-basic-multiple").select2();
-			
 			$('#selectByModel').on('change', function() {
 				  var value = $(this).val();
-				  $('#container').addClass('animated fadeOutUp');
 				  $('#modelFailuresModal').modal('hide');
 				  findAllUniqueModelFailures(value);
 				});
@@ -78,8 +107,6 @@ var replaceContainer = function(){
 		
 		events: {
 			"click #imsiWithDates":function(){
-				$('#dateQueryModal').removeClass('animated bounceOut');
-				$('#dateQueryModal').addClass('animated bounceIn');
 				$('#dateQueryModal').modal('show');
 				 $('#datetimepicker1').datetimepicker({
 		             viewMode: 'years',
@@ -97,6 +124,8 @@ var replaceContainer = function(){
 			
 			
 	"click #allFailuresForModel":function(){
+	
+		alert("here");
 		$('#modelFailuresModal').removeClass('animated bounceOut');
 		$('#modelFailuresModal').addClass('animated bounceIn');
 		$('#modelFailuresModal').modal('show');
@@ -111,7 +140,6 @@ var replaceContainer = function(){
 		$('#modelFailuresModal').addClass('animated bounceOut');
 	},
 			"click #dateSearch":function(){
-				$('#container').addClass('animated fadeOutUp');
 				changeContainerCSS('imsiDates');
 			}
 		},
@@ -126,7 +154,6 @@ var replaceContainer = function(){
 	
 
 		var buildIMSIStatsTable = function(data) {
-			
 			imsiTable = '<table class="table table-striped table-hover table-condensed animated fadeInDown"'
 				+ 'id="querysTable">'
 				+ '<thead>'
@@ -138,11 +165,10 @@ var replaceContainer = function(){
 						+	'</thead>'
 						+'</table>';
 			$('#tableDiv').html(imsiTable);
-			$('#tableDiv').hide();
-			$('#tableDiv').addClass('animated fadeInDown');
-			$('#tableDiv').show();
-			
-			$('#querysTable').DataTable( {
+			$('#querysTable').removeClass('animated fadeOutUp');
+			$('#querysTable').addClass('animated fadeInDown');
+			alert("it took this long...");
+			querysTable = $('#querysTable2').DataTable( {
 				 pagingType: "full_numbers",
 				 
 			        data: data,

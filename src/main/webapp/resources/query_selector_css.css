@@ -1,12 +1,5 @@
 @CHARSET "ISO-8859-1";
 
-#dropUpQuery {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
 #queryHeader {
 	position: fixed;
 	top: 30%;
@@ -17,6 +10,11 @@
 	background: -webkit-linear-gradient(#eee, #333);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.nav-tabs {
+	font-family: thin font;
+	font-size: 20px;
 }
 
 @font-face {
@@ -41,10 +39,8 @@
 }
 
 #tableDiv {
-	margin: auto;
-	margin-top: 5%;
+	float: left;
 	width: 80%;
-	top: 5%;
 }
 
 #modelHeader {
@@ -65,13 +61,30 @@ table#querysTable tr.odd td {
     background-color: #e1eaea;
 }
 
+table#querysTable2 tr:hover {
+	background-color: #white;
+}
+
+table#querysTable2 tr.even td {
+    background-color: white;
+}
+
+table#querysTable2 tr.odd td {
+    background-color: #e1eaea;
+}
+
 #backToHomeButton {
 	font-family: thin font;
 	
 }
 
 #buttonDiv{
-	margin-left: 83%;
+	float: right;
+	font-family: thin font;
+}
+
+#infoDiv {
+	font-family: thin font;
 }
 
 .bigdrop {
@@ -86,4 +99,26 @@ table#querysTable tr.odd td {
 #costanzaLogo {
 	width: 10%;
 	height: 5%;
+}
+
+#queryList {
+	margin-top: 10%;
+	margin-left: 2.5%;
+	width: 10%;
+	float: left;
+}
+
+#container {
+	margin-left: 10%;
+}
+
+#customHeader {
+	margin-left: 25%;
+	font-family: thin font;
+}
+
+#costanzaLogoLogin{
+	margin-left: 25%;
+	height: 50%;
+	width: 50%;
 }
