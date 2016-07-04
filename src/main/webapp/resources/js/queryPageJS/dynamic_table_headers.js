@@ -167,8 +167,7 @@ var replaceContainer = function(){
 			$('#tableDiv').html(imsiTable);
 			$('#querysTable').removeClass('animated fadeOutUp');
 			$('#querysTable').addClass('animated fadeInDown');
-			alert("it took this long...");
-			querysTable = $('#querysTable2').DataTable( {
+			querysTable = $('#querysTable').DataTable( {
 				 pagingType: "full_numbers",
 				 
 			        data: data,
@@ -185,6 +184,8 @@ var replaceContainer = function(){
 			        
 
 			    } );
+		$('#tableDiv').removeClass('animated fadeOutUp');
+		$('#tableDiv').addClass('animated fadeInDown');
 		};
 		
 		

@@ -29,6 +29,7 @@
 <script src="resources/js/queryPageJS/query_manager.js"></script>
 <script src="resources/js/queryPageJS/query_page_js.js"></script>
 <script src="resources/js/queryPageJS/custom_nav_bar.js"></script>
+<script src="resources/js/DataTables/single_imsi_failure_dates.js"></script>
 
 
 <script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
@@ -315,10 +316,11 @@ function receivedText2() {
 }
 
 </script>
-			<div>
+			<div id="importDatasetDiv">
 				<input type="file" id="fileinput" />
+				<button type="submit" id="submit" name="submit">Submit</button>
 			</div>
-			<button type="submit" id="submit" name="submit">Submit</button>
+			
 		</div>
 		<div id="contactus" class="tab-pane fade">
 			<h3>Contact Us</h3>
@@ -336,6 +338,8 @@ function receivedText2() {
 					class="list-group-item">List of failure details for given Model</a>
 				<a href="#" id="imsiStats" class="list-group-item">View IMSI
 					Statistics</a>
+					<a href="#" id="allImsiFailuresBetweenDates"
+					class="list-group-item">List of all IMSI failures between given dates</a>
 			</div>
 			<div id="infoDiv"></div>
 			<div id="buttonDiv"></div>
@@ -387,6 +391,50 @@ function receivedText2() {
 						</div>
 						<div class="modal-footer">
 							<button id="dateSearch" type="button"
+								class="btn btn-default searchButton" data-dismiss="modal">Search</button>
+							<button id="modalClose" type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+						<div id="simgleImsiModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 id="modalTitle" class="modal-title"></h4>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<div class="col-sm-6" style="height: 130px;">
+									<div class="form-group">
+									<select id="IMSIs" name="IMSIs">
+		<option></option>
+		</select>
+										<h4>From:</h4>
+										<div class='input-group date' id='datetimepicker5'>
+											<input type='text' class="form-control" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"> </span>
+											</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<h4>To:</h4>
+										<div class='input-group date' data-date-format="mm/dd/yyyy"
+											id='datetimepicker6'>
+											<input type='text' class="form-control" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"> </span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id="singleImsiSearch" type="button"
 								class="btn btn-default searchButton" data-dismiss="modal">Search</button>
 							<button id="modalClose" type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
@@ -472,6 +520,5 @@ function receivedText2() {
 	</div>
 	</br>
 	</br>
-
 </body>
 </html>

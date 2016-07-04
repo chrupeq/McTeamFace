@@ -17,6 +17,7 @@ var userAccessControl = function() {
 		$("#importtab").removeClass('hiddenbycostanza');
 		$("#formtab").removeClass('hiddenbycostanza');
 		$('#form').removeClass('hiddenbycostanza');
+		$('#importDataset').removeClass('hiddenbycostanza');
 
 	} else if (accessLevel == "NME") {
 		injectNavBar('NME');
@@ -26,6 +27,7 @@ var userAccessControl = function() {
 		$("#querytab").removeClass('hiddenbycostanza');
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
+		$('#importDataset').removeClass('hiddenbycostanza');
 
 	} else if (accessLevel == "SE") {
 		injectNavBar('SE');
