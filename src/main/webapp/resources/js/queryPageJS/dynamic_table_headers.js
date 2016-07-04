@@ -27,9 +27,10 @@ var imsiWithDatesQuery = function(){
 				+	'</thead>'
 				+'</table>';
 	$('#tableDiv').html(table);
-	$('#tableDiv').hide();
-	$('#tableDiv').addClass('animated fadeInDown');
-	$('#tableDiv').show();
+	showTable();
+	$('#backToHomeButton').on('click', function(){
+		hideTable();
+	})
 }
 
 var modelQuery = function(){
@@ -46,113 +47,13 @@ var modelQuery = function(){
 				+	'</thead>'
 				+'</table>';
 	$('#tableDiv').html(table);
-	$('#tableDiv').hide();
-	$('#tableDiv').addClass('animated fadeInDown');
-	$('#tableDiv').show();
-}
+	showTable();
+	$('#backToHomeButton').on('click', function(){
+		hideTable();
+	})
 
-var renderMainContainer = function(){
-	var mainView = new MainView();
-	$('#homeDiv').html(mainView.render().el);
 }
-
-var replaceContainer = function(){
-	renderMainContainer();
-	$('#queryHeader2').addClass('animated fadeOutUp');
-	$('#tableDiv').addClass('animated fadeOutUp');
-	$('#infoDiv').addClass('animated fadeOutUp');
-	$('#buttonDiv').addClass('animated fadeOutUp');
-	$('#container').removeClass('animated fadeOutUp');
-	$('#queryHeader').removeClass('animated fadeOutUp');
-	$('#queryHeader').addClass('animated fadeInDown');
-}
-	MainView = Backbone.View.extend({
-		
-		events: {
-			"click #imsiWithDates":function(){
-				$('#dateQueryModal').modal('show');
-				 $('#datetimepicker1').datetimepicker({
-		             viewMode: 'years',
-					 format: 'DD/MM/YYYY HH:mm'
-		         });
-				 $('#datetimepicker2').datetimepicker({
-					 viewMode: 'years',
-					 format: 'DD/MM/YYYY HH:mm'
-		        });
-			},
-			
-			"click #imsiStats":function(){
-					changeContainerCSS('imsiStats');
-				},
-				
-				"click #backToHomeButton":function(){
-					renderMainContainer();
-					$('#querysTable').removeClass('animated fadeInDown');
-					$('#querysTable').addClass('animated fadeOutUp');
-				}
-		},
-		
-		initialize: function () {
-			$(".js-example-basic-multiple").select2();
-			$('#selectByModel').on('change', function() {
-				  var value = $(this).val();
-				  $('#modelFailuresModal').modal('hide');
-				  findAllUniqueModelFailures(value);
-				});
-			
-			$('#imsiStats').on('click', function(){
-				changeContainerCSS('imsiStats');
-			})
-		},
-		
-		events: {
-			"click #imsiWithDates":function(){
-				$('#dateQueryModal').modal('show');
-				 $('#datetimepicker1').datetimepicker({
-		             viewMode: 'years',
-					 format: 'DD/MM/YYYY HH:mm'
-		         });
-				 $('#datetimepicker2').datetimepicker({
-					 viewMode: 'years',
-					 format: 'DD/MM/YYYY HH:mm'
-		        });
-			},
-			
-			"click #imsiStats":function(){
-					changeContainerCSS('imsiStats');
-				},
-			
-			
-	"click #allFailuresForModel":function(){
 	
-		alert("here");
-		$('#modelFailuresModal').removeClass('animated bounceOut');
-		$('#modelFailuresModal').addClass('animated bounceIn');
-		$('#modelFailuresModal').modal('show');
-		$('#selectByModel').empty();
-		findAllUniqueModels();
-		
-	},
-			"click #modalClose":function(){
-				$('#modelFailuresModal').addClass('animated bounceOut');
-			},
-	"click #modalClose2":function(){
-		$('#modelFailuresModal').addClass('animated bounceOut');
-	},
-			"click #dateSearch":function(){
-				changeContainerCSS('imsiDates');
-			}
-		},
-		
-		render:function(){
-			var template = _.template($('#main_page_div').html(), {});
-			$(this.el).html(template);
-			this.delegateEvents();
-			return this;
-		}
-	});
-	
-
 		var buildIMSIStatsTable = function(data) {
 			imsiTable = '<table class="table table-striped table-hover table-condensed animated fadeInDown"'
 				+ 'id="querysTable">'
@@ -165,8 +66,10 @@ var replaceContainer = function(){
 						+	'</thead>'
 						+'</table>';
 			$('#tableDiv').html(imsiTable);
-			$('#querysTable').removeClass('animated fadeOutUp');
-			$('#querysTable').addClass('animated fadeInDown');
+			showTable();
+			$('#backToHomeButton').on('click', function(){
+				hideTable();
+			})
 			querysTable = $('#querysTable').DataTable( {
 				 pagingType: "full_numbers",
 				 
@@ -184,8 +87,10 @@ var replaceContainer = function(){
 			        
 
 			    } );
-		$('#tableDiv').removeClass('animated fadeOutUp');
-		$('#tableDiv').addClass('animated fadeInDown');
+			showTable();
+			$('#backToHomeButton').on('click', function(){
+				hideTable();
+			})
 		};
 		
 		

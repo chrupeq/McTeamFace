@@ -3,7 +3,7 @@ var IMSI = "";
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
 $(document).ready(function(){
 	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
-	    var options = $('select');
+	    var options = $('#IMSIs');
 	    $.each(result, function(index, item) {
 	        options.append('<option value="'+item+'">'+item+'</option>');
 	    });
@@ -22,11 +22,11 @@ $(document).ready(function(){
 	
 });	
 
-var loadSingleImsiTable = function(date1, date2){
+var loadSingleImsiTable = function(date1, date2, imsi){
 
 		$.ajax({
 			type:'GET',
-			url: numOfIMSIsBetweenTwoDates + 'imsi=' + IMSI + '&dateOne=' + date1 + '&dateTwo=' + date2,
+			url: numOfIMSIsBetweenTwoDates + 'imsi=' + imsi + '&dateOne=' + date1 + '&dateTwo=' + date2,
 			dataType:'json',
 			success:loadSingleImsis
 		});
@@ -65,28 +65,11 @@ var loadSingleImsiTable = function(date1, date2){
 		        
 		        
 		    } );
-		
-		$('#querysTable').removeClass('animated fadeOutUp');
-		$('#querysTable').addClass('animated fadeInDown');
-		$('#buttonDiv').removeClass('animated fadeOutUp');
-		$('#buttonDiv').html(closeButton);
-		$('#buttonDiv').addClass('animated fadeInDown');
-		$('#selectorDiv').removeClass('animated fadeInDown');
-		$('#selectorDiv').addClass('animated fadeOutUp');
-		$('#tableDiv').removeClass('animated fadeOutUp');
-		$('#tableDiv').addClass('animated fadeInDown');
-		
-		$('#backToHomeButton').on('click', function(){
-			$('#queryHeader').removeClass('animated fadeOutUp');
-			$('#queryHeader').addClass('animated fadeInDown');
-			$('#buttonDiv').removeClass('animated fadeInDown');
-			$('#infoDiv').removeClass('animated fadeInDown');
-			$('#buttonDiv').addClass('animated fadeOutUp');
-			$('#infoDiv').addClass('animated fadeOutUp');
-			$('#tableDiv').removeClass('animated fadeInDown');
-			$('#tableDiv').addClass('animated fadeOutUp');
+		 showTable();
 			
-		});
+			$('#backToHomeButton').on('click', function(){
+				hideTable();
+			});
 		};
 	
 	

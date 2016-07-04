@@ -35,9 +35,10 @@ var loadUniqueModelFailuresTable = function(data){
 	        
 	    } );
 	
-	$('#querysTable').removeClass('animated fadeOutUp');
-	$('#querysTable').addClass('animated fadeInDown');
-	$('#tableDiv').append('<table id="querysTable2></table>');
+	 showTable();
+		$('#backToHomeButton').on('click', function(){
+			hideTable();
+		})
 	};
 	
 	var loadImsiTable = function(data){

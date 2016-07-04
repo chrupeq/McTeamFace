@@ -44,6 +44,7 @@ var getDetailsFromUser = function() {
 
 
 function loginAuthentication(details) {
+	
 	var username = $('#username').val();
 	var password = $('#password').val();
 	var counter = 0;
@@ -61,7 +62,9 @@ function loginAuthentication(details) {
 			revealCustomHeader();
 			$('#welcometab').addClass('hiddenbycostanza');
 			userAccessControl();
+			getCustomQueryBar();
 		}		
+		
 	})	
 	
 	if(counter == 0){

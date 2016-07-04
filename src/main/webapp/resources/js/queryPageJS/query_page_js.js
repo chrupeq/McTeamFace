@@ -70,23 +70,10 @@ var changeContainerCSS = function(whichTable){
 	}
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
 
-$('#buttonDiv').html(closeButton);
-$('#infoDiv').html(newDiv);
-$('#buttonDiv').removeClass('animated fadeOutUp');
-$('#infoDiv').removeClass('animated fadeOutUp');
-$('#buttonDiv').addClass('animated fadeInDown');
-$('#infoDiv').addClass('animated fadeInDown');
+showTable();
 $('#backToHomeButton').on('click', function(){
-	$('#queryHeader').removeClass('animated fadeOutUp');
-	$('#queryHeader').addClass('animated fadeInDown');
-	$('#buttonDiv').removeClass('animated fadeInDown');
-	$('#infoDiv').removeClass('animated fadeInDown');
-	$('#buttonDiv').addClass('animated fadeOutUp');
-	$('#infoDiv').addClass('animated fadeOutUp');
-	$('#tableDiv').removeClass('animated fadeInDown');
-	$('#tableDiv').addClass('animated fadeOutUp');
-	
-});
+	hideTable();
+})
 
 if(whichTable == 'imsiDates'){
 	

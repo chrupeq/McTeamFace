@@ -21,21 +21,21 @@ var userAccessControl = function() {
 
 	} else if (accessLevel == "NME") {
 		injectNavBar('NME');
-		$('#queryBody').click();
 		$('#home').addClass('hiddenbycostanza');
-		$("#importtab").removeClass('hiddenbycostanza');
 		$("#querytab").removeClass('hiddenbycostanza');
+		$('#queryBody').removeClass('hiddenbycostanza');
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
-		$('#importDataset').removeClass('hiddenbycostanza');
+		$('#queryTabClick').click();
 
 	} else if (accessLevel == "SE") {
 		injectNavBar('SE');
-		$('#queryBody').click();
 		$('#home').addClass('hiddenbycostanza');
 		$("#querytab").removeClass('hiddenbycostanza');
+		$("#queryBody").removeClass('hiddenbycostanza');
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
+		$('#queryTabClick').click();
 
 	} else if (accessLevel == "CSR") {
 		injectNavBar('CSR');
@@ -402,12 +402,12 @@ var revealCustomHeader = function() {
 	    timeOfDay = "Good morning, ";
 	} 
 	else
-	if ( theDate.getHours() >= 12 && myDate.getHours() <= 17 ) 
+	if ( theDate.getHours() >= 12 && theDate.getHours() <= 17 ) 
 	{ 
 	    timeOfDay = "Good Afternoon, "; 
 	} 
 	else
-	if ( theDate.getHours() > 17 && myDate.getHours() <= 24 ) 
+	if ( theDate.getHours() > 17 && theDate.getHours() <= 24 ) 
 	{ 
 	    timeOfDay = "Good Evening, "; 
 	} 

@@ -67,7 +67,11 @@ public class SendValidatedInfoToDB {
 		
 		int cellId = Integer.parseInt(dataToImport[i][6].toString());
 		int duration = Integer.parseInt(dataToImport[i][7].toString());
+		if(dataToImport[i][8].toString().equals("(null)")){
+				ev.setCause_code(-1);
+		}else{
 		ev.setCause_code(Integer.parseInt(dataToImport[i][8].toString()));
+		}
 		String neversion = dataToImport[i][9].toString();
 		BigInteger imsi = BigInteger.valueOf(Long.parseLong(dataToImport[i][10].toString()));
 		BigInteger hier3_id = BigInteger.valueOf(Long.parseLong(dataToImport[i][11].toString()));

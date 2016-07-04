@@ -24,13 +24,15 @@
 <script src="resources/js/bootstrap.js"></script>
 <script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
 <script src="resources/js/moment.min.js"></script>
+<script src="resources/js/queryPageJS/custom_query_bar.js"></script>
 <script src="resources/js/main.js"></script>
 <script src="resources/js/home.js"></script>
 <script src="resources/js/queryPageJS/query_manager.js"></script>
 <script src="resources/js/queryPageJS/query_page_js.js"></script>
 <script src="resources/js/queryPageJS/custom_nav_bar.js"></script>
 <script src="resources/js/DataTables/single_imsi_failure_dates.js"></script>
-
+<script src="resources/js/DataTables/imsi_event_and_cause.js"></script>
+<script src="resources/js/tables_coming_and_going.js"></script>
 
 <script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
 <script
@@ -80,7 +82,7 @@
 		<li id="abouttab" class="hiddenbycostanza"><a data-toggle="tab"
 			href="#aboutus" id="about">About Us</a></li>
 	</ul>
-
+<div>
 	<div class="tab-content">
 		<div id="home" class="tab-pane fade in active hiddenbycostanza">
 			<div class="wrap">
@@ -162,7 +164,7 @@
 				aria-hidden="true">
 				<div class="modal-dialog modal-sm">
 					<div id="modalPopUPAdd">
-						<form action="#">
+					<!--  	<form action="#"> -->
 							<div class="modalTable">
 								<form class="form">
 									<label for="firstName">First Name</label> <input type="text"
@@ -206,9 +208,8 @@
 									</br> </br>
 									<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
 								</form>
-
 							</div>
-						</form>
+					<!-- 	</form>  -->
 					</div>
 				</div>
 			</div>
@@ -311,10 +312,6 @@ alert(errMsg);
 
 };
 
-function receivedText2() {
-	alert('received2');
-}
-
 </script>
 			<div id="importDatasetDiv">
 				<input type="file" id="fileinput" />
@@ -333,13 +330,6 @@ function receivedText2() {
 		</div>
 		<div id="queryBody" class="tab-pane fade in">
 			<div id="queryList" class="list-group">
-				<a href="#" id="imsiWithDates" class="list-group-item">List of
-					IMSI's for given dates</a> <a href="#" id="allFailuresForModel"
-					class="list-group-item">List of failure details for given Model</a>
-				<a href="#" id="imsiStats" class="list-group-item">View IMSI
-					Statistics</a>
-					<a href="#" id="allImsiFailuresBetweenDates"
-					class="list-group-item">List of all IMSI failures between given dates</a>
 			</div>
 			<div id="infoDiv"></div>
 			<div id="buttonDiv"></div>
@@ -436,6 +426,33 @@ function receivedText2() {
 						<div class="modal-footer">
 							<button id="singleImsiSearch" type="button"
 								class="btn btn-default searchButton" data-dismiss="modal">Search</button>
+							<button id="modalClose" type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+					<div id="imsisEventIdAndCauseCode" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 id="modalTitle" class="modal-title"></h4>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<div class="col-sm-6" style="height: 130px;">
+									<div class="form-group">
+									<select id="imsiEventIdCauseCode" name="imsiEventsCause">
+		<option></option>
+		</select>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							
 							<button id="modalClose" type="button" class="btn btn-default"
 								data-dismiss="modal">Close</button>
 						</div>
