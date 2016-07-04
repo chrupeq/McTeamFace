@@ -43,6 +43,9 @@ $(document).ready(function() {
 	$('#selectByModel').change(function(){
 		changeContainerCSS('modelsQuery');
         var selectedTac = $('#selectByModel option:selected').val();
+        $('#tableDiv').removeClass('animated fadeOutUp');
+    	$('#tableDiv').addClass('animated fadeInDown');
+        modelQuery();
         findAllUniqueModelFailures(selectedTac);
         
 })
@@ -68,23 +71,22 @@ $('#infoDiv').removeClass('animated fadeOutUp');
 $('#buttonDiv').addClass('animated fadeInDown');
 $('#infoDiv').addClass('animated fadeInDown');
 $('#backToHomeButton').on('click', function(){
-	destroyTable();
 	$('#queryHeader').removeClass('animated fadeOutUp');
 	$('#queryHeader').addClass('animated fadeInDown');
 	$('#buttonDiv').removeClass('animated fadeInDown');
 	$('#infoDiv').removeClass('animated fadeInDown');
 	$('#buttonDiv').addClass('animated fadeOutUp');
 	$('#infoDiv').addClass('animated fadeOutUp');
-	destroyTable();
+	$('#tableDiv').removeClass('animated fadeInDown');
+	$('#tableDiv').addClass('animated fadeOutUp');
+	
 });
 
 if(whichTable == 'imsiDates'){
 	
 imsiWithDatesQuery();
 }
-if(whichTable == 'modelsQuery'){
-	modelQuery();
-}
+
 if(whichTable == 'imsiStats'){
 	$('#queryHeader').addClass('animated fadeOutUp');
 	$('#queryHeader2').addClass('animated fadeInDown');

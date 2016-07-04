@@ -10,6 +10,7 @@ var userAccessControl = function() {
 	$('#home').addClass('hiddenbycostanza');
 	var accessLevel = getTheCookieYouNeed('job_title');
 	if (accessLevel == "SA") {
+		injectNavBar('SA');
 		$('#formTab').click();
 		$('#queryBody').addClass('hiddenbycostanza');
 		$('#wilkommen').addClass('hiddenbycostanza');
@@ -18,6 +19,7 @@ var userAccessControl = function() {
 		$('#form').removeClass('hiddenbycostanza');
 
 	} else if (accessLevel == "NME") {
+		injectNavBar('NME');
 		$('#queryBody').click();
 		$('#home').addClass('hiddenbycostanza');
 		$("#importtab").removeClass('hiddenbycostanza');
@@ -26,6 +28,7 @@ var userAccessControl = function() {
 		$("#abouttab").removeClass('hiddenbycostanza');
 
 	} else if (accessLevel == "SE") {
+		injectNavBar('SE');
 		$('#queryBody').click();
 		$('#home').addClass('hiddenbycostanza');
 		$("#querytab").removeClass('hiddenbycostanza');
@@ -33,6 +36,7 @@ var userAccessControl = function() {
 		$("#abouttab").removeClass('hiddenbycostanza');
 
 	} else if (accessLevel == "CSR") {
+		injectNavBar('CSR');
 		$('#queryTabClick').click();
 		$('#home').addClass('hiddenbycostanza');
 		$("#querytab").removeClass('hiddenbycostanza');
@@ -332,10 +336,11 @@ function checkUsernameExists(details) {
 };
 
 $(document).on("click", "#logoutBtn", function() {
+	injectNavBar('logged out');
 	document.cookie = 'jobTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
 	document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
 	document.cookie = 'name=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
-	$('#wilkommen').click();
+	document.cookie = 'id=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
 	$('#welcometab').removeClass('hiddenbycostanza');
 	$('#home').removeClass('hiddenbycostanza');
 	$("#importtab").addClass('hiddenbycostanza');
@@ -349,7 +354,8 @@ $(document).on("click", "#logoutBtn", function() {
 	$('#customHeader').addClass('hiddenbycostanza');
 	$('#username').val("");
 	$('#password').val("");
-
+	$('#logoutBtn').addClass('hiddenbycostanza');
+	$('#wilkommen').click();
 	hideError();
 });
 
@@ -386,8 +392,30 @@ var formToJSONEdit = function() {
 
 var revealCustomHeader = function() {
 	var name = getTheCookieYouNeed('name');
+	var theDate = new Date(); 
+	var timeOfDay = "";
+	  
+	if ( theDate.getHours() < 12 )  
+	{ 
+	    timeOfDay = "Good morning, ";
+	} 
+	else
+	if ( theDate.getHours() >= 12 && myDate.getHours() <= 17 ) 
+	{ 
+	    timeOfDay = "Good Afternoon, "; 
+	} 
+	else
+	if ( theDate.getHours() > 17 && myDate.getHours() <= 24 ) 
+	{ 
+	    timeOfDay = "Good Evening, "; 
+	} 
+	else
+	{ 
+	    document.write("I'm not sure what time it is!"); 
+	} 
+	  
 	if (name != "") {
-		$('#customHeader').html('<h2>Hi, '+ name +'!</h2>');
+		$('#customHeader').html('<h2>' + timeOfDay + name +'!</h2>');
 		$('#customHeader').removeClass('hiddenbycostanza');
 	}
 }

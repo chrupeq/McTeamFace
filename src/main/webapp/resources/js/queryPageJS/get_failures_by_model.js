@@ -20,18 +20,6 @@ var loadUniqueModelFailuresTable = function(data){
 	        
 	        columns: [
 
-	            { data: "date_time",
-	                render: function(data, type, row) {
-	                	var date = new Date(data);
-	                	var day = date.getDate();
-	                	var monthIndex = date.getMonth();
-	                	var year = date.getFullYear();
-	                	var hours = date.getHours();
-	                	var minutes = date.getMinutes();
-	                	return day + '/' + monthIndex + 1 + '/' + year + ' ' + hours + ':' + minutes;
-	                }
-	                },
-
 	            { data: "hier3_id" },
 	            
 	            { data: "user_equipment.manufacturer" },
@@ -81,9 +69,3 @@ var loadUniqueModelFailuresTable = function(data){
 		    } );
 		
 		};
-		
-		var destroyTable = function(){
-			querysTable.destroy();
-		}
-		
-	

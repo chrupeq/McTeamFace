@@ -6,6 +6,7 @@ $(document).ready(function() {
 	var loggedIn = checkCookieStatus();
 	
 	if(loggedIn != ""){
+		$('#logoutBtn').removeClass('hiddenbycostanza');
 		userAccessControl();
 	}else{
 		$('#welcometab').removeClass('hiddenbycostanza');
@@ -51,6 +52,7 @@ function loginAuthentication(details) {
 		if(username==detail.username && password==detail.password) {
 			
 			counter++;
+			$('#logoutBtn').removeClass('hiddenbycostanza');
 			jobTitle = detail.job_title;
 			document.cookie = 'jobTitle=' + detail.job_title + ';';
 			document.cookie = 'username=' + detail.username + ';';
