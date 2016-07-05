@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	findAllUniqueModels();
-	$(".js-example-basic-multiple").select2();
+	$(".js-example-basic-single").select2();
 	});
 
 var rootUrlSelect = "http://localhost:8080/GroupProject2016/rest/unique_model";

@@ -37,6 +37,7 @@ var loadUniqueModelFailuresTable = function(data){
 	
 	 showTable();
 		$('#backToHomeButton').on('click', function(){
+			$("#selectByModel").select2('val', 'All');
 			hideTable();
 		})
 	};

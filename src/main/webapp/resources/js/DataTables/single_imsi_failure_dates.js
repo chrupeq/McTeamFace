@@ -16,6 +16,7 @@ $(document).ready(function(){
 	$('#singleImsiSearch').on('click', function(){
 		var fifthDate = $("#datetimepicker5").find("input").val();
 		var sixthDate = $("#datetimepicker6").find("input").val();
+		$('#searchParams').html('You are searching for a failure count for IMSI ' + IMSI + ' between ' + fifthDate + ' and ' + sixthDate);
 		
 		loadSingleImsiTable(fifthDate, sixthDate, IMSI);
 	});

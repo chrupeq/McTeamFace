@@ -4,6 +4,8 @@ $(document).ready(function() {
 	displayErrors();
 	jobTitle2 = jobTitle;
 	findAll();
+	revealCustomHeader();
+	hideTable();
 });
 
 var userAccessControl = function() {

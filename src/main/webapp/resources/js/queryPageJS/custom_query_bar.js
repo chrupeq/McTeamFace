@@ -1,27 +1,35 @@
+$(document).ready(function(){
+	getCustomQueryBar();
+})
+
 var getCustomQueryBar = function(){
 	var customQueryBar = "";
 
-	if(getTheCookieYouNeed('job_title') == 'NME'){
+	if(getTheCookieYouNeed('job_title') == ""){
+		$('#queryList').html(customQueryBar);
+	}
+	
+	else if(getTheCookieYouNeed('job_title') == 'NME'){
 		
-		customQueryBar = '<a href="#" id="imsiWithDates" class="list-group-item">List of'
-		+ 'IMSI\'s for given dates</a> <a href="#" id="allFailuresForModel"'
+		customQueryBar = '<a href="#" id="imsiWithDates" class="list-group-item">List of '
+		+ 'all IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
 		+ 'class="list-group-item">List of failure details for given Model</a>'
 	+ '<a href="#" id="imsiStats" class="list-group-item">View IMSI'
-		+ 'Statistics</a>'
+		+ ' Statistics</a>'
 		+ '<a href="#" id="allImsiFailuresBetweenDates"'
-		+ 'class="list-group-item">List of all IMSI failures between given dates</a>'
+		+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
 		+ '<a href="#" id="imsiEventSelectIdCauseCode"'
-		+ 'class="list-group-item">Event ID & Cause Code for any given IMSI</a>';
+		+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>';
 		
 	}else if(getTheCookieYouNeed('job_title') == 'CSR'){
 		
 		customQueryBar = '<a href="#" id="imsiEventSelectIdCauseCode"'
-			+ 'class="list-group-item">Event ID & Cause Code for any given IMSI</a>';
+			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>';
 			
 	}else if(getTheCookieYouNeed('job_title') == 'SE'){
 		
-		customQueryBar = '<a href="#" id="imsiWithDates" class="list-group-item">List of'
-			+ 'IMSI\'s for given dates</a> <a href="#" id="allFailuresForModel"'
+		customQueryBar = '<a href="#" id="imsiWithDates" class="list-group-item">List of '
+			+ 'IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
 			+ 'class="list-group-item">List of failure details for given Model</a>';
 		
 	}
@@ -41,7 +49,7 @@ var getCustomQueryBar = function(){
 	});
 	
 	$('#allImsiFailuresBetweenDates').on('click', function(){
-		$('#simgleImsiModal').modal('show');
+		$('#singleImsiModal').modal('show');
 	})
 	
 	$('#imsiWithDates').on("click", function(){

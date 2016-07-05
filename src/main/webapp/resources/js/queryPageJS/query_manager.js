@@ -13,7 +13,7 @@ $(document).ready(function() {
 	
 	$('#allFailuresForModel').on('click', function(){
 		$('#modelFailuresModal').modal('show');
-		$('#modalTitle2').html('Models Query');
+		$('#modalTitle2').html('Count failures for a given model with unique event ID and cause code');
 		$('#selectByModel').on('change', function() {
 			$('#queryHeader').addClass('animated fadeOutUp');
 			$('#queryHeader2').addClass('animated fadeInDown');
@@ -25,7 +25,7 @@ $(document).ready(function() {
 });
 
 var loadDateModal = function(){
-	$('#modalTitle').html('Dates Query');
+	$('#modalTitle').html('All IMSI failures between dates');
 	$('#dateQueryModal').modal('show');
 }
 

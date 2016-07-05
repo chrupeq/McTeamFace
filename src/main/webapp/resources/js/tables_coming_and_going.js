@@ -10,6 +10,9 @@ var showTable = function(){
 	$('#tableDiv').addClass('animated fadeInDown');
 	$('queryHeader2').removeClass('animated fadeOutUp');
 	$('queryHeader2').addClass('animated fadeInDown');
+	$('#searchParams').removeClass('animated fadeOutUp');
+	$('#searchParams').addClass('animated fadeInDown');
+	clearDatePickers();
 }
 
 var hideTable = function(){
@@ -25,6 +28,9 @@ var hideTable = function(){
 	$('#homeDiv').addClass('animated fadeInDown');
 	$('#selectorDiv').removeClass('animated fadeOutUp');
 	$('#selectorDiv').addClass('animated fadeInDown');
+	$("#queryHeader").css({left: '30%', position:'fixed'});
 	$('#queryHeader').removeClass('animated fadeOutUp');
 	$('#queryHeader').addClass('animated fadeInDown');
+	$('#searchParams').removeClass('animated fadeInDown');
+	$('#searchParams').addClass('animated fadeOutUp');
 }
