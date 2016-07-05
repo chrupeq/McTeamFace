@@ -64,13 +64,14 @@ public class NetworkEntityDAO {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void saveNetworkEntityArray(NetworkEntity[] networkEntity) {
+	public String saveNetworkEntityArray(NetworkEntity[] networkEntity) {
 		for (int i = 0; i < networkEntity.length; i++) {
 			entityManager.merge(networkEntity[i]);
 
 		}
 		Date endTimer = new Date();
-		System.out.println("End timer: " + endTimer);
+		String date = ""+endTimer;
+		return date;
 	}
 
 	public void saveNetworkEntity(NetworkEntity networkEntity) {

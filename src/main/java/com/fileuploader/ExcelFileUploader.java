@@ -66,7 +66,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 
 		sendToFileReader(path);
 
-		return Response.status(200).build();
+		return Response.status(200).entity("hello").build();
 	}
 
 	public void sendToFileReader(String path) throws IOException {
@@ -82,11 +82,12 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 
 		for (int i = 4; i > 0; i--) {
 
-			networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
+			String entity = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
 
 		}
 		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
 		objectsToBePersisted[0] = baseData;
-		networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
+		String date = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
+		
 	}
 }
