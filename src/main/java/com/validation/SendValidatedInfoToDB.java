@@ -45,6 +45,7 @@ public class SendValidatedInfoToDB {
 		Base_data bd = new Base_data();
 		try {
 			c.setTime(sdf.parse(dataToImport[i][0].toString()));
+			
 		} catch (ParseException e) {
 			System.out.println("Parse exception in sendData!");
 			e.printStackTrace();

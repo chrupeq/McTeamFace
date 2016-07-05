@@ -44,7 +44,7 @@ public class ReadDataSetIntoMainMemory {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	private static ArrayList<Object[][]> arrayListOfSheets = new ArrayList<Object[][]>();
 	static Base_data[] base_data;
 	static Failure_class[] failure_class;

@@ -31,6 +31,7 @@ public class DateParser implements ParseDate {
 	public String convertFromEuropeanToAmericanDateFormat(String europeanDate) {
 		String americanDate = europeanDate.substring(6,10) + "-" + europeanDate.substring(3, 5) + "-" + europeanDate.substring(0,2) + " " + europeanDate.substring(11,16);
 		americanDate = americanDate + ":00";
+		System.out.println(americanDate);
 		return americanDate;
 	}		
 }

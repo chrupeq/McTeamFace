@@ -32,9 +32,6 @@ $(document).ready(function() {
 	$('#dateSearch').on('click', function(){
 		var firstDate = $("#datetimepicker1").find("input").val();
 		var secondDate = $("#datetimepicker2").find("input").val();
-		
-		var datesCheck = checkDates(firstDate, secondDate);
-		alert(datesCheck);
 		$('#searchParams').html('You are searching for all IMSI failures between ' + firstDate + ' and ' + secondDate);
 		$('#queryHeader').addClass('animated fadeOutUp');
 		$('#queryHeader2').removeClass('animated fadeOutUp');

@@ -54,13 +54,12 @@ var loadUniqueModelFailuresTable = function(data){
 		            { data: "date_time",
 		                render: function(data, type, row) {
 		                	var date = new Date(data);
-		                	alert(date.toString());
 		                	var day = date.getDate();
 		                	var monthIndex = date.getMonth();
 		                	var year = date.getFullYear();
 		                	var hours = date.getHours();
 		                	var minutes = date.getMinutes();
-		                	return day + '/' + monthIndex + 1 + '/' + year + ' ' + hours + ':' + minutes;
+		                	return monthIndex + 1 +  '/' + day + '/' + year + ' ' + hours + ':' + minutes;
 		                }
 		                },
 

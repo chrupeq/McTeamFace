@@ -70,7 +70,7 @@ public class DataValidator {
 		fileNameForErrorLogger = fileName;
 
 		for (int i = 0; i < tableValuesToValidate.length; i++) {
-
+			
 			if (!validateDateTime(tableValuesToValidate[i][0])) {
 				errorBuilder.append(
 						DateManipulator.getCurrentDateAndTime() + ": Invalid date at column: 1 Line: " + i + "\r\n");
