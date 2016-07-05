@@ -54,6 +54,7 @@ var loadUniqueModelFailuresTable = function(data){
 		            { data: "date_time",
 		                render: function(data, type, row) {
 		                	var date = new Date(data);
+		                	alert(date.toString());
 		                	var day = date.getDate();
 		                	var monthIndex = date.getMonth();
 		                	var year = date.getFullYear();

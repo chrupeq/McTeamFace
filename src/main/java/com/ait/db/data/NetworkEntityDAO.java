@@ -67,10 +67,8 @@ public class NetworkEntityDAO {
 	public void saveNetworkEntityArray(NetworkEntity[] networkEntity) {
 		for (int i = 0; i < networkEntity.length; i++) {
 			entityManager.merge(networkEntity[i]);
-
 		}
-		Date endTimer = new Date();
-		System.out.println("End timer: " + endTimer);
+		System.out.println(new Date().toString() + " finish");
 	}
 
 	public void saveNetworkEntity(NetworkEntity networkEntity) {

@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -55,7 +56,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	@Path("/uploadfile")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response uploadFile(@FormDataParam("data") String imageInBase64) throws IOException, JSONException {
-
+		System.out.println(new Date().toString());
 		String[] imageArray = imageInBase64.split(",");
 
 		String path = "temp.xls";

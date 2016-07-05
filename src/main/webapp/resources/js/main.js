@@ -94,6 +94,7 @@ if(detail == 'username'){
 	}
 
 if(detail == 'name'){
+	alert(cookieArray[2].substring(6));
 	return cookieArray[2].substring(6);
 }
 
