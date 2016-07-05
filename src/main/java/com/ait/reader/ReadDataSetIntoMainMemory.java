@@ -29,6 +29,7 @@ import com.ait.db.model.Mcc_mnc;
 import com.ait.db.model.NetworkEntity;
 import com.ait.db.model.NonBaseDataObjects;
 import com.ait.db.model.User_equipment;
+import com.fileuploader.FileTimer;
 import com.validation.DataValidator;
 
 /**
@@ -51,6 +52,7 @@ public class ReadDataSetIntoMainMemory {
 	static Event_cause[] event_cause;
 	static Mcc_mnc[] mcc_mnc;
 	static User_equipment[] user_equipment;
+	static FileTimer fileTimer = null;
 
 	/**
 	 * Reads in the excel file from a specified location on the hard drive.
@@ -70,6 +72,9 @@ public class ReadDataSetIntoMainMemory {
 		
 		Date startTimer = new Date();
 		System.out.println("Start timer: "+startTimer);
+		String date = ""+startTimer;
+		int startDate = 1;
+		timerPersistenceMethod(date, startDate);
 		
 		Workbook dataSetWorkbook = null;
 		try {
@@ -87,6 +92,20 @@ public class ReadDataSetIntoMainMemory {
 			
 			return arrayListOfSheets;
 		}
+
+
+	public static void timerPersistenceMethod(String date, int startDate) {
+		// TODO Auto-generated method stub
+		
+		if(startDate == 1){
+			fileTimer = new FileTimer();
+			fileTimer.setId(1);
+			fileTimer.setStartTime(date);
+		}else{
+			fileTimer.setEndTime(date);
+			System.out.println(fileTimer.getId()+fileTimer.getStartTime()+fileTimer.getEndTime());
+		}
+	}
 
 
 	/**

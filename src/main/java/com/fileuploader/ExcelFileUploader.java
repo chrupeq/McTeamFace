@@ -40,6 +40,9 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
+	
+	@EJB
+	private FileTimerDAO fileTimerDAO;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -88,6 +91,6 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
 		objectsToBePersisted[0] = baseData;
 		String date = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
-		
+		ReadDataSetIntoMainMemory.timerPersistenceMethod(date, 2);
 	}
 }

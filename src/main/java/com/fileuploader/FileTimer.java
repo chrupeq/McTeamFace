@@ -15,10 +15,10 @@ public class FileTimer {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "starttime")
+	@Column(name = "start_time")
 	private String starttime;
 	
-	@Column(name = "endtime")
+	@Column(name = "end_time")
 	private String endtime;
 	
 	public int getId() {
@@ -37,11 +37,11 @@ public class FileTimer {
 		this.starttime = starttime;
 	}
 
-	public String getModel() {
+	public String getEndTime() {
 		return endtime;
 	}
 
-	public void setModel(String endtime) {
+	public void setEndTime(String endtime) {
 		this.endtime = endtime;
 	}
 
