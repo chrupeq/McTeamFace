@@ -1,4 +1,5 @@
-//javascript document
+//Rob comment
+//Enjoy this comment
 
 var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 var jobTitle = "";
