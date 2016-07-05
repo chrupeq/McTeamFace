@@ -30,6 +30,7 @@ import com.ait.db.model.NetworkEntity;
 import com.ait.db.model.NonBaseDataObjects;
 import com.ait.db.model.User_equipment;
 import com.fileuploader.FileTimer;
+import com.fileuploader.FileTimerDAO;
 import com.validation.DataValidator;
 
 /**
@@ -41,6 +42,9 @@ public class ReadDataSetIntoMainMemory {
 	
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
+	
+	@EJB
+	private static FileTimerDAO fileTimerDAO;
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -104,6 +108,7 @@ public class ReadDataSetIntoMainMemory {
 		}else{
 			fileTimer.setEndTime(date);
 			System.out.println(fileTimer.getId()+fileTimer.getStartTime()+fileTimer.getEndTime());
+			fileTimerDAO.update(fileTimer);
 		}
 	}
 

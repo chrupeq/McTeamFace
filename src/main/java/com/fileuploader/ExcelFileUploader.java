@@ -40,9 +40,6 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
-	
-	@EJB
-	private FileTimerDAO fileTimerDAO;
 
 	@PersistenceContext
 	private EntityManager entityManager;
