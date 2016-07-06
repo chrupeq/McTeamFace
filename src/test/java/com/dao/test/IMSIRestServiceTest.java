@@ -32,8 +32,6 @@ public class IMSIRestServiceTest {
 	
 	private static final String RESOURCE_PREFIX = JaxRsActivator.class.getAnnotation(ApplicationPath.class).value().substring(1);
 	private ClientRequest request;
-	private ClientResponse<String> responseObj;
-	private String jsonData;
 	
 	@Deployment(testable=false)
 	public static Archive<?> createDeployment() {
