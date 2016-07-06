@@ -31,6 +31,7 @@ import com.ait.db.model.Base_data;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.NetworkEntity;
+import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
 import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsObjectFactory;
 import com.ait.imsiStats.IMSIStatsProducer;
@@ -142,6 +143,27 @@ public class IMSIRestService {
 			e.printStackTrace();
 			return Response.status(400).build();
 		}
+	}
+	
+	@GET
+	@Path("/top10_market_operator_cellIdCombinations")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getTopTenMarketOperatorCellIdCombinations(){
+		
+		try {
+			List<TopTenMarketOperatorCellIdCombinations> imsiList = IMSIDao.getTopTenMarketOperatorCellIdCombinationsWithFailures();
+			if(imsiList.isEmpty()) {
+				return Response.status(404).build();
+			} 
+			return Response.status(200).entity(imsiList).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+			return Response.status(400).build();
+		}
+		
+		
+		
+	
 	}
 }
 

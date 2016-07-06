@@ -20,6 +20,7 @@ import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
+import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
 
 @Stateless
 @LocalBean
@@ -84,5 +85,9 @@ public class IMSIDAO {
 		query.setParameter("endDate", calendarArray[1]);
 		List<Base_data> baseDataBetweenDates = query.getResultList();
 		return baseDataBetweenDates;
+	}
+	
+	public List<TopTenMarketOperatorCellIdCombinations> getTopTenMarketOperatorCellIdCombinationsWithFailures(){
+		return null;
 	}
 }
