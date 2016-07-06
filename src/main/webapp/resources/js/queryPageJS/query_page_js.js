@@ -29,17 +29,18 @@ $(document).ready(function() {
 		$('#modelFailuresModal').addClass('animated bounceOut');
 	});
 	
-	$('#dateSearch').on('click', function(){
-		var firstDate = $("#datetimepicker1").find("input").val();
-		var secondDate = $("#datetimepicker2").find("input").val();
-		$('#searchParams').html('You are searching for all IMSI failures between ' + firstDate + ' and ' + secondDate);
-		$('#queryHeader').addClass('animated fadeOutUp');
-		$('#queryHeader2').removeClass('animated fadeOutUp');
-		$('#queryHeader2').addClass('animated fadeInDown');
-		findAllImsisForDates(firstDate, secondDate);
-		$('#querysTable').addClass('animated fadeOutUp');
-		changeContainerCSS('imsiDates');
-	});
+//	$('#dateSearch').on('click', function(){
+//		
+//		var firstDate = $("#datetimepicker1").find("input").val();
+//		var secondDate = $("#datetimepicker2").find("input").val();
+//		$('#searchParams').html('You are searching for all IMSI failures between ' + firstDate + ' and ' + secondDate);
+//		$('#queryHeader').addClass('animated fadeOutUp');
+//		$('#queryHeader2').removeClass('animated fadeOutUp');
+//		$('#queryHeader2').addClass('animated fadeInDown');
+//		findAllImsisForDates(firstDate, secondDate);
+//		$('#querysTable').addClass('animated fadeOutUp');
+//		changeContainerCSS('imsiDates');
+//	});
 	
 	$('#imsiStatsModalSearch').on('click', function(){
 		var thirdDate = $("#datetimepicker3").find("input").val();

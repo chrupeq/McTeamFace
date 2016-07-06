@@ -10,8 +10,14 @@ $(document).ready(function(){
 	    });
 	});
 	
+	$('#imsiEventSelectIdCauseCode').on('click', function(){
+		$('#imsisEventIdAndCauseCode').modal('show');
+	})
+	
 	$('#imsiEventIdCauseCode').on('change', function(){
 		IMSI2 = this.value;
+		$('#imsisEventIdAndCauseCode').removeClass('animated fadeInDown');
+		$('#imsisEventIdAndCauseCode').addClass('animated fadeOutUp');
 		$('#searchParams').html('You are searching for unique event ID and Cause Code combinations for ' + IMSI2);
 		loadEventImsiTable(IMSI2);
 		})
@@ -20,9 +26,7 @@ $(document).ready(function(){
 //		loadEventImsiTable(IMSI2);
 //	});
 	
-	$('#imsiEventSelectIdCauseCode').on('click', function(){
-		$('#imsisEventIdAndCauseCode').modal('show');
-	})
+	
 });	
 
 var loadEventImsiTable = function(IMSI2){

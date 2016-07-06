@@ -78,4 +78,16 @@ var getCustomQueryBar = function(){
 		$('#imsiEventSelectIdCauseCode').on('click', function(){
 		$('#imsisEventIdAndCauseCode').modal('show');
 	})
+	
+	$('#dateSearch').on('click', function(){
+		var firstDate = $("#datetimepicker1").find("input").val();
+		var secondDate = $("#datetimepicker2").find("input").val();
+		$('#searchParams').html('You are searching for all IMSI failures between ' + firstDate + ' and ' + secondDate);
+		$('#queryHeader').addClass('animated fadeOutUp');
+		$('#queryHeader2').removeClass('animated fadeOutUp');
+		$('#queryHeader2').addClass('animated fadeInDown');
+		findAllImsisForDates(firstDate, secondDate);
+		$('#querysTable').addClass('animated fadeOutUp');
+		changeContainerCSS('imsiDates');
+	});
 }
