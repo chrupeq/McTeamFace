@@ -1,14 +1,14 @@
 package com.ait.db.data;
 
-	import java.math.BigInteger;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-	import javax.ejb.LocalBean;
-	import javax.ejb.Stateless;
-	import javax.persistence.EntityManager;
-	import javax.persistence.PersistenceContext;
-	import javax.persistence.Query;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
