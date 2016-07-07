@@ -2,23 +2,27 @@ package com.ait.db.model;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class IMSIWithEventIDAndCauseCodeFactory {
 	private List<Base_data> baseDataList;
 	private List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList;
+	private Set<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeSet;
 	
 	public IMSIWithEventIDAndCauseCodeFactory(List<Base_data> baseDataList) {
 		this.baseDataList = baseDataList;
 	}
 	
-	public List<IMSIWithEventIDAndCauseCode> getIMSIWithEventIDAndCauseCodeList() {
+	private Set<IMSIWithEventIDAndCauseCode> getIMSIWithEventIDAndCauseCodeSet() {
 		int eventId = 0;
 		String causeCode;
 		String failureClass;
 		BigInteger imsi;
 		int index = 0;
-		imsiWithEventIDAndCauseCodeList = new ArrayList<>();
+
+		imsiWithEventIDAndCauseCodeSet = new HashSet<>();
 		for(Base_data baseData : baseDataList) {
 			System.out.println("Iteration number " + ++index);
 			Object[] eventCauseKeys = processEventCause(baseData);
@@ -28,9 +32,10 @@ public class IMSIWithEventIDAndCauseCodeFactory {
 			imsi = baseData.getImsi();
 			IMSIWithEventIDAndCauseCode imsiWithEventIDAndCauseCode 
 				= new IMSIWithEventIDAndCauseCode(eventId, causeCode, failureClass, imsi);
-			imsiWithEventIDAndCauseCodeList.add(imsiWithEventIDAndCauseCode);
+			imsiWithEventIDAndCauseCodeSet.add(imsiWithEventIDAndCauseCode);
+
 		}
-		return imsiWithEventIDAndCauseCodeList;
+		return imsiWithEventIDAndCauseCodeSet;
 	}
 	private Object[] processEventCause(Base_data baseData) {
 		Integer eventId = null;
@@ -55,5 +60,13 @@ public class IMSIWithEventIDAndCauseCodeFactory {
 			failureClass = Integer.toString(baseData.getFailure_class().getFailure_class());
 		}
 		return failureClass;
+	}
+	public List<IMSIWithEventIDAndCauseCode> getIMSIWithEventIDAndCauseCodeList(){
+		Set<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeSet = getIMSIWithEventIDAndCauseCodeSet();
+		imsiWithEventIDAndCauseCodeList = new ArrayList<>();
+		for(IMSIWithEventIDAndCauseCode imsiWithEventIDAndCauseCode : imsiWithEventIDAndCauseCodeSet){
+			imsiWithEventIDAndCauseCodeList.add(imsiWithEventIDAndCauseCode);
+		}
+		return imsiWithEventIDAndCauseCodeList;
 	}
 }

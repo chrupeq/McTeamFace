@@ -30,4 +30,22 @@ public class IMSIWithEventIDAndCauseCode {
 	public BigInteger getImsi() {
 		return imsi;
 	}
+	@Override
+	public boolean equals(Object other){
+		if(other instanceof IMSIWithEventIDAndCauseCode){
+			IMSIWithEventIDAndCauseCode othr = (IMSIWithEventIDAndCauseCode) other;
+			if(this.cause_code.equals(othr.cause_code)
+				&& this.event_id == othr.event_id
+				&& this.failure_class.equals(othr.failure_class)
+				&& this.imsi.equals(othr.imsi)) {
+				return true;
+			}
+		}
+		return false;	
+	}
+	@Override
+	public int hashCode(){
+		cause_code += event_id;
+		return cause_code.hashCode();
+	}
 }
