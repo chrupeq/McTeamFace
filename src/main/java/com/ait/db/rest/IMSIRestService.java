@@ -25,6 +25,7 @@ import javax.ws.rs.core.UriInfo;
 
 import com.ait.db.data.DateParser;
 import com.ait.db.data.IMSIDAO;
+import com.ait.db.data.TopTenDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
@@ -36,6 +37,7 @@ import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsObjectFactory;
 import com.ait.imsiStats.IMSIStatsProducer;
 
+
 @Path("/imsi")
 @Stateless
 @LocalBean
@@ -45,6 +47,7 @@ public class IMSIRestService {
 	IMSIDAO IMSIDao;
 	@EJB
 	NetworkEntityDAO networkEntityDAO;
+	TopTenDAO topTenDAO;
 	DateParser dateParser;
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -155,7 +158,7 @@ public class IMSIRestService {
 		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
 		
 		try {
-			List<TopTenMarketOperatorCellIdCombinations> imsiList = IMSIDao.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateOne, dateTwo);
+			List<TopTenMarketOperatorCellIdCombinations> imsiList = topTenDAO.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateOne, dateTwo);
 			
 			if(imsiList.isEmpty()) {
 				return Response.status(404).build();
