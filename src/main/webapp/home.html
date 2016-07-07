@@ -294,7 +294,7 @@ type: "POST",
 
 url: "http://localhost:8080/GroupProject2016/rest/upload/uploadfile",
 
-data: fr.result,
+data: fr.result + ',' + $('input[type=file]').val().replace(/C:\\fakepath\\/i, ''),
 
 contentType: "application/json; charset=utf-8",
 
