@@ -23,10 +23,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.ait.db.data.SessionDAO;
-import com.ait.db.model.User;
 import com.ait.db.rest.JaxRsActivator;
-import com.ait.gui.UserWS;
-import com.ait.gui.UsersDAO;
 import com.fileuploader.FileTimer;
 import com.fileuploader.FileTimerDAO;
 import com.fileuploader.FileTimerWS;

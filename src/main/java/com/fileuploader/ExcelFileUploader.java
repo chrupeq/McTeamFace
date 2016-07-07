@@ -3,12 +3,8 @@ package com.fileuploader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -20,13 +16,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.DatatypeConverter;
-
-import org.eclipse.persistence.sessions.factories.SessionFactory;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.JSONException;
-
 import com.ait.db.data.NetworkEntityDAO;
-import com.ait.db.model.Base_data;
 import com.ait.db.model.NetworkEntity;
 import com.ait.db.model.NonBaseDataObjects;
 import com.ait.reader.ReadDataSetIntoMainMemory;

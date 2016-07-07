@@ -5,29 +5,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-
 import com.ait.db.data.NetworkEntityDAO;
-import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Event_cause;
 import com.ait.db.model.Failure_class;
 import com.ait.db.model.Mcc_mnc;
-import com.ait.db.model.NetworkEntity;
-import com.ait.db.model.NonBaseDataObjects;
 import com.ait.db.model.User_equipment;
 import com.fileuploader.FileTimer;
 import com.fileuploader.FileTimerDAO;
