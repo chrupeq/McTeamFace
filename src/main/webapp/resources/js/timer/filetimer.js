@@ -40,7 +40,9 @@ var checkUpload = function(data){
 	var second2 = parseInt(timeArray2[2]);
 	
 		if(hour2 <= hour1 && minute2 <= minute1 && second2 < second1){
+			$('#timecodes').addClass('animated bounceIn');
 			$('#timecodes').html('Upload began: ' + data.startTime.substring(0, 19) + '<br>Upload finished: ' + data.endTime.substring(0, 19));
+			$('#timecodes').addClass('btn btn-default btn-file');
 		}else{
 	getUploadTime();
 		}
