@@ -3,12 +3,8 @@ package com.fileuploader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -20,13 +16,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.DatatypeConverter;
-
-import org.eclipse.persistence.sessions.factories.SessionFactory;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.JSONException;
-
 import com.ait.db.data.NetworkEntityDAO;
-import com.ait.db.model.Base_data;
 import com.ait.db.model.NetworkEntity;
 import com.ait.db.model.NonBaseDataObjects;
 import com.ait.reader.ReadDataSetIntoMainMemory;
@@ -38,9 +30,15 @@ import com.validation.JDBCConnectionManager;
 public class ExcelFileUploader extends JDBCConnectionManager {
 
 	JDBCConnectionManager jdbc = new JDBCConnectionManager();
+	
+	ReadDataSetIntoMainMemory rdsimm = new ReadDataSetIntoMainMemory();
+	
+	FileTimer ft = new FileTimer();
 
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
+	@EJB
+	private FileTimerDAO fileTimerDAO;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -56,7 +54,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	@Path("/uploadfile")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response uploadFile(@FormDataParam("data") String imageInBase64) throws IOException, JSONException {
-		System.out.println(new Date().toString());
+		ft.setStartTime(new Date().toString());
 		String[] imageArray = imageInBase64.split(",");
 
 		String path = "temp.xls";
@@ -67,7 +65,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 
 		sendToFileReader(path);
 
-		return Response.status(200).build();
+		return Response.status(200).entity("hello").build();
 	}
 
 	public void sendToFileReader(String path) throws IOException {
@@ -83,11 +81,15 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 
 		for (int i = 4; i > 0; i--) {
 
-			networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
+			String entity = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
 
 		}
 		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
 		objectsToBePersisted[0] = baseData;
-		networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
+		String date = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
+		
+		//settime
+		ft.setEndTime(date);
+		fileTimerDAO.update(ft);
 	}
 }
