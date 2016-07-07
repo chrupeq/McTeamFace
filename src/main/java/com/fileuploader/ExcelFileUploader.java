@@ -67,7 +67,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 
 		sendToFileReader(path);
 
-		return Response.status(200).entity("hello").build();
+		return Response.status(200).build();
 	}
 
 	public void sendToFileReader(String path) throws IOException {
@@ -97,4 +97,5 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 		ft.setEndTime(date);
 		fileTimerDAO.update(ft);
 	}
+	
 }

@@ -33,6 +33,7 @@
 <script src="resources/js/DataTables/single_imsi_failure_dates.js"></script>
 <script src="resources/js/DataTables/imsi_event_and_cause.js"></script>
 <script src="resources/js/tables_coming_and_going.js"></script>
+<script src="resources/js/timer/filetimer.js"></script>
 
 <script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
 <script
@@ -300,7 +301,7 @@ contentType: "application/json; charset=utf-8",
 
 dataType: "json",
 
-success: function(data){alert(fr.result);},
+success: setDate(),
 
 failure: function(errMsg) {
 
@@ -314,8 +315,12 @@ alert(errMsg);
 
 </script>
 			<div id="importDatasetDiv">
-				<input type="file" id="fileinput" />
+			<h2 id="fileUploaderHead">Dataset Uploader</h2>
+			<span class="btn btn-default btn-file">
+				<input type="file" id="fileinput" /><br>
 				<button type="submit" id="submit" name="submit">Submit</button>
+				</span>
+				<div id="timecodes"></div>
 			</div>
 			
 		</div>
