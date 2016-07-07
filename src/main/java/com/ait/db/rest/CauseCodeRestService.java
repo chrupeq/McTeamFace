@@ -1,5 +1,6 @@
 package com.ait.db.rest;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -10,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -40,5 +42,20 @@ public class CauseCodeRestService {
 			e.printStackTrace();
 			return Response.status(400).build();
 		}	
+	}
+	@GET
+	@Path("/get_by_cause_code")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getAffectedIMSIsByCauseCode(@QueryParam("cause_code") int causeCode){
+		try{
+			List<BigInteger> affectedIMSIs = causeCodeDAO.getAffectedIMSIs(causeCode);
+			if(affectedIMSIs.isEmpty()){
+				return Response.status(404).build();
+			}
+			return Response.status(200).entity(affectedIMSIs).build();
+		}catch(Exception e){
+			e.printStackTrace();
+			return Response.status(400).build();
+		}
 	}
 }

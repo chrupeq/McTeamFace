@@ -60,4 +60,37 @@ public class CauseCodeRestServiceTest {
 	    System.out.println("The response is: " + response);
 	    assertEquals(response, "[0,11,12,13,23]");
 	}
+	@Test
+	public void getAffectedIMSIsByCauseCodeShouldReturn200One() throws Exception{
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX 
+				+"/cause_codes/get_by_cause_code?cause_code=11");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+	    ClientResponse<String> responseObj = request.get(String.class);
+	    assertEquals(200, responseObj.getStatus());
+	    String response = responseObj.getEntity().trim();
+	    System.out.println("The response is: " + response);
+	    assertEquals(response, "[240210000000013,310560000000012,344930000000011]");
+	}
+	@Test
+	public void getAffectedIMSIsByCauseCodeShouldReturn200Two() throws Exception{
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX 
+				+"/cause_codes/get_by_cause_code?cause_code=13");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+	    ClientResponse<String> responseObj = request.get(String.class);
+	    assertEquals(200, responseObj.getStatus());
+	    String response = responseObj.getEntity().trim();
+	    System.out.println("The response is: " + response);
+	    assertEquals(response, "[344930000000011]");
+	}
+	@Test
+	public void getAffectedIMSIsByCauseCodeShouldReturn404() throws Exception{
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX 
+				+"/cause_codes/get_by_cause_code?cause_code=-15");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+	    ClientResponse<String> responseObj = request.get(String.class);
+	    assertEquals(404, responseObj.getStatus());
+	}
 }
