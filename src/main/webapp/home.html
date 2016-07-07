@@ -32,6 +32,7 @@
 <script src="resources/js/queryPageJS/custom_nav_bar.js"></script>
 <script src="resources/js/DataTables/single_imsi_failure_dates.js"></script>
 <script src="resources/js/DataTables/imsi_event_and_cause.js"></script>
+<script src="resources/js/DataTables/models_with_dates.js"></script>
 <script src="resources/js/tables_coming_and_going.js"></script>
 <script src="resources/js/timer/filetimer.js"></script>
 
@@ -160,107 +161,7 @@
 					</tr>
 				</thead>
 			</table>
-
-			<div id="myModalAdd" class="modal fade" tabindex="-1" role="dialog"
-				aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div id="modalPopUPAdd">
-					<!--  	<form action="#"> -->
-							<div class="modalTable">
-								<form class="form">
-									<label for="firstName">First Name</label> <input type="text"
-										id="firstName" name="firstName" class="form-control"
-										placeholder="Enter First Name"></br> <label for="lastName">Last
-										Name</label> <input type="text" id="lastName" name="lastName"
-										class="form-control" placeholder="Enter Last Name"></br>
-									<fieldset class="usernameFormSection">
-										<label for="usernameFormInput">Username</label> <input
-											type="text" id="usernameFormInput" name="usernameFormInput"
-											class="form-control" placeholder="Enter Username"></br>
-									</fieldset>
-									<fieldset class="passwordFormSection">
-										<label for="passwordFormInput">Password</label> <input
-											type="password" id="passwordFormInput"
-											name="passwordFormInput" class="form-control"
-											placeholder="Enter Password"></br>
-									</fieldset>
-									<fieldset class="reenterPasswordFormSection">
-										<label for="reenterPasswordFormInput">Re-enter
-											Password</label> <input type="password" id="reenterPasswordFormInput"
-											name="reenterPasswordFormInput" class="form-control"
-											placeholder="Enter Password"></br>
-									</fieldset>
-									<fieldset class="jobTitleOption">
-										<label for="jobTitleSelect">Please select a job
-											description:</label> <select class="form-control" id="jobTitleSelect">
-											<option value="CSR">Customer Service Representative</option>
-											<option value="SE">Support Engineer</option>
-											<option value="NME">Network Management Engineer</option>
-										</select>
-									</fieldset>
-									<div id="passwordErrorMessage">
-										<p id="errorText">Password inputs do not match each other.
-											Please try again.</p>
-									</div>
-									<div id="userExistsEerrorMessage">
-										<p id="errorText">This user already exists in the user
-											database</p>
-									</div>
-									</br> </br>
-									<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
-								</form>
-							</div>
-					<!-- 	</form>  -->
-					</div>
-				</div>
-			</div>
-			<div id="myModalEdit" class="modal fade" tabindex="-1" role="dialog"
-				aria-hidden="true">
-				<div class="modal-dialog modal-sm">
-					<div id="modalPopUPEdit">
-						<form action="#">
-							<div class="modalTable">
-								<form class="form">
-									<label for="firstName">First Name</label> <input type="text"
-										id="firstNameEdit" name="firstName" class="form-control"
-										placeholder="Enter First Name"></br> <label for="lastName">Last
-										Name</label> <input type="text" id="lastNameEdit" name="lastName"
-										class="form-control" placeholder="Enter Last Name"></br>
-									<fieldset class="usernameFormSection">
-										<label for="usernameFormInput">Username</label> <input
-											type="text" id="usernameFormInputEdit"
-											name="usernameFormInput" class="form-control"
-											placeholder="Enter Username"></br>
-									</fieldset>
-									<fieldset class="passwordFormSection">
-										<label for="passwordFormInput">Password</label> <input
-											type="text" id="passwordFormInputEdit"
-											name="passwordFormInput" class="form-control"
-											placeholder="Enter Password"></br>
-									</fieldset>
-									<fieldset class="jobTitleOption">
-										<label for="jobTitleSelect">Please select a job
-											description:</label> <select class="form-control"
-											id="jobTitleSelectEdit">
-											<option value="CSR">Customer Service Representative</option>
-											<option value="SE">Support Engineer</option>
-											<option value="NME">Network Management Engineer</option>
-										</select>
-									</fieldset>
-									<div id="userExistsErrorMessageEdit">
-										<p id="errorText">This user already exists in the user
-											database</p>
-									</div>
-									</br> </br>
-									<button type="submit" class="btn btn-primary"
-										id="formButtonEdit"">Submit</button>
-								</form>
-
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
+		
 		</div>
 
 		<!-- -----------------------------END OF FORM------------------------------------------- -->
@@ -548,5 +449,151 @@ alert(errMsg);
 	</div>
 	</br>
 	</br>
+		<div id="myModalEdit" class="modal fade" tabindex="-1" role="dialog"
+				aria-hidden="true">
+				
+				<div class="modal-dialog modal-sm">
+					<div id="modalPopUPEdit">
+							<div class="modalTable">`
+							<h3>Edit User</h3>
+								<form class="form">
+									<label for="firstName">First Name</label> <input type="text"
+										id="firstNameEdit" name="firstName" class="form-control"
+										placeholder="Enter First Name"></br> <label for="lastName">Last
+										Name</label> <input type="text" id="lastNameEdit" name="lastName"
+										class="form-control" placeholder="Enter Last Name"></br>
+									<fieldset class="usernameFormSection">
+										<label for="usernameFormInput">Username</label> <input
+											type="text" id="usernameFormInputEdit"
+											name="usernameFormInput" class="form-control"
+											placeholder="Enter Username"></br>
+									</fieldset>
+									<fieldset class="passwordFormSection">
+										<label for="passwordFormInput">Password</label> <input
+											type="text" id="passwordFormInputEdit"
+											name="passwordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="jobTitleOption">
+										<label for="jobTitleSelect">Please select a job
+											description:</label> <select class="form-control"
+											id="jobTitleSelectEdit">
+											<option value="CSR">Customer Service Representative</option>
+											<option value="SE">Support Engineer</option>
+											<option value="NME">Network Management Engineer</option>
+										</select>
+									</fieldset>
+									<div id="userExistsErrorMessageEdit">
+										<p id="errorText">This user already exists in the user
+											database</p>
+									</div>
+									</br> </br>
+									<button type="submit" class="btn btn-primary"
+										id="formButtonEdit">Submit</button>
+								</form>
+							</div>
+					</div>
+				</div>
+			</div>
+				<div id="myModalAdd" class="modal fade" tabindex="-1" role="dialog"
+				aria-hidden="true">
+				<div class="modal-dialog modal-sm">
+					<div id="modalPopUPAdd">
+					<!--  	<form action="#"> -->
+							<div class="modalTable">
+							<h3>Add User</h3>
+								<form class="form">
+									<label for="firstName">First Name</label> <input type="text"
+										id="firstName" name="firstName" class="form-control"
+										placeholder="Enter First Name"></br> <label for="lastName">Last
+										Name</label> <input type="text" id="lastName" name="lastName"
+										class="form-control" placeholder="Enter Last Name"></br>
+									<fieldset class="usernameFormSection">
+										<label for="usernameFormInput">Username</label> <input
+											type="text" id="usernameFormInput" name="usernameFormInput"
+											class="form-control" placeholder="Enter Username"></br>
+									</fieldset>
+									<fieldset class="passwordFormSection">
+										<label for="passwordFormInput">Password</label> <input
+											type="password" id="passwordFormInput"
+											name="passwordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="reenterPasswordFormSection">
+										<label for="reenterPasswordFormInput">Re-enter
+											Password</label> <input type="password" id="reenterPasswordFormInput"
+											name="reenterPasswordFormInput" class="form-control"
+											placeholder="Enter Password"></br>
+									</fieldset>
+									<fieldset class="jobTitleOption">
+										<label for="jobTitleSelect">Please select a job
+											description:</label> <select class="form-control" id="jobTitleSelect">
+											<option value="CSR">Customer Service Representative</option>
+											<option value="SE">Support Engineer</option>
+											<option value="NME">Network Management Engineer</option>
+										</select>
+									</fieldset>
+									<div id="passwordErrorMessage">
+										<p id="errorText">Password inputs do not match each other.
+											Please try again.</p>
+									</div>
+									<div id="userExistsEerrorMessage">
+										<p id="errorText">This user already exists in the user
+											database</p>
+									</div>
+									</br> </br>
+									<button type="submit" class="btn btn-primary" id="formButton">Submit</button>
+								</form>
+							</div>
+					<!-- 	</form>  -->
+					</div>
+				</div>
+			</div>
+			
+			<div id="modelsWithDatesModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 id="modalTitle" class="modal-title">List of all failures for a single IMSI between given dates</h4>
+						</div>
+						<div class="modal-body">
+							<div class="container">
+								<div class="col-sm-6">
+									<div class="form-group">
+									<h4>Select Model:</h4>
+									<select id="modelsWithDatesSelect" class="js-example-basic-single select2-results stretchSelect" name="modelsWithDatesSelect">
+		<option></option>
+		</select>
+										<h4>From:</h4>
+										<div class='input-group date' id='datetimepicker7'>
+											<input type='text' class="form-control" /> <span
+												class="input-group-addon feckthis"> <span
+												class="glyphicon glyphicon-calendar"> </span>
+											</span>
+										</div>
+									</div>
+									<div class="form-group">
+										<h4>To:</h4>
+										<div class='input-group date' data-date-format="mm/dd/yyyy"
+											id='datetimepicker8'>
+											<input type='text' class="form-control" /> <span
+												class="input-group-addon feckthis"> <span
+												class="glyphicon glyphicon-calendar"> </span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id="modelDatesSearch" type="button"
+								class="btn btn-default searchButton" data-dismiss="modal">Search</button>
+							<button id="modalClose" type="button" class="btn btn-default"
+								data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
 </body>
 </html>
