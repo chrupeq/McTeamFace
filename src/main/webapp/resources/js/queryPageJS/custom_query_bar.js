@@ -11,15 +11,17 @@ var getCustomQueryBar = function(){
 	
 	else if(getTheCookieYouNeed('job_title') == 'NME'){
 		
-		customQueryBar = '<a href="#" id="imsiWithDates" class="list-group-item">List of '
-		+ 'all IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
-		+ 'class="list-group-item">List of failure details for given Model</a>'
-	+ '<a href="#" id="imsiStats" class="list-group-item">View IMSI'
+		customQueryBar ='<a href="#" id="imsiWithDates" class="list-group-item">List of '
+			+ 'IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
+			+ 'class="list-group-item">List of failure details for given Model</a>'
+			+ '<a href="#" id="imsiStats" class="list-group-item">View IMSI'
 		+ ' Statistics</a>'
-		+ '<a href="#" id="allImsiFailuresBetweenDates"'
-		+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
+//		+ '<a href="#" id="allImsiFailuresBetweenDates"'
+//		+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
 		+ '<a href="#" id="imsiEventSelectIdCauseCode"'
-		+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>';
+		+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
+		+ '<a href="#" id="modelsWithDatesLink"'
+			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';
 		
 	}else if(getTheCookieYouNeed('job_title') == 'CSR'){
 		
@@ -29,8 +31,11 @@ var getCustomQueryBar = function(){
 	}else if(getTheCookieYouNeed('job_title') == 'SE'){
 		
 		customQueryBar = '<a href="#" id="imsiWithDates" class="list-group-item">List of '
-			+ 'IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
-			+ 'class="list-group-item">List of failure details for given Model</a>';
+			+ 'IMSI failures for given dates</a>'
+			+ '<a href="#" id="imsiEventSelectIdCauseCode"'
+			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
+			+ '<a href="#" id="modelsWithDatesLink"'
+			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';
 		
 	}
 	
@@ -64,6 +69,10 @@ var getCustomQueryBar = function(){
 		loadDateModal();
 	});
 	
+	$('#imsiEventSelectIdCauseCode').on('click', function(){
+		$('#imsisEventIdAndCauseCode').modal('show');
+	})
+	
 	$('#allFailuresForModel').on('click', function(){
 		$('#modelFailuresModal').modal('show');
 		$('#modalTitle2').html('Models Query');
@@ -73,10 +82,6 @@ var getCustomQueryBar = function(){
 			  var value = $(this).val();
 			  $('#modelFailuresModal').modal('hide');
 			});
-	})
-	
-		$('#imsiEventSelectIdCauseCode').on('click', function(){
-		$('#imsisEventIdAndCauseCode').addClass('animated bounceIn');
 	})
 	
 	$('#dateSearch').on('click', function(){
@@ -90,4 +95,8 @@ var getCustomQueryBar = function(){
 		$('#querysTable').addClass('animated fadeOutUp');
 		changeContainerCSS('imsiDates');
 	});
+	
+	$('#modelsWithDatesLink').on('click', function(){
+		$('#modelsWithDatesModal').modal('show');
+	})
 }

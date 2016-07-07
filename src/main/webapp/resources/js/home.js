@@ -56,6 +56,7 @@ var showTabs = function() {
 }
 
 $(document).on("click", 'button.clickToAdd', function() {
+	$('#myModalAdd').addClass('animated bounceIn');
 	$("#myModalAdd").modal('show');
 });
 
@@ -68,6 +69,7 @@ $(document).on("click", 'button.editButton', function() {
 	$(document).on("click", "#formButtonEdit", function() {
 		$("#userExistsErrorMessageEdit").hide();
 		getDatabaseDetailsEdit(userId);
+		$('#myModalEdit').modal('hide');
 
 		return false;
 	});
@@ -75,6 +77,7 @@ $(document).on("click", 'button.editButton', function() {
 });
 
 $(document).on("click", 'button.deleteButton', function() {
+	if(confirm("Are you sure you want to delete this user?")){
 		if(this.id == getTheCookieYouNeed('id')){
 			if(getTheCookieYouNeed('job_title') == 'SA'){
 				alert("You can't delete system admin accounts, silly.");
@@ -85,6 +88,9 @@ $(document).on("click", 'button.deleteButton', function() {
 		}else{
 			deleteUser(this.id);
 		}
+	}else{
+		
+	}
 });
 
 $(document).on("click", 'formButtonClose', function() {
