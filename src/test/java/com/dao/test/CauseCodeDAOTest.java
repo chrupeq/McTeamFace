@@ -24,6 +24,8 @@ import com.ait.db.model.Event_cause;
 @RunWith(Arquillian.class)
 public class CauseCodeDAOTest {
 	
+	private List<BigInteger> affectedIMSIs;
+	
 	@Deployment
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
@@ -55,9 +57,21 @@ public class CauseCodeDAOTest {
 	}
 	@Test
 	public void getAffectedIMSIsShouldReturnAListOfIMSIs(){
-		List<BigInteger> affectedIMSIs = causeCodeDAO.getAffectedIMSIs(13);
+		affectedIMSIs = causeCodeDAO.getAffectedIMSIs(13);
 		assertNotNull(affectedIMSIs);
 		assertFalse(affectedIMSIs.isEmpty());
 		assertEquals(1, affectedIMSIs.size());
+	}
+	@Test
+	public void getAffectedIMSIsShouldReturnUniqueIMSIs(){
+		affectedIMSIs = causeCodeDAO.getAffectedIMSIs(11);
+		assertEquals(3, affectedIMSIs.size());
+	}
+	@Test
+	public void getAffectedIMSIsShouldReturnSortedIMSIs(){
+		affectedIMSIs = causeCodeDAO.getAffectedIMSIs(11);
+		assertEquals(new BigInteger("240210000000013"), affectedIMSIs.get(0));
+		assertEquals(new BigInteger("310560000000012"), affectedIMSIs.get(1));
+		assertEquals(new BigInteger("344930000000011"), affectedIMSIs.get(2));
 	}
 }

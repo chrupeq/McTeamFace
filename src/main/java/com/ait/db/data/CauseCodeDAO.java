@@ -28,6 +28,7 @@ public class CauseCodeDAO {
 		query = entityManager.createQuery("SELECT DISTINCT(b.imsi) FROM Base_data b WHERE event_cause.cause_code = :causeCode");
 		query.setParameter("causeCode", causeCode);
 		List<BigInteger> affectedIMSIList = query.getResultList();
+		Collections.sort(affectedIMSIList);
 		return affectedIMSIList;
 	}
 }
