@@ -60,7 +60,7 @@ function loginAuthentication(details) {
 			document.cookie = 'username=' + detail.username + ';';
 			document.cookie = 'name=' + detail.firstname + ';';
 			document.cookie = 'id=' + detail.id + ';';
-			document.cookie = 'last_login' + detail.last_login;
+			document.cookie = 'last_login=' + detail.last_login;
 			revealCustomHeader();
 			$('#welcometab').addClass('hiddenbycostanza');
 			$.ajax ({
@@ -111,7 +111,6 @@ if(detail == 'id'){
 }
 
 if(detail == 'last_login'){
-	alert(cookieArray[4].substring(11));
-	return cookieArray[4].substring(11,35);
+	return cookieArray[4].substring(12,35);
 }
 }
