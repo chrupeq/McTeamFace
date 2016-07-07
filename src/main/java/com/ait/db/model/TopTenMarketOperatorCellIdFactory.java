@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TopTenMarketOperatorCellIdFactory {
 	private List<Base_data> baseDataList;
-	private List<TopTenMarketOperatorCellIdCombinations> TopTenMarketOperatorCellIdCombsList;
+	private List<TopTenMarketOperatorCellIdCombinations> topTenMarketOperatorCellIdCombsList;
 	
 	public TopTenMarketOperatorCellIdFactory(List<Base_data> baseDataList){
 		this.baseDataList = baseDataList;
@@ -20,7 +20,7 @@ public class TopTenMarketOperatorCellIdFactory {
 		
 		
 		
-		TopTenMarketOperatorCellIdCombsList = new ArrayList<>();
+		topTenMarketOperatorCellIdCombsList = new ArrayList<>();
 		for(Base_data baseData : baseDataList) {
 			System.out.println("Iteration number: " + ++index);
 			
@@ -30,16 +30,14 @@ public class TopTenMarketOperatorCellIdFactory {
 			
 			cellId = baseData.getCell_id();
 		
-			//MarketOperatorCellIdKey  = new MarketOperatorCellIdKey()
-	
 			TopTenMarketOperatorCellIdCombinations topTenMarketOperatorCellIdCombinations = 
 					new TopTenMarketOperatorCellIdCombinations(marketMCC, operatorMNC, operatorDescription, cellId);
 			
-			TopTenMarketOperatorCellIdCombsList.add(topTenMarketOperatorCellIdCombinations);
+			topTenMarketOperatorCellIdCombsList.add(topTenMarketOperatorCellIdCombinations);
 
 		}
 		
-		return TopTenMarketOperatorCellIdCombsList;
+		return topTenMarketOperatorCellIdCombsList;
 	}
 	
 	
