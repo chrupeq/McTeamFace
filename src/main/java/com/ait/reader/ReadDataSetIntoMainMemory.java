@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -71,6 +73,8 @@ public class ReadDataSetIntoMainMemory {
 			throws IOException {
 
 		FileInputStream fos = new FileInputStream(new File(fileName));
+		Date startTimer = new Date();
+		System.out.println("Start timer: "+startTimer);
 		
 		Workbook dataSetWorkbook = null;
 		try {
@@ -82,10 +86,9 @@ public class ReadDataSetIntoMainMemory {
 
 		for (int sheetNumber = 0; sheetNumber <= 4; sheetNumber++) {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
-
 			arrayListOfSheets.add(sheet);
 		}
-			
+		fos.close();
 			return arrayListOfSheets;
 		}
 
@@ -151,6 +154,7 @@ public class ReadDataSetIntoMainMemory {
 	 */
 	public static Base_data[] passTheArrayToValidator(final Object[][] sheet,
 			final String makeFileNameForErrorLog) {
+		System.out.println("Array before validator: " + sheet.length);
 			Base_data[] bdArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
 			return bdArray;
 	}

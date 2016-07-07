@@ -35,6 +35,8 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	
 	FileTimer ft = new FileTimer();
 
+	String fileName = "";
+
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
 	@EJB
@@ -43,7 +45,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	static ArrayList<Object[][]> sheetArray;
+	static ArrayList<Object[][]> sheetArray = new ArrayList<Object[][]>();
 	static NetworkEntity[] eventCause;
 	static NetworkEntity[] failureClass;
 	static NetworkEntity[] userEquipment;
@@ -56,8 +58,8 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	public Response uploadFile(@FormDataParam("data") String imageInBase64) throws IOException, JSONException {
 		ft.setStartTime(new Date().toString());
 		String[] imageArray = imageInBase64.split(",");
-
-		String path = "temp.xls";
+		String path = imageArray[2];
+		fileName = imageArray[2];
 
 		FileOutputStream fos = new FileOutputStream(new File(path));
 		fos.write(DatatypeConverter.parseBase64Binary(imageArray[1].toString()));
@@ -69,7 +71,10 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	}
 
 	public void sendToFileReader(String path) throws IOException {
+	
+		sheetArray.clear();
 		sheetArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path);
+		System.out.println("Excel file uploader: " + sheetArray.get(0).length);
 		eventCause = NonBaseDataObjects.createEventCauseClass(sheetArray.get(1));
 		objectsToBePersisted[4] = eventCause;
 		failureClass = NonBaseDataObjects.createFailureClass(sheetArray.get(2));
@@ -84,7 +89,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 			String entity = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
 
 		}
-		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
+		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), fileName);
 		objectsToBePersisted[0] = baseData;
 		String date = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
 		
