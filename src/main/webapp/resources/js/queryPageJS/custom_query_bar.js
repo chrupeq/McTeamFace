@@ -76,7 +76,7 @@ var getCustomQueryBar = function(){
 	})
 	
 		$('#imsiEventSelectIdCauseCode').on('click', function(){
-		$('#imsisEventIdAndCauseCode').modal('show');
+		$('#imsisEventIdAndCauseCode').addClass('animated bounceIn');
 	})
 	
 	$('#dateSearch').on('click', function(){
