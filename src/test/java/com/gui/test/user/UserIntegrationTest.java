@@ -18,10 +18,7 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import com.ait.db.data.DateParser;
 import com.ait.db.data.SessionDAO;
-import com.ait.db.model.Base_data;
 import com.ait.db.model.User;
 import com.ait.db.rest.JaxRsActivator;
 import com.ait.gui.UserWS;
