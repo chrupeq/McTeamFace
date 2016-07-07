@@ -89,7 +89,15 @@ public class IMSIDAO {
 		return baseDataBetweenDates;
 	}
 	
-	public List<TopTenMarketOperatorCellIdCombinations> getTopTenMarketOperatorCellIdCombinationsWithFailures(){
+	public List<TopTenMarketOperatorCellIdCombinations> getTopTenMarketOperatorCellIdCombinationsWithFailures(String date1, String date2){
+		dateParser = new DateParser();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
+		
+		
+		
+		
+		
 		return null;
 	}
 }

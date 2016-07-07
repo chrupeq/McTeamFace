@@ -149,10 +149,14 @@ public class IMSIRestService {
 	@GET
 	@Path("/top10_market_operator_cellIdCombinations")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getTopTenMarketOperatorCellIdCombinations(){
+	public Response getTopTenMarketOperatorCellIdCombinations(@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo){
+		dateParser = new DateParser();
+		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
+		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
 		
 		try {
-			List<TopTenMarketOperatorCellIdCombinations> imsiList = IMSIDao.getTopTenMarketOperatorCellIdCombinationsWithFailures();
+			List<TopTenMarketOperatorCellIdCombinations> imsiList = IMSIDao.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateOne, dateTwo);
+			
 			if(imsiList.isEmpty()) {
 				return Response.status(404).build();
 			} 
