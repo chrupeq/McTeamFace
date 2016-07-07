@@ -59,9 +59,18 @@ function loginAuthentication(details) {
 			document.cookie = 'jobTitle=' + detail.job_title + ';';
 			document.cookie = 'username=' + detail.username + ';';
 			document.cookie = 'name=' + detail.firstname + ';';
-			document.cookie = 'id=' + detail.id;
+			document.cookie = 'id=' + detail.id + ';';
+			document.cookie = 'last_login' + detail.last_login;
 			revealCustomHeader();
 			$('#welcometab').addClass('hiddenbycostanza');
+			$.ajax ({
+				type: 'POST',
+				url: rootUrl + '/logintime/' + new Date() + '/' + getTheCookieYouNeed('username'),
+				dataType: "json",
+				success: function(details){
+					alert("MUCH SUCCESS.");
+						}
+			});
 			userAccessControl();
 			getCustomQueryBar();
 		}		
@@ -99,5 +108,10 @@ if(detail == 'name'){
 
 if(detail == 'id'){
 	return cookieArray[3].substring(4);
+}
+
+if(detail == 'last_login'){
+	alert(cookieArray[4].substring(11));
+	return cookieArray[4].substring(11,35);
 }
 }

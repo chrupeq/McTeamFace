@@ -31,7 +31,7 @@ var loadSingleImsiTable = function(date1, date2, imsi){
 			dataType:'json',
 			success:loadSingleImsis
 		});
-		console.log(numOfIMSIsBetweenTwoDates + 'imsi=' + IMSI + '&dateOne=' + date1 + '&dateTwo=' + date2);
+		
 }
 
 	

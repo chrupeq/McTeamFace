@@ -8,7 +8,6 @@ $(document).ready(function() {
 	});
 	
 	$('#imsiStats').on("click", function(){
-		querysTable.destroy();
 		$('#imsiStatsModal').removeClass('animated bounceOut');
 		$('#imsiStatsModal').addClass('animated bounceIn');
 		$('#imsiStatsModal').modal('show');

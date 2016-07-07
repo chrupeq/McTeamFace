@@ -54,11 +54,13 @@ public class IMSIDAO {
 		dateParser = new DateParser();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
+		
 		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE i.date_time BETWEEN :startDate AND :endDate");
 		query.setParameter("startDate", calendarArray[0]);
 		query.setParameter("endDate", calendarArray[1]);
 		List<Base_data> IMSIsBetweenDates = query.getResultList();
 		List<IMSIWithValidFailureClasses> imsiWithValidFailureClasses = IMSIWithFailuresFactory.getImsiFailureClassList(IMSIsBetweenDates);
+		System.out.println("failures" + imsiWithValidFailureClasses.size());
 		Collections.sort(imsiWithValidFailureClasses);
 		return imsiWithValidFailureClasses;
 	}

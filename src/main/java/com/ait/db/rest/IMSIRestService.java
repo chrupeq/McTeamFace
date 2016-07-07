@@ -92,6 +92,7 @@ public class IMSIRestService {
 		dateParser = new DateParser();
 		date1 = dateParser.convertFromEuropeanToAmericanDateFormat(date1);
 		date2 = dateParser.convertFromEuropeanToAmericanDateFormat(date2);
+		
 		try{
 			List<IMSIWithValidFailureClasses> imsiList = IMSIDao.getIMSIsByDates(date1, date2);
 		if(imsiList.isEmpty()) {

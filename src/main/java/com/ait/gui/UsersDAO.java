@@ -41,5 +41,12 @@ public class UsersDAO {
 	public void delete(final int userId) {
 		entityManager.remove(getUser(userId));
 	}
+	
+	public void updateLastLogin(String username, String newLogin) {
+		Query query = entityManager.createQuery("UPDATE User u SET last_login = :loginTime WHERE username = :username");
+		query.setParameter("loginTime", newLogin)
+		.setParameter("username", username);
+		query.executeUpdate();
+	}
 
 }

@@ -23,15 +23,6 @@ public class UETypeDAO {
 	public List<User_equipment> getAllUniqueModels() {
 		query = entityManager.createQuery("SELECT DISTINCT(b.user_equipment) FROM Base_data b");
 		List<User_equipment> distinctModels = query.getResultList();
-		System.out.println(distinctModels.size());
-//		List<User_equipment> equipmentList = new ArrayList<User_equipment>();
-		
-//		for(Base_data b : distinctModels){
-//			User_equipment ue = new User_equipment();
-//			ue = b.getUser_equipment();
-//			equipmentList.add(ue);
-//			
-//		}
 		return distinctModels;
     }
 	

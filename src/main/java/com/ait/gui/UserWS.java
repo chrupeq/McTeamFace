@@ -77,5 +77,13 @@ public class UserWS {
 		userDao.delete(userId);
 		return Response.status(204).build();
 	}
+	
+	@POST
+	@Path("/logintime/{newlogindateandtime}/{username}")
+	public Response updateLogin(@PathParam("newlogindateandtime") final String loginTime, @PathParam("username") final String username) {
+		System.out.println(loginTime + " " + username);
+		userDao.updateLastLogin(username, loginTime);
+		return Response.status(204).build();
+	}
 
 }
