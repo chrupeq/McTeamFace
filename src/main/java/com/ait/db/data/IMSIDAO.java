@@ -94,10 +94,15 @@ public class IMSIDAO {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
 		
-		
-		
+		query = entityManager.createQuery("SELECT i FROM Base_data i WHERE i.date_time BETWEEN :startDate AND :endDate");
+		query.setParameter("startDate", calendarArray[0]);
+		query.setParameter("endDate", calendarArray[1]);
+		List<TopTenMarketOperatorCellIdCombinations> TopTenBetweenDates = query.getResultList();
 		
 		
 		return null;
 	}
+	
+	
+
 }
