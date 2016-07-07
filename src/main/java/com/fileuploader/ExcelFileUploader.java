@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -37,9 +38,15 @@ import com.validation.JDBCConnectionManager;
 public class ExcelFileUploader extends JDBCConnectionManager {
 
 	JDBCConnectionManager jdbc = new JDBCConnectionManager();
+	
+	ReadDataSetIntoMainMemory rdsimm = new ReadDataSetIntoMainMemory();
+	
+	FileTimer ft = new FileTimer();
 
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
+	@EJB
+	private FileTimerDAO fileTimerDAO;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -55,7 +62,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	@Path("/uploadfile")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response uploadFile(@FormDataParam("data") String imageInBase64) throws IOException, JSONException {
-
+		ft.setStartTime(new Date().toString());
 		String[] imageArray = imageInBase64.split(",");
 
 		String path = "temp.xls";
@@ -88,6 +95,8 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), "testname");
 		objectsToBePersisted[0] = baseData;
 		String date = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
-		ReadDataSetIntoMainMemory.timerPersistenceMethod(date, 2);
+		
+		ft.setEndTime(date);
+		fileTimerDAO.update(ft);
 	}
 }

@@ -17,6 +17,7 @@ public class FileTimerDAO {
 	}
 	
 	public void update(final FileTimer fileTimer) {
+		fileTimer.setId(1);
 		entityManager.merge(fileTimer);
 	}
 	

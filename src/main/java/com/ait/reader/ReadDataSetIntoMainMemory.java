@@ -38,13 +38,18 @@ import com.validation.DataValidator;
  * In this class, the excel file is read from a specified
  * location on the hard drive and then validated for errors.
  */
+@Stateless
+@LocalBean
 public class ReadDataSetIntoMainMemory {
+	
+	@EJB
+	static ReadDataSetIntoMainMemory rdsimm = new ReadDataSetIntoMainMemory();
 	
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
 	
 	@EJB
-	private static FileTimerDAO fileTimerDAO;
+	private FileTimerDAO fileTimerDAO;
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -56,7 +61,7 @@ public class ReadDataSetIntoMainMemory {
 	static Event_cause[] event_cause;
 	static Mcc_mnc[] mcc_mnc;
 	static User_equipment[] user_equipment;
-	static FileTimer fileTimer = null;
+	static FileTimer fileTimer;
 
 	/**
 	 * Reads in the excel file from a specified location on the hard drive.
@@ -74,12 +79,6 @@ public class ReadDataSetIntoMainMemory {
 
 		FileInputStream fos = new FileInputStream(new File(fileName));
 		
-		Date startTimer = new Date();
-		System.out.println("Start timer: "+startTimer);
-		String date = ""+startTimer;
-		int startDate = 1;
-		timerPersistenceMethod(date, startDate);
-		
 		Workbook dataSetWorkbook = null;
 		try {
 			dataSetWorkbook = WorkbookFactory.create(fos);
@@ -96,22 +95,6 @@ public class ReadDataSetIntoMainMemory {
 			
 			return arrayListOfSheets;
 		}
-
-
-	public static void timerPersistenceMethod(String date, int startDate) {
-		// TODO Auto-generated method stub
-		
-		if(startDate == 1){
-			fileTimer = new FileTimer();
-			fileTimer.setId(1);
-			fileTimer.setStartTime(date);
-		}else{
-			fileTimer.setEndTime(date);
-			System.out.println(fileTimer.getId()+fileTimer.getStartTime()+fileTimer.getEndTime());
-			fileTimerDAO.update(fileTimer);
-		}
-	}
-
 
 	/**
 	 * The Workbook and sheetNumber are passed into this method for converting
