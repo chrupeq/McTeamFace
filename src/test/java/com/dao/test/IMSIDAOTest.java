@@ -145,7 +145,7 @@ public class IMSIDAOTest {
 		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
 		assertNotNull(imsisWithEventIDsAndCauseCodes);
 		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
-		assertEquals(3, imsisWithEventIDsAndCauseCodes.size());
+		assertEquals(2, imsisWithEventIDsAndCauseCodes.size());
 		
 		imsi = new BigInteger("310560000000012");
 		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
