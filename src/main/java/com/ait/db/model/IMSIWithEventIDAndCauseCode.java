@@ -24,6 +24,9 @@ public class IMSIWithEventIDAndCauseCode {
 		return cause_code;
 	}
 
+	public void setCause_code(String causeCode) {
+		this.cause_code = causeCode;
+	}
 	public String getFailure_class() {
 		return failure_class;
 	}

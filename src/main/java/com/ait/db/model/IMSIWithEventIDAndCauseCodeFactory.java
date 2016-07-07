@@ -24,7 +24,6 @@ public class IMSIWithEventIDAndCauseCodeFactory {
 
 		imsiWithEventIDAndCauseCodeSet = new HashSet<>();
 		for(Base_data baseData : baseDataList) {
-			System.out.println("Iteration number " + ++index);
 			Object[] eventCauseKeys = processEventCause(baseData);
 			eventId = (int) eventCauseKeys[0];
 			causeCode = (String) eventCauseKeys[1];
@@ -65,8 +64,21 @@ public class IMSIWithEventIDAndCauseCodeFactory {
 		Set<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeSet = getIMSIWithEventIDAndCauseCodeSet();
 		imsiWithEventIDAndCauseCodeList = new ArrayList<>();
 		for(IMSIWithEventIDAndCauseCode imsiWithEventIDAndCauseCode : imsiWithEventIDAndCauseCodeSet){
+			String causeCode = imsiWithEventIDAndCauseCode.getCause_code();
+			causeCode = editCauseCode(causeCode);
+			imsiWithEventIDAndCauseCode.setCause_code(causeCode);
 			imsiWithEventIDAndCauseCodeList.add(imsiWithEventIDAndCauseCode);
 		}
 		return imsiWithEventIDAndCauseCodeList;
+	}
+	
+	public String editCauseCode(String setMe){
+		
+		if(setMe.length() == 5){
+			return setMe.substring(0, 1);
+		}else{
+			return setMe.substring(0, 2);
+		}
+		
 	}
 }
