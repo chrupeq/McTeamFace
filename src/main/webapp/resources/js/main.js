@@ -111,6 +111,6 @@ if(detail == 'id'){
 }
 
 if(detail == 'last_login'){
-	return cookieArray[4].substring(12,35);
+	return cookieArray[4].substring(12,36);
 }
 }

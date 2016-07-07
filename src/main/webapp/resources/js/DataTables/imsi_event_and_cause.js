@@ -16,8 +16,11 @@ $(document).ready(function(){
 	
 	$('#imsiEventIdCauseCode').on('change', function(){
 		IMSI2 = this.value;
-		$('#imsisEventIdAndCauseCode').removeClass('animated fadeInDown');
-		$('#imsisEventIdAndCauseCode').addClass('animated fadeOutUp');
+		$('#imsisEventIdAndCauseCode').removeClass('animated bounceIn');
+		$('#imsisEventIdAndCauseCode').addClass('animated bounceOut');
+		
+		$('#imsisEventIdAndCauseCode').removeClass('animated bounceOut');
+		$('#imsisEventIdAndCauseCode').modal('hide');
 		$('#searchParams').html('You are searching for unique event ID and Cause Code combinations for ' + IMSI2);
 		loadEventImsiTable(IMSI2);
 		})

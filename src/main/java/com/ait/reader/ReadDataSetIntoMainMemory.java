@@ -67,7 +67,6 @@ public class ReadDataSetIntoMainMemory {
 			throws IOException {
 
 		FileInputStream fos = new FileInputStream(new File(fileName));
-		
 		Date startTimer = new Date();
 		System.out.println("Start timer: "+startTimer);
 		
@@ -81,10 +80,9 @@ public class ReadDataSetIntoMainMemory {
 
 		for (int sheetNumber = 0; sheetNumber <= 4; sheetNumber++) {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
-
 			arrayListOfSheets.add(sheet);
 		}
-			
+		fos.close();
 			return arrayListOfSheets;
 		}
 
@@ -151,6 +149,7 @@ public class ReadDataSetIntoMainMemory {
 	 */
 	public static Base_data[] passTheArrayToValidator(final Object[][] sheet,
 			final String makeFileNameForErrorLog) {
+		System.out.println("Array before validator: " + sheet.length);
 			Base_data[] bdArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
 			return bdArray;
 	}
