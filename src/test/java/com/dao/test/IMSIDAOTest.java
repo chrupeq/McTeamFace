@@ -140,7 +140,7 @@ public class IMSIDAOTest {
 		assertEquals(imsiWithValidFailureClassses.get(imsiWithValidFailureClassses.size()-1).getImsi(), imsi);
 	}
 	@Test
-	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnAListOfObjects() throws Exception {
+	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnAListOfHelperObjects() throws Exception {
 		BigInteger imsi = new BigInteger("240210000000013");
 		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
 		assertNotNull(imsisWithEventIDsAndCauseCodes);
@@ -152,17 +152,15 @@ public class IMSIDAOTest {
 		assertNotNull(imsisWithEventIDsAndCauseCodes);
 		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
 		assertEquals(3, imsisWithEventIDsAndCauseCodes.size());	
-	}
-	@Test
-	public void getIMSIsWithEventIDsAndCauseCodesShouldReturnCustomMessagesForNullObjects() throws Exception {
-		BigInteger imsi = new BigInteger("344930000000011");
+		
+		imsi = new BigInteger("344930000000011");
 		imsisWithEventIDsAndCauseCodes = imsiDAO.getIMSIsWithEventIDsAndCauseCodes(imsi);
 		assertNotNull(imsisWithEventIDsAndCauseCodes);
 		assertFalse(imsisWithEventIDsAndCauseCodes.isEmpty());
 		assertEquals(4, imsisWithEventIDsAndCauseCodes.size());
 	}
 	@Test
-	public void getAllBaseDataByIMSIShouldReturnAList() {
+	public void getAllBaseDataByIMSIShouldReturnAListOfBaseDataObjects() {
 		BigInteger imsi = new BigInteger("344930000000011");
 		baseDataList = imsiDAO.getAllBaseDataByIMSIAndDate(imsi, dateFour, dateFive);
 		assertNotNull(baseDataList);
