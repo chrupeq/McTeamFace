@@ -28,18 +28,20 @@ $(document).ready(function() {
 		$('#modelFailuresModal').addClass('animated bounceOut');
 	});
 	
-//	$('#dateSearch').on('click', function(){
-//		
-//		var firstDate = $("#datetimepicker1").find("input").val();
-//		var secondDate = $("#datetimepicker2").find("input").val();
-//		$('#searchParams').html('You are searching for all IMSI failures between ' + firstDate + ' and ' + secondDate);
-//		$('#queryHeader').addClass('animated fadeOutUp');
-//		$('#queryHeader2').removeClass('animated fadeOutUp');
-//		$('#queryHeader2').addClass('animated fadeInDown');
-//		findAllImsisForDates(firstDate, secondDate);
-//		$('#querysTable').addClass('animated fadeOutUp');
-//		changeContainerCSS('imsiDates');
-//	});
+	$('#dateSearch').on('click', function(){
+		
+		var firstDate = $("#datetimepicker1").find("input").val();
+		var secondDate = $("#datetimepicker2").find("input").val();
+		console.log("dates: " + firstDate + " " + secondDate);
+		alert("same method");
+		$('#searchParams').html('You are searching for all IMSI failures between ' + firstDate + ' and ' + secondDate);
+		$('#queryHeader').addClass('animated fadeOutUp');
+		$('#queryHeader2').removeClass('animated fadeOutUp');
+		$('#queryHeader2').addClass('animated fadeInDown');
+		findAllImsisForDates(firstDate, secondDate);
+		$('#querysTable').addClass('animated fadeOutUp');
+		changeContainerCSS('imsiDates');
+	});
 	
 	$('#imsiStatsModalSearch').on('click', function(){
 		var thirdDate = $("#datetimepicker3").find("input").val();
@@ -78,10 +80,6 @@ $('#backToHomeButton').on('click', function(){
 	hideTable();
 })
 
-if(whichTable == 'imsiDates'){
-
-}
-
 if(whichTable == 'imsiStats'){
 	$('#queryHeader').addClass('animated fadeOutUp');
 	$('#queryHeader2').addClass('animated fadeInDown');
@@ -89,8 +87,8 @@ if(whichTable == 'imsiStats'){
 }
 
 var clearDatePickers = function(){
-	  $('#datetimepicker1').find('input').val("");
-	  $('#datetimepicker2').find('input').val("");
+//	  $('#datetimepicker1').find('input').val("");
+//	  $('#datetimepicker2').find('input').val("");
 	  $('#datetimepicker3').find('input').val("");
 	  $('#datetimepicker4').find('input').val("");
 	  $('#datetimepicker5').find('input').val("");
