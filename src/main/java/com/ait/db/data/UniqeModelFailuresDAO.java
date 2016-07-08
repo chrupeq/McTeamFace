@@ -63,6 +63,7 @@ public List<Base_data> getAllUniqueModelsBetweenDates(int tacNumber, String date
 			b.setHier3_id(BigInteger.valueOf(distinctModelFailures2.get(0)));
 			b.setUser_equipment(distinctStuff.get(0).getUser_equipment());
 			distinctModelFailures1.add(b);
+			System.out.println(distinctModelFailures1.size());
 			return distinctModelFailures1;
 	    }
 		

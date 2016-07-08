@@ -96,4 +96,6 @@ var clearDatePickers = function(){
 	  $('#datetimepicker4').find('input').val("");
 	  $('#datetimepicker5').find('input').val("");
 	  $('#datetimepicker6').find('input').val("");
+	  $('#datetimepicker7').find('input').val("");
+	  $('#datetimepicker8').find('input').val("");
 	};
