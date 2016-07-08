@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 	$("#selectByModel").select2();
 	$("#IMSIs").select2();

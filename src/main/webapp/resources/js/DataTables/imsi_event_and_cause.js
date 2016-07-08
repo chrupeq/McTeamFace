@@ -32,6 +32,17 @@ $(document).ready(function(){
 	
 });	
 
+var loadImsisForSelect = function(){
+	$('#imsiEventIdCauseCode').empty();
+	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
+	    var IMSI2 = "";
+	    $.each(result, function(index, item) {
+	    	$('#imsiEventIdCauseCode').append($("<option></option>")
+                    .attr("value",item)
+                    .text(item));
+	    });
+	});
+}
 var loadEventImsiTable = function(IMSI2){
 	$.ajax({
 		type:'GET',

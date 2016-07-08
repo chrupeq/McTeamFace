@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	getCustomQueryBar();
+	
 })
 
 var getCustomQueryBar = function(){
@@ -54,6 +55,7 @@ var getCustomQueryBar = function(){
 	});
 	
 	$('#allImsiFailuresBetweenDates').on('click', function(){
+		$("#imsiEventIdCauseCode").select2();
 		$('#singleImsiModal').modal('show');
 	})
 	
@@ -72,7 +74,16 @@ var getCustomQueryBar = function(){
 	});
 	
 	$('#imsiEventSelectIdCauseCode').on('click', function(){
+		$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
+		    $.each(result, function(index, item) {
+		    	$('#imsiEventIdCauseCode').append($("<option></option>")
+	                    .attr("value",item)
+	                    .text(item));
+		    });
+		})
+			
 		$('#imsisEventIdAndCauseCode').modal('show');
+	
 	})
 	
 	$('#allFailuresForModel').on('click', function(){
