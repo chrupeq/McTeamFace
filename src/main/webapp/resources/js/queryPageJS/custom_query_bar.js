@@ -58,6 +58,8 @@ var getCustomQueryBar = function(){
 	})
 	
 	$('#imsiWithDates').on("click", function(){
+		$('#datetimepicker1').find('input').val("");
+		$('#datetimepicker2').find('input').val("");
 		 $('#datetimepicker1').datetimepicker({
              viewMode: 'years',
 			 format: 'DD/MM/YYYY HH:mm'

@@ -12,6 +12,8 @@ var showTable = function(){
 	$('queryHeader2').addClass('animated fadeInDown');
 	$('#searchParams').removeClass('animated fadeOutUp');
 	$('#searchParams').addClass('animated fadeInDown');
+	$('#tableDiv').removeClass('hiddenbycostanza');
+	$('#searchParams').removeClass('hiddenbycostanza');
 	clearDatePickers();
 }
 
@@ -33,4 +35,8 @@ var hideTable = function(){
 	$('#queryHeader').addClass('animated fadeInDown');
 	$('#searchParams').removeClass('animated fadeInDown');
 	$('#searchParams').addClass('animated fadeOutUp');
+	$('#tableDiv').removeClass('animated fadeInDown');
+	$('#tableDiv').addClass('animated fadeOutUp');
+	$('#tableDiv').addClass('hiddenbycostanza');
+	$('#searchParams').addClass('hiddenbycostanza');
 }
