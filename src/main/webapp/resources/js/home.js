@@ -64,6 +64,13 @@ $(document).on("click", 'button.editButton', function() {
 	var userId = this.id;
 	findById(userId);
 	$("#userExistsErrorMessageEdit").css('display', 'none');
+	if(userId == 1){
+		$("#usernameFormInputEdit").prop("disabled", "false");
+		$("#jobTitleSelectEdit").prop("disabled", "false");
+	}else{
+		$("#usernameFormInputEdit").removeProp("disabled");
+		$("#jobTitleSelectEdit").removeProp("disabled");
+	}
 	$("#myModalEdit").modal('show');
 
 	$(document).on("click", "#formButtonEdit", function() {

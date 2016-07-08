@@ -68,7 +68,6 @@ function loginAuthentication(details) {
 				url: rootUrl + '/logintime/' + new Date() + '/' + getTheCookieYouNeed('username'),
 				dataType: "json",
 				success: function(details){
-					alert("MUCH SUCCESS.");
 						}
 			});
 			userAccessControl();
