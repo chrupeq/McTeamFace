@@ -48,3 +48,5 @@ INSERT INTO base_data(date_time, cause_code, event_id, failure_class, ue_type, m
 INSERT INTO users(id, firstname, lastname, username, password, job_title) VALUES(1,'Mitja', 'Suncic', 'Suncho', 'nullypointer', 'SE')
 INSERT INTO users(id, firstname, lastname, username, password, job_title) VALUES(2,'Laura', 'Hunt', 'FairyMonkey', 'princess', 'CSR')
 INSERT INTO users(id, firstname, lastname, username, password, job_title) VALUES(3,'Ruaidhri', 'Garrett', 'TheBest', 'TheBestest', 'SA')
+-- fileTimer table --
+INSERT INTO filetimer(id, start_time, end_time) VALUES(1, 'Thu Jul 07 10:58:51 BST 2016', 'Thu Jul 07 10:58:58 BST 2016')

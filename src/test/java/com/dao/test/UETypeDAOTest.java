@@ -38,6 +38,6 @@ public class UETypeDAOTest {
 	public void testThatOnlyUniqueValuesRetrieved() {
 		List<User_equipment> ueList = ueTypeDAO.getAllUniqueModels();
 		assertFalse(ueList.isEmpty());
-		assertEquals(5, ueList.size());
+		assertEquals(4, ueList.size());
 	}
 }

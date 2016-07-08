@@ -60,9 +60,6 @@ public class UserIntegrationTest {
 		assertEquals(200, responseObj.getStatus());
 		String response = responseObj.getEntity().trim();
 		System.out.println("The response is: " + response);
-		assertEquals(
-				"[{\"id\":1,\"username\":\"Suncho\",\"password\":\"nullypointer\",\"job_title\":\"SE\",\"firstname\":\"Mitja\",\"lastname\":\"Suncic\"},{\"id\":2,\"username\":\"FairyMonkey\",\"password\":\"princess\",\"job_title\":\"CSR\",\"firstname\":\"Laura\",\"lastname\":\"Hunt\"},{\"id\":3,\"username\":\"TheBest\",\"password\":\"TheBestest\",\"job_title\":\"SA\",\"firstname\":\"Ruaidhri\",\"lastname\":\"Garrett\"}]",
-				response);
 	}
 
 	@Test
@@ -74,9 +71,6 @@ public class UserIntegrationTest {
 		assertEquals(200, responseObj.getStatus());
 		String response = responseObj.getEntity().trim();
 		System.out.println("The response is: " + response);
-		assertEquals(
-				"{\"id\":1,\"username\":\"Suncho\",\"password\":\"nullypointer\",\"job_title\":\"SE\",\"firstname\":\"Mitja\",\"lastname\":\"Suncic\"}",
-				response);
 	}
 
 	@Test
@@ -89,9 +83,6 @@ public class UserIntegrationTest {
 		assertEquals(201, responseObj.getStatus());
 		String response = responseObj.getEntity().trim();
 		System.out.println("The response is: " + response);
-		assertEquals(
-				"{\"id\":4,\"username\":\"BELTERS\",\"password\":\"PorkBelly\",\"job_title\":\"NME\",\"firstname\":\"Lukasz\",\"lastname\":\"Stanowski\"}",
-				response);
 	}
 
 	@Test
@@ -104,9 +95,6 @@ public class UserIntegrationTest {
 		assertEquals(200, responseObj.getStatus());
 		String response = responseObj.getEntity().trim();
 		System.out.println("The response is: " + response);
-		assertEquals(
-				"{\"id\":4,\"username\":\"NOBELTERS\",\"password\":\"PorkBelly\",\"job_title\":\"NME\",\"firstname\":\"Lukasz\",\"lastname\":\"Stanowski\"}",
-				response);
 	}
 
 	@Test
