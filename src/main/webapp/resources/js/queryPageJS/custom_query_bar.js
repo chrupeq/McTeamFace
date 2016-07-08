@@ -17,8 +17,8 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">List of failure details for given Model</a>'
 			+ '<a href="#" id="imsiStats" class="list-group-item">View IMSI'
 		+ ' Statistics</a>'
-//		+ '<a href="#" id="allImsiFailuresBetweenDates"'
-//		+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
+		+ '<a href="#" id="allImsiFailuresBetweenDates"'
+		+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
 		+ '<a href="#" id="imsiEventSelectIdCauseCode"'
 		+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
 		+ '<a href="#" id="modelsWithDatesLink"'
@@ -27,7 +27,9 @@ var getCustomQueryBar = function(){
 	}else if(getTheCookieYouNeed('job_title') == 'CSR'){
 		
 		customQueryBar = '<a href="#" id="imsiEventSelectIdCauseCode"'
-			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>';
+			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
+			+ '<a href="#" id="allImsiFailuresBetweenDates"'
+			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>';
 			
 	}else if(getTheCookieYouNeed('job_title') == 'SE'){
 		
@@ -35,6 +37,8 @@ var getCustomQueryBar = function(){
 			+ 'IMSI failures for given dates</a>'
 			+ '<a href="#" id="imsiEventSelectIdCauseCode"'
 			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
+			+ '<a href="#" id="allImsiFailuresBetweenDates"'
+			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
 			+ '<a href="#" id="modelsWithDatesLink"'
 			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';
 		

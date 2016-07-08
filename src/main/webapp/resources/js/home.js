@@ -354,6 +354,7 @@ function checkUsernameExists(details) {
 
 $(document).on("click", "#logoutBtn", function() {
 	injectNavBar('logged out');
+	$('#customHeader').empty();
 	hideTable();
 	document.cookie = 'jobTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
 	document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
