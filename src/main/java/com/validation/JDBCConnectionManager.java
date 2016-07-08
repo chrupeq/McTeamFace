@@ -33,7 +33,7 @@ public class JDBCConnectionManager {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3307/ericsson_project";
+			String url = "jdbc:mysql://localhost:3306/ericsson_project";
 			con = DriverManager.getConnection(url, "root", "admin");
 			statement = con.createStatement();
 		} catch (Exception e) {

@@ -129,7 +129,7 @@ public class IMSIRestServiceTest {
 		// we're expecting a String back
         ClientResponse<String> responseObj = request.get(String.class);
         String response = responseObj.getEntity().trim();
-        System.out.println("The response is: " + response);
+        System.out.println("getIMSIsBetweenDatesShouldReturn200 The response is: " + response);
         assertEquals(200, responseObj.getStatus());
 	}
 	@Test
@@ -154,8 +154,13 @@ public class IMSIRestServiceTest {
         String response = responseObj.getEntity().trim();
         System.out.println("getIMSIsWithEventIDAndCauseCodeShouldReturn200() response is: " + response);
         assertEquals(200, responseObj.getStatus());
-        assertEquals("[{\"event_id\":4106,\"cause_code\":\"114106\",\"failure_class\":\"1\",\"imsi\":240210000000013},"
-        		+ "{\"event_id\":4098,\"cause_code\":\"04098\",\"failure_class\":\"1\",\"imsi\":240210000000013}]", response);
+        assertEquals("[{\"event_id\":4106,\"cause_code\":\"11\",\"eventIdCauseCodeDescription\":\"INITIAL CTXT SETUP-TRANSPORT REJECT\","
+        		+ "\"failure_class\":\"1\",\"failureDescription\":\"HIGH PRIORITY ACCESS\","
+        		+ "\"imsi\":240210000000013},"
+        		+ "{\"event_id\":4098,\"cause_code\":\"0\",\"eventIdCauseCodeDescription\":"
+        		+ "\"S1 SIG CONN SETUP-SUCCESS\",\"failure_class\":\"1\","
+        		+ "\"failureDescription\":\"HIGH PRIORITY ACCESS\",\"imsi\":240210000000013}]", 
+        		response);
 	}
 	@Test
 	public void getIMSIsWithEventIDAndCauseCodeShouldReturn404() throws Exception {
@@ -179,11 +184,6 @@ public class IMSIRestServiceTest {
         String response = responseObj.getEntity().trim();
         System.out.println("getIMSIsWithEventIDAndCauseCodeWhenAttributesAreNull() response is: " + response);
         assertEquals(200, responseObj.getStatus());
-        assertEquals("[{\"event_id\":4125,\"cause_code\":\"234125\",\"failure_class\":\"0\",\"imsi\":344930000000011},"
-        		+ "{\"event_id\":4106,\"cause_code\":\"114106\",\"failure_class\":\"1\",\"imsi\":344930000000011},"
-        		+ "{\"event_id\":4097,\"cause_code\":\"134097\",\"failure_class\":\"1\",\"imsi\":344930000000011},"
-        		+ "{\"event_id\":-1,\"cause_code\":\"Cause code could not be determined-1\","
-        		+ "\"failure_class\":\"Failure class could not be determined.\",\"imsi\":344930000000011}]", response);
 	}
 	@Test
 	public void getIMSICountBetweenDatesShouldReturn200One() throws Exception {

@@ -5,14 +5,20 @@ import java.math.BigInteger;
 public class IMSIWithEventIDAndCauseCode {
 	private int event_id;
 	private String cause_code;
+	private String eventIdCauseCodeDescription;
+	
 	private String failure_class;
+	private String failureDescription;
 	private BigInteger imsi;
 	
-	public IMSIWithEventIDAndCauseCode(int event_id, String cause_code, String failure_class, BigInteger imsi) {
+	public IMSIWithEventIDAndCauseCode(int event_id, String cause_code, 
+			String eventIdCauseCodeDescription, String failure_class, String failureDescription, BigInteger imsi) {
 		super();
 		this.event_id = event_id;
 		this.cause_code = cause_code;
+		this.eventIdCauseCodeDescription = eventIdCauseCodeDescription;
 		this.failure_class = failure_class;
+		this.failureDescription = failureDescription;
 		this.imsi = imsi;
 	}
 
@@ -33,6 +39,12 @@ public class IMSIWithEventIDAndCauseCode {
 	public BigInteger getImsi() {
 		return imsi;
 	}
+	public String getFailureDescription() {
+		return failureDescription;
+	}
+	public String getEventIdCauseCodeDescription() {
+		return eventIdCauseCodeDescription;
+	}
 	@Override
 	public boolean equals(Object other){
 		if(other instanceof IMSIWithEventIDAndCauseCode){
@@ -48,7 +60,13 @@ public class IMSIWithEventIDAndCauseCode {
 	}
 	@Override
 	public int hashCode(){
-		cause_code += event_id;
-		return cause_code.hashCode();
+		return getConcatenatedString().hashCode();
+	}
+	private String getConcatenatedString(){
+		String causeCode = cause_code;
+		String failureClass = failure_class;
+		causeCode += failureClass;
+		return causeCode;
+		
 	}
 }
