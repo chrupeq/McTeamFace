@@ -42,7 +42,8 @@ var findAllUniqueModels = function() {
 		type : 'GET',
 		url : rootUrlSelect,
 		dataType : "json",
-		success : loadModelsDatesModal
+		success : loadModelsDatesModal,
+		error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 	});
 };
 
@@ -51,7 +52,8 @@ var loadModelsWithDatesTable = function(seventhDate, eighthDate, selectedTac){
 		type:'GET',
 		url: modelsUrl + "/?tacNumber=" + selectedTac + "&dateOne=" + seventhDate + "&dateTwo=" + eighthDate,
 		dataType:'json',
-		success:loadModelsWithDatesTable1
+		success:loadModelsWithDatesTable1,
+		error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 	});
 }
 

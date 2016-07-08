@@ -70,6 +70,7 @@ var modelQuery = function(){
 			$('#backToHomeButton').on('click', function(){
 				hideTable();
 			})
+			
 			querysTable = $('#querysTable').DataTable( {
 				 pagingType: "full_numbers",
 				 
@@ -87,6 +88,7 @@ var modelQuery = function(){
 			        
 
 			    } );
+			
 			showTable();
 			$('#backToHomeButton').on('click', function(){
 				hideTable();

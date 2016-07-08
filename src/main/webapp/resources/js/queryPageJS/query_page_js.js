@@ -79,8 +79,7 @@ $('#backToHomeButton').on('click', function(){
 })
 
 if(whichTable == 'imsiDates'){
-	
-imsiWithDatesQuery();
+//imsiWithDatesQuery();
 }
 
 if(whichTable == 'imsiStats'){

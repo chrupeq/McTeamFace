@@ -29,7 +29,8 @@ var loadSingleImsiTable = function(date1, date2, imsi){
 			type:'GET',
 			url: numOfIMSIsBetweenTwoDates + 'imsi=' + imsi + '&dateOne=' + date1 + '&dateTwo=' + date2,
 			dataType:'json',
-			success:loadSingleImsis
+			success:loadSingleImsis,
+			error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 		});
 		
 }

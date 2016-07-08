@@ -43,6 +43,9 @@ var loadUniqueModelFailuresTable = function(data){
 	};
 	
 	var loadImsiTable = function(data){
+		if(data.length == 0){
+			$('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
+		}else{
 		$('#querysTable').addClass('animated fadeInDown');
 		querysTable = $('#querysTable').DataTable( {
 			 pagingType: "full_numbers",
@@ -69,5 +72,5 @@ var loadUniqueModelFailuresTable = function(data){
 		        
 
 		    } );
-		
+		}
 		};

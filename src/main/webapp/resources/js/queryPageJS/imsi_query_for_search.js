@@ -9,7 +9,8 @@ var findAllUniqueModels = function() {
 		type : 'GET',
 		url : rootUrlSelect,
 		dataType : "json",
-		success : loadSearchParams
+		success : loadSearchParams,
+		error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 	});
 };
 
@@ -28,7 +29,13 @@ var findAllImsisForDates = function(date1, date2) {
 		type : 'GET',
 		url : rootUrlSelectDates + "?date1=" + date1 + "&date2=" + date2,
 		dataType : "json",
-		success : loadImsiTable
+		success : function(data){
+			imsiWithDatesQuery();
+			loadImsiTable(data);
+		},
+		error:function(){
+			$('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
+		}
 	});
 };
 
@@ -38,6 +45,7 @@ var imsiQuery = function(dateThree, dateFour){
 			type:'GET',
 			url: imsiStatsURL + '?dateOne=' + dateThree + '&dateTwo=' + dateFour,
 			dataType:'json',
-			success:buildIMSIStatsTable
+			success:buildIMSIStatsTable,
+			error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 		});
 }

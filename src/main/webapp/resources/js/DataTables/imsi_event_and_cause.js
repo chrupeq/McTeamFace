@@ -37,7 +37,8 @@ var loadEventImsiTable = function(IMSI2){
 		type:'GET',
 		url: imsiEventUrl + IMSI2,
 		dataType:'json',
-		success:loadImsiEventIdCauseCodeTable
+		success:loadImsiEventIdCauseCodeTable,
+		error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 	});
 }
 
