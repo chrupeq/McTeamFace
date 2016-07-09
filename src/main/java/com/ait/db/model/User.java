@@ -24,6 +24,7 @@ public class User {
 	private String username;
 	private String password;
 	private String job_title;
+	private String last_login;
 	
 	@JsonProperty("id")
 	public int getId() {
@@ -77,6 +78,15 @@ public class User {
 
 	public void setLastName(String lastname) {
 		this.lastname = lastname;
+	}
+	
+	@JsonProperty("last_login")
+	public String getLastLogin(){
+		return last_login;
+	}
+	
+	public void setLastLogin(String last_login){
+		this.last_login = last_login;
 	}
 
 }

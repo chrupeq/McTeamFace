@@ -21,7 +21,7 @@ import com.ait.db.model.User;
 import com.stringgenerator.SessionIdentifierGenerator;
 
 /**
- * @author A00236944
+ * User Web Service class
  *
  */
 @Path("/users")
@@ -31,40 +31,19 @@ public class UserWS {
 
 	@EJB
 	private UsersDAO userDao;
-	
+
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getAllUsers() {
-		List<User> users=userDao.getAllUsers();
+		List<User> users = userDao.getAllUsers();
 		return Response.status(200).entity(users).build();
 	}
-	
-
-	@EJB
-	private SessionDAO sessionDao;
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findAllUsers() {
-		List<User> users=userDao.getAllUsers();
-		return Response.status(200).entity(users).build();
-	}
-	
-		@Consumes({ MediaType.APPLICATION_JSON })
-	public Response findAllUsers(User userDetails) {
-
 		List<User> users = userDao.getAllUsers();
-		for (User u : users) {
-
-			if (userDetails.getUsername().substring(1, userDetails.getUsername().length() - 1).equals(u.getUsername())
-					&& userDetails.getPassword().substring(1, userDetails.getPassword().length() - 1)
-							.equals(u.getPassword())) {
-				String sessionId = SessionIdentifierGenerator.nextSessionId();
-				sessionDao.addEntry(sessionId, u.getJobTitle(), u.getUsername());
-				return Response.status(200).entity(200).header("sessionId", sessionId).build();
-			}
-		}
-		return Response.status(200).entity(300).build();
+		return Response.status(200).entity(users).build();
 	}
 
 	@GET
@@ -74,7 +53,7 @@ public class UserWS {
 		User user = userDao.getUser(id);
 		return Response.status(200).entity(user).build();
 	}
-	
+
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes("application/json")
@@ -82,7 +61,6 @@ public class UserWS {
 		userDao.save(user);
 		return Response.status(201).entity(user).build();
 	}
-
 
 	@PUT
 	@Path("/{id}")
@@ -97,6 +75,14 @@ public class UserWS {
 	@Path("/{id}")
 	public Response deleteUser(@PathParam("id") final int userId) {
 		userDao.delete(userId);
+		return Response.status(204).build();
+	}
+	
+	@POST
+	@Path("/logintime/{newlogindateandtime}/{username}")
+	public Response updateLogin(@PathParam("newlogindateandtime") final String loginTime, @PathParam("username") final String username) {
+		System.out.println(loginTime + " " + username);
+		userDao.updateLastLogin(username, loginTime);
 		return Response.status(204).build();
 	}
 

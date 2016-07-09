@@ -1,12 +1,5 @@
 @CHARSET "ISO-8859-1";
 
-#dropUpQuery {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
 #queryHeader {
 	position: fixed;
 	top: 30%;
@@ -19,13 +12,18 @@
   -webkit-text-fill-color: transparent;
 }
 
+.nav-tabs {
+	font-family: thin font;
+	font-size: 20px;
+}
+
 @font-face {
 	font-family: 'thin font';
 	src: url('fonts/thin lines and curves.ttf');
 }
 
-#selectByModel {
-	width: 200%;
+.stretchSelect {
+	width: 200px;
 }
 
 #modelSearchDiv {
@@ -41,10 +39,8 @@
 }
 
 #tableDiv {
-	margin: auto;
-	margin-top: 5%;
+	float: left;
 	width: 80%;
-	top: 5%;
 }
 
 #modelHeader {
@@ -67,11 +63,15 @@ table#querysTable tr.odd td {
 
 #backToHomeButton {
 	font-family: thin font;
-	
 }
 
 #buttonDiv{
-	margin-left: 83%;
+	float: right;
+	font-family: thin font;
+}
+
+#infoDiv {
+	font-family: thin font;
 }
 
 .bigdrop {
@@ -86,4 +86,77 @@ table#querysTable tr.odd td {
 #costanzaLogo {
 	width: 10%;
 	height: 5%;
+}
+
+#queryList {
+	margin-top: 10%;
+	margin-left: 2.5%;
+	width: 10%;
+	float: left;
+}
+
+#container {
+	margin-left: 10%;
+}
+
+#customHeader {
+	margin-left: 5%;
+	font-family: thin font;
+}
+
+#costanzaLogoLogin{
+	margin-left: 25%;
+	height: 50%;
+	width: 50%;
+}
+
+#importDatasetDiv {
+	text-align: center;
+	margin-left: 40%;
+	margin-right: 40%;
+	margin-top: 5%;
+}
+
+#fileUploaderHead {
+	font-family: thin font;
+	text-align: center;
+	margin-left: 40%;
+	margin-right: 40%;
+	margin-top: 22%;
+	
+}
+
+#querysTable {
+	margin-left: 10%;
+}
+
+#datetimepicker2 {
+	margin-bottom: 100px;
+}
+
+#datetimediv{
+	
+}
+
+.fiftyPercent {
+	width: 10%;
+}
+
+.feckthis{
+   position:absolute;
+   width: 15%;
+   height: 78%;
+    margin-top: 4.5%;
+   margin-left: 108%;
+}
+
+#searchParams{
+	font-family: thin font;
+	font-size: 20px;
+	color: blue;
+}
+
+#timecodes {
+	font-family: thin font;
+	font-size: 20px;
 }

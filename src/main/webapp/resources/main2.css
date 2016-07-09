@@ -1,0 +1,111 @@
+
+html, body {
+	width:100%;
+	height:100%;
+	font-family:"Helvetica Neue", Helvetica, sans-serif;
+	color:#444;
+	background:#f0f0f0;
+}
+
+.hiddenbycostanza {
+	visibility: hidden;
+}
+
+.otherbutton {
+  width: 100%;
+  height: 100%;
+  max-height: 60px;
+  color: #fff;
+  display: block;
+  border: none;
+  padding: 10px 10px;
+  background: #475a9e;
+  margin-top: 20px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border: 0px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 2px 2px;
+  border-bottom-width: 7px;
+}
+	
+/*Login and Logout CSS */
+
+.wrap {
+	width: 900px;
+	margin-left:auto;
+	margin-right:auto;
+}
+	
+.login {
+  border-radius: 2px 2px 5px 5px;
+  padding: 10px 20px 20px 20px;
+  width: 90%;
+  max-width: 320px;
+  background: #ffffff;
+  position: relative;
+  padding-bottom: 80px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+  margin-left:auto;
+  margin-right:auto; 
+	
+}
+
+
+.login .title {
+  position: centre;
+  color: #444;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding-left: 120px;
+  padding-bottom: 15px;
+  margin: 10px 0 30px 0;
+  border-bottom: 1px solid #eee;
+ 
+}
+
+input[type=text],
+input[type=password] {
+  color: #777;
+  padding-left: 10px;
+  margin: 10px;
+  margin-top: 10px;
+  margin-left: 18px;
+  width: 250px;
+  height: 35px;
+  border-radius: 2px;
+}
+
+#errorText {
+	font-family:"Helvetica Neue", Helvetica, sans-serif;
+	color: red;
+	font-weight: bold;
+	height:25px;
+	padding-top:25px;
+	
+}
+
+#logoutBtn {
+	float:right;
+}
+
+/*Home header CSS */
+
+
+/*Form CSS */
+
+form {
+	margin: 0 auto;
+	margin-top: 20px;	
+}
+
+
+label {  
+  display: inline-block;
+  margin-left: 18px;
+  padding-top: 10px;
+  font-size: 14px;
+}
+
+#my
+

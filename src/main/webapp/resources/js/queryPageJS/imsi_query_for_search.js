@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	findAllUniqueModels();
-	$(".js-example-basic-multiple").select2();
+	$(".js-example-basic-single").select2();
 	});
 
 var rootUrlSelect = "http://localhost:8080/GroupProject2016/rest/unique_model";
@@ -9,15 +9,16 @@ var findAllUniqueModels = function() {
 		type : 'GET',
 		url : rootUrlSelect,
 		dataType : "json",
-		success : loadSearchParams
+		success : loadSearchParams,
+		error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 	});
 };
 
 var loadSearchParams = function(data){
 	$.each(data, function(index, element) {
 		$('#selectByModel').append($("<option></option>")
-		                    .attr("value",element[2])
-		                    .text(element[0] + ' ' + element[1]));
+		                    .attr("value", element.tac)
+		                    .text(element.manufacturer + ' ' + element.marketing_name));
 		
 	});
 }
@@ -28,17 +29,23 @@ var findAllImsisForDates = function(date1, date2) {
 		type : 'GET',
 		url : rootUrlSelectDates + "?date1=" + date1 + "&date2=" + date2,
 		dataType : "json",
-		success : loadImsiTable
+		success : function(data){
+			imsiWithDatesQuery();
+			loadImsiTable(data);
+		},
+		error:function(){
+			$('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
+		}
 	});
 };
 
 var imsiQuery = function(dateThree, dateFour){
-	$('#container').addClass('animated fadeOutUp');
 		console.log("dates: " + dateThree + " " + dateFour);
 		$.ajax({
 			type:'GET',
 			url: imsiStatsURL + '?dateOne=' + dateThree + '&dateTwo=' + dateFour,
 			dataType:'json',
-			success:buildIMSIStatsTable
+			success:buildIMSIStatsTable,
+			error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 		});
 }

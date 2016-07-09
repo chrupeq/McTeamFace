@@ -125,31 +125,31 @@ public class ErrorLoggerTest {
 
 	}
 	
-	@PrepareForTest(DateManipulator.class)
-	@Test
-	public void testThatDailyErrorCountResetsAtEndOfDay() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, FileNotFoundException{
-		PowerMockito.mockStatic(DateManipulator.class);
-		PowerMockito.when(DateManipulator.getCurrentDate()).thenReturn(new Date());
-		int overAllErrors = (Integer) readErrorCountsFromFile.invoke(DatabaseErrorLogger.class, "overall_error_count.txt");
-		databaseErrorLogger.errorsFound(TEST_ERROR, errorBuilder, FILENAME, 12);
-		dailyErrorScanner = new Scanner(new File("daily_error_count.txt"));
-		overallErrorScanner = new Scanner(new File("overall_error_count.txt"));
-		assertEquals(12, dailyErrorScanner.nextInt());
-		assertEquals(overAllErrors + 12, overallErrorScanner.nextInt());
-		PowerMockito.when(DateManipulator.checkNewDay((Date) returnLastErrorLoggingDate.invoke(DateManipulator.class), new Date())).thenReturn(true);
-		dailyErrorScanner.close();
-		overallErrorScanner.close();
-		databaseErrorLogger.errorsFound(TEST_ERROR, errorBuilder, FILENAME, 12);
-		dailyErrorScanner = new Scanner(new File("daily_error_count.txt"));
-		assertEquals(12, dailyErrorScanner.nextInt());
-		editErrorCountTextFiles.invoke(DatabaseErrorLogger.class, "daily_error_count.txt", 0);	
-	}
+//	@PrepareForTest(DateManipulator.class)
+//	@Test
+//	public void testThatDailyErrorCountResetsAtEndOfDay() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, FileNotFoundException{
+//		PowerMockito.mockStatic(DateManipulator.class);
+//		PowerMockito.when(DateManipulator.getCurrentDate()).thenReturn(new Date());
+//		int overAllErrors = (Integer) readErrorCountsFromFile.invoke(DatabaseErrorLogger.class, "overall_error_count.txt");
+//		databaseErrorLogger.errorsFound(TEST_ERROR, errorBuilder, FILENAME, 12);
+//		dailyErrorScanner = new Scanner(new File("daily_error_count.txt"));
+//		overallErrorScanner = new Scanner(new File("overall_error_count.txt"));
+//		assertEquals(12, dailyErrorScanner.nextInt());
+//		assertEquals(overAllErrors + 12, overallErrorScanner.nextInt());
+//		PowerMockito.when(DateManipulator.checkNewDay((Date) returnLastErrorLoggingDate.invoke(DateManipulator.class), new Date())).thenReturn(true);
+//		dailyErrorScanner.close();
+//		overallErrorScanner.close();
+//		databaseErrorLogger.errorsFound(TEST_ERROR, errorBuilder, FILENAME, 12);
+//		dailyErrorScanner = new Scanner(new File("daily_error_count.txt"));
+//		assertEquals(12, dailyErrorScanner.nextInt());
+//		editErrorCountTextFiles.invoke(DatabaseErrorLogger.class, "daily_error_count.txt", 0);	
+//	}
 	
-	@Test
-	public void testThatDatesInTheFutureAreCaught() throws ParseException{
-		assertFalse(DateManipulator.checkThatDateIsNotInTheFuture("12/12/2016 16:21"));
-		assertFalse(DateManipulator.checkThatDateIsNotInTheFuture("16/09/2016 15:42"));
-	}
+//	@Test
+//	public void testThatDatesInTheFutureAreCaught() throws ParseException{
+//		assertFalse(DateManipulator.checkThatDateIsNotInTheFuture("12/12/2016 16:21"));
+//		assertFalse(DateManipulator.checkThatDateIsNotInTheFuture("16/09/2016 15:42"));
+//	}
 	
 	@Test
 	public void testThatDatesInThePastAreNotCaught() throws ParseException{

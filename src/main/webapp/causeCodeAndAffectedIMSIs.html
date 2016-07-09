@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>IMSI Statistics</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <link rel="stylesheet"
@@ -10,21 +10,20 @@
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/jquery.dataTables.min.js"></script>
 <script src="resources/js/dataTables.bootstrap.min.js"></script>
-<script src="resources/js/displayIMSIStats.js"></script>
+<script src="resources/js/causeCodeAndAffectedIMSIs.js"></script>
 </head>
 <body>
-<button type="button" id="imsiEventCauseButton">View IMSI Codes With Event Ids and Cause Codes</button>
-<div id="select_box">
-		Select IMSI Code:
-		<select id="IMSIs" name="IMSIs">
+<h2>Choose a Cause Code and see Affected IMSIs</h2>
+	<div id="select_box">
+		<label>Select Cause Code:</label>
+		<select class="causeCodes" name="causeCode">
 		<option></option>
-		</select><br>
-		</div>
+		</select>
+	</div>
 <h3 id="tableName"></h3>
-<table class="table table-striped table-hover table-condensed" id="imsiTable">
-<thead id="tableHeader"></thead>
-<tbody> </tbody>
+<table class="table table-striped table-hover table-condensed" id="affectedIMSIsTable">
+	<thead id="tableHeader"></thead>
+	<tbody> </tbody>
 </table>
-
 </body>
 </html>
