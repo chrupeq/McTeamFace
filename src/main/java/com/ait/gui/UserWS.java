@@ -51,7 +51,8 @@ public class UserWS {
 	@Path("/{id}")
 	public Response findUserById(@PathParam("id") int id) {
 		User user = userDao.getUser(id);
-		return Response.status(200).entity(user).build();
+		Response r = Response.status(200).entity(user).header("Content-Length", user.toString().length()).build();
+		return Response.status(200).entity(user).header("Content-Length", 100).build();
 	}
 
 	@POST

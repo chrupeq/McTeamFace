@@ -22,12 +22,14 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
 <script src="resources/js/bootstrap.js"></script>
+<script src="resources/js/DateRegex/data_validation.js"></script>
 <script src="resources/js/queryPageJS/dynamic_table_headers.js"></script>
 <script src="resources/js/moment.min.js"></script>
 <script src="resources/js/queryPageJS/custom_query_bar.js"></script>
 <script src="resources/js/main.js"></script>
 <script src="resources/js/home.js"></script>
 <script src="resources/js/queryPageJS/query_manager.js"></script>
+<script src="resources/js/queryPageJS/jquery.ajax-progress.js"></script>
 <script src="resources/js/queryPageJS/query_page_js.js"></script>
 <script src="resources/js/queryPageJS/custom_nav_bar.js"></script>
 <script src="resources/js/DataTables/single_imsi_failure_dates.js"></script>
@@ -35,6 +37,8 @@
 <script src="resources/js/DataTables/models_with_dates.js"></script>
 <script src="resources/js/tables_coming_and_going.js"></script>
 <script src="resources/js/timer/filetimer.js"></script>
+ <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+ <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
 
 <script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
 <script
@@ -67,7 +71,7 @@
 		<img id="costanzaLogo" src="resources/images/seinfeld.png"></img>
 		<div id="customHeader" class="hiddenbycostanza animated fadeInDown"></div>
 		<button type="button" id="logoutBtn" class="btn btn-default hiddenbycostanza">Logout</button>
-
+		<div id="prog"></div>
 	</div>
 
 	<ul class="nav nav-tabs" id="tabs">
@@ -140,6 +144,7 @@
 		<!-- -----------------------------FORM------------------------------------------- -->
 		<div id="form" class="tab-pane fade animated fadeInDown">
 			<h3>User Database Information</h3>
+			<div id="prog"></div>
 			<button id="btnAddUser" class="btn btn-primary btn-sm clickToAdd">Add
 				New User</button>
 			<br>
@@ -236,6 +241,7 @@ alert(errMsg);
 		</div>
 		<div id="queryBody" class="tab-pane fade in">
 			<div id="queryList" class="list-group">
+			
 			</div>
 			<div id="infoDiv"></div>
 			<div id="buttonDiv"></div>

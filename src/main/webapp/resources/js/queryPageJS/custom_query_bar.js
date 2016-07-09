@@ -11,7 +11,6 @@ var getCustomQueryBar = function(){
 	}
 	
 	else if(getTheCookieYouNeed('job_title') == 'NME'){
-		
 		customQueryBar ='<a href="#" id="imsiWithDates" class="list-group-item">List of '
 			+ 'IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
 			+ 'class="list-group-item">List of failure details for given Model</a>'
@@ -40,11 +39,10 @@ var getCustomQueryBar = function(){
 			+ '<a href="#" id="allImsiFailuresBetweenDates"'
 			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
 			+ '<a href="#" id="modelsWithDatesLink"'
-			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';
-		
+			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';	
 	}
-	
-	$('#queryList').html(customQueryBar);
+	$('#queryTitle').text();
+	$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
 	
 	$("#selectByModel").select2({dropdownCssClass : 'bigdrop'}); 
 	$('#imsiWithDates').on("click", function(){
@@ -108,6 +106,7 @@ var getCustomQueryBar = function(){
 		$('#queryHeader').addClass('animated fadeOutUp');
 		$('#queryHeader2').removeClass('animated fadeOutUp');
 		$('#queryHeader2').addClass('animated fadeInDown');
+		checkDates(firstDate, secondDate);
 		findAllImsisForDates(firstDate, secondDate);
 		$('#querysTable').addClass('animated fadeOutUp');
 		changeContainerCSS('imsiDates');
