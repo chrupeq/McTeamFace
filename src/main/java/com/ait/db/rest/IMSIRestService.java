@@ -36,6 +36,7 @@ import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
 import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsObjectFactory;
 import com.ait.imsiStats.IMSIStatsProducer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Path("/imsi")
@@ -102,7 +103,9 @@ public class IMSIRestService {
 		if(imsiList.isEmpty()) {
 			return Response.status(404).build();
 		}
-		return Response.status(200).entity(imsiList).build();
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonInString = mapper.writeValueAsString(imsiList);
+		return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
 		}catch(Exception e){
 			e.printStackTrace();
 			return Response.status(400).build();

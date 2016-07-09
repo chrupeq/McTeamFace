@@ -25,10 +25,29 @@ var loadSearchParams = function(data){
 
 var rootUrlSelectDates = "http://localhost:8080/GroupProject2016/rest/imsi/get_imsis_between_dates";
 var findAllImsisForDates = function(date1, date2) {
+	$('#prog').progressbar({ value: 0 });
 	$.ajax({
 		type : 'GET',
 		url : rootUrlSelectDates + "?date1=" + date1 + "&date2=" + date2,
 		dataType : "json",
+		progress: function(e) {
+	        //make sure we can compute the length
+	        if(e.lengthComputable) {
+	            //calculate the percentage loaded
+	            var pct = (e.loaded / e.total) * 100;
+	            $('#prog')
+                .progressbar('option', 'value', pct)
+                .children('.ui-progressbar-value')
+                .html(pct.toPrecision(3) + '%')
+                .css('display', 'block');
+
+	            //log percentage loaded
+	        }
+	        //this usually happens when Content-Length isn't set
+	        else {
+	            console.warn('Content Length not reported!');
+	        }
+	    },
 		success : function(data){
 			imsiWithDatesQuery();
 			loadImsiTable(data);

@@ -21,6 +21,7 @@ import com.ait.db.model.Base_data;
 import com.ait.db.model.UniqueFailures;
 import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsProducer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Stateless
 @LocalBean
@@ -67,8 +68,9 @@ public class UniqueModelFailuresRestService {
 			if(baseDataList.isEmpty()) {
 				return Response.status(404).build();
 			}
-			System.out.println(baseDataList.size());
-			return Response.status(200).entity(baseDataList).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(baseDataList);
+			return Response.status(200).entity(baseDataList).header("Content-Length", jsonInString.length()).build();
 		} catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(400).build();

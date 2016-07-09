@@ -91,6 +91,9 @@ table#querysTable tr.odd td {
 #queryList {
 	margin-top: 10%;
 	margin-left: 2.5%;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 25%;
 	width: 10%;
 	float: left;
 }
@@ -159,4 +162,16 @@ table#querysTable tr.odd td {
 #timecodes {
 	font-family: thin font;
 	font-size: 20px;
+}
+
+#queryTitle {
+	font-family: thin font;
+	font-size: 20px;
+	text-align: center;
+}
+
+#queries {
+	padding-left: 15%;
+	padding-right: 15%;
+	padding-bottom: 15%;
 }

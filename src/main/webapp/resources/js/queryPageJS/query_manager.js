@@ -1,4 +1,28 @@
 $(document).ready(function() {
+	 $('#datetimepicker3').datetimepicker({
+         viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+     });
+	 $('#datetimepicker4').datetimepicker({
+		 viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+    });
+	 $('#datetimepicker5').datetimepicker({
+         viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+     });
+	 $('#datetimepicker6').datetimepicker({
+		 viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+    });
+	 $('#datetimepicker7').datetimepicker({
+         viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+     });
+	 $('#datetimepicker8').datetimepicker({
+		 viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+    });
 	$('#imsiWithDates').on("click", function(){
 		 $('#datetimepicker1').datetimepicker({
              viewMode: 'years',

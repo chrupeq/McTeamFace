@@ -317,7 +317,7 @@ function checkUsernameExistsEdit(details, userId) {
 var getDatabaseDetails = function() {
 	console.log("getting details");
 
-	$.ajax({
+	$.ajax({  
 		type : 'POST',
 		url : rootUrl2,
 		dataType : "json",
@@ -436,7 +436,7 @@ var revealCustomHeader = function() {
 	  
 	if (name != "") {
 		if(getTheCookieYouNeed('last_login') != ""){
-			$('#customHeader').html('<h2>' + timeOfDay + name +'!</h2><br><h3>Your last login was ' + getTheCookieYouNeed('last_login'));
+			$('#customHeader').html('<h4>' + timeOfDay + name +'!</h4><h4>Your last login was ' + getTheCookieYouNeed('last_login') + '</h4>');
 		}else{
 		$('#customHeader').html('<h2>' + timeOfDay + name +'!</h2>');
 		}
