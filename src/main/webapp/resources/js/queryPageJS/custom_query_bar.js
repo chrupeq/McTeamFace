@@ -1,6 +1,5 @@
 $(document).ready(function(){
-	getCustomQueryBar();
-	
+	getCustomQueryBar();	
 })
 
 var getCustomQueryBar = function(){
@@ -22,6 +21,7 @@ var getCustomQueryBar = function(){
 		+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
 		+ '<a href="#" id="modelsWithDatesLink"'
 			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';
+		$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
 		
 	}else if(getTheCookieYouNeed('job_title') == 'CSR'){
 		
@@ -29,6 +29,7 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
 			+ '<a href="#" id="allImsiFailuresBetweenDates"'
 			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>';
+		$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
 			
 	}else if(getTheCookieYouNeed('job_title') == 'SE'){
 		
@@ -40,9 +41,9 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
 			+ '<a href="#" id="modelsWithDatesLink"'
 			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';	
+		$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
 	}
-	$('#queryTitle').text();
-	$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
+
 	
 	$("#selectByModel").select2({dropdownCssClass : 'bigdrop'}); 
 	$('#imsiWithDates').on("click", function(){
