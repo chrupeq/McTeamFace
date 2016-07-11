@@ -27,6 +27,7 @@ var findTopTenFailures = function(date1, date2){
 		    },
 			success: function(data){
 				loadTopTenTable(data);
+				instantChart(data);
 				$('#queryprogressouter').mousemove(function(){
 					$('#queryprogressouter').removeClass('animated fadeInDown');
 					$('#queryprogressouter').addClass('animated fadeOutUp');
@@ -86,6 +87,7 @@ var findTopTenFailures = function(date1, date2){
 			$('#backToHomeButton').on('click', function(){
 				hideTable();
 			});
+			
 		};
 	
 	
