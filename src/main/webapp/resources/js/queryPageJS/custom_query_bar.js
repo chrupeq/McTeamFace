@@ -20,7 +20,9 @@ var getCustomQueryBar = function(){
 		+ '<a href="#" id="imsiEventSelectIdCauseCode"'
 		+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
 		+ '<a href="#" id="modelsWithDatesLink"'
-			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';
+			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>'
+			+ '<a href="#" id="topTenQuery"'
+			+ 'class="list-group-item">Top 10 Market/Operator/Cell ID failures for given dates</a>';
 		$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
 		
 	}else if(getTheCookieYouNeed('job_title') == 'CSR'){
@@ -116,4 +118,20 @@ var getCustomQueryBar = function(){
 	$('#modelsWithDatesLink').on('click', function(){
 		$('#modelsWithDatesModal').modal('show');
 	})
+	$('#topTenQuery').on('click', function(){
+	$('#topTenModal').modal('show');
+	})
+	
+	$('#topTenSearch').on('click', function(){
+		var firstDate = $("#datetimepicker9").find("input").val();
+		var secondDate = $("#datetimepicker10").find("input").val();
+		$('#searchParams').html('You are searching for the top 10 Market/Operator/Cell ID failures between  ' + firstDate + ' and ' + secondDate);
+		$('#queryHeader').addClass('animated fadeOutUp');
+		$('#queryHeader2').removeClass('animated fadeOutUp');
+		$('#queryHeader2').addClass('animated fadeInDown');
+		checkDates(firstDate, secondDate);
+		findTopTenFailures(firstDate, secondDate);
+		$('#querysTable').addClass('animated fadeOutUp');
+		changeContainerCSS('imsiDates');
+	});
 }

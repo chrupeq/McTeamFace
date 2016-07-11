@@ -157,7 +157,6 @@ public class IMSIRestService {
 		List<IMSIStats> imsiList = imsiStatsProducer.getListOfIMSIStatsObjectsWithFailuresBetweenDates();
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonInString = mapper.writeValueAsString(imsiList);
-		System.out.println(jsonInString.length());
 		return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -173,15 +172,15 @@ public class IMSIRestService {
 		dateParser = new DateParser();
 		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
 		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
-		System.out.println(dateOne);
-		System.out.println(dateTwo);
 		try {
 			List<TopTenMarketOperatorCellIdCombinations> imsiList = topTenDAO.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateOne, dateTwo);
 			
 			if(imsiList.isEmpty()) {
 				return Response.status(404).build();
 			} 
-			return Response.status(200).entity(imsiList).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(imsiList);
+			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
 		} catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(400).build();

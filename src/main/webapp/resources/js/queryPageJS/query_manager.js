@@ -35,6 +35,15 @@ $(document).ready(function() {
 		loadDateModal();
 	});
 	
+	 $('#datetimepicker9').datetimepicker({
+         viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+     });
+	 $('#datetimepicker10').datetimepicker({
+		 viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+    });
+	
 	$('#allFailuresForModel').on('click', function(){
 		$('#modelFailuresModal').modal('show');
 		$('#modalTitle2').html('Count failures for a given model with unique event ID and cause code');
