@@ -6,17 +6,25 @@ public class TopTenMarketOperatorCellIdCombinations implements Comparable<TopTen
 	private int operatorMNC;
 	private int cellId;
 	private String operatorDescription;
-	private Integer failureCount;
+	private String country;
+	private Long failureCount;
 	
 	public TopTenMarketOperatorCellIdCombinations(int marketMCC, int operatorMNC,
-			String operatorDescription, int cellId){
+			String operatorDescription, String country, int cellId, long failureCount){
 		this.marketMCC=marketMCC;
 		this.operatorMNC=operatorMNC;
 		this.operatorDescription = operatorDescription;
 		this.cellId=cellId;
+		this.failureCount = failureCount;
+		this.country = country;
 		
 	}
 	
+	public String getCountry() {
+		return country;
+	}
+
+
 	public int getMarketMCC(){
 		return marketMCC;
 	}
@@ -33,36 +41,10 @@ public class TopTenMarketOperatorCellIdCombinations implements Comparable<TopTen
 		return operatorDescription;
 	}
 
-	public Integer getFailureCount() {
+	public Long getFailureCount() {
 		return failureCount;
 	}
 	
-	public void setFailureCount(Integer failureCount) {
-		this.failureCount = failureCount;
-	}
-
-
-	public int getUniqueIdentifier() {
-		return this.marketMCC + this.operatorMNC + this.cellId;
-	}
-	
-	
-	@Override
-	public boolean equals(Object object) {
-		if(object instanceof TopTenMarketOperatorCellIdCombinations) {
-			TopTenMarketOperatorCellIdCombinations other = (TopTenMarketOperatorCellIdCombinations) object;
-			return this.getUniqueIdentifier() == other.getUniqueIdentifier();
-		}
-		return false;
-	}
-
-	@Override 
-	public int hashCode() {
-		String sumOfMccMncCellId = Integer.toString(this.getUniqueIdentifier());
-		return sumOfMccMncCellId.hashCode();
-	}
-
-
 	@Override
 	public int compareTo(TopTenMarketOperatorCellIdCombinations that) {
 		

@@ -1,6 +1,7 @@
 package com.ait.db.data;
 
 import java.math.BigInteger;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -21,7 +22,8 @@ import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
-import com.ait.db.model.TopTenMarketOperatorCellIdFactory;
+
+
 
 @Stateless
 @LocalBean
