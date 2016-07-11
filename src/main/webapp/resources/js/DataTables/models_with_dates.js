@@ -48,30 +48,31 @@ var findAllUniqueModels = function() {
 };
 
 var loadModelsWithDatesTable = function(seventhDate, eighthDate, selectedTac){
-	$('#prog').progressbar({ value: 0 });
+	$('#queryprogress').css('width', '0%');
+ 	$('#queryprogress').text('0%');
+	$('#queryprogressouter').removeClass('animated fadeOutUp');
+	$('#queryprogressouter').addClass('animated fadeInDown');
 	$.ajax({
 		type:'GET',
 		url: modelsUrl + "/?tacNumber=" + selectedTac + "&dateOne=" + seventhDate + "&dateTwo=" + eighthDate,
 		dataType:'json',
 		progress: function(e) {
-	        //make sure we can compute the length
 	        if(e.lengthComputable) {
-	            //calculate the percentage loaded
 	            var pct = (e.loaded / e.total) * 100;
-	            $('#prog')
-                .progressbar('option', 'value', pct)
-                .children('.ui-progressbar-value')
-                .html(pct.toPrecision(3) + '%')
-                .css('display', 'block');
-
-	            //log percentage loaded
+	            $('#queryprogress').css('width', pct.toPrecision(3) + '%');
+	        	$('#queryprogress').text(pct.toPrecision(3) + '%');
 	        }
-	        //this usually happens when Content-Length isn't set
 	        else {
 	            console.warn('Content Length not reported!');
 	        }
 	    },
-		success:loadModelsWithDatesTable1,
+		success: function(data){
+			loadModelsWithDatesTable1(data);
+			$('#queryprogressouter').mousemove(function(){
+				$('#queryprogressouter').removeClass('animated fadeInDown');
+				$('#queryprogressouter').addClass('animated fadeOutUp');
+			});
+		},
 		error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 	});
 }

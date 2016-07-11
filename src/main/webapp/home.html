@@ -38,6 +38,7 @@
 <script src="resources/js/DataTables/models_with_dates.js"></script>
 <script src="resources/js/tables_coming_and_going.js"></script>
 <script src="resources/js/timer/filetimer.js"></script>
+<script src="resources/js/ProgressBars/data_persistence_progress.js"></script>
  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
 <script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
@@ -71,7 +72,6 @@
 		<img id="costanzaLogo" src="resources/images/seinfeld.png"></img>
 		<div id="customHeader" class="hiddenbycostanza animated fadeInDown"></div>
 		<button type="button" id="logoutBtn" class="btn btn-default hiddenbycostanza">Logout</button>
-		<div id="prog"></div>
 	</div>
 
 	<ul class="nav nav-tabs" id="tabs">
@@ -207,7 +207,7 @@ contentType: "application/json; charset=utf-8",
 
 dataType: "json",
 
-success: setDate(),
+success: checkUpload(),
 
 failure: function(errMsg) {
 
@@ -226,9 +226,14 @@ alert(errMsg);
 				<button type="submit" id="submit" name="submit">Submit</button>
 				</span>
 				<br><br>
-				<div id="timecodes"></div>
+			<!-- 	<div id="progUploadDataset"></div>  -->
 			</div>
-			
+			<div class="progress">
+  <div id="fileuploadprogress" class="progress-bar" role="progressbar" aria-valuenow="100"
+  aria-valuemin="0" aria-valuemax="100">
+    0%
+  </div>
+</div>
 		</div>
 		<div id="contactus" class="tab-pane fade">
 			<h3>Contact Us</h3>
@@ -255,6 +260,12 @@ alert(errMsg);
 						<h2 id="queryHeader" class="animated fadeInDown">Query Selector</h2>
 					</div>
 				</div>
+				<div id="queryprogressouter" class="progress animated fadeOutUp">
+  <div id="queryprogress" class="progress-bar" role="progressbar" aria-valuenow="100"
+  aria-valuemin="0" aria-valuemax="100">
+    0%
+  </div>
+</div>
 				<div id="searchParams"></div>
 				<div id="tableDiv">
 				

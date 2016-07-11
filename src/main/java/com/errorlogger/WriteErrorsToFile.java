@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import com.fileuploader.ExcelFileUploader;
+
 public class WriteErrorsToFile extends DateManipulator{
 
 	private static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yy");
@@ -27,6 +29,7 @@ public class WriteErrorsToFile extends DateManipulator{
 				errorWriter.close();
 				DatabaseErrorLogger.editErrorCountTextFiles("daily_error_count.txt", fileErrorCount + DatabaseErrorLogger.getDailyErrorCount());
 				DatabaseErrorLogger.editErrorCountTextFiles("overall_error_count.txt", DatabaseErrorLogger.getOverallErrorCount() + fileErrorCount);
+				ExcelFileUploader.setProgressVariable(75);
 			} catch (IOException e) {
 				System.out.println("Error writing to file.");
 				e.printStackTrace();
@@ -39,6 +42,7 @@ public class WriteErrorsToFile extends DateManipulator{
 				errorWriter.close();
 				DatabaseErrorLogger.editErrorCountTextFiles("daily_error_count.txt", fileErrorCount + DatabaseErrorLogger.getDailyErrorCount());
 				DatabaseErrorLogger.editErrorCountTextFiles("overall_error_count.txt", DatabaseErrorLogger.getOverallErrorCount() + fileErrorCount);
+				ExcelFileUploader.setProgressVariable(80);
 			} catch (IOException e) {
 				System.out.println("Error writing to file.");
 				e.printStackTrace();

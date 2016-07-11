@@ -81,7 +81,9 @@ public class IMSIRestService {
 			}
 			IMSIStatsProducer imsiStatsProducer = new IMSIStatsProducer(baseDataList);
 			List<IMSIStats> imsiStats = imsiStatsProducer.getListOfIMSIStatsObjects();
-			return Response.status(200).entity(imsiStats).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(imsiStats);
+			return Response.status(200).entity(imsiStats).header("Content-Length", jsonInString.length()).build();
 		} catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(400).build();
@@ -120,9 +122,12 @@ public class IMSIRestService {
 			if(imsiList.isEmpty()) {
 				return Response.status(404).build();
 			} 
-			return Response.status(200).entity(imsiList).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(imsiList);
+			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
 		} catch(Exception e) {
 			e.printStackTrace();
+			
 			return Response.status(400).build();
 		}
 	}
@@ -141,11 +146,17 @@ public class IMSIRestService {
 			IMSIStats imsiStats = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, 0);
 			List<IMSIStats> imsiList = new ArrayList<>();
 			imsiList.add(imsiStats);
-			return Response.status(200).entity(imsiList).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(imsiList);
+			System.out.println(jsonInString.length());
+			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
 		}
 		IMSIStatsProducer imsiStatsProducer = new IMSIStatsProducer(baseDataList);
 		List<IMSIStats> imsiList = imsiStatsProducer.getListOfIMSIStatsObjectsWithFailuresBetweenDates();
-		return Response.status(200).entity(imsiList).build();
+		ObjectMapper mapper = new ObjectMapper();
+		String jsonInString = mapper.writeValueAsString(imsiList);
+		System.out.println(jsonInString.length());
+		return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
 		}catch(Exception e){
 			e.printStackTrace();
 			return Response.status(400).build();

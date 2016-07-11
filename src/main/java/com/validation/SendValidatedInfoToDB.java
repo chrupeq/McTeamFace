@@ -92,6 +92,7 @@ public class SendValidatedInfoToDB {
 		bd.setUser_equipment(ue);
 		bdArray[i] = bd;
 		}
+		ExcelFileUploader.setProgressVariable(70);
 		return bdArray;
 	}
 }

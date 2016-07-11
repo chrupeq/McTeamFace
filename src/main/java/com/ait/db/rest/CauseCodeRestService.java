@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.ait.db.data.CauseCodeDAO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("/cause_codes")
 @Stateless
@@ -52,7 +53,9 @@ public class CauseCodeRestService {
 			if(affectedIMSIs.isEmpty()){
 				return Response.status(404).build();
 			}
-			return Response.status(200).entity(affectedIMSIs).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(affectedIMSIs);
+			return Response.status(200).entity(affectedIMSIs).header("Content-Length", jsonInString.length()).build();
 		}catch(Exception e){
 			e.printStackTrace();
 			return Response.status(400).build();

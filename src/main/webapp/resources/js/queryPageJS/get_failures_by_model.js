@@ -4,11 +4,31 @@ $(document).ready(function(){
 })
 
 var findAllUniqueModelFailures = function(tacNumber) {
+	$('#queryprogress').css('width', '0%');
+ 	$('#queryprogress').text('0%');
+	$('#queryprogressouter').removeClass('animated fadeOutUp');
+	$('#queryprogressouter').addClass('animated fadeInDown');
 	$.ajax({
 		type : 'GET',
 		url : rootUrlUMF + "/" + tacNumber,
 		dataType : "json",
-		success : loadUniqueModelFailuresTable
+		progress: function(e) {
+	        if(e.lengthComputable) {
+	            var pct = (e.loaded / e.total) * 100;
+	            $('#queryprogress').css('width', pct.toPrecision(3) + '%');
+	        	$('#queryprogress').text(pct.toPrecision(3) + '%');
+	        }
+	        else {
+	            console.warn('Content Length not reported!');
+	        }
+	    },
+		success : function(data){
+			loadUniqueModelFailuresTable(data);
+			$('#queryprogressouter').mousemove(function(){
+				$('#queryprogressouter').removeClass('animated fadeInDown');
+				$('#queryprogressouter').addClass('animated fadeOutUp');
+			});
+		}
 	});
 };
 
