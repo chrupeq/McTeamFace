@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.ait.db.model.Base_data;
+import com.ait.db.model.MarketOperatorCellIdCounter;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
 import com.ait.db.model.TopTenMarketOperatorCellIdFactory;
 
@@ -37,7 +38,9 @@ public List<TopTenMarketOperatorCellIdCombinations> getTopTenMarketOperatorCellI
 	List<Base_data> DataBetweenDates = query.getResultList();
 	
 	topTenMarketOperatorCellIdFactory = new TopTenMarketOperatorCellIdFactory(DataBetweenDates);
-	List<TopTenMarketOperatorCellIdCombinations> topTenForFailures = topTenMarketOperatorCellIdFactory.getTopTenMarketOperatorCellIdList();
+	List<TopTenMarketOperatorCellIdCombinations> requiredAttributesFromBaseData = topTenMarketOperatorCellIdFactory.getTopTenMarketOperatorCellIdList();
+	List<TopTenMarketOperatorCellIdCombinations> topTenForFailures = new MarketOperatorCellIdCounter(requiredAttributesFromBaseData).getTopTenMarketOperatorCellIdWithFailureCount();
+	
 	System.out.println("list size" + topTenForFailures.size());
 	
 	return topTenForFailures;

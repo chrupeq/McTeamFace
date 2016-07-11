@@ -72,5 +72,3 @@ public class TopTenMarketOperatorCellIdCombinations implements Comparable<TopTen
 	
 	
 }	
-
-//The failure Count has been taken out of the constructor here!!!!

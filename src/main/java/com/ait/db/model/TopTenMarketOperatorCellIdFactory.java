@@ -43,30 +43,8 @@ public class TopTenMarketOperatorCellIdFactory {
 	
 	
 	
-	
-	
-	
 }
 
 
 
 
-//private Object[] processMarket(Base_data baseData) {
-//String marketingName;
-//String manufacturer;
-//
-//Object[] marketingNameManufacturerArray = new Object[2];
-//if(baseData.getUser_equipment() != null){
-//	marketingName = baseData.getUser_equipment().getMarketing_name();
-//	manufacturer = baseData.getUser_equipment().getManufacturer();
-//}else{
-//	marketingName = "Marketing name could not be determined";
-//	manufacturer = "Manufacturer could not be determined";
-//}
-//
-//marketingNameManufacturerArray[0] = marketingName;
-//marketingNameManufacturerArray[0] = manufacturer;
-//
-//return marketingNameManufacturerArray;
-//
-//}
