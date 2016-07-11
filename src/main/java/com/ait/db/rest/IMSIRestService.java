@@ -13,6 +13,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -48,6 +49,7 @@ public class IMSIRestService {
 	IMSIDAO IMSIDao;
 	@EJB
 	NetworkEntityDAO networkEntityDAO;
+	@EJB
 	TopTenDAO topTenDAO;
 	DateParser dateParser;
 	@PersistenceContext
@@ -156,10 +158,12 @@ public class IMSIRestService {
 	@Path("/top10_market_operator_cellIdCombinations")
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getTopTenMarketOperatorCellIdCombinations(@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo){
+
 		dateParser = new DateParser();
 		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
 		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
-		
+		System.out.println(dateOne);
+		System.out.println(dateTwo);
 		try {
 			List<TopTenMarketOperatorCellIdCombinations> imsiList = topTenDAO.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateOne, dateTwo);
 			
