@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import com.ait.db.model.Base_data;
 import com.errorlogger.DatabaseErrorLogger;
 import com.errorlogger.DateManipulator;
+import com.fileuploader.ExcelFileUploader;
 
 public class DataValidator {
 
@@ -389,7 +390,9 @@ public class DataValidator {
 	
 	private static Base_data[] sendInformationToTheDataLayer(Object[][] arrayToBePersisted){
 		SendValidatedInfoToDB db = new SendValidatedInfoToDB();
+		ExcelFileUploader.setProgressVariable(60);
 		Base_data[] bdArray = db.sendData(arrayToBePersisted, counterForDatabaseEntries);
+		ExcelFileUploader.setProgressVariable(65);
 		dataErrorLogger.errorsFound(errorToString.toString(), errorToString, fileNameForErrorLogger, errorCount);
 		counterForDatabaseEntries = 0;
 		return bdArray;

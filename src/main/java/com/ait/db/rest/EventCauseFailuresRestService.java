@@ -18,6 +18,7 @@ import com.ait.db.data.EventCauseFailuresDAO;
 import com.ait.db.model.EventCauseFailures;
 import com.ait.db.model.EventCauseFailuresCounter;
 import com.ait.db.model.Event_cause;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Path("/event_cause_failures")
 @Stateless
@@ -43,7 +44,9 @@ public class EventCauseFailuresRestService {
 			eventCauseFailuresCounter = new EventCauseFailuresCounter(eventCauseList);
 			List<EventCauseFailures> eventCauseFailuresList 
 				= eventCauseFailuresCounter.getEventCauseFailures();
-			return Response.status(200).entity(eventCauseFailuresList).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(eventCauseFailuresList);
+			return Response.status(200).entity(eventCauseFailuresList).header("Content-Length", jsonInString.length()).build();
 		} catch(Exception e){
 			e.printStackTrace();
 			return Response.status(400).build();

@@ -25,25 +25,20 @@ var loadSearchParams = function(data){
 
 var rootUrlSelectDates = "http://localhost:8080/GroupProject2016/rest/imsi/get_imsis_between_dates";
 var findAllImsisForDates = function(date1, date2) {
-	$('#prog').progressbar({ value: 0 });
+	 $('#queryprogress').css('width', '0%');
+	 	$('#queryprogress').text('0%');
+	$('#queryprogressouter').removeClass('animated fadeOutUp');
+	$('#queryprogressouter').addClass('animated fadeInDown');
 	$.ajax({
 		type : 'GET',
 		url : rootUrlSelectDates + "?date1=" + date1 + "&date2=" + date2,
 		dataType : "json",
 		progress: function(e) {
-	        //make sure we can compute the length
 	        if(e.lengthComputable) {
-	            //calculate the percentage loaded
 	            var pct = (e.loaded / e.total) * 100;
-	            $('#prog')
-                .progressbar('option', 'value', pct)
-                .children('.ui-progressbar-value')
-                .html(pct.toPrecision(3) + '%')
-                .css('display', 'block');
-
-	            //log percentage loaded
+	            $('#queryprogress').css('width', pct.toPrecision(3) + '%');
+	        	$('#queryprogress').text(pct.toPrecision(3) + '%');
 	        }
-	        //this usually happens when Content-Length isn't set
 	        else {
 	            console.warn('Content Length not reported!');
 	        }
@@ -51,6 +46,12 @@ var findAllImsisForDates = function(date1, date2) {
 		success : function(data){
 			imsiWithDatesQuery();
 			loadImsiTable(data);
+			$('#queryprogressouter').mousemove(function(){
+				$('#queryprogressouter').removeClass('animated fadeInDown');
+				$('#queryprogressouter').addClass('animated fadeOutUp');
+			});
+			
+			
 		},
 		error:function(){
 			$('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
@@ -59,12 +60,32 @@ var findAllImsisForDates = function(date1, date2) {
 };
 
 var imsiQuery = function(dateThree, dateFour){
+	 $('#queryprogress').css('width', '0%');
+ 	$('#queryprogress').text('0%');
+	$('#queryprogressouter').removeClass('animated fadeOutUp');
+	$('#queryprogressouter').addClass('animated fadeInDown');
 		console.log("dates: " + dateThree + " " + dateFour);
 		$.ajax({
 			type:'GET',
 			url: imsiStatsURL + '?dateOne=' + dateThree + '&dateTwo=' + dateFour,
 			dataType:'json',
-			success:buildIMSIStatsTable,
+			progress: function(e) {
+		        if(e.lengthComputable) {
+		            var pct = (e.loaded / e.total) * 100;
+		            $('#queryprogress').css('width', pct.toPrecision(3) + '%');
+		        	$('#queryprogress').text(pct.toPrecision(3) + '%');
+		        }
+		        else {
+		            console.warn('Content Length not reported!');
+		        }
+		    },
+			success: function(data){
+				buildIMSIStatsTable(data);
+				$('#queryprogressouter').mousemove(function(){
+					$('#queryprogressouter').removeClass('animated fadeInDown');
+					$('#queryprogressouter').addClass('animated fadeOutUp');
+				});
+			},
 			error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
 		});
 }

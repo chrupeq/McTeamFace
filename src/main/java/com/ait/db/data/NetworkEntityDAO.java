@@ -21,6 +21,7 @@ import com.ait.db.model.Mcc_mnc;
 import com.ait.db.model.Mcc_mncKey;
 import com.ait.db.model.NetworkEntity;
 import com.ait.db.model.User_equipment;
+import com.fileuploader.ExcelFileUploader;
 
 @Stateless
 @LocalBean
@@ -67,10 +68,22 @@ public class NetworkEntityDAO {
 	public String saveNetworkEntityArray(NetworkEntity[] networkEntity) {
 		for (int i = 0; i < networkEntity.length; i++) {
 			entityManager.merge(networkEntity[i]);
+			if(i == 5000){
+				ExcelFileUploader.setProgressVariable(80);
+			}else if(i == 10000){
+				ExcelFileUploader.setProgressVariable(85);
+			}else if(i == 20000){
+				ExcelFileUploader.setProgressVariable(90);
+			}else if(i == 25000){
+				ExcelFileUploader.setProgressVariable(95);
+			}
 
 		}
 		Date endTimer = new Date();
 		String date = ""+endTimer;
+		if(networkEntity.length > 500){
+		ExcelFileUploader.setProgressVariable(100);
+		}
 		return date;
 	}
 

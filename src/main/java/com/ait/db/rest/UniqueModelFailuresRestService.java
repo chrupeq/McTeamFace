@@ -47,7 +47,9 @@ public class UniqueModelFailuresRestService {
 			if(modelList.isEmpty()) {
 				return Response.status(404).build();
 			}
-			return Response.status(200).entity(modelList).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(modelList);
+			return Response.status(200).entity(modelList).header("Content-Length", jsonInString.length()).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return Response.status(404).build();

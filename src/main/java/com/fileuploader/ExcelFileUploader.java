@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
@@ -36,6 +37,8 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	FileTimer ft = new FileTimer();
 
 	String fileName = "";
+	
+	private static int progressVariable = 0;
 
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
@@ -56,6 +59,7 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	@Path("/uploadfile")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response uploadFile(@FormDataParam("data") String imageInBase64) throws IOException, JSONException {
+		setProgressVariable(0);
 		ft.setStartTime(new Date().toString());
 		String[] imageArray = imageInBase64.split(",");
 		String path = imageArray[2];
@@ -65,6 +69,8 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 		fos.write(DatatypeConverter.parseBase64Binary(imageArray[1].toString()));
 		fos.close();
 
+		setProgressVariable(5);
+		
 		sendToFileReader(path);
 
 		return Response.status(200).build();
@@ -74,19 +80,38 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 	
 		sheetArray.clear();
 		sheetArray = ReadDataSetIntoMainMemory.readFileInFromHardDrive(path);
+		ExcelFileUploader.setProgressVariable(15);
 		System.out.println("Excel file uploader: " + sheetArray.get(0).length);
 		eventCause = NonBaseDataObjects.createEventCauseClass(sheetArray.get(1));
+		ExcelFileUploader.setProgressVariable(20);
 		objectsToBePersisted[4] = eventCause;
 		failureClass = NonBaseDataObjects.createFailureClass(sheetArray.get(2));
+		ExcelFileUploader.setProgressVariable(25);
 		objectsToBePersisted[3] = failureClass;
 		userEquipment = NonBaseDataObjects.createUserEquipment(sheetArray.get(3));
+		ExcelFileUploader.setProgressVariable(30);
 		objectsToBePersisted[2] = userEquipment;
 		mccMnc = NonBaseDataObjects.createMccMncclass(sheetArray.get(4));
+		ExcelFileUploader.setProgressVariable(35);
 		objectsToBePersisted[1] = mccMnc;
 
 		for (int i = 4; i > 0; i--) {
 
 			String entity = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[i]);
+			
+			switch(i){
+			case 4:
+				ExcelFileUploader.setProgressVariable(40);
+				break;
+			case 3:
+				ExcelFileUploader.setProgressVariable(45);
+				break;
+			case 2:
+				ExcelFileUploader.setProgressVariable(50);
+				break;
+			case 1:
+				ExcelFileUploader.setProgressVariable(55);
+			}
 
 		}
 		NetworkEntity[] baseData = ReadDataSetIntoMainMemory.passTheArrayToValidator(sheetArray.get(0), fileName);
@@ -96,6 +121,21 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 		//settime
 		ft.setEndTime(date);
 		fileTimerDAO.update(ft);
+	}
+	
+	@GET
+	@Path("/progressvariable")
+	public Response uploadFile() throws IOException, JSONException {
+		
+		return Response.status(200).entity(getProgressVariable()).build();
+	}
+	
+	public static int getProgressVariable(){
+		return progressVariable;
+	}
+	
+	public static void setProgressVariable(int updateProgress){
+		progressVariable = updateProgress;
 	}
 	
 }

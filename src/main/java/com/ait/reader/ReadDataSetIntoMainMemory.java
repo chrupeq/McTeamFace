@@ -24,6 +24,7 @@ import com.ait.db.model.Event_cause;
 import com.ait.db.model.Failure_class;
 import com.ait.db.model.Mcc_mnc;
 import com.ait.db.model.User_equipment;
+import com.fileuploader.ExcelFileUploader;
 import com.fileuploader.FileTimer;
 import com.fileuploader.FileTimerDAO;
 import com.validation.DataValidator;
@@ -89,6 +90,7 @@ public class ReadDataSetIntoMainMemory {
 			arrayListOfSheets.add(sheet);
 		}
 		fos.close();
+		ExcelFileUploader.setProgressVariable(10);
 			return arrayListOfSheets;
 		}
 
