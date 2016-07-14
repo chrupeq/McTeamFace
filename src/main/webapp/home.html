@@ -16,6 +16,9 @@
 	href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
 <link rel="stylesheet" href="resources/select2.css">
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
+<link rel="stylesheet"
+	href="resources/simple-sidebar.css">
+	<link rel="stylesheet" href="resources/js/DataTables/datatables_style.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script
@@ -37,7 +40,7 @@
 <script src="resources/js/queryPageJS/custom_nav_bar.js"></script>
 <script src="resources/js/DataTables/single_imsi_failure_dates.js"></script>
 <script src="resources/js/DataTables/imsi_event_and_cause.js"></script>
-<script src="resources/js/DataTables/models_with_dates.js"></script>`
+<script src="resources/js/DataTables/models_with_dates.js"></script>
 <script src="resources/js/DataTables/top_ten_failures.js"></script>
 <script src="resources/js/tables_coming_and_going.js"></script>
 <script src="resources/js/timer/filetimer.js"></script>
@@ -74,6 +77,7 @@
 	<div id="header">
 		<img id="costanzaLogo" src="resources/images/seinfeld.png"></img>
 		<div id="customHeader" class="hiddenbycostanza animated fadeInDown"></div>
+		<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
 		<button type="button" id="logoutBtn" class="btn btn-default hiddenbycostanza">Logout</button>
 	</div>
 
@@ -247,10 +251,16 @@ alert(errMsg);
 			<p>Some content in menu 6.</p>
 			ፊ
 		</div>
+		
 		<div id="queryBody" class="tab-pane fade in">
-			<div id="queryList" class="list-group">
+		  <div id="wrapper">
+			<div id="queryList" class="list-group nav nav-pills">
 			
 			</div>
+			<div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
 			<div id="infoDiv"></div>
 			<div id="buttonDiv"></div>
 			<br>
@@ -275,6 +285,10 @@ alert(errMsg);
 					<table id="querysTable"></table>
 				</div>
 			</div>
+			</div>
+                </div>
+            </div>
+        </div>
 			<div id="dateQueryModal" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -430,7 +444,12 @@ alert(errMsg);
 							</div>
 					</div>
 				</div>
+				
+				<div class="container clearfix">
+    <div class="third widget doughnut">
 				<canvas id="skills" width="300" height="300"></canvas>
+				</div>
+				</div>
 			</div>
 			<div id="imsiStatsModal" class="modal fade" role="dialog">
 				<div class="modal-dialog">
@@ -505,7 +524,7 @@ alert(errMsg);
 					</div>
 				</div>
 			</div>
-
+</div>
 		</div>
 	</div>
 	</br>
@@ -656,5 +675,11 @@ alert(errMsg);
 					</div>
 				</div>
 			</div>
+			 <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
 </body>
 </html>

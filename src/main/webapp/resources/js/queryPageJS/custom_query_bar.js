@@ -4,13 +4,23 @@ $(document).ready(function(){
 
 var getCustomQueryBar = function(){
 	var customQueryBar = "";
+	customQueryBar = '<div id="sidebar-wrapper">'
+	     + '<ul class="sidebar-nav">'
+	      +   '<li class="sidebar-brand">'
+	       +      '<a href="#"`style="color: blue">'
+	        +         getTheCookieYouNeed('name') + '\'s Queries'
+	         +   '</a>'
+	         + '</li>';
 
 	if(getTheCookieYouNeed('job_title') == ""){
 		$('#queryList').html(customQueryBar);
 	}
-	
+
+         
 	else if(getTheCookieYouNeed('job_title') == 'NME'){
-		customQueryBar ='<a href="#" id="imsiWithDates" class="list-group-item">List of '
+		alert("NME");
+	
+		customQueryBar += '<a href="#" id="imsiWithDates" class="list-group-item">List of '
 			+ 'IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
 			+ 'class="list-group-item">List of failure details for given Model</a>'
 			+ '<a href="#" id="imsiStats" class="list-group-item">View IMSI'
@@ -22,28 +32,34 @@ var getCustomQueryBar = function(){
 		+ '<a href="#" id="modelsWithDatesLink"'
 			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>'
 			+ '<a href="#" id="topTenQuery"'
-			+ 'class="list-group-item">Top 10 Market/Operator/Cell ID failures for given dates</a>';
-		$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
+			+ 'class="list-group-item">Top 10 Market/Operator/Cell ID failures for given dates</a>'
+			+ '</ul>'
+			+ '</div>';
+		$('#queryList').html(customQueryBar);
 		
 	}else if(getTheCookieYouNeed('job_title') == 'CSR'){
 		
-		customQueryBar = '<a href="#" id="imsiEventSelectIdCauseCode"'
+		customQueryBar += '<a href="#" id="imsiEventSelectIdCauseCode"'
 			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
 			+ '<a href="#" id="allImsiFailuresBetweenDates"'
-			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>';
-		$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
+			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
+			+ '</ul>'
+			+ '</div>';
+		$('#queryList').html(customQueryBar);
 			
 	}else if(getTheCookieYouNeed('job_title') == 'SE'){
 		
-		customQueryBar = '<a href="#" id="imsiWithDates" class="list-group-item">List of '
+		customQueryBar += '<a href="#" id="imsiWithDates" class="list-group-item">List of '
 			+ 'IMSI failures for given dates</a>'
 			+ '<a href="#" id="imsiEventSelectIdCauseCode"'
 			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
 			+ '<a href="#" id="allImsiFailuresBetweenDates"'
 			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
 			+ '<a href="#" id="modelsWithDatesLink"'
-			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>';	
-		$('#queryList').html('<div id="queries"><h2 id="queryTitle">' + getTheCookieYouNeed('name') + '\'s Queries</h2>' + customQueryBar + '</div>');
+			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>'
+			+ '</ul>'
+			+ '</div>';	
+		$('#queryList').html(customQueryBar);
 	}
 
 	

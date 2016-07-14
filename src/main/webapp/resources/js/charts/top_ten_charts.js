@@ -2,6 +2,7 @@ var labels = [];
 var failureData = [];
 var colours = [];
 var instantChart = function(data) {
+	$('#skills').replaceWith('<canvas id="skills" width="300" height="300"></canvas>');
 	var randomScalingFactor = function(data) {
 		return 1;
 	};
@@ -24,12 +25,11 @@ var instantChart = function(data) {
 	});
 	
 	for(var i = 0; i < labels.length; i ++){
-		alert("here");
 		colours.push(randomColour());
 	}
 
 	var config = {
-		type : 'pie',
+		type : 'doughnut',
 		data : {
 			datasets : [ {
 
@@ -40,14 +40,15 @@ var instantChart = function(data) {
 			labels :  labels 
 		},
 		options : {
-			responsive : true
+			responsive : true,
+			legend : {
+				position : 'bottom'
+			}
 		}
 	};
 
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);
-    alert(colours[0]);
-	alert(failureData);
 	$('#randomizeData').click(function() {
 		$.each(config.data.datasets, function(i, piece) {
 			$.each(piece.data, function(j, value) {
