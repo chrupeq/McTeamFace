@@ -1,5 +1,6 @@
 package com.ait.db.data;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.ait.db.model.Base_data;
-
+import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
 
 
@@ -82,5 +83,77 @@ private List<TopTenMarketOperatorCellIdCombinations> convertToTopTenObject(List<
 
 	return topTenList;
 	}
+
+
+public List<TopTenIMSIForFailures> getTopTenIMSIForFailures(String date1, String date2){
+	dateParser = new DateParser();
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
+	
+	query = entityManager.createQuery("SELECT COUNT(b.report_id) AS NUM_ROWS, b.imsi FROM Base_data b WHERE b.date_time BETWEEN :startDate AND :endDate GROUP BY b.imsi ORDER BY NUM_ROWS DESC LIMIT 10");
+	
+	
+	query.setParameter("startDate", calendarArray[0]);
+	query.setParameter("endDate", calendarArray[1]);
+	List<Object> topTenIMSIData = query.getResultList();
+	List<TopTenIMSIForFailures> topTenIMSIListOfHelperObjects = convertToTopTenIMSIObject(topTenIMSIData);
+	
+	return topTenIMSIListOfHelperObjects;
+}	
+
+
+private List<TopTenIMSIForFailures> convertToTopTenIMSIObject(List<Object> topTenIMSIData){
+	BigInteger IMSI;
+	long numOfFailures;
+	
+	List<TopTenIMSIForFailures> topTenIMSIList = new ArrayList<TopTenIMSIForFailures>();
+	for(Object object : topTenIMSIData){
+		Object[] objectArray = (Object[]) object;
+		numOfFailures = (long) (objectArray[0]);
+		IMSI = (BigInteger)(objectArray[1]);
+		
+		TopTenIMSIForFailures topTenIMSIForFailures = new TopTenIMSIForFailures(IMSI, numOfFailures);
+		topTenIMSIList.add(topTenIMSIForFailures);
+	}
+	
+	Collections.sort(topTenIMSIList);
+	if(topTenIMSIList.size() > 10) {
+		topTenIMSIList = topTenIMSIList.subList(0, 10);
+	}
+	return topTenIMSIList;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

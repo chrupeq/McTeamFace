@@ -33,6 +33,7 @@ import com.ait.db.model.Base_data;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.NetworkEntity;
+import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
 import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsObjectFactory;
@@ -173,14 +174,43 @@ public class IMSIRestService {
 		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
 		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
 		try {
-			List<TopTenMarketOperatorCellIdCombinations> imsiList = topTenDAO.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateOne, dateTwo);
+			List<TopTenMarketOperatorCellIdCombinations> topTenMarketOperatorCellIdList = topTenDAO.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateOne, dateTwo);
 			
-			if(imsiList.isEmpty()) {
+			if(topTenMarketOperatorCellIdList.isEmpty()) {
 				return Response.status(404).build();
 			} 
 			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(imsiList);
-			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
+			String jsonInString = mapper.writeValueAsString(topTenMarketOperatorCellIdList);
+			return Response.status(200).entity(topTenMarketOperatorCellIdList).header("Content-Length", jsonInString.length()).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+			return Response.status(400).build();
+		}
+		
+		
+		
+	
+	}
+	
+	
+	
+	@GET
+	@Path("/top10_IMSI")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getTopTenIMSI(@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo){
+
+		dateParser = new DateParser();
+		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
+		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
+		try {
+			List<TopTenIMSIForFailures> topTenIMSIList = topTenDAO.getTopTenIMSIForFailures(dateOne, dateTwo);
+			
+			if(topTenIMSIList.isEmpty()) {
+				return Response.status(404).build();
+			} 
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(topTenIMSIList);
+			return Response.status(200).entity(topTenIMSIList).header("Content-Length", jsonInString.length()).build();
 		} catch(Exception e) {
 			e.printStackTrace();
 			return Response.status(400).build();
