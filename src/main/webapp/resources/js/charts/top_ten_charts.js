@@ -1,3 +1,7 @@
+$(document).ready(function(){
+	
+})
+
 var labels = [];
 var failureData = [];
 var colours = [];

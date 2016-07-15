@@ -26,6 +26,7 @@ var findTopTenFailures = function(date1, date2){
 		        }
 		    },
 			success: function(data){
+				data = flipData(data);
 				loadTopTenTable(data);
 				instantChart(data);
 				$('#queryprogressouter').mousemove(function(){
@@ -90,4 +91,15 @@ var findTopTenFailures = function(date1, date2){
 			
 		};
 	
+		var flipData = function(data){
+			var counter = 0;
+			var dataToReturn = [];
+		
+			for(var i = 0; i < data.length; i ++){
+				dataToReturn[counter] = data[i];
+				counter ++;
+			}
+			
+			return dataToReturn;
+		}
 	

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	getCustomQueryBar();	
+	
 })
 
 var getCustomQueryBar = function(){
