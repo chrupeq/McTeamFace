@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.Failure_class;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
@@ -93,8 +94,16 @@ public class IMSIDAO {
 		return baseDataBetweenDates;
 	}
 	
+	public List<Base_data> getIMSIsForFailureClass(String failureClass) throws Exception {
+		query = entityManager.createQuery("SELECT DISTINCT(b.imsi) FROM Base_data b WHERE b.failure_class = " + failureClass);
+		List<Base_data> baseDataList = query.getResultList();
+		return baseDataList;
+	}
 	
+	public List<Failure_class> getFailureClass() throws Exception {
+		query = entityManager.createQuery("SELECT DISTINCT(b.failure_class) FROM Base_data b");
+		List<Failure_class> failureClassList = query.getResultList();
+		return failureClassList;
+	}
 	
-	
-
 }
