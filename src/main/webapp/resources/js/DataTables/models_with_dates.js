@@ -17,6 +17,7 @@ $(document).ready(function(){
 	})
 	
 	$('#modelDatesSearch').on('click', function(){
+		
 		var seventhDate = $("#datetimepicker7").find("input").val();
 		var eighthDate = $("#datetimepicker8").find("input").val();
 		var selectedTac = $('#modelsWithDatesSelect option:selected').val();
@@ -80,7 +81,17 @@ var loadModelsWithDatesTable = function(seventhDate, eighthDate, selectedTac){
 				$('#queryprogressouter').addClass('animated fadeOutUp');
 			});
 		},
-		error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
+		error: function(){
+			$('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>');
+			showTable();
+			$('#backToHomeButton').on('click', function(){
+				hideTable();
+			});
+			$('#queryprogressouter').mousemove(function(){
+				$('#queryprogressouter').removeClass('animated fadeInDown');
+				$('#queryprogressouter').addClass('animated fadeOutUp');
+			});
+		}
 	});
 }
 

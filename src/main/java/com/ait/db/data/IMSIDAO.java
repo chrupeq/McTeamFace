@@ -95,7 +95,7 @@ public class IMSIDAO {
 	}
 	
 	public List<Base_data> getIMSIsForFailureClass(String failureClass) throws Exception {
-		query = entityManager.createQuery("SELECT DISTINCT(b.imsi) FROM Base_data b WHERE b.failure_class = " + failureClass);
+		query = entityManager.createQuery("SELECT DISTINCT(b) FROM Base_data b WHERE b.failure_class = " + failureClass + " GROUP BY b.imsi");
 		List<Base_data> baseDataList = query.getResultList();
 		return baseDataList;
 	}

@@ -14,11 +14,18 @@ $(document).ready(function(){
 		})
 	
 	$('#singleImsiSearch').on('click', function(){
+		$('.modalerrordiv').remove();
 		var fifthDate = $("#datetimepicker5").find("input").val();
 		var sixthDate = $("#datetimepicker6").find("input").val();
+		if(checkDates(fifthDate, sixthDate) == 'false'){
+			
+		}else{
+			$('#singleImsiModal').modal('hide');
+			$('.modalerrordiv').remove();
 		$('#searchParams').html('You are searching for a failure count for IMSI ' + IMSI + ' between ' + fifthDate + ' and ' + sixthDate);
 		
 		loadSingleImsiTable(fifthDate, sixthDate, IMSI);
+		}
 	});
 	
 });	

@@ -23,6 +23,14 @@ $(document).ready(function() {
 		 viewMode: 'years',
 		 format: 'DD/MM/YYYY HH:mm'
     });
+	 $('#datetimepicker11').datetimepicker({
+         viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+     });
+	 $('#datetimepicker12').datetimepicker({
+		 viewMode: 'years',
+		 format: 'DD/MM/YYYY HH:mm'
+    });
 	$('#imsiWithDates').on("click", function(){
 		 $('#datetimepicker1').datetimepicker({
              viewMode: 'years',

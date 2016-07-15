@@ -1,5 +1,8 @@
 $(document).ready(function(){
-	
+	$('#queryprogressouter').mousemove(function(){
+		$('#queryprogressouter').removeClass('animated fadeInDown');
+		$('#queryprogressouter').addClass('animated fadeOutUp');
+	});
 })
 
 var getCustomQueryBar = function(){
@@ -18,7 +21,6 @@ var getCustomQueryBar = function(){
 
          
 	else if(getTheCookieYouNeed('job_title') == 'NME'){
-		alert("NME");
 	
 		customQueryBar += '<a href="#" id="imsiWithDates" class="list-group-item">List of '
 			+ 'IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
@@ -33,6 +35,8 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>'
 			+ '<a href="#" id="topTenQuery"'
 			+ 'class="list-group-item">Top 10 Market/Operator/Cell ID failures for given dates</a>'
+			+ '<a href="#" id="imsiTopTen" class="list-group-item">Top ten IMSI failure counts for given dates</a>'
+			+  '<a href="#" id="failureClassImsis" class="list-group-item">IMSI\'s for a given Failure Class</a>'
 			+ '</ul>'
 			+ '</div>';
 		$('#queryList').html(customQueryBar);
@@ -57,6 +61,7 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
 			+ '<a href="#" id="modelsWithDatesLink"'
 			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>'
+			+  '<a href="#" id="failureClassImsis" class="list-group-item">IMSI\'s for a given Failure Class</a>'
 			+ '</ul>'
 			+ '</div>';	
 		$('#queryList').html(customQueryBar);
@@ -164,4 +169,13 @@ var getCustomQueryBar = function(){
 		$('#querysTable').addClass('animated fadeOutUp');
 		changeContainerCSS('imsiDates');
 	});
+	
+	$('#imsiTopTen').on('click', function(){
+		$('#topTenImsiModal').modal('show');
+	})
+	
+		$('#failureClassImsis').on('click', function(){
+		$('#getByFailureClassModal').modal('show');
+	})
+	
 }
