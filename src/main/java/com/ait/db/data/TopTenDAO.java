@@ -26,8 +26,7 @@ public class TopTenDAO {
     private EntityManager entityManager;
 	private Query query;
 	private DateParser dateParser;
-	//private TopTenMarketOperatorCellIdFactory topTenMarketOperatorCellIdFactory;
-
+	
 
 
 public List<TopTenMarketOperatorCellIdCombinations> getTopTenMarketOperatorCellIdCombinationsWithFailures(String date1, String date2){

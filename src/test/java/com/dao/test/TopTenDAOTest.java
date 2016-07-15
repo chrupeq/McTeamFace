@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.data.TopTenDAO;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
 
 @RunWith(Arquillian.class)
@@ -62,5 +63,44 @@ public class TopTenDAOTest {
 		assertFalse(topTenList.isEmpty());
 		assertEquals(3, topTenList.size());		
 	}
+	@Test
+	public void getTopTenMarketOperatorCellIdCombinationsWithFailuresShouldReturnAListForAWiderDateRange(){
+		List<TopTenMarketOperatorCellIdCombinations> topTenList = topTenDAO.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateFour, dateFive);
+		assertNotNull(topTenList);
+		assertFalse(topTenList.isEmpty());
+		assertEquals(4, topTenList.size());
+	}
+	
+	@Test
+	public void getTopTenMarketOperatorCellIdCombinationsWithFailuresShouldReturnAnEmptyList(){
+		List<TopTenMarketOperatorCellIdCombinations> topTenList = topTenDAO.getTopTenMarketOperatorCellIdCombinationsWithFailures(dateSix, dateSeven);
+		assertNotNull(topTenList);
+		assertTrue(topTenList.isEmpty());
+	}
+
+	
+	@Test
+	public void getTopTenIMSIWithFailuresShouldReturnAList(){
+		
+		List<TopTenIMSIForFailures> topTenList = topTenDAO.getTopTenIMSIForFailures(dateOne, dateTwo);
+		assertNotNull(topTenList);
+		assertFalse(topTenList.isEmpty());
+		assertEquals(2, topTenList.size());		
+	}
+	
+	@Test
+	public void getTopTenIMSIWithFailuresShouldReturnAListForAWiderDateRange(){
+		List<TopTenIMSIForFailures> topTenList = topTenDAO.getTopTenIMSIForFailures(dateFour, dateFive);
+		assertNotNull(topTenList);
+		assertFalse(topTenList.isEmpty());
+		assertEquals(3, topTenList.size());
+	}
+	@Test
+	public void getTopTenIMSIWithFailuresShouldReturnAnEmptyList(){
+		List<TopTenIMSIForFailures> topTenList = topTenDAO.getTopTenIMSIForFailures(dateSix, dateSeven);
+		assertNotNull(topTenList);
+		assertTrue(topTenList.isEmpty());
+	}
+	
 
 }
