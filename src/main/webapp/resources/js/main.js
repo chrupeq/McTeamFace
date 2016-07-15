@@ -1,7 +1,6 @@
 var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 var jobTitle = "";
 $(document).ready(function() {
-alert("here");
 	var loggedIn = checkCookieStatus();
 	
 	if(loggedIn != ""){

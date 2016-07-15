@@ -54,7 +54,6 @@ $(document).ready(function() {
 			  $('#modelFailuresModal').modal('hide');
 			});
 	})
-	
 });
 
 var loadDateModal = function(){

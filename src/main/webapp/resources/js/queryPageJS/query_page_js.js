@@ -9,6 +9,7 @@ $(document).ready(function() {
 	});
 	
 	$('#imsiStats').on("click", function(){
+		$('.modalerrordiv').remove();
 		$('#imsiStatsModal').removeClass('animated bounceOut');
 		$('#imsiStatsModal').addClass('animated bounceIn');
 		$('#imsiStatsModal').modal('show');
@@ -24,9 +25,7 @@ $(document).ready(function() {
 		$('#modelFailuresModal').removeClass('animated bounceOut');
 		$('#modelFailuresModal').addClass('animated bounceIn');
 	});
-	$('#modalClose').on("click", function(){
-		$('#modelFailuresModal').addClass('animated bounceOut');
-	});
+	
 	$('#modalClose2').on("click", function(){
 		$('#modelFailuresModal').addClass('animated bounceOut');
 	});
@@ -49,9 +48,15 @@ $(document).ready(function() {
 	$('#imsiStatsModalSearch').on('click', function(){
 		var thirdDate = $("#datetimepicker3").find("input").val();
 		var fourthDate = $("#datetimepicker4").find("input").val();
+if(checkDates(thirdDate, fourthDate) == 'false'){
+			
+		}else{
+			$('.modalerrordiv').remove();
+			$('#imsiStatsModal').modal('hide');
 		$('#searchParams').html('You are searching for all IMSI statistics between ' + thirdDate + ' and ' + fourthDate);
 		imsiQuery(thirdDate, fourthDate);
 		changeContainerCSS('imsiStats');
+		}
 	});
 	
 	$('#selectByModel').change(function(){
