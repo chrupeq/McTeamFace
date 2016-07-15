@@ -29,6 +29,7 @@ var userAccessControl = function() {
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
 		$('#queryTabClick').click();
+		getCustomQueryBar();
 
 	} else if (accessLevel == "SE") {
 		injectNavBar('SE');
@@ -38,7 +39,8 @@ var userAccessControl = function() {
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
 		$('#queryTabClick').click();
-
+		getCustomQueryBar();
+		
 	} else if (accessLevel == "CSR") {
 		injectNavBar('CSR');
 		$('#queryTabClick').click();
@@ -47,6 +49,7 @@ var userAccessControl = function() {
 		$("#queryBody").removeClass('hiddenbycostanza');
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
+		getCustomQueryBar();
 	}
 };
 

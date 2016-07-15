@@ -70,17 +70,20 @@ var getCustomQueryBar = function(){
 	});
 	
 	$('#imsiStats').on("click", function(){
+		$('.modalerrordiv').remove();
 		$('#imsiStatsModal').removeClass('animated bounceOut');
 		$('#imsiStatsModal').addClass('animated bounceIn');
 		$('#imsiStatsModal').modal('show');
 	});
 	
 	$('#allImsiFailuresBetweenDates').on('click', function(){
+		$('.modalerrordiv').remove();
 		$("#imsiEventIdCauseCode").select2();
 		$('#singleImsiModal').modal('show');
 	})
 	
 	$('#imsiWithDates').on("click", function(){
+		$('.modalerrordiv').remove();
 		$('#datetimepicker1').find('input').val("");
 		$('#datetimepicker2').find('input').val("");
 		 $('#datetimepicker1').datetimepicker({
@@ -95,6 +98,7 @@ var getCustomQueryBar = function(){
 	});
 	
 	$('#imsiEventSelectIdCauseCode').on('click', function(){
+		$('.modalerrordiv').remove();
 		$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
 		    $.each(result, function(index, item) {
 		    	$('#imsiEventIdCauseCode').append($("<option></option>")
@@ -108,6 +112,7 @@ var getCustomQueryBar = function(){
 	})
 	
 	$('#allFailuresForModel').on('click', function(){
+		$('.modalerrordiv').remove();
 		$('#modelFailuresModal').modal('show');
 		$('#modalTitle2').html('Models Query');
 		$('#selectByModel').on('change', function() {
@@ -119,19 +124,27 @@ var getCustomQueryBar = function(){
 	})
 	
 	$('#dateSearch').on('click', function(){
+		$('.modalerrordiv').remove();
 		var firstDate = $("#datetimepicker1").find("input").val();
 		var secondDate = $("#datetimepicker2").find("input").val();
+		if(checkDates(firstDate, secondDate) == 'false'){
+			
+		}else{
+			$('.modalerrordiv').remove();
+		$('#dateQueryModal').modal('hide');
 		$('#searchParams').html('You are searching for all IMSI failures between ' + firstDate + ' and ' + secondDate);
 		$('#queryHeader').addClass('animated fadeOutUp');
 		$('#queryHeader2').removeClass('animated fadeOutUp');
 		$('#queryHeader2').addClass('animated fadeInDown');
-		checkDates(firstDate, secondDate);
+		
 		findAllImsisForDates(firstDate, secondDate);
 		$('#querysTable').addClass('animated fadeOutUp');
 		changeContainerCSS('imsiDates');
+		}
 	});
 	
 	$('#modelsWithDatesLink').on('click', function(){
+		$('.modalerrordiv').remove();
 		$('#modelsWithDatesModal').modal('show');
 	})
 	$('#topTenQuery').on('click', function(){
@@ -139,6 +152,7 @@ var getCustomQueryBar = function(){
 	})
 	
 	$('#topTenSearch').on('click', function(){
+		$('.modalerrordiv').remove();	
 		var firstDate = $("#datetimepicker9").find("input").val();
 		var secondDate = $("#datetimepicker10").find("input").val();
 		$('#searchParams').html('You are searching for the top 10 Market/Operator/Cell ID failures between  ' + firstDate + ' and ' + secondDate);

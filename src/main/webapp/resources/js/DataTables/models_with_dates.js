@@ -12,6 +12,7 @@ $(document).ready(function(){
 	});
 	
 	$('#modelsWithDatesLink').on('click', function(){
+		$('.modalerrordiv').remove();
 		$('#modelsWithDatesModal').modal('show');
 	})
 	
@@ -19,6 +20,11 @@ $(document).ready(function(){
 		var seventhDate = $("#datetimepicker7").find("input").val();
 		var eighthDate = $("#datetimepicker8").find("input").val();
 		var selectedTac = $('#modelsWithDatesSelect option:selected').val();
+		if(checkDates(seventhDate, eighthDate) == 'false'){
+			
+		}else{
+			$('#modelsWithDatesModal').modal('hide');
+			$('.modalerrordiv').remove();
 	 model = $('#modelsWithDatesSelect option:selected').text();
 		$('#modelsWithDatesModal').removeClass('animated bounceIn');
 		$('#modelsWithDatesModal').addClass('animated bounceOut');
@@ -27,6 +33,7 @@ $(document).ready(function(){
 		$('#modelsWithDatesModal').modal('hide');
 		$('#searchParams').html('You are searching for all failures for ' + model + ' between ' + seventhDate + ' and ' + eighthDate );
 		loadModelsWithDatesTable(seventhDate, eighthDate, selectedTac);
+		}
 		})
 	
 //	$('#imsiEventSearch').on('click', function(){
