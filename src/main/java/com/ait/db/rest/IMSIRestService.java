@@ -30,6 +30,7 @@ import com.ait.db.data.TopTenDAO;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.Failure_class;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.NetworkEntity;
@@ -216,9 +217,38 @@ public class IMSIRestService {
 			return Response.status(400).build();
 		}
 		
-		
-		
-	
 	}
+	
+	@GET
+	@Path("/unique_failure_class")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getUniqueFailureClasses(){
+		
+		try {
+			List<Failure_class> failureClassList = IMSIDao.getFailureClass();
+			return Response.status(200).entity(failureClassList).build();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Failed to get failures...new?");
+			return Response.status(400).build();
+		}
+
+	}
+	
+	@GET
+	@Path("/imsis_for_failure_class")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getIMSIForFailureClasses(@QueryParam("failure_class") String failureClass){
+		try {
+			List<Base_data> failureClassList = IMSIDao.getIMSIsForFailureClass(failureClass);
+			return Response.status(200).entity(failureClassList).build();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Failed to get failures...?");
+			return Response.status(400).build();
+		}
+
+	}
+	
 }
 
