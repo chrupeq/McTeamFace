@@ -28,7 +28,9 @@ var findTopTenFailures = function(date1, date2){
 			success: function(data){
 				data = flipData(data);
 				loadTopTenTable(data);
+				if(getTheCookieYouNeed('job_title') == 'NME'){
 				instantChart(data);
+				}
 				$('#queryprogressouter').mousemove(function(){
 					$('#queryprogressouter').removeClass('animated fadeInDown');
 					$('#queryprogressouter').addClass('animated fadeOutUp');

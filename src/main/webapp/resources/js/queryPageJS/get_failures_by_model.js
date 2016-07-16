@@ -24,6 +24,9 @@ var findAllUniqueModelFailures = function(tacNumber) {
 	    },
 		success : function(data){
 			loadUniqueModelFailuresTable(data);
+			if(getTheCookieYouNeed('job_title') == 'NME'){
+			modelsBarChart(data);
+			}
 			$('#queryprogressouter').mousemove(function(){
 				$('#queryprogressouter').removeClass('animated fadeInDown');
 				$('#queryprogressouter').addClass('animated fadeOutUp');

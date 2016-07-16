@@ -1,4 +1,4 @@
-var instantChart = function(data) {
+var topTenImsiChart = function(data) {
 	var labels = [];
 	var failureData = [];
 	var colours = [];
@@ -16,7 +16,7 @@ var instantChart = function(data) {
 	percentageArray = getPercentagesOfFailures(data);
 	
 	data.map(function(item) {
-		labels.push(item.operatorDescription);
+		labels.push(item.imsi);
 	});
 	
 	data.map(function(item) {
@@ -32,7 +32,7 @@ var instantChart = function(data) {
 	}
 
 	var config = {
-		type : 'doughnut',
+		type : 'pie',
 		data : {
 			datasets : [ {
 
@@ -50,7 +50,7 @@ var instantChart = function(data) {
 		}
 	};
 showCharts();
-$('#chartTitle').html("Top ten failures");
+$('#chartTitle').html("Top ten IMSI failures");
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);
 }

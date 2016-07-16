@@ -2,7 +2,7 @@ imsisTopTenUrl = 'http://localhost:8080/GroupProject2016/rest/imsi/top10_IMSI';
 
 $(document).ready(function(){
 	$('#topTenImsiSearch').on('click', function(){
-		alert("hello");
+		hideTable();
 		var eleventh = $("#datetimepicker11").find("input").val();
 		var twelfth = $("#datetimepicker12").find("input").val();
 		if(checkDates(eleventh, twelfth) == 'false'){
@@ -40,6 +40,9 @@ var loadTopTenImsiTable = function(eleventh, twelfth){
 	    },
 		success: function(data){
 			loadTopTenImsis(data);
+			if(getTheCookieYouNeed('job_title') == 'NME'){
+			topTenImsiChart(data);
+			}
 			$('#queryprogressouter').mousemove(function(){
 				$('#queryprogressouter').removeClass('animated fadeInDown');
 				$('#queryprogressouter').addClass('animated fadeOutUp');

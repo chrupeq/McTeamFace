@@ -20,6 +20,7 @@ $(document).ready(function(){
 		if(checkDates(fifthDate, sixthDate) == 'false'){
 			
 		}else{
+			hideTable();
 			$('#singleImsiModal').modal('hide');
 			$('.modalerrordiv').remove();
 		$('#searchParams').html('You are searching for a failure count for IMSI ' + IMSI + ' between ' + fifthDate + ' and ' + sixthDate);

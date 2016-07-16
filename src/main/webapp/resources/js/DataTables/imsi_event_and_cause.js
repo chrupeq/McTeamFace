@@ -15,6 +15,7 @@ $(document).ready(function(){
 	})
 	
 	$('#imsiEventIdCauseCode').on('change', function(){
+		hideTable();
 		IMSI2 = this.value;
 		$('#imsisEventIdAndCauseCode').removeClass('animated bounceIn');
 		$('#imsisEventIdAndCauseCode').addClass('animated bounceOut');

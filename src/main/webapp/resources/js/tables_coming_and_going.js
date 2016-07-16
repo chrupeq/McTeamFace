@@ -39,4 +39,13 @@ var hideTable = function(){
 	$('#tableDiv').addClass('animated fadeOutUp');
 	$('#tableDiv').addClass('hiddenbycostanza');
 	$('#searchParams').addClass('hiddenbycostanza');
+	$('.clearfix').removeClass('fadeInDown');
+	$('.clearfix').addClass('fadeOutUp');
+	$('.clearfix').addClass('hiddenbycostanza');
+}
+
+var showCharts = function(){
+	$('.clearfix').removeClass('hiddenbycostanza');
+	$('.clearfix').removeClass('fadeOutUp');
+	$('.clearfix').addClass('fadeInDown');
 }

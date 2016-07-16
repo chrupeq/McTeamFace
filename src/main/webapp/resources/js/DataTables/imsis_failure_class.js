@@ -16,6 +16,7 @@ $(document).ready(function(){
 	});
 	
 	$('#failureClassSelect').on('change', function(){
+		hideTable();
 		$('#getByFailureClassModal').modal('hide');
 		var failureClass = $('#failureClassSelect option:selected').val();
 			$('.modalerrordiv').remove();

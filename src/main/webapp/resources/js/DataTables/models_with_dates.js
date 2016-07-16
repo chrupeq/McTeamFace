@@ -17,7 +17,7 @@ $(document).ready(function(){
 	})
 	
 	$('#modelDatesSearch').on('click', function(){
-		
+		hideTable();
 		var seventhDate = $("#datetimepicker7").find("input").val();
 		var eighthDate = $("#datetimepicker8").find("input").val();
 		var selectedTac = $('#modelsWithDatesSelect option:selected').val();

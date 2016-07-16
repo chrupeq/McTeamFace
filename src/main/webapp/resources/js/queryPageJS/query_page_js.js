@@ -51,6 +51,7 @@ $(document).ready(function() {
 if(checkDates(thirdDate, fourthDate) == 'false'){
 			
 		}else{
+			hideTable();
 			$('.modalerrordiv').remove();
 			$('#imsiStatsModal').modal('hide');
 		$('#searchParams').html('You are searching for all IMSI statistics between ' + thirdDate + ' and ' + fourthDate);
@@ -60,6 +61,7 @@ if(checkDates(thirdDate, fourthDate) == 'false'){
 	});
 	
 	$('#selectByModel').change(function(){
+		hideTable();
 		changeContainerCSS('modelsQuery');
         var selectedTac = $('#selectByModel option:selected').val();
         var modelType = $("#selectByModel option:selected").text();
@@ -101,4 +103,6 @@ var clearDatePickers = function(){
 	  $('#datetimepicker6').find('input').val("");
 	  $('#datetimepicker7').find('input').val("");
 	  $('#datetimepicker8').find('input').val("");
+	  $('#datetimepicker11').find('input').val("");
+	  $('#datetimepicker12').find('input').val("");
 	};

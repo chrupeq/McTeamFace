@@ -81,6 +81,9 @@ var imsiQuery = function(dateThree, dateFour){
 		    },
 			success: function(data){
 				buildIMSIStatsTable(data);
+				if(getTheCookieYouNeed('job_title') == 'NME'){
+				failuresLineChart(data);
+				}
 				$('#queryprogressouter').mousemove(function(){
 					$('#queryprogressouter').removeClass('animated fadeInDown');
 					$('#queryprogressouter').addClass('animated fadeOutUp');

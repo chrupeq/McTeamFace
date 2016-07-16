@@ -1,9 +1,9 @@
-var instantChart = function(data) {
+var failuresLineChart = function(data) {
 	var labels = [];
 	var failureData = [];
 	var colours = [];
-	var percentageArray = [];
-	$('#skills').replaceWith('<canvas class="collapse" id="skills" width="300" height="300"></canvas>');
+	var numberOfFailures = [];
+;	$('#skills').replaceWith('<canvas class="collapse" id="skills" width="300" height="300"></canvas>');
 	config = null;
 	
 	var randomColour = function() {
@@ -16,26 +16,26 @@ var instantChart = function(data) {
 	percentageArray = getPercentagesOfFailures(data);
 	
 	data.map(function(item) {
-		labels.push(item.operatorDescription);
+		labels.push(item.imsi);
 	});
 	
 	data.map(function(item) {
-		failureData.push(item.failureCount);
+		numberOfFailures.push(item.numberOfFailures);
 	});
 	
-	for(var i = 0; i < percentageArray.length; i ++){
-		labels[i] += ' (' + percentageArray[i] + '%)';
-	}
+	data.map(function(item) {
+		failureData.push(item.failureDuration);
+	});
 		
 	for(var i = 0; i < labels.length; i ++){
 		colours.push(randomColour());
 	}
 
 	var config = {
-		type : 'doughnut',
+		type : 'bar',
 		data : {
 			datasets : [ {
-
+				label : numberOfFailures,
 				data : failureData,
 				backgroundColor : colours,
 
@@ -46,30 +46,25 @@ var instantChart = function(data) {
 			responsive : true,
 			legend : {
 				position : 'bottom'
-			}
-		}
-	};
+			},
+			scales: {
+			    yAxes: [{
+			      scaleLabel: {
+			        display: true,
+			        labelString: 'Total Failures In Milliseconds'
+			      }
+			    }],
+			    xAxes: [{
+				      scaleLabel: {
+				        display: true,
+				        labelString: 'IMSI Number'
+				      }
+				    }],
+		},
+	}
+	}
 showCharts();
-$('#chartTitle').html("Top ten failures");
+$('#chartTitle').html("IMSI Failures With Durations");
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);
-}
-
-var getPercentagesOfFailures = function(data){
-	var totalFailures = 0;
-	var onePercent = 0;
-	var percentageArray = [];
-	var failureArray = [];
-
-	data.map(function(item) {
-		totalFailures += parseInt(item.failureCount);
-	});
-	
-	onePercent = totalFailures / 100;
-	
-	data.map(function(item) {
-		percentageArray.push(parseInt(item.failureCount) / onePercent);
-	});
-	
-	return percentageArray;
 }
