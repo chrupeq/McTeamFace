@@ -28,6 +28,7 @@
 <script src="resources/js/bootstrap.js"></script>
 <script src="resources/js/charts/Chart.bundle.js"></script>
 <script src="resources/js/charts/top_ten_charts.js"></script>
+<script src="resources/js/charts/chart_appearance_functions.js"></script>
 <script src="resources/js/charts/model_failures_no_dates_chart.js"></script>
 <script src="resources/js/charts/top_ten_imsi_failures_chart.js"></script>
 <script src="resources/js/DateRegex/data_validation.js"></script>
@@ -292,6 +293,7 @@ alert(errMsg);
 				</div>
 			</div>
 			</div>
+			<div id="buttonForCharts"><button type="submit" id="clickforchart" class="animated fadeOutUp hiddenbycostanza">See A Chart</button></div>
                 </div>
             </div>
         </div>
@@ -451,7 +453,7 @@ alert(errMsg);
 					</div>
 				</div>
 				
-				<div class="container clearfix">
+				<div id="canvasdiv" class="container clearfix animated fadeOutUp hiddenbycostanza">
     <div class="third widget doughnut">
     	<div id="canvassurround" class="box">
     		<h3 id="chartTitle"></h3>

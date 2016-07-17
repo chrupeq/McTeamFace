@@ -49,7 +49,7 @@ var topTenImsiChart = function(data) {
 			}
 		}
 	};
-showCharts();
+	appendRevealButton();
 $('#chartTitle').html("Top ten IMSI failures");
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);

@@ -63,7 +63,7 @@ var failuresLineChart = function(data) {
 		},
 	}
 	}
-showCharts();
+	appendRevealButton();
 $('#chartTitle').html("IMSI Failures With Durations");
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);

@@ -3,7 +3,8 @@ var instantChart = function(data) {
 	var failureData = [];
 	var colours = [];
 	var percentageArray = [];
-	$('#skills').replaceWith('<canvas class="collapse" id="skills" width="300" height="300"></canvas>');
+	$('#skills').replaceWith('<canvas id="skills" width="300" height="300"></canvas>');
+	
 	config = null;
 	
 	var randomColour = function() {
@@ -49,7 +50,8 @@ var instantChart = function(data) {
 			}
 		}
 	};
-showCharts();
+//showCharts();
+	appendRevealButton();
 $('#chartTitle').html("Top ten failures");
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);

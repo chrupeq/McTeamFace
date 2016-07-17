@@ -55,7 +55,7 @@ var modelsBarChart = function(data) {
 		},
 	}
 	}
-showCharts();
+	appendRevealButton();
 $('#chartTitle').html("IMSI Failures With Durations");
 Chart.defaults.global.legend.display = false;
 	var ctx = document.getElementById("skills").getContext("2d");
