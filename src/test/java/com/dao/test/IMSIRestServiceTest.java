@@ -280,4 +280,32 @@ public class IMSIRestServiceTest {
         String response = responseObj.getEntity().trim();
         System.out.println("getIMSIsForFailureClassesTest()" + response);
 	}
+	@Test
+	public void getUniqueIMSIsPerFailureClassShouldReturn200() throws Exception{
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_per_failure_class?failure_class=0");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getUniqueIMSIsPerFailureClassShouldReturn200():: " + response);
+	}
+	@Test
+	public void getUniqueIMSIsPerFailureClassShouldReturn200Two() throws Exception{
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_per_failure_class?failure_class=1");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getUniqueIMSIsPerFailureClassShouldReturn200Two():: " + response);
+	}
+	@Test
+	public void getgetUniqueIMSIsPerFailureClassShouldReturn404() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_per_failure_class?failure_class=367");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(404, responseObj.getStatus());
+	}
 }

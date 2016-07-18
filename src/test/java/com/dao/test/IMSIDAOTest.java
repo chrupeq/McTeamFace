@@ -41,6 +41,7 @@ public class IMSIDAOTest {
 	private List<IMSIWithEventIDAndCauseCode> imsisWithEventIDsAndCauseCodes;
 	private List<Base_data> baseDataList;
 	private List<Failure_class> failureClassList;
+	private List<BigInteger> IMSIsPerFailureClass;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -170,18 +171,36 @@ public class IMSIDAOTest {
 		assertEquals(4, baseDataList.size());
 		
 	}
-	@Test
-	public void getIMSIsForFailureClassTest() throws Exception{
-		String failureClass = "1";
-		baseDataList = imsiDAO.getIMSIsForFailureClass(failureClass);
-		assertFalse(baseDataList.isEmpty());
-		assertEquals(3, baseDataList.size());
-	}
+//	@Test
+//	public void getIMSIsForFailureClassTest() throws Exception{
+//		String failureClass = "1";
+//		baseDataList = imsiDAO.getIMSIsForFailureClass(failureClass);
+//		assertFalse(baseDataList.isEmpty());
+//		assertEquals(3, baseDataList.size());
+//	}
 	@Test
 	public void getFailureClassTest() throws Exception{
 		failureClassList = imsiDAO.getFailureClass();
 		assertFalse(failureClassList.isEmpty());
 		assertEquals(2, failureClassList.size());
 	}
+	@Test
+	public void getAffectedIMSIsPerCauseCodeShouldReturnAListOfBigIntegers(){
+		int failureClass = 1;
+		IMSIsPerFailureClass = imsiDAO.getAffectedIMSIsPerFailureClass(failureClass);
+		assertNotNull(IMSIsPerFailureClass);
+		assertFalse(IMSIsPerFailureClass.isEmpty());
+		assertTrue(IMSIsPerFailureClass.get(0) instanceof BigInteger);
+	}
+	@Test
+	public void getAffectedIMSIsPerCauseCodeShouldReturnOnlyUniqueIMSIs(){
+		int failureClass = 1;
+		IMSIsPerFailureClass = imsiDAO.getAffectedIMSIsPerFailureClass(failureClass);
+		assertEquals(3, IMSIsPerFailureClass.size());
+		assertFalse(IMSIsPerFailureClass.get(0).equals(IMSIsPerFailureClass.get(1)));
+		assertFalse(IMSIsPerFailureClass.get(0).equals(IMSIsPerFailureClass.get(2)));
+		assertFalse(IMSIsPerFailureClass.get(1).equals(IMSIsPerFailureClass.get(2)));
+	}
+	
 	
 }

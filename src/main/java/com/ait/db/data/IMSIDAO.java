@@ -110,14 +110,14 @@ public class IMSIDAO {
 		query.setParameter("imsi", imsi);
 		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionList = query.getResultList();
 
-		return causeCodeFailureClassDescriptionList;
-
-		
-		
-		
-		
+		return causeCodeFailureClassDescriptionList;	
 	}
-	
+	public List<BigInteger> getAffectedIMSIsPerFailureClass(int failureClass){
+		query = entityManager.createQuery("SELECT DISTINCT (b.imsi) FROM Base_data b WHERE b.failure_class.failure_class = :failureClass ORDER BY (b.imsi)");
+		query.setParameter("failureClass", failureClass);
+		List<BigInteger> IMSIsPerCauseCode = query.getResultList();
+		return IMSIsPerCauseCode;
+	}
 	
 
 }

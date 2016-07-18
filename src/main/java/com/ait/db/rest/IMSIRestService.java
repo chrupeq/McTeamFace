@@ -252,6 +252,21 @@ public class IMSIRestService {
 			return Response.status(400).build();
 		}
 	}
+	@GET
+	@Path("/get_per_failure_class")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getUniqueIMSIsPerFailureClass(@QueryParam("failure_class")int failureClass){
+		try{
+			List<BigInteger> IMSIsPerFailureClass = IMSIDao.getAffectedIMSIsPerFailureClass(failureClass);
+			if(IMSIsPerFailureClass.isEmpty()){
+				return Response.status(404).build();
+			}
+			return Response.status(200).entity(IMSIsPerFailureClass).build();
+		} catch(Exception e){
+			e.printStackTrace();
+			return Response.status(400).build();
+		}
+	}
 	
 }
 
