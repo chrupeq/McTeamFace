@@ -1,41 +1,33 @@
 package com.ait.db.rest;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 import com.ait.db.data.DateParser;
 import com.ait.db.data.IMSIDAO;
-import com.ait.db.data.TopTenDAO;
 import com.ait.db.data.NetworkEntityDAO;
-import com.ait.db.data.NetworkEntityType;
+import com.ait.db.data.TopTenDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
-import com.ait.db.model.NetworkEntity;
 import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
+import com.ait.db.model.UniqueEventCauseFailureClass;
 import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsObjectFactory;
 import com.ait.imsiStats.IMSIStatsProducer;
@@ -228,7 +220,6 @@ public class IMSIRestService {
 			List<Failure_class> failureClassList = IMSIDao.getFailureClass();
 			return Response.status(200).entity(failureClassList).build();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println("Failed to get failures...new?");
 			return Response.status(400).build();
 		}
@@ -243,11 +234,23 @@ public class IMSIRestService {
 			List<Base_data> failureClassList = IMSIDao.getIMSIsForFailureClass(failureClass);
 			return Response.status(200).entity(failureClassList).build();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println("Failed to get failures...?");
 			return Response.status(400).build();
 		}
 
+	}
+	
+	@GET
+	@Path("/unique_causeCode_failureClass_Description")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(@QueryParam("imsi") BigInteger imsi){
+		try{
+			List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptList = IMSIDao.getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(imsi);
+			return Response.status(200).entity(causeCodeFailureClassDescriptList).build();
+		}catch(Exception e){
+			System.out.println("Failed to get failures...?");
+			return Response.status(400).build();
+		}
 	}
 	
 }

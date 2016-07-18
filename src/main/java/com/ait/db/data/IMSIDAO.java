@@ -1,10 +1,6 @@
 package com.ait.db.data;
 
 import java.math.BigInteger;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,13 +12,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
-import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
+import com.ait.db.model.UniqueEventCauseFailureClass;
 
 
 
@@ -106,4 +103,21 @@ public class IMSIDAO {
 		return failureClassList;
 	}
 	
+	public List<UniqueEventCauseFailureClass> getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(BigInteger imsi){
+		System.out.println("In the DAO");
+		query = entityManager.createQuery("SELECT DISTINCT b.event_cause.cause_code, b.failure_class.failure_class, b.failure_class.description FROM Base_data b" +
+											" WHERE b.imsi = :imsi ");
+		query.setParameter("imsi", imsi);
+		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionList = query.getResultList();
+
+		return causeCodeFailureClassDescriptionList;
+
+		
+		
+		
+		
+	}
+	
+	
+
 }
