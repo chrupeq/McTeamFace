@@ -26,6 +26,8 @@ import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
+import com.ait.imsiStats.IMSIStats;
+import com.ait.imsiStats.IMSIStatsObjectFactory;
 
 @RunWith(Arquillian.class)
 public class IMSIDAOTest {
@@ -48,6 +50,7 @@ public class IMSIDAOTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Base_data.class.getPackage())
 				.addPackage(IMSIDAO.class.getPackage())
+				.addClasses(IMSIStats.class, IMSIStatsObjectFactory.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
@@ -200,6 +203,13 @@ public class IMSIDAOTest {
 		assertFalse(IMSIsPerFailureClass.get(0).equals(IMSIsPerFailureClass.get(1)));
 		assertFalse(IMSIsPerFailureClass.get(0).equals(IMSIsPerFailureClass.get(2)));
 		assertFalse(IMSIsPerFailureClass.get(1).equals(IMSIsPerFailureClass.get(2)));
+	}
+	@Test
+	public void getIMSIStatisticsShouldReturnAListOfIMSIStatsObjects(){
+		List<IMSIStats> imsiStats = imsiDAO.getIMSIStatistics(dateOne, dateTwo);
+		assertNotNull(imsiStats);
+		assertFalse(imsiStats.isEmpty());
+		assertTrue(imsiStats.get(0) instanceof IMSIStats);
 	}
 	
 	
