@@ -10,6 +10,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+/**
+ * Web service Class for file timer
+ * Using a rest request, the file timer is
+ * returned by calling the findFileTimerByID
+ * below, used in displaying the time back to
+ * the upload dataset page of the system
+ * administrator
+ *
+ */
 @Path("/fileTimer")
 @Stateless
 @LocalBean

@@ -12,6 +12,9 @@ import com.ait.db.model.User;
 
 /**
  * Users Data Access Object Class
+ * Various methods in this class used
+ * for getting, editing, adding and deleting
+ * users
  *
  */
 @Stateless

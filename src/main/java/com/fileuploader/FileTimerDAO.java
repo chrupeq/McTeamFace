@@ -5,6 +5,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/**
+ * The FilerTimer Data Access Object Class
+ * Used for getting the file timer back from
+ * the database and updating the file timer
+ *
+ */
 @Stateless
 @LocalBean
 public class FileTimerDAO {

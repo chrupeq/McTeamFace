@@ -6,6 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * File Timer Class
+ * For creating File Timer objects, used in the
+ * process of timing how long it takes a file to 
+ * upload to the database
+ *
+ */
 @Entity
 @XmlRootElement
 @Table(name = "filetimer")

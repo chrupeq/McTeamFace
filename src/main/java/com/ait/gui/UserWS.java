@@ -22,6 +22,8 @@ import com.stringgenerator.SessionIdentifierGenerator;
 
 /**
  * User Web Service class
+ * Using rest requests, one can pull/push
+ * data to and from the database
  *
  */
 @Path("/users")
@@ -51,7 +53,7 @@ public class UserWS {
 	@Path("/{id}")
 	public Response findUserById(@PathParam("id") int id) {
 		User user = userDao.getUser(id);
-		Response r = Response.status(200).entity(user).header("Content-Length", user.toString().length()).build();
+		Response response = Response.status(200).entity(user).header("Content-Length", user.toString().length()).build();
 		return Response.status(200).entity(user).header("Content-Length", 100).build();
 	}
 
