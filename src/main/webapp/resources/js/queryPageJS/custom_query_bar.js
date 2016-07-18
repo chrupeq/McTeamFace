@@ -18,10 +18,8 @@ var getCustomQueryBar = function(){
 	if(getTheCookieYouNeed('job_title') == ""){
 		$('#queryList').html(customQueryBar);
 	}
-
-         
+     
 	else if(getTheCookieYouNeed('job_title') == 'NME'){
-	
 		customQueryBar += '<a href="#" id="imsiWithDates" class="list-group-item">List of '
 			+ 'IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
 			+ 'class="list-group-item">List of failure details for given Model</a>'
@@ -65,6 +63,14 @@ var getCustomQueryBar = function(){
 			+ '</ul>'
 			+ '</div>';	
 		$('#queryList').html(customQueryBar);
+	}else if(getTheCookieYouNeed('job_title') == 'SA'){
+		customQueryBar += '<a data-toggle="tab" href="#form" id="formTab">User Information</a>'
+			+ '<a data-toggle="tab" href="#importDataset" id="importDatasetTab">Import Datasets</a>'
+			+ '</ul>'
+			+ '</div>';	
+		alert(customQueryBar);
+		$('#navList').html(customQueryBar);
+		alert($('#navList').html());
 	}
 
 	
@@ -164,10 +170,15 @@ var getCustomQueryBar = function(){
 		$('#queryHeader').addClass('animated fadeOutUp');
 		$('#queryHeader2').removeClass('animated fadeOutUp');
 		$('#queryHeader2').addClass('animated fadeInDown');
-		checkDates(firstDate, secondDate);
+		if(checkDates(firstDate, secondDate) == 'false'){
+			
+		}else{
+			$('#topTenModal').modal('hide');
+			hideTable();
 		findTopTenFailures(firstDate, secondDate);
 		$('#querysTable').addClass('animated fadeOutUp');
 		changeContainerCSS('imsiDates');
+		}
 	});
 	
 	$('#imsiTopTen').on('click', function(){

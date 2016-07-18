@@ -14,7 +14,7 @@ var headers = "";
 	}
 	
 	if(userType == 'NME'){
-	headers = '<li id="querytab" class="hiddenbycostanza"><a data-toggle="tab" href="#queryBody" id="queryTabClick">Queries</a></li>'
+	headers = '<li id="querytab" class="hiddenbycostanza"> <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a></li>'
 		+ '<li id="importtab" class="hiddenbycostanza"><a data-toggle="tab" href="#importDataset" id="importDatasetTab">Import Datasets</a></li>';
 		+ '<li id="contacttab" class="hiddenbycostanza"><a data-toggle="tab" href="#contactus" id="contact">Contact Us</a></li>'
 		+ '<li id="abouttab" class="hiddenbycostanza"><a data-toggle="tab" href="#aboutus" id="about">About Us</a></li>';
@@ -36,4 +36,9 @@ var headers = "";
 		$('.nav-tabs').html(headers);
 		$('#wikommen').click();
 	}
+	
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
 	}

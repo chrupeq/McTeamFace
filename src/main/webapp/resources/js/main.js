@@ -49,7 +49,7 @@ function loginAuthentication(details) {
 	$.each(details, function(i, detail){
 		
 		if(username==detail.username && password==detail.password) {
-			
+			location.reload();
 			counter++;
 			$('#logoutBtn').removeClass('hiddenbycostanza');
 			jobTitle = detail.job_title;
@@ -67,8 +67,8 @@ function loginAuthentication(details) {
 				success: function(details){
 						}
 			});
-			userAccessControl();
 			getCustomQueryBar();
+			userAccessControl();
 		}		
 		
 	})	

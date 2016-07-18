@@ -6,7 +6,6 @@ $(document).ready(function(){
 });	
 
 var findTopTenFailures = function(date1, date2){
-	alert(date1 + " " + date2 + "test");
 	$('#queryprogress').css('width', '0%');
  	$('#queryprogress').text('0%');
 	$('#queryprogressouter').removeClass('animated fadeOutUp');

@@ -95,6 +95,7 @@ var loadFailureClassIMSITablePart2 = function(data){
 	    } );
 	
 	 showTable();
+	 $('#querysTable').css('width: 10%;');
 	
 	$('#backToHomeButton').on('click', function(){
 		hideTable();
