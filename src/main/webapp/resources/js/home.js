@@ -20,6 +20,7 @@ var userAccessControl = function() {
 		$("#formtab").removeClass('hiddenbycostanza');
 		$('#form').removeClass('hiddenbycostanza');
 		$('#importDataset').removeClass('hiddenbycostanza');
+		getCustomQueryBar();
 
 	} else if (accessLevel == "NME") {
 		injectNavBar('NME');

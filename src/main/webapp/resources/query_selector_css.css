@@ -222,3 +222,8 @@ table#querysTable tr.odd td {
 	position: fixed; 
 	margin-top: -2.4%;
 }
+
+#navTabs {
+	position: fixed; 
+	margin-top: -9.4%;
+}

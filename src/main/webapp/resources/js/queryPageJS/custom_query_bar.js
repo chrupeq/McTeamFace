@@ -61,16 +61,16 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>'
 			+  '<a href="#" id="failureClassImsis" class="list-group-item">IMSI\'s for a given Failure Class</a>'
 			+ '</ul>'
-			+ '</div>';	
+			+ '</div>';
 		$('#queryList').html(customQueryBar);
 	}else if(getTheCookieYouNeed('job_title') == 'SA'){
-		customQueryBar += '<a data-toggle="tab" href="#form" id="formTab">User Information</a>'
-			+ '<a data-toggle="tab" href="#importDataset" id="importDatasetTab">Import Datasets</a>'
+		customQueryBar += '<a data-toggle="tab" href="#form" class="list-group-item" id="formTab">User Information</a>'
+			+ '<a data-toggle="tab" href="#importDataset" class="list-group-item" id="importDatasetTab">Import Datasets</a>'
 			+ '</ul>'
 			+ '</div>';	
 		alert(customQueryBar);
-		$('#navList').html(customQueryBar);
-		alert($('#navList').html());
+		$('#navTabs').html(customQueryBar);
+		alert($('#queryList').html());
 	}
 
 	

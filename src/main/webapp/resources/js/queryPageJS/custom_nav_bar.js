@@ -1,9 +1,7 @@
 var injectNavBar = function(userType){
 var headers = "";
 	if(userType == 'SA'){
-		headers = '<li id="formtab" class="hiddenbycostanza"><a data-toggle="tab" href="#form" id="formTab">User Information</a></li>'
-		+ '<li id="importtab" class="hiddenbycostanza"><a data-toggle="tab" href="#importDataset" id="importDatasetTab">Import Datasets</a></li>';
-		$('.nav-tabs').html(headers);
+	
 	}
 	
 	if(userType == 'CSR'){
