@@ -250,4 +250,22 @@ public class IMSIRestServiceTest {
         System.out.println("getIMSICountBetweenDatesShouldReturn200WhenDateIsMalformed::" + response);
         assertEquals("[{\"imsi\":240210000000013,\"failureDuration\":0,\"numberOfFailures\":0}]", response);   
 	}
+	
+	@Test
+	public void getUniqueFailureClassesTest() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/unique_failure_class");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+	}
+	
+	@Test
+	public void getIMSIsForFailureClassesTest() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/imsis_for_failure_class");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+	}
 }

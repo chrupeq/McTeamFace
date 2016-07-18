@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 
 import com.ait.db.data.IMSIDAO;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.Failure_class;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 
@@ -39,6 +40,7 @@ public class IMSIDAOTest {
 	private List<IMSIWithValidFailureClasses> imsiWithValidFailureClassses;
 	private List<IMSIWithEventIDAndCauseCode> imsisWithEventIDsAndCauseCodes;
 	private List<Base_data> baseDataList;
+	private List<Failure_class> failureClassList;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -167,6 +169,19 @@ public class IMSIDAOTest {
 		assertFalse(baseDataList.isEmpty());
 		assertEquals(4, baseDataList.size());
 		
+	}
+	@Test
+	public void getIMSIsForFailureClassTest() throws Exception{
+		String failureClass = "1";
+		baseDataList = imsiDAO.getIMSIsForFailureClass(failureClass);
+		assertFalse(baseDataList.isEmpty());
+		assertEquals(3, baseDataList.size());
+	}
+	@Test
+	public void getFailureClassTest() throws Exception{
+		failureClassList = imsiDAO.getFailureClass();
+		assertFalse(failureClassList.isEmpty());
+		assertEquals(2, failureClassList.size());
 	}
 	
 }
