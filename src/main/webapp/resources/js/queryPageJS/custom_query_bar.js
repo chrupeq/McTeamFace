@@ -68,9 +68,10 @@ var getCustomQueryBar = function(){
 			+ '<a data-toggle="tab" href="#importDataset" class="list-group-item" id="importDatasetTab">Import Datasets</a>'
 			+ '</ul>'
 			+ '</div>';	
-		alert(customQueryBar);
+	
 		$('#navTabs').html(customQueryBar);
-		alert($('#queryList').html());
+		$('#navTabs2').html(customQueryBar);
+
 	}
 
 	
