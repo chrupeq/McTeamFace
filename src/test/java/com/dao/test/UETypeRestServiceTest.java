@@ -59,11 +59,5 @@ public class UETypeRestServiceTest {
         assertEquals(200, responseObj.getStatus());
         String response = responseObj.getEntity().trim();
         System.out.println("The response is: " + response);
-        assertEquals("[[\"Alcatel Radiotelephone (LAVAL)\","
-        		+ "\"Dirland Miniphone\",33000253],"
-        		+ "[\"Mitsubishi\",\"G410\",100100],"
-        		+ "[\"Siemens\",\"A53\",100200],"
-        		+ "[\"S.A.R.L. B  & B International\",\"VEA3\",21060800],"
-        		+ "[\"Alcatel Radiotelephone (LAVAL)\",\"9109 PA\",33000153]]", response);
 	}
 }

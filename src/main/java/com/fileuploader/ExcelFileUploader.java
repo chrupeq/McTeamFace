@@ -25,6 +25,14 @@ import com.ait.db.model.NonBaseDataObjects;
 import com.ait.reader.ReadDataSetIntoMainMemory;
 import com.validation.JDBCConnectionManager;
 
+/**
+ * ExcelFileUploader class
+ * This class is used for uploading the non-erroneous
+ * data to the database. Also in this file is where the
+ * file timer is ended as it is the last place in which
+ * the data set gets uploaded to the database.
+ *
+ */
 @Path("/upload")
 @Stateless
 @LocalBean

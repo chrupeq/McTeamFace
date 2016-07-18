@@ -30,7 +30,6 @@ import com.fileuploader.FileTimerDAO;
 import com.validation.DataValidator;
 
 /**
- * @author A00236958
  * In this class, the excel file is read from a specified
  * location on the hard drive and then validated for errors.
  */
@@ -39,7 +38,7 @@ import com.validation.DataValidator;
 public class ReadDataSetIntoMainMemory {
 	
 	@EJB
-	static ReadDataSetIntoMainMemory rdsimm = new ReadDataSetIntoMainMemory();
+	static ReadDataSetIntoMainMemory readDataSetIntoMainMemoryEJB = new ReadDataSetIntoMainMemory();
 	
 	@EJB
 	private NetworkEntityDAO networkEntityDAO;
@@ -65,6 +64,8 @@ public class ReadDataSetIntoMainMemory {
 	 * passTheArrayToValidator method, then finally returns an ArrayList of the
 	 * excel sheets.
 	 * 
+	 * Also the timer for the file uploader starts here.
+	 * 
 	 * @param fileName
 	 * @return
 	 * @throws InvalidFormatException
@@ -73,13 +74,13 @@ public class ReadDataSetIntoMainMemory {
 	public static ArrayList<Object[][]> readFileInFromHardDrive(final String fileName)
 			throws IOException {
 
-		FileInputStream fos = new FileInputStream(new File(fileName));
-		Date startTimer = new Date();
+		final FileInputStream fileInputStream = new FileInputStream(new File(fileName));
+		final Date startTimer = new Date();
 		System.out.println("Start timer: "+startTimer);
 		
 		Workbook dataSetWorkbook = null;
 		try {
-			dataSetWorkbook = WorkbookFactory.create(fos);
+			dataSetWorkbook = WorkbookFactory.create(fileInputStream);
 		} catch (InvalidFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,7 +90,7 @@ public class ReadDataSetIntoMainMemory {
 			final Object[][] sheet = convertDataSetSheetIntoObjectArray(dataSetWorkbook, sheetNumber);
 			arrayListOfSheets.add(sheet);
 		}
-		fos.close();
+		fileInputStream.close();
 		ExcelFileUploader.setProgressVariable(10);
 			return arrayListOfSheets;
 		}
@@ -157,7 +158,7 @@ public class ReadDataSetIntoMainMemory {
 	public static Base_data[] passTheArrayToValidator(final Object[][] sheet,
 			final String makeFileNameForErrorLog) {
 		System.out.println("Array before validator: " + sheet.length);
-			Base_data[] bdArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
-			return bdArray;
+		final Base_data[] baseDataArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
+			return baseDataArray;
 	}
 }

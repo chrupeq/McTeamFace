@@ -4,8 +4,8 @@ import java.math.BigInteger;
 
 public class IMSIStats implements Comparable<IMSIStats> {
 	private BigInteger imsi;
-	private int failureDuration;
-	private int numberOfFailures;
+	private long failureDuration;
+	private long numberOfFailures;
 	
 	IMSIStats() {
 		
@@ -14,7 +14,7 @@ public class IMSIStats implements Comparable<IMSIStats> {
 		this.imsi = imsi;
 		this.numberOfFailures = numberOfFailures;
 	}
-	IMSIStats(BigInteger imsi, int failureDuration, int numberOfFailures) {
+	IMSIStats(BigInteger imsi, long failureDuration, long numberOfFailures) {
 		super();
 		this.imsi = imsi;
 		this.failureDuration = failureDuration;
@@ -24,10 +24,10 @@ public class IMSIStats implements Comparable<IMSIStats> {
 	public BigInteger getImsi() {
 		return imsi;
 	}
-	public int getFailureDuration() {
+	public long getFailureDuration() {
 		return failureDuration;
 	}
-	public int getNumberOfFailures() {
+	public long getNumberOfFailures() {
 		return numberOfFailures;
 	}
 	@Override
