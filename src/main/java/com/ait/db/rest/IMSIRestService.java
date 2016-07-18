@@ -71,12 +71,10 @@ public class IMSIRestService {
 		System.out.println(dateOne);
 		System.out.println(dateTwo);
 		try {
-			List<Base_data> baseDataList = IMSIDao.getAllBaseDataBetweenDates(dateOne, dateTwo);
-			if(baseDataList.isEmpty()) {
+			List<IMSIStats> imsiStats = IMSIDao.getIMSIStatistics(dateOne, dateTwo);
+			if(imsiStats.isEmpty()) {
 				return Response.status(404).build();
 			}
-			IMSIStatsProducer imsiStatsProducer = new IMSIStatsProducer(baseDataList);
-			List<IMSIStats> imsiStats = imsiStatsProducer.getListOfIMSIStatsObjects();
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonInString = mapper.writeValueAsString(imsiStats);
 			return Response.status(200).entity(imsiStats).header("Content-Length", jsonInString.length()).build();

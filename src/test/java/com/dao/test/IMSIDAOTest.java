@@ -44,6 +44,7 @@ public class IMSIDAOTest {
 	private List<Base_data> baseDataList;
 	private List<Failure_class> failureClassList;
 	private List<BigInteger> IMSIsPerFailureClass;
+	List<IMSIStats> imsiStats;
 	
 	@Deployment
 	public static Archive<?> createDeployment() {
@@ -206,11 +207,27 @@ public class IMSIDAOTest {
 	}
 	@Test
 	public void getIMSIStatisticsShouldReturnAListOfIMSIStatsObjects(){
-		List<IMSIStats> imsiStats = imsiDAO.getIMSIStatistics(dateOne, dateTwo);
+		imsiStats = imsiDAO.getIMSIStatistics(dateOne, dateTwo);
 		assertNotNull(imsiStats);
 		assertFalse(imsiStats.isEmpty());
 		assertTrue(imsiStats.get(0) instanceof IMSIStats);
 	}
+	@Test
+	public void getIMSIStatisticsShouldReturnTheCorrectValuesInACorrectOrder(){
+		imsiStats = imsiDAO.getIMSIStatistics(dateFour, dateFive);
+		assertEquals(3, imsiStats.size());
+		BigInteger imsi = new BigInteger("240210000000013");
+		assertEquals(imsi, imsiStats.get(0).getImsi());
+		assertEquals(3, imsiStats.get(0).getNumberOfFailures());
+		assertEquals(3000, imsiStats.get(0).getFailureDuration());
+		
+		imsi = new BigInteger("344930000000011");
+		assertEquals(imsi, imsiStats.get(2).getImsi());
+		assertEquals(4, imsiStats.get(2).getNumberOfFailures());
+		assertEquals(4000, imsiStats.get(2).getFailureDuration());
+		
+	}
+	
 	
 	
 }

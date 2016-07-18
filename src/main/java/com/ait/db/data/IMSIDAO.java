@@ -145,6 +145,7 @@ public class IMSIDAO {
 			IMSIStats imsiStatsObject = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, failureDuration, numberOfFailures);
 			imsiStatsObjects.add(imsiStatsObject);
 		}
+		Collections.sort(imsiStatsObjects);
 		return imsiStatsObjects;
 	}
 }
