@@ -118,9 +118,6 @@ public class ExcelFileUploader extends JDBCConnectionManager {
 		objectsToBePersisted[0] = baseData;
 		String date = networkEntityDAO.saveNetworkEntityArray((NetworkEntity[]) objectsToBePersisted[0]);
 		
-		//settime
-		ft.setEndTime(date);
-		fileTimerDAO.update(ft);
 	}
 	
 	@GET
