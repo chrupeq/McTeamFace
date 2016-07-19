@@ -232,7 +232,9 @@ public class IMSIRestService {
 	public Response getIMSIForFailureClasses(@QueryParam("failure_class") String failureClass){
 		try {
 			List<Base_data> failureClassList = IMSIDao.getIMSIsForFailureClass(failureClass);
-			return Response.status(200).entity(failureClassList).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(failureClassList);
+			return Response.status(200).entity(failureClassList).header("Content-Length", jsonInString.length()).build();
 		} catch (Exception e) {
 			System.out.println("Failed to get failures...?");
 			return Response.status(400).build();
@@ -246,9 +248,28 @@ public class IMSIRestService {
 	public Response getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(@QueryParam("imsi") BigInteger imsi){
 		try{
 			List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptList = IMSIDao.getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(imsi);
-			return Response.status(200).entity(causeCodeFailureClassDescriptList).build();
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(causeCodeFailureClassDescriptList);
+			return Response.status(200).entity(causeCodeFailureClassDescriptList).header("Content-Length", jsonInString.length()).build();
 		}catch(Exception e){
 			System.out.println("Failed to get failures...?");
+			return Response.status(400).build();
+		}
+	}
+	@GET
+	@Path("/get_per_failure_class")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getUniqueIMSIsPerFailureClass(@QueryParam("failure_class")int failureClass){
+		try{
+			List<IMSIHelperObject> IMSIsPerFailureClass = IMSIDao.getAffectedIMSIsPerFailureClass(failureClass);
+			if(IMSIsPerFailureClass.isEmpty()){
+				return Response.status(404).build();
+			}
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(IMSIsPerFailureClass);
+			return Response.status(200).entity(IMSIsPerFailureClass).header("Content-Length", jsonInString.length()).build();
+		} catch(Exception e){
+			e.printStackTrace();
 			return Response.status(400).build();
 		}
 	}
