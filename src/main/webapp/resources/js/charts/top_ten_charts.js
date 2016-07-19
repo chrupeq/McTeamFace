@@ -55,14 +55,20 @@ var instantChart = function(data) {
 	appendRevealButton();
 $('#chartTitle').html("Top ten failures");
 	var ctx = document.getElementById("skills").getContext("2d");
-	window.myPie = new Chart(ctx, config);
+	myPie = new Chart(ctx, config);
 	
 	$("#skills").click( 
 		    function(evt){
 		        var activePoints = myPie.getElementsAtEvent(evt);
 		        var holder = activePoints[0];
-		        console.log(holder);
 		        alert(config.data.datasets[holder._datasetIndex].data[holder._index]);
+		       
+		        var label = myPie.data.labels[0];
+		        alert("label: " + label);
+
+		        //get value by index      
+		        var value = myPie.data.datasets[0].data[0];
+		        alert("value: " + value);
 		    }
 		);
 }

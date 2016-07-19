@@ -51,7 +51,7 @@ var loadEventImsiTable = function(IMSI2){
 	$('#queryprogressouter').addClass('animated fadeInDown');
 	$.ajax({
 		type:'GET',
-		url: imsiEventUrl + IMSI2,
+		url: imsiEventUrl + '?imsi=' + IMSI2,
 		dataType:'json',
 		progress: function(e) {
 	        if(e.lengthComputable) {
