@@ -88,7 +88,7 @@ var loadFailureClassIMSITablePart2 = function(data){
 	        
 	        columns: [
 	            
-	            { data: data}
+	            { data: "imsi"}
 	      
 	        ],
 	        

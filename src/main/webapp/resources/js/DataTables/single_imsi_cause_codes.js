@@ -82,7 +82,7 @@ var loadImsiCauseCodesTable = function(imsi){
 
 		            { data: "event_cause.cause_code" },
 		            
-		            { data: "event_cause.description" }
+		            { data: "failure_class.description" }
 		      
 		        ],
 		        
