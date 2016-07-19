@@ -107,8 +107,8 @@ public class IMSIDAO {
 	
 	public List<UniqueEventCauseFailureClass> getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(BigInteger imsi){
 		System.out.println("In the DAO");
-		query = entityManager.createQuery("SELECT DISTINCT b.event_cause.cause_code, b.failure_class.failure_class, b.failure_class.description FROM Base_data b" +
-											" WHERE b.imsi = :imsi ");
+		query = entityManager.createQuery("SELECT b FROM Base_data b" +
+											" WHERE b.imsi = :imsi GROUP BY event_cause.cause_code");
 		query.setParameter("imsi", imsi);
 		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionList = query.getResultList();
 

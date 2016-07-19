@@ -2,7 +2,7 @@
 //failureClassSelect - select box name
 //imsiByCauseCode - search button
 
-imsisForFailureClass = 'http://localhost:8080/GroupProject2016/rest/imsi/imsis_for_failure_class';
+imsisForFailureClass = 'http://localhost:8080/GroupProject2016/rest/imsi/get_per_failure_class';
 
 $(document).ready(function(){
 	
@@ -79,6 +79,7 @@ var loadFailureClassIMSITablePart2 = function(data){
 	+ '</thead>'
 	+ '</table>';
 	
+	
 	$('#tableDiv').html(table);
 	 querysTable = $('#querysTable').DataTable( {
 		 pagingType: "full_numbers",
@@ -87,7 +88,7 @@ var loadFailureClassIMSITablePart2 = function(data){
 	        
 	        columns: [
 	            
-	            { data: "imsi" }
+	            { data: data}
 	      
 	        ],
 	        
