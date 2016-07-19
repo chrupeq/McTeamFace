@@ -20,7 +20,6 @@ import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
-import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.UniqueEventCauseFailureClass;
 import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsObjectFactory;
@@ -71,18 +70,20 @@ public class IMSIDAO {
 		Collections.sort(imsiWithValidFailureClasses);
 		return imsiWithValidFailureClasses;
 	}
-	public List<IMSIWithEventIDAndCauseCode> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) throws Exception {
-		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
+	public List<Object> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) throws Exception {
+//		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
+		query = entityManager.createQuery("SELECT b.event_cause.event_id, b.event_cause.cause_code, "
+				+ "b.event_cause.description, b.failure_class.failure_class, b.failure_class.description FROM Base_data b WHERE b.imsi = :imsi");
 		query.setParameter("imsi", imsi);
-		List<Base_data> baseDataList = query.getResultList();
-		if(baseDataList.isEmpty()) {
-			List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = new ArrayList<>(0);
-			return imsiWithEventIDAndCauseCodeList;
-		}
-		imsiWithEventIDAndCauseCodeFactory = new IMSIWithEventIDAndCauseCodeFactory(baseDataList);
-		List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = 
-				imsiWithEventIDAndCauseCodeFactory.getIMSIWithEventIDAndCauseCodeList();
-		return imsiWithEventIDAndCauseCodeList;
+		List<Object> objectDataList = query.getResultList();
+//		if(baseDataList.isEmpty()) {
+//			List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = new ArrayList<>(0);
+//			return imsiWithEventIDAndCauseCodeList;
+//		}
+//		imsiWithEventIDAndCauseCodeFactory = new IMSIWithEventIDAndCauseCodeFactory(baseDataList);
+//		List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = 
+//				imsiWithEventIDAndCauseCodeFactory.getIMSIWithEventIDAndCauseCodeList();
+		return objectDataList;
 	}
 	public List<Base_data> getAllBaseDataBetweenDates(String date1, String date2) {
 		dateParser = new DateParser();
@@ -108,85 +109,58 @@ public class IMSIDAO {
 	}
 	
 	public List<UniqueEventCauseFailureClass> getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(BigInteger imsi){
-	
-		query = entityManager.createQuery("SELECT DISTINCT b.event_cause.cause_code, b.failure_class.failure_class, b.failure_class.description FROM Base_data b" +
-											" WHERE b.imsi = :imsi ");
+		System.out.println("In the DAO");
+		query = entityManager.createQuery("SELECT b FROM Base_data b" +
+											" WHERE b.imsi = :imsi GROUP BY event_cause.cause_code");
 		query.setParameter("imsi", imsi);
-		List<Object> causeCodeFailureClassDescriptionList = query.getResultList();
-		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionListOfHelperObjects = convertUniqueCauseCodeAndDescriptionForFailureClassObject(causeCodeFailureClassDescriptionList);
-		
-		
-		return causeCodeFailureClassDescriptionListOfHelperObjects;
+		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionList = query.getResultList();
 
-		
+		return causeCodeFailureClassDescriptionList;	
 	}
-	
-	private List<UniqueEventCauseFailureClass> convertUniqueCauseCodeAndDescriptionForFailureClassObject(List<Object> causeCodeFailureClassDescriptData){
-		
-		int causeCode;
-		int failureClass;
-		String description;
-		
-		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptObjectList = new ArrayList<UniqueEventCauseFailureClass>();
-		for(Object object : causeCodeFailureClassDescriptData){
-			Object[] objectArray = (Object[]) object;
-			causeCode = (int) (objectArray[0]);
-			failureClass = (int)(objectArray[1]);
-			description = (String)(objectArray[2]);
-			
-			UniqueEventCauseFailureClass uniqueEventCauseFailureClassObject = new UniqueEventCauseFailureClass(causeCode, failureClass, description);
-			causeCodeFailureClassDescriptObjectList.add(uniqueEventCauseFailureClassObject);
-		}
-	
-		return causeCodeFailureClassDescriptObjectList;
-	}
-
 	public List<IMSIHelperObject> getAffectedIMSIsPerFailureClass(int failureClass){
-  		query = entityManager.createQuery("SELECT DISTINCT (b.imsi) FROM Base_data b WHERE b.failure_class.failure_class = :failureClass ORDER BY (b.imsi)");
-  		query.setParameter("failureClass", failureClass);
-  		List<Object> IMSIsPerFailureClass = query.getResultList();
-  		return getIMSIObjects(IMSIsPerFailureClass);
-  		  	}
-	
+		query = entityManager.createQuery("SELECT DISTINCT (b.imsi) FROM Base_data b WHERE b.failure_class.failure_class = :failureClass ORDER BY (b.imsi)");
+		query.setParameter("failureClass", failureClass);
+		List<Object> IMSIsPerFailureClass = query.getResultList();
+		return getIMSIObjects(IMSIsPerFailureClass);
+	}
 	public List<IMSIHelperObject> getIMSIObjects(List<Object> IMSIObjects){
- 		BigInteger imsi;
- 		IMSIHelperObject imsiObject;
- 		List<IMSIHelperObject> imsiObjects = new ArrayList<>();
- 		for(Object bigIntObj : IMSIObjects){
- 			imsi = (BigInteger) bigIntObj;
- 			imsiObject = new IMSIHelperObject(imsi);
- 			imsiObjects.add(imsiObject);
- 		}
+		BigInteger imsi;
+		IMSIHelperObject imsiObject;
+		List<IMSIHelperObject> imsiObjects = new ArrayList<>();
+		for(Object bigIntObj : IMSIObjects){
+			imsi = (BigInteger) bigIntObj;
+			imsiObject = new IMSIHelperObject(imsi);
+			imsiObjects.add(imsiObject);
+		}
 		return imsiObjects;
- 	}
+	}
 	
 	public List<IMSIStats> getIMSIStatistics(String date1, String date2){
-		 		dateParser = new DateParser();
-		 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		 		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
-		 		query = entityManager.createQuery("SELECT b.imsi, COUNT(*) AS num_of_failures, SUM(b.duration) AS failure_duration FROM Base_data b "
-		 				+ "WHERE b.date_time BETWEEN :startDate AND :endDate GROUP BY (b.imsi)");
-		 		query.setParameter("startDate", calendarArray[0]);
-		 		query.setParameter("endDate", calendarArray[1]);
-		 		List<Object> imsiStats = query.getResultList();
-		 		return turnQueryObjectsIntoIMSIStatsObjects(imsiStats);
-		 	}
-		 	private List<IMSIStats> turnQueryObjectsIntoIMSIStatsObjects(List<Object> imsiStats){
-				List<IMSIStats> imsiStatsObjects = new ArrayList<>();
-		 		Object[] imsiStatsQueryObject;
-		 		BigInteger imsi;
-		 		long numberOfFailures;
-		 		long failureDuration;
-		 		for(Object object : imsiStats){
-		 			imsiStatsQueryObject = (Object[]) object;
-					imsi = (BigInteger) imsiStatsQueryObject[0];
-		 			numberOfFailures = (long) imsiStatsQueryObject[1];
-		 			failureDuration = (long) imsiStatsQueryObject[2];
-		 			IMSIStats imsiStatsObject = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, failureDuration, numberOfFailures);
-		 			imsiStatsObjects.add(imsiStatsObject);
-		 		}
-		 		return imsiStatsObjects;
-			}
-	
-//test
+		dateParser = new DateParser();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
+		query = entityManager.createQuery("SELECT b.imsi, COUNT(*) AS num_of_failures, SUM(b.duration) AS failure_duration FROM Base_data b "
+				+ "WHERE b.date_time BETWEEN :startDate AND :endDate GROUP BY (b.imsi)");
+		query.setParameter("startDate", calendarArray[0]);
+		query.setParameter("endDate", calendarArray[1]);
+		List<Object> imsiStats = query.getResultList();
+		return turnQueryObjectsIntoIMSIStatsObjects(imsiStats);
+	}
+	private List<IMSIStats> turnQueryObjectsIntoIMSIStatsObjects(List<Object> imsiStats){
+		List<IMSIStats> imsiStatsObjects = new ArrayList<>();
+		Object[] imsiStatsQueryObject;
+		BigInteger imsi;
+		long numberOfFailures;
+		long failureDuration;
+		for(Object object : imsiStats){
+			imsiStatsQueryObject = (Object[]) object;
+			imsi = (BigInteger) imsiStatsQueryObject[0];
+			numberOfFailures = (long) imsiStatsQueryObject[1];
+			failureDuration = (long) imsiStatsQueryObject[2];
+			IMSIStats imsiStatsObject = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, failureDuration, numberOfFailures);
+			imsiStatsObjects.add(imsiStatsObject);
+		}
+		Collections.sort(imsiStatsObjects);
+		return imsiStatsObjects;
+	}
 }
