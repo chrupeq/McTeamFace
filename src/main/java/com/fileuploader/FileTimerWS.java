@@ -30,8 +30,8 @@ public class FileTimerWS {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
-	public Response findFileTimerById(@PathParam("id") final int id){
-		FileTimer fileTimer = fileTimerDao.getFileTimer(id);
+	public Response findFileTimerById(@PathParam("id") final int fileTimerId){
+		final FileTimer fileTimer = fileTimerDao.getFileTimer(fileTimerId);
 		return Response.status(200).entity(fileTimer).build();
 	}
 

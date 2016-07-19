@@ -32,7 +32,7 @@ public class FileTimer {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
@@ -40,7 +40,7 @@ public class FileTimer {
 		return starttime;
 	}
 
-	public void setStartTime(String starttime) {
+	public void setStartTime(final String starttime) {
 		this.starttime = starttime;
 	}
 
@@ -48,7 +48,7 @@ public class FileTimer {
 		return endtime;
 	}
 
-	public void setEndTime(String endtime) {
+	public void setEndTime(final String endtime) {
 		this.endtime = endtime;
 	}
 

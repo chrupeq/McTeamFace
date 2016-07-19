@@ -74,8 +74,8 @@ public class ReadDataSetIntoMainMemory {
 	public static ArrayList<Object[][]> readFileInFromHardDrive(final String fileName)
 			throws IOException {
 
-		FileInputStream fileInputStream = new FileInputStream(new File(fileName));
-		Date startTimer = new Date();
+		final FileInputStream fileInputStream = new FileInputStream(new File(fileName));
+		final Date startTimer = new Date();
 		System.out.println("Start timer: "+startTimer);
 		
 		Workbook dataSetWorkbook = null;
@@ -158,7 +158,7 @@ public class ReadDataSetIntoMainMemory {
 	public static Base_data[] passTheArrayToValidator(final Object[][] sheet,
 			final String makeFileNameForErrorLog) {
 		System.out.println("Array before validator: " + sheet.length);
-			Base_data[] baseDataArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
+		final Base_data[] baseDataArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
 			return baseDataArray;
 	}
 }
