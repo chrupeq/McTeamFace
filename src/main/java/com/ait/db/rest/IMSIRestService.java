@@ -23,6 +23,7 @@ import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.TopTenDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
+import com.ait.db.model.IMSIHelperObject;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.TopTenIMSIForFailures;
@@ -107,24 +108,24 @@ public class IMSIRestService {
 			return Response.status(400).build();
 		}
 	}
-	@GET
-	@Path("/imsi_event_id/{imsi}")
-	@Produces({MediaType.APPLICATION_JSON})
-	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
-		try {
-			List<IMSIWithEventIDAndCauseCode> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
-			if(imsiList.isEmpty()) {
-				return Response.status(404).build();
-			} 
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(imsiList);
-			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
-		} catch(Exception e) {
-			e.printStackTrace();
-			
-			return Response.status(400).build();
-		}
-	}
+//	@GET
+//	@Path("/imsi_event_id/{imsi}")
+//	@Produces({MediaType.APPLICATION_JSON})
+//	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
+//		try {
+//			List<IMSIWithEventIDAndCauseCode> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
+//			if(imsiList.isEmpty()) {
+//				return Response.status(404).build();
+//			} 
+//			ObjectMapper mapper = new ObjectMapper();
+//			String jsonInString = mapper.writeValueAsString(imsiList);
+//			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			
+//			return Response.status(400).build();
+//		}
+//	}
 	@GET
 	@Path("/imsi_count_between_dates")
 	@Produces({MediaType.APPLICATION_JSON})
@@ -255,7 +256,7 @@ public class IMSIRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getUniqueIMSIsPerFailureClass(@QueryParam("failure_class")int failureClass){
 		try{
-			List<BigInteger> IMSIsPerFailureClass = IMSIDao.getAffectedIMSIsPerFailureClass(failureClass);
+			List<IMSIHelperObject> IMSIsPerFailureClass = IMSIDao.getAffectedIMSIsPerFailureClass(failureClass);
 			if(IMSIsPerFailureClass.isEmpty()){
 				return Response.status(404).build();
 			}
