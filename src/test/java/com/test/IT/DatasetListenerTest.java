@@ -3,34 +3,21 @@ package com.test.IT;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.List;
-
 import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.persistence.ApplyScriptBefore;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.util.file.Files;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.ait.datasetListener.DatasetFileListener;
 import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.NetworkEntityType;
 import com.ait.db.model.Base_data;
-import com.ait.db.model.NetworkEntity;
-import com.fileuploader.ExcelFileUploader;
-import com.google.common.io.FileWriteMode;
-import com.google.gson.internal.Streams;
-import com.sun.jna.platform.FileMonitor.FileEvent;
-import com.sun.tools.internal.ws.wsdl.framework.Entity;
-
-import static java.nio.file.StandardWatchEventKinds.*;
 
 @RunWith(Arquillian.class)
 public class DatasetListenerTest {
@@ -73,7 +60,7 @@ public class DatasetListenerTest {
 		createdFile.delete();
 	}
 
-/*	@Test
+	@Test
 	public void testEmptyXlsFileCreatedAndNoChangesToDB() throws Exception {
 
 		int sizeBeforeFileAdded = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA).size();
@@ -84,7 +71,7 @@ public class DatasetListenerTest {
 		assertEquals(createdFile.getName(), "testFile.xls");
 		assertEquals(sizeBeforeFileAdded, networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA).size());
 		createdFile.delete();
-	}*/
+	}
 	
 	@Test
 	public void testOneXlsFileCreatedWithDataAndChangedMadeToDB() throws Exception {
@@ -102,7 +89,7 @@ public class DatasetListenerTest {
 		Thread.sleep(30000);
 		try{
 		int afterFileAddedBaseDataList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA).size();
-		assertTrue(sizeBeforeFileAdded!=afterFileAddedBaseDataList);
+		assertNotEquals(sizeBeforeFileAdded,afterFileAddedBaseDataList);
 		}catch(ArrayIndexOutOfBoundsException e){
 		}
 		copiedDataset.delete();
@@ -129,12 +116,12 @@ public class DatasetListenerTest {
 		assertEquals(copiedDataset1.getName(), "AITGroup Project - Dataset 3A.xls");
 		assertEquals(copiedDataset2.getName(), "AITGroup Project - Dataset 3B.xls");
 		Thread.sleep(50000);
-/*		try{
+		try{
 		int afterFileAddedBaseDataList = networkEntityDAO.getAllNetworkEntityEntries(NetworkEntityType.BASE_DATA).size();
 		assertTrue(sizeBeforeFileAdded!=afterFileAddedBaseDataList);
 		}catch(ArrayIndexOutOfBoundsException e){
 			
-		}*/
+		}
 		copiedDataset1.delete();
 		copiedDataset2.delete();
 		Thread.sleep(5000);
