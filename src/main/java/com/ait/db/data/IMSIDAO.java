@@ -15,6 +15,7 @@ import javax.persistence.Query;
 
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
+import com.ait.db.model.IMSIHelperObject;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
@@ -138,7 +139,24 @@ public class IMSIDAO {
 		return causeCodeFailureClassDescriptObjectList;
 	}
 
+	public List<IMSIHelperObject> getAffectedIMSIsPerFailureClass(int failureClass){
+  		query = entityManager.createQuery("SELECT DISTINCT (b.imsi) FROM Base_data b WHERE b.failure_class.failure_class = :failureClass ORDER BY (b.imsi)");
+  		query.setParameter("failureClass", failureClass);
+  		List<Object> IMSIsPerFailureClass = query.getResultList();
+  		return getIMSIObjects(IMSIsPerFailureClass);
+  		  	}
 	
+	public List<IMSIHelperObject> getIMSIObjects(List<Object> IMSIObjects){
+ 		BigInteger imsi;
+ 		IMSIHelperObject imsiObject;
+ 		List<IMSIHelperObject> imsiObjects = new ArrayList<>();
+ 		for(Object bigIntObj : IMSIObjects){
+ 			imsi = (BigInteger) bigIntObj;
+ 			imsiObject = new IMSIHelperObject(imsi);
+ 			imsiObjects.add(imsiObject);
+ 		}
+		return imsiObjects;
+ 	}
 	
 
 }
