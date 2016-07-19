@@ -23,6 +23,7 @@ import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.data.TopTenDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
+import com.ait.db.model.IMSIHelperObject;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.TopTenIMSIForFailures;
