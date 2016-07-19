@@ -245,6 +245,9 @@ public class IMSIRestService {
 	public Response getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(@QueryParam("imsi") BigInteger imsi){
 		try{
 			List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptList = IMSIDao.getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(imsi);
+			if(causeCodeFailureClassDescriptList.isEmpty()){
+				return Response.status(404).build();
+			}
 			return Response.status(200).entity(causeCodeFailureClassDescriptList).build();
 		}catch(Exception e){
 			System.out.println("Failed to get failures...?");

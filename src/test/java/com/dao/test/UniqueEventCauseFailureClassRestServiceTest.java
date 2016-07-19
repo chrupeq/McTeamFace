@@ -47,7 +47,7 @@ public class UniqueEventCauseFailureClassRestServiceTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Base_data.class.getPackage())
         		.addPackage(UniqeModelFailuresDAO.class.getPackage())
-        		.addClasses(UniqueEventCauseFailureClass.class, IMSIRestService.class, JaxRsActivator.class)
+        		.addClasses(IMSIStats.class, UniqueEventCauseFailureClass.class, IMSIRestService.class, JaxRsActivator.class)
         		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsResource("import.sql")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
