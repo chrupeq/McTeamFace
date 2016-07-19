@@ -1,18 +1,38 @@
-var topTebUrl = "http://localhost:8080/GroupProject2016/rest/imsi/top10_market_operator_cellIdCombinations?";
+var imsisWithCauseCodes = "http://localhost:8080/GroupProject2016/rest/imsi/unique_causeCode_failureClass_Description?";
 var IMSI = "";
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
 $(document).ready(function(){
+	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
+	    var options = $('#IMSIsCauseCodes');
+	    $.each(result, function(index, item) {
+	        options.append('<option value="'+item+'">'+item+'</option>');
+	    });
+	});
+	
+	$('#IMSIsCauseCodes').on('change', function(){
+		IMSI = this.value;
+
+		$('.modalerrordiv').remove();
+
+
+			hideTable();
+			$('#singleImsiModal').modal('hide');
+			$('.modalerrordiv').remove();
+		    $('#searchParams').html('You are searching for unique failures for IMSI ' + IMSI);
+		
+		loadImsiCauseCodesTable(IMSI);
+	});
 	
 });	
 
-var findTopTenFailures = function(date1, date2){
+var loadImsiCauseCodesTable = function(imsi){
 	$('#queryprogress').css('width', '0%');
  	$('#queryprogress').text('0%');
 	$('#queryprogressouter').removeClass('animated fadeOutUp');
 	$('#queryprogressouter').addClass('animated fadeInDown');
 		$.ajax({
 			type:'GET',
-			url: topTebUrl + 'dateOne=' + date1 + '&dateTwo=' + date2,
+			url: imsisWithCauseCodes + 'imsi=' + imsi,
 			dataType:'json',
 			progress: function(e) {
 		        if(e.lengthComputable) {
@@ -25,11 +45,7 @@ var findTopTenFailures = function(date1, date2){
 		        }
 		    },
 			success: function(data){
-				data = flipData(data);
-				loadTopTenTable(data);
-				if(getTheCookieYouNeed('job_title') == 'NME'){
-				instantChart(data);
-				}
+				loadImsisWithCauseCodes(data);
 				$('#queryprogressouter').mousemove(function(){
 					$('#queryprogressouter').removeClass('animated fadeInDown');
 					$('#queryprogressouter').addClass('animated fadeOutUp');
@@ -43,17 +59,14 @@ var findTopTenFailures = function(date1, date2){
 	
 
 
-	var loadTopTenTable = function(data){
+	var loadImsisWithCauseCodes = function(data){
 		
 		var table = '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="querysTable">'
 		+ '<thead>'
 		+ '<tr>'
-		+ '<th align="left">Failure Count</th>'
-		+ '<th align="left" class="col-sm-2">Market</th>'
-		+ '<th align="left" class="col-sm-2">Operator</th>'
+		+ '<th align="left">Cause Code</th>'
+		+ '<th align="left">Failure Class</th>'
 		+ '<th align="left" class="col-sm-2">Description</th>'
-		+ '<th align="left" class="col-sm-2">Country</th>'
-		+ '<th align="left" class="col-sm-2">Cell ID</th>'
 		+ '</tr>'
 		+ '</thead>'
 		+ '</table>';
@@ -68,17 +81,11 @@ var findTopTenFailures = function(date1, date2){
 		        
 		        columns: [
 
-		            { data: "failureCount" },
+		            { data: "causeCode" },
 		            
-		            { data: "marketMCC" },
+		            {data: "failureClass"},
 		            
-		            { data: "operatorMNC" },
-		            
-		            { data: "operatorDescription" },
-		            
-		            { data: "country" },
-		            
-		            { data: "cell_id" },
+		            { data: "description" }
 		      
 		        ],
 		        
@@ -89,18 +96,6 @@ var findTopTenFailures = function(date1, date2){
 			$('#backToHomeButton').on('click', function(){
 				hideTable();
 			});
-			
 		};
 	
-		var flipData = function(data){
-			var counter = 0;
-			var dataToReturn = [];
-		
-			for(var i = 0; i < data.length; i ++){
-				dataToReturn[counter] = data[i];
-				counter ++;
-			}
-			
-			return dataToReturn;
-		}
 	

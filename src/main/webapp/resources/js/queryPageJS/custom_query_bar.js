@@ -18,10 +18,8 @@ var getCustomQueryBar = function(){
 	if(getTheCookieYouNeed('job_title') == ""){
 		$('#queryList').html(customQueryBar);
 	}
-
-         
+     
 	else if(getTheCookieYouNeed('job_title') == 'NME'){
-	
 		customQueryBar += '<a href="#" id="imsiWithDates" class="list-group-item">List of '
 			+ 'IMSI failures for given dates</a> <a href="#" id="allFailuresForModel"'
 			+ 'class="list-group-item">List of failure details for given Model</a>'
@@ -37,6 +35,7 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">Top 10 Market/Operator/Cell ID failures for given dates</a>'
 			+ '<a href="#" id="imsiTopTen" class="list-group-item">Top ten IMSI failure counts for given dates</a>'
 			+  '<a href="#" id="failureClassImsis" class="list-group-item">IMSI\'s for a given Failure Class</a>'
+			+ '<a href="#" id="IMSIsWithCauses" class="list-group-item">Unique Cause Codes For A Given IMSI</a>'
 			+ '</ul>'
 			+ '</div>';
 		$('#queryList').html(customQueryBar);
@@ -47,6 +46,7 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">Unique Event ID and Cause Codes for a given IMSI</a>'
 			+ '<a href="#" id="allImsiFailuresBetweenDates"'
 			+ 'class="list-group-item">Failure count for a given IMSI between two dates</a>'
+			+ '<a href="#" id="IMSIsWithCauses" class="list-group-item">Unique Cause Codes For A Given IMSI</a>'
 			+ '</ul>'
 			+ '</div>';
 		$('#queryList').html(customQueryBar);
@@ -63,8 +63,17 @@ var getCustomQueryBar = function(){
 			+ 'class="list-group-item">Failure count for given equipment model between two dates</a>'
 			+  '<a href="#" id="failureClassImsis" class="list-group-item">IMSI\'s for a given Failure Class</a>'
 			+ '</ul>'
-			+ '</div>';	
+			+ '</div>';
 		$('#queryList').html(customQueryBar);
+	}else if(getTheCookieYouNeed('job_title') == 'SA'){
+		customQueryBar += '<a data-toggle="tab" href="#form" class="list-group-item" id="formTab">User Information</a>'
+			+ '<a data-toggle="tab" href="#importDataset" class="list-group-item" id="importDatasetTab">Import Datasets</a>'
+			+ '</ul>'
+			+ '</div>';	
+	
+		$('#navTabs').html(customQueryBar);
+		$('#navTabs2').html(customQueryBar);
+
 	}
 
 	
@@ -164,10 +173,15 @@ var getCustomQueryBar = function(){
 		$('#queryHeader').addClass('animated fadeOutUp');
 		$('#queryHeader2').removeClass('animated fadeOutUp');
 		$('#queryHeader2').addClass('animated fadeInDown');
-		checkDates(firstDate, secondDate);
+		if(checkDates(firstDate, secondDate) == 'false'){
+			
+		}else{
+			$('#topTenModal').modal('hide');
+			hideTable();
 		findTopTenFailures(firstDate, secondDate);
 		$('#querysTable').addClass('animated fadeOutUp');
 		changeContainerCSS('imsiDates');
+		}
 	});
 	
 	$('#imsiTopTen').on('click', function(){
@@ -176,6 +190,10 @@ var getCustomQueryBar = function(){
 	
 		$('#failureClassImsis').on('click', function(){
 		$('#getByFailureClassModal').modal('show');
+	})
+	
+	$('#IMSIsWithCauses').on('click', function(){
+		$('#singleImsiCauseCodeModal').modal('show');
 	})
 	
 }

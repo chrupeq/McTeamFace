@@ -78,16 +78,6 @@ var loadUniqueModelFailuresTable = function(data){
 		        columns: [
 		            
 		            { data: "date_time"},
-//		                render: function(data, type, row) {
-//		                	var date = new Date(data);
-//		                	var day = date.getDate();
-//		                	var monthIndex = date.getMonth();
-//		                	var year = date.getFullYear();
-//		                	var hours = date.getHours();
-//		                	var minutes = date.getMinutes();
-//		                	return monthIndex + 1 +  '/' + day + '/' + year + ' ' + hours + ':' + minutes;
-//		                }
-//		                },
 
 		            { data: "imsi" }
 		           
