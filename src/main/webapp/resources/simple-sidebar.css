@@ -68,6 +68,14 @@
     line-height: 40px;
 }
 
+.sidebar-nav {
+	background-image: url("images/header-image.png");
+}
+
+#sidebar-wrapper {
+	background-image: url("images/header-image.png");
+}
+
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
@@ -92,7 +100,7 @@
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #999999;
+    color: #fff;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {

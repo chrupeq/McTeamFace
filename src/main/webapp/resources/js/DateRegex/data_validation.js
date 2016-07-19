@@ -1,5 +1,21 @@
 var checkDates = function(date1, date2){
 	var dateRegex = '\\d{2,2}/\\d{2,2}/\\d{4,4}\\s\\d{2,2}:\\d{2,2}$';
+	
+	if(date1 == "" && date2 == ""){
+		showErrors('bothBlank');
+		return 'false';
+	}
+	
+	if(date1 == ""){
+		showErrors('firstBlank');
+		return 'false';
+	}
+	
+	if(date2 == ""){
+		showErrors('secondBlank');
+		return 'false';
+	}
+	
 	if(date1.match(dateRegex)){
 		
 	}else{
@@ -26,6 +42,7 @@ var checkDates = function(date1, date2){
 		showErrors('firstInFuture');
 		return 'false';
 	}
+	
 }
 
 var showErrors = function(errorToShow){
@@ -37,5 +54,17 @@ var showErrors = function(errorToShow){
 	
 	if(errorToShow == 'firstInFuture'){
 		$('.modal-footer').prepend('<div class="modalerrordiv" id="errordiv" style="float: left; color: red;">First date is in the future</div>');
+	}
+	
+	if(errorToShow == 'bothBlank'){
+		$('.modal-footer').prepend('<div class="modalerrordiv" id="errordiv" style="float: left; color: red;">Both fields cannot be blank</div>');
+	}
+	
+	if(errorToShow == 'firstBlank'){
+		$('.modal-footer').prepend('<div class="modalerrordiv" id="errordiv" style="float: left; color: red;">From field cannot be blank</div>');
+	}
+	
+	if(errorToShow == 'secondBlank'){
+		$('.modal-footer').prepend('<div class="modalerrordiv" id="errordiv" style="float: left; color: red;">To field cannot be blank</div>');
 	}
 }

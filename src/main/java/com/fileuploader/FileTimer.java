@@ -6,6 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * File Timer Class
+ * For creating File Timer objects, used in the
+ * process of timing how long it takes a file to 
+ * upload to the database
+ *
+ */
 @Entity
 @XmlRootElement
 @Table(name = "filetimer")
@@ -25,7 +32,7 @@ public class FileTimer {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
@@ -33,7 +40,7 @@ public class FileTimer {
 		return starttime;
 	}
 
-	public void setStartTime(String starttime) {
+	public void setStartTime(final String starttime) {
 		this.starttime = starttime;
 	}
 
@@ -41,7 +48,7 @@ public class FileTimer {
 		return endtime;
 	}
 
-	public void setEndTime(String endtime) {
+	public void setEndTime(final String endtime) {
 		this.endtime = endtime;
 	}
 

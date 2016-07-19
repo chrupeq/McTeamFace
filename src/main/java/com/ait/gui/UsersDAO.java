@@ -12,6 +12,9 @@ import com.ait.db.model.User;
 
 /**
  * Users Data Access Object Class
+ * Various methods in this class used
+ * for getting, editing, adding and deleting
+ * users
  *
  */
 @Stateless
@@ -22,12 +25,12 @@ public class UsersDAO {
 	private EntityManager entityManager;
 
 	public List<User> getAllUsers() {
-		Query query = entityManager.createQuery("SELECT u FROM User u");
+		final Query query = entityManager.createQuery("SELECT u FROM User u");
 		return query.getResultList();
 	}
 
-	public User getUser(int id) {
-		return entityManager.find(User.class, id);
+	public User getUser(final int userId) {
+		return entityManager.find(User.class, userId);
 	}
 
 	public void save(final User user) {
@@ -42,8 +45,8 @@ public class UsersDAO {
 		entityManager.remove(getUser(userId));
 	}
 	
-	public void updateLastLogin(String username, String newLogin) {
-		Query query = entityManager.createQuery("UPDATE User u SET last_login = :loginTime WHERE username = :username");
+	public void updateLastLogin(final String username, final String newLogin) {
+		final Query query = entityManager.createQuery("UPDATE User u SET last_login = :loginTime WHERE username = :username");
 		query.setParameter("loginTime", newLogin)
 		.setParameter("username", username);
 		query.executeUpdate();

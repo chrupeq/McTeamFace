@@ -1,3 +1,7 @@
+$(document).ready(function(){
+	$('#tabs').addClass('hiddenbycostanza');
+})
+
 var showTable = function(){
 	$('#querysTable').removeClass('animated fadeOutUp');
 	$('#querysTable').addClass('animated fadeInDown');

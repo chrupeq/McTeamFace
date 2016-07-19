@@ -56,7 +56,7 @@ var modelsBarChart = function(data) {
 	}
 	}
 	appendRevealButton();
-$('#chartTitle').html("IMSI Failures With Durations");
+$('#chartTitle').html('Unique Failure Data For ' + data[0].user_equipment.manufacturer + ' ' + data[0].user_equipment.marketing_name);
 Chart.defaults.global.legend.display = false;
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);

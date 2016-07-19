@@ -7,7 +7,7 @@ import com.ait.db.data.DateParser;
 
 public class IMSIStatsObjectFactory {
 	
-	public static IMSIStats getIMSIStatsInstance(BigInteger imsi, int failureDuration, int numberOfFailures) {
+	public static IMSIStats getIMSIStatsInstance(BigInteger imsi, long failureDuration, long numberOfFailures) {
 		return new IMSIStats(imsi, failureDuration, numberOfFailures);	
 	}
 	public static IMSIStats getIMSIStatsInstance(BigInteger imsi, int numberOfFailures) {

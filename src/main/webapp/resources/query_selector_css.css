@@ -80,12 +80,16 @@ table#querysTable tr.odd td {
 
 #logoutBtn {
 	margin-right: 5%;
-	float: right;
+	margin-bottom: 1%;
+	margin-top: 2.5%;
+	float: left;
 }
 
 #costanzaLogo {
 	width: 10%;
+	margin-right: 10%;
 	height: 5%;
+	float: left;
 }
 
 
@@ -96,7 +100,10 @@ table#querysTable tr.odd td {
 
 #customHeader {
 	margin-left: 5%;
+	margin-top: 2.5%;
 	font-family: thin font;
+	color: white;
+	float: left;
 }
 
 #costanzaLogoLogin{
@@ -191,11 +198,35 @@ table#querysTable tr.odd td {
 }
 
 .box {border:2px solid #b9b992;}
-.box h3 {background:#b9b992;color:white;padding:20px; text-align:center;}
+.box h3 {background-image: url("images/header-image.png");color:white;padding:20px; text-align:center;}
 .box p {color:#333;padding:10px;}
 .box {
     -moz-border-radius-topright:5px;
     -moz-border-radius-topleft:5px;
     -webkit-border-top-right-radius:5px;
     -webkit-border-top-left-radius:5px;
+}
+
+#header {
+	background-image: url("images/header-image.png");
+	border-bottom: thick double #ffffff;
+	position: fixed; 
+	z-index: 1000;
+}
+
+#queryBody {
+	margin-top: 100px;
+}
+
+#queryList {
+	position: fixed; 
+	margin-top: -2.4%;
+}
+
+#navTabs {
+	position: fixed;
+}
+
+#form {
+	margin-top: 4.1%;
 }

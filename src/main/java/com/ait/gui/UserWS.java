@@ -15,13 +15,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.ait.db.data.SessionDAO;
 import com.ait.db.model.User;
-import com.stringgenerator.SessionIdentifierGenerator;
 
 /**
  * User Web Service class
+ * Using rest requests, one can pull/push
+ * data to and from the database
  *
  */
 @Path("/users")
@@ -35,23 +34,23 @@ public class UserWS {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getAllUsers() {
-		List<User> users = userDao.getAllUsers();
+		final List<User> users = userDao.getAllUsers();
 		return Response.status(200).entity(users).build();
 	}
 
 	@POST
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response findAllUsers() {
-		List<User> users = userDao.getAllUsers();
+		final List<User> users = userDao.getAllUsers();
 		return Response.status(200).entity(users).build();
 	}
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
-	public Response findUserById(@PathParam("id") int id) {
-		User user = userDao.getUser(id);
-		Response r = Response.status(200).entity(user).header("Content-Length", user.toString().length()).build();
+	public Response findUserById(@PathParam("id") final int userId) {
+		final User user = userDao.getUser(userId);
+		//Response response = Response.status(200).entity(user).header("Content-Length", user.toString().length()).build();
 		return Response.status(200).entity(user).header("Content-Length", 100).build();
 	}
 

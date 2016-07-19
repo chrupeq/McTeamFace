@@ -20,6 +20,7 @@ var userAccessControl = function() {
 		$("#formtab").removeClass('hiddenbycostanza');
 		$('#form').removeClass('hiddenbycostanza');
 		$('#importDataset').removeClass('hiddenbycostanza');
+		getCustomQueryBar();
 
 	} else if (accessLevel == "NME") {
 		injectNavBar('NME');
@@ -28,8 +29,10 @@ var userAccessControl = function() {
 		$('#queryBody').removeClass('hiddenbycostanza');
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
-		$('#queryTabClick').click();
+		$('#home').removeClass('active');
+		$('#queryBody').addClass('active');
 		getCustomQueryBar();
+		
 
 	} else if (accessLevel == "SE") {
 		injectNavBar('SE');
@@ -43,6 +46,8 @@ var userAccessControl = function() {
 		
 	} else if (accessLevel == "CSR") {
 		injectNavBar('CSR');
+		$('#tab').css('padding-top: 125px; margin-left: 250px;');
+		$('#queryList').css('margin-top: -10.5%;');
 		$('#queryTabClick').click();
 		$('#home').addClass('hiddenbycostanza');
 		$("#querytab").removeClass('hiddenbycostanza');
@@ -357,8 +362,9 @@ function checkUsernameExists(details) {
 
 $(document).on("click", "#logoutBtn", function() {
 	injectNavBar('logged out');
+	$('#tab').css('padding-top: 0px; margin-left: 0px;');
+	$('#queryList').css('margin-top: -2.4%;');
 	$('#customHeader').empty();
-	hideTable();
 	document.cookie = 'jobTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
 	document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
 	document.cookie = 'name=; expires=Thu, 01 Jan 1970 00:00:00 UTC';

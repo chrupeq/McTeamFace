@@ -10,6 +10,14 @@ import java.text.SimpleDateFormat;
 
 import com.fileuploader.ExcelFileUploader;
 
+/**
+ * WriteErrorsToFile class
+ * This class is where the erroneous data of the
+ * given data set is written to a text file, where
+ * it is logged and recorded for error-checking
+ * purposes. 
+ *
+ */
 public class WriteErrorsToFile extends DateManipulator{
 
 	private static DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yy");
