@@ -15,11 +15,11 @@ import javax.persistence.Query;
 
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
-import com.ait.db.model.IMSIHelperObject;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
+import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.UniqueEventCauseFailureClass;
 
 
@@ -105,33 +105,40 @@ public class IMSIDAO {
 	}
 	
 	public List<UniqueEventCauseFailureClass> getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(BigInteger imsi){
-		System.out.println("In the DAO");
+	
 		query = entityManager.createQuery("SELECT DISTINCT b.event_cause.cause_code, b.failure_class.failure_class, b.failure_class.description FROM Base_data b" +
 											" WHERE b.imsi = :imsi ");
 		query.setParameter("imsi", imsi);
-		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionList = query.getResultList();
+		List<Object> causeCodeFailureClassDescriptionList = query.getResultList();
+		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionListOfHelperObjects = convertUniqueCauseCodeAndDescriptionForFailureClassObject(causeCodeFailureClassDescriptionList);
+		
+		
+		return causeCodeFailureClassDescriptionListOfHelperObjects;
 
-		return causeCodeFailureClassDescriptionList;
 		
 	}
 	
-	public List<IMSIHelperObject> getAffectedIMSIsPerFailureClass(int failureClass){
-  		query = entityManager.createQuery("SELECT DISTINCT (b.imsi) FROM Base_data b WHERE b.failure_class.failure_class = :failureClass ORDER BY (b.imsi)");
-  		query.setParameter("failureClass", failureClass);
-  		List<Object> IMSIsPerFailureClass = query.getResultList();
-  		return getIMSIObjects(IMSIsPerFailureClass);
-  		  	}
+	private List<UniqueEventCauseFailureClass> convertUniqueCauseCodeAndDescriptionForFailureClassObject(List<Object> causeCodeFailureClassDescriptData){
+		
+		int causeCode;
+		int failureClass;
+		String description;
+		
+		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptObjectList = new ArrayList<UniqueEventCauseFailureClass>();
+		for(Object object : causeCodeFailureClassDescriptData){
+			Object[] objectArray = (Object[]) object;
+			causeCode = (int) (objectArray[0]);
+			failureClass = (int)(objectArray[1]);
+			description = (String)(objectArray[2]);
+			
+			UniqueEventCauseFailureClass uniqueEventCauseFailureClassObject = new UniqueEventCauseFailureClass(causeCode, failureClass, description);
+			causeCodeFailureClassDescriptObjectList.add(uniqueEventCauseFailureClassObject);
+		}
 	
-	public List<IMSIHelperObject> getIMSIObjects(List<Object> IMSIObjects){
-		 		BigInteger imsi;
-		 		IMSIHelperObject imsiObject;
-		 		List<IMSIHelperObject> imsiObjects = new ArrayList<>();
-		 		for(Object bigIntObj : IMSIObjects){
-		 			imsi = (BigInteger) bigIntObj;
-		 			imsiObject = new IMSIHelperObject(imsi);
-		 			imsiObjects.add(imsiObject);
-		 		}
-				return imsiObjects;
-		 	}
+		return causeCodeFailureClassDescriptObjectList;
+	}
+
+	
+	
 
 }
