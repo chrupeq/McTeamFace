@@ -67,6 +67,5 @@ public class IMSIWithEventIDAndCauseCode {
 		String failureClass = failure_class;
 		causeCode += failureClass;
 		return causeCode;
-		
 	}
 }

@@ -71,6 +71,7 @@ public class IMSIDAO {
 	}
 	public List<IMSIWithEventIDAndCauseCode> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) throws Exception {
 		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
+		
 		query.setParameter("imsi", imsi);
 		List<Base_data> baseDataList = query.getResultList();
 		if(baseDataList.isEmpty()) {
