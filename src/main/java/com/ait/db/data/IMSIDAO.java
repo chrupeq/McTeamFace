@@ -15,6 +15,7 @@ import javax.persistence.Query;
 
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
+import com.ait.db.model.IMSIHelperObject;
 import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
@@ -69,19 +70,20 @@ public class IMSIDAO {
 		Collections.sort(imsiWithValidFailureClasses);
 		return imsiWithValidFailureClasses;
 	}
-	public List<IMSIWithEventIDAndCauseCode> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) throws Exception {
-		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
-		
+	public List<Object> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) throws Exception {
+//		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
+		query = entityManager.createQuery("SELECT b.event_cause.event_id, b.event_cause.cause_code, "
+				+ "b.event_cause.description, b.failure_class.failure_class, b.failure_class.description FROM Base_data b WHERE b.imsi = :imsi");
 		query.setParameter("imsi", imsi);
-		List<Base_data> baseDataList = query.getResultList();
-		if(baseDataList.isEmpty()) {
-			List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = new ArrayList<>(0);
-			return imsiWithEventIDAndCauseCodeList;
-		}
-		imsiWithEventIDAndCauseCodeFactory = new IMSIWithEventIDAndCauseCodeFactory(baseDataList);
-		List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = 
-				imsiWithEventIDAndCauseCodeFactory.getIMSIWithEventIDAndCauseCodeList();
-		return imsiWithEventIDAndCauseCodeList;
+		List<Object> objectDataList = query.getResultList();
+//		if(baseDataList.isEmpty()) {
+//			List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = new ArrayList<>(0);
+//			return imsiWithEventIDAndCauseCodeList;
+//		}
+//		imsiWithEventIDAndCauseCodeFactory = new IMSIWithEventIDAndCauseCodeFactory(baseDataList);
+//		List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList = 
+//				imsiWithEventIDAndCauseCodeFactory.getIMSIWithEventIDAndCauseCodeList();
+		return objectDataList;
 	}
 	public List<Base_data> getAllBaseDataBetweenDates(String date1, String date2) {
 		dateParser = new DateParser();
@@ -115,12 +117,24 @@ public class IMSIDAO {
 
 		return causeCodeFailureClassDescriptionList;	
 	}
-	public List<BigInteger> getAffectedIMSIsPerFailureClass(int failureClass){
+	public List<IMSIHelperObject> getAffectedIMSIsPerFailureClass(int failureClass){
 		query = entityManager.createQuery("SELECT DISTINCT (b.imsi) FROM Base_data b WHERE b.failure_class.failure_class = :failureClass ORDER BY (b.imsi)");
 		query.setParameter("failureClass", failureClass);
-		List<BigInteger> IMSIsPerCauseCode = query.getResultList();
-		return IMSIsPerCauseCode;
+		List<Object> IMSIsPerFailureClass = query.getResultList();
+		return getIMSIObjects(IMSIsPerFailureClass);
 	}
+	public List<IMSIHelperObject> getIMSIObjects(List<Object> IMSIObjects){
+		BigInteger imsi;
+		IMSIHelperObject imsiObject;
+		List<IMSIHelperObject> imsiObjects = new ArrayList<>();
+		for(Object bigIntObj : IMSIObjects){
+			imsi = (BigInteger) bigIntObj;
+			imsiObject = new IMSIHelperObject(imsi);
+			imsiObjects.add(imsiObject);
+		}
+		return imsiObjects;
+	}
+	
 	public List<IMSIStats> getIMSIStatistics(String date1, String date2){
 		dateParser = new DateParser();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
