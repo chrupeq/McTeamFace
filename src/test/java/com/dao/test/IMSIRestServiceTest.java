@@ -27,6 +27,7 @@ import com.ait.db.model.Base_data;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
 import com.ait.imsiStats.IMSIStatsProducer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(Arquillian.class)
 @RunAsClient

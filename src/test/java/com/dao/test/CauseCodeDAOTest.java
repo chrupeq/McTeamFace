@@ -20,6 +20,7 @@ import com.ait.db.data.CauseCodeDAO;
 import com.ait.db.data.EventCauseFailuresDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Event_cause;
+import com.ait.imsiStats.IMSIStats;
 
 @RunWith(Arquillian.class)
 public class CauseCodeDAOTest {
@@ -33,6 +34,7 @@ public class CauseCodeDAOTest {
 				.addPackage(CauseCodeDAO.class.getPackage())
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
+				.addClass(IMSIStats.class)
 	            .addAsWebInfResource("jbossas-ds.xml")
 	            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
