@@ -22,6 +22,8 @@ import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.UniqueEventCauseFailureClass;
+import com.ait.imsiStats.IMSIStats;
+import com.ait.imsiStats.IMSIStatsObjectFactory;
 
 
 
@@ -157,6 +159,34 @@ public class IMSIDAO {
  		}
 		return imsiObjects;
  	}
+	
+	public List<IMSIStats> getIMSIStatistics(String date1, String date2){
+		 		dateParser = new DateParser();
+		 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 		Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
+		 		query = entityManager.createQuery("SELECT b.imsi, COUNT(*) AS num_of_failures, SUM(b.duration) AS failure_duration FROM Base_data b "
+		 				+ "WHERE b.date_time BETWEEN :startDate AND :endDate GROUP BY (b.imsi)");
+		 		query.setParameter("startDate", calendarArray[0]);
+		 		query.setParameter("endDate", calendarArray[1]);
+		 		List<Object> imsiStats = query.getResultList();
+		 		return turnQueryObjectsIntoIMSIStatsObjects(imsiStats);
+		 	}
+		 	private List<IMSIStats> turnQueryObjectsIntoIMSIStatsObjects(List<Object> imsiStats){
+				List<IMSIStats> imsiStatsObjects = new ArrayList<>();
+		 		Object[] imsiStatsQueryObject;
+		 		BigInteger imsi;
+		 		long numberOfFailures;
+		 		long failureDuration;
+		 		for(Object object : imsiStats){
+		 			imsiStatsQueryObject = (Object[]) object;
+					imsi = (BigInteger) imsiStatsQueryObject[0];
+		 			numberOfFailures = (long) imsiStatsQueryObject[1];
+		 			failureDuration = (long) imsiStatsQueryObject[2];
+		 			IMSIStats imsiStatsObject = IMSIStatsObjectFactory.getIMSIStatsInstance(imsi, failureDuration, numberOfFailures);
+		 			imsiStatsObjects.add(imsiStatsObject);
+		 		}
+		 		return imsiStatsObjects;
+			}
 	
 
 }
