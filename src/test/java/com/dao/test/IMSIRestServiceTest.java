@@ -2,7 +2,7 @@ package com.dao.test;
 
 import static org.junit.Assert.*;
 
-
+import java.io.File;
 import java.net.URL;
 
 import javax.ws.rs.ApplicationPath;
@@ -18,6 +18,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -36,6 +37,11 @@ public class IMSIRestServiceTest {
 	
 	@Deployment(testable=false)
 	public static Archive<?> createDeployment() {
+		
+		// Import Maven runtime dependencies
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
+                .importRuntimeDependencies().resolve().withTransitivity().asFile();
+		
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Base_data.class.getPackage())
         		.addPackage(IMSIStatsProducer.class.getPackage())
@@ -43,7 +49,8 @@ public class IMSIRestServiceTest {
         		.addClasses(IMSIRestService.class, JaxRsActivator.class)
         		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsResource("import.sql")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+                .addAsLibraries(files);
 	}
 	@ArquillianResource
     URL deploymentUrl;
@@ -259,6 +266,8 @@ public class IMSIRestServiceTest {
 		// we're expecting a String back
         ClientResponse<String> responseObj = request.get(String.class);
         assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getUniqueFailureClassesTest()" + response);
 	}
 	
 	@Test
@@ -268,5 +277,35 @@ public class IMSIRestServiceTest {
 		// we're expecting a String back
         ClientResponse<String> responseObj = request.get(String.class);
         assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getIMSIsForFailureClassesTest()" + response);
+	}
+	@Test
+	public void getUniqueIMSIsPerFailureClassShouldReturn200() throws Exception{
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_per_failure_class?failure_class=0");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getUniqueIMSIsPerFailureClassShouldReturn200():: " + response);
+	}
+	@Test
+	public void getUniqueIMSIsPerFailureClassShouldReturn200Two() throws Exception{
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_per_failure_class?failure_class=1");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(200, responseObj.getStatus());
+        String response = responseObj.getEntity().trim();
+        System.out.println("getUniqueIMSIsPerFailureClassShouldReturn200Two():: " + response);
+	}
+	@Test
+	public void getgetUniqueIMSIsPerFailureClassShouldReturn404() throws Exception {
+		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/imsi/get_per_failure_class?failure_class=367");
+		request.header("Accept", MediaType.APPLICATION_JSON);
+		// we're expecting a String back
+        ClientResponse<String> responseObj = request.get(String.class);
+        assertEquals(404, responseObj.getStatus());
 	}
 }

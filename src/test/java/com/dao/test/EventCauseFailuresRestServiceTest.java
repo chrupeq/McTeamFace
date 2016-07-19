@@ -2,6 +2,7 @@ package com.dao.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.net.URL;
 
 import javax.ws.rs.ApplicationPath;
@@ -17,6 +18,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -35,6 +37,10 @@ public class EventCauseFailuresRestServiceTest {
 	
 	@Deployment(testable=false)
 	public static Archive<?> createDeployment() {
+		// Import Maven runtime dependencies
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
+                .importRuntimeDependencies().resolve().withTransitivity().asFile();
+		
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Event_cause.class.getPackage())
 				.addPackage(EventCauseFailuresDAO.class.getPackage())
@@ -42,7 +48,8 @@ public class EventCauseFailuresRestServiceTest {
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
-	            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+	            .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+	            .addAsLibraries(files);
 	}
 	@ArquillianResource
     URL deploymentUrl;
