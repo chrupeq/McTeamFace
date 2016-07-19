@@ -146,7 +146,7 @@ var addUser = function() {
 		data : formToJSON(),
 		success : function(data, textStatus, jqXHR) {
 
-			location.reload();
+//		location.reload();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			alert("addUser error: " + textStatus);

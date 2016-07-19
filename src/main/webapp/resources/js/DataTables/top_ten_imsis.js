@@ -67,7 +67,7 @@ var loadTopTenImsis = function(data){
 	var table = '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="querysTable">'
 	+ '<thead>'
 	+ '<tr>'
-	+ '<th align="left" class="col-sm-2">Number of Failures</th>'
+	+ '<th align="left" id="clickMe" class="col-sm-2">Number of Failures</th>'
 	+ '<th align="left" class="col-sm-2">IMSI</th>'
 	+ '</tr>'
 	+ '</thead>'
@@ -91,6 +91,8 @@ var loadTopTenImsis = function(data){
 	    } );
 	
 	 showTable();
+	 $('#clickMe').click();
+	 
 	
 	$('#backToHomeButton').on('click', function(){
 		hideTable();

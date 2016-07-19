@@ -230,3 +230,12 @@ table#querysTable tr.odd td {
 #form {
 	margin-top: 4.1%;
 }
+
+.tableClass {
+	margin-left: 40%;
+	margin-right: 40%;
+}
+
+#searchParams {
+	text-align: center;
+}

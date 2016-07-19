@@ -71,13 +71,13 @@ var loadFailureClassIMSITable = function(failureClass){
 
 var loadFailureClassIMSITablePart2 = function(data){
 	
-	var table = '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="querysTable">'
+	var table = '<div class="tableClass"><table class="display table table-striped table-hover table-condensed animated fadeInDown" id="querysTable">'
 	+ '<thead>'
 	+ '<tr>'
 	+ '<th align="left" class="col-sm-2">IMSI</th>'
 	+ '</tr>'
 	+ '</thead>'
-	+ '</table>';
+	+ '</table></div>';
 	
 	
 	$('#tableDiv').html(table);
@@ -96,6 +96,7 @@ var loadFailureClassIMSITablePart2 = function(data){
 	    } );
 	
 	 showTable();
+	 $('#querysTable_filter').hide();
 	 $('#querysTable').css('width: 10%;');
 	
 	$('#backToHomeButton').on('click', function(){

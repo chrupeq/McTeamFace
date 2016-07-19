@@ -48,7 +48,7 @@ var findTopTenFailures = function(date1, date2){
 		var table = '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="querysTable">'
 		+ '<thead>'
 		+ '<tr>'
-		+ '<th align="left">Failure Count</th>'
+		+ '<th id="clickMeAgain" align="left">Failure Count</th>'
 		+ '<th align="left" class="col-sm-2">Market</th>'
 		+ '<th align="left" class="col-sm-2">Operator</th>'
 		+ '<th align="left" class="col-sm-2">Description</th>'
@@ -85,6 +85,7 @@ var findTopTenFailures = function(date1, date2){
 		        
 		    } );
 		 showTable();
+		 $('#clickMeAgain').click();
 			
 			$('#backToHomeButton').on('click', function(){
 				hideTable();

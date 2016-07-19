@@ -51,10 +51,20 @@ var instantChart = function(data) {
 		}
 	};
 //showCharts();
+		
 	appendRevealButton();
 $('#chartTitle').html("Top ten failures");
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);
+	
+	$("#skills").click( 
+		    function(evt){
+		        var activePoints = myPie.getElementsAtEvent(evt);
+		        var holder = activePoints[0];
+		        console.log(holder);
+		        alert(config.data.datasets[holder._datasetIndex].data[holder._index]);
+		    }
+		);
 }
 
 var getPercentagesOfFailures = function(data){
