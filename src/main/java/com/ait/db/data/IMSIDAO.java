@@ -19,6 +19,7 @@ import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
+import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.UniqueEventCauseFailureClass;
 
 
@@ -104,19 +105,39 @@ public class IMSIDAO {
 	}
 	
 	public List<UniqueEventCauseFailureClass> getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(BigInteger imsi){
-		System.out.println("In the DAO");
+	
 		query = entityManager.createQuery("SELECT DISTINCT b.event_cause.cause_code, b.failure_class.failure_class, b.failure_class.description FROM Base_data b" +
 											" WHERE b.imsi = :imsi ");
 		query.setParameter("imsi", imsi);
-		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionList = query.getResultList();
+		List<Object> causeCodeFailureClassDescriptionList = query.getResultList();
+		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptionListOfHelperObjects = convertUniqueCauseCodeAndDescriptionForFailureClassObject(causeCodeFailureClassDescriptionList);
+		
+		
+		return causeCodeFailureClassDescriptionListOfHelperObjects;
 
-		return causeCodeFailureClassDescriptionList;
-
-		
-		
-		
 		
 	}
+	
+	private List<UniqueEventCauseFailureClass> convertUniqueCauseCodeAndDescriptionForFailureClassObject(List<Object> causeCodeFailureClassDescriptData){
+		
+		int causeCode;
+		int failureClass;
+		String description;
+		
+		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptObjectList = new ArrayList<UniqueEventCauseFailureClass>();
+		for(Object object : causeCodeFailureClassDescriptData){
+			Object[] objectArray = (Object[]) object;
+			causeCode = (int) (objectArray[0]);
+			failureClass = (int)(objectArray[1]);
+			description = (String)(objectArray[2]);
+			
+			UniqueEventCauseFailureClass uniqueEventCauseFailureClassObject = new UniqueEventCauseFailureClass(causeCode, failureClass, description);
+			causeCodeFailureClassDescriptObjectList.add(uniqueEventCauseFailureClassObject);
+		}
+	
+		return causeCodeFailureClassDescriptObjectList;
+	}
+
 	
 	
 
