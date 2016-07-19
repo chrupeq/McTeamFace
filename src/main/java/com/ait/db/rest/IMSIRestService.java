@@ -72,12 +72,10 @@ public class IMSIRestService {
 		System.out.println(dateOne);
 		System.out.println(dateTwo);
 		try {
-			List<Base_data> baseDataList = IMSIDao.getAllBaseDataBetweenDates(dateOne, dateTwo);
-			if(baseDataList.isEmpty()) {
+			List<IMSIStats> imsiStats = IMSIDao.getIMSIStatistics(dateOne, dateTwo);
+			if(imsiStats.isEmpty()) {
 				return Response.status(404).build();
 			}
-			IMSIStatsProducer imsiStatsProducer = new IMSIStatsProducer(baseDataList);
-			List<IMSIStats> imsiStats = imsiStatsProducer.getListOfIMSIStatsObjects();
 			ObjectMapper mapper = new ObjectMapper();
 			String jsonInString = mapper.writeValueAsString(imsiStats);
 			return Response.status(200).entity(imsiStats).header("Content-Length", jsonInString.length()).build();
@@ -110,24 +108,24 @@ public class IMSIRestService {
 			return Response.status(400).build();
 		}
 	}
-	@GET
-	@Path("/imsi_event_id/{imsi}")
-	@Produces({MediaType.APPLICATION_JSON})
-	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
-		try {
-			List<IMSIWithEventIDAndCauseCode> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
-			if(imsiList.isEmpty()) {
-				return Response.status(404).build();
-			} 
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(imsiList);
-			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
-		} catch(Exception e) {
-			e.printStackTrace();
-			
-			return Response.status(400).build();
-		}
-	}
+//	@GET
+//	@Path("/imsi_event_id/{imsi}")
+//	@Produces({MediaType.APPLICATION_JSON})
+//	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
+//		try {
+//			List<IMSIWithEventIDAndCauseCode> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
+//			if(imsiList.isEmpty()) {
+//				return Response.status(404).build();
+//			} 
+//			ObjectMapper mapper = new ObjectMapper();
+//			String jsonInString = mapper.writeValueAsString(imsiList);
+//			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			
+//			return Response.status(400).build();
+//		}
+//	}
 	@GET
 	@Path("/imsi_count_between_dates")
 	@Produces({MediaType.APPLICATION_JSON})
@@ -233,9 +231,7 @@ public class IMSIRestService {
 	public Response getIMSIForFailureClasses(@QueryParam("failure_class") String failureClass){
 		try {
 			List<Base_data> failureClassList = IMSIDao.getIMSIsForFailureClass(failureClass);
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(failureClassList);
-			return Response.status(200).entity(failureClassList).header("Content-Length", jsonInString.length()).build();
+			return Response.status(200).entity(failureClassList).build();
 		} catch (Exception e) {
 			System.out.println("Failed to get failures...?");
 			return Response.status(400).build();
@@ -249,9 +245,7 @@ public class IMSIRestService {
 	public Response getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(@QueryParam("imsi") BigInteger imsi){
 		try{
 			List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptList = IMSIDao.getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(imsi);
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(causeCodeFailureClassDescriptList);
-			return Response.status(200).entity(causeCodeFailureClassDescriptList).header("Content-Length", jsonInString.length()).build();
+			return Response.status(200).entity(causeCodeFailureClassDescriptList).build();
 		}catch(Exception e){
 			System.out.println("Failed to get failures...?");
 			return Response.status(400).build();
@@ -266,9 +260,7 @@ public class IMSIRestService {
 			if(IMSIsPerFailureClass.isEmpty()){
 				return Response.status(404).build();
 			}
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(IMSIsPerFailureClass);
-			return Response.status(200).entity(IMSIsPerFailureClass).header("Content-Length", jsonInString.length()).build();
+			return Response.status(200).entity(IMSIsPerFailureClass).build();
 		} catch(Exception e){
 			e.printStackTrace();
 			return Response.status(400).build();
