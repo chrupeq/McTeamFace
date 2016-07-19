@@ -1,28 +1,20 @@
 package com.ait.db.model;
 
 public class UniqueEventCauseFailureClass {
-	private int causeCode;
-	private int failureClass;
-	private String description;
+	private Event_cause event_cause;
+	private Failure_class failureClass;
 	
-	public UniqueEventCauseFailureClass(int causeCode, int failureClass, String description) {
-		this.causeCode = causeCode;
+	public UniqueEventCauseFailureClass(Event_cause event_cause, Failure_class failureClass) {
+		this.event_cause = event_cause;
 		this.failureClass = failureClass;
-		this.description = description;
 	}
 
-	public int getCauseCode() {
-		return causeCode;
+	public Event_cause getCauseCode() {
+		return event_cause;
 	}
 
-	public int getFailureClass() {
+	public Failure_class getFailureClass() {
 		return failureClass;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	
-	
 }
