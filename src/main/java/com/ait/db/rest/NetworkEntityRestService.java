@@ -145,7 +145,7 @@ public class NetworkEntityRestService {
 		}else if(networkEntity.equals(NetworkEntityType.USER_EQUIPMENT.getNetworkEntityType())){
 			return NetworkEntityType.USER_EQUIPMENT;
 		}else{
-			throw new Exception("Entity not found!");
+			throw new EntityException("Entity not found!");
 		}
 	}
 	
@@ -234,5 +234,28 @@ public class NetworkEntityRestService {
 		networkEntityDAO.updateNetworkEntity(baseData);
 		return Response.status(200).entity(baseData).build();
 	}
+
+}
+
+class EntityException extends Exception {
+
+    public EntityException() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public EntityException(String message) {
+        super(message);
+        // TODO Auto-generated constructor stub
+    }
+
+    public EntityException(Throwable cause) {
+        super(cause);
+        // TODO Auto-generated constructor stub
+    }
+
+    public EntityException(String message, Throwable cause) {
+        super(message, cause);
+        // TODO Auto-generated constructor stub
+    }
 
 }

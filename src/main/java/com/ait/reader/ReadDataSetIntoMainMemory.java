@@ -30,7 +30,7 @@ import com.fileuploader.FileTimerDAO;
 import com.validation.DataValidator;
 
 /**
- * @author A00236958
+ * ReadDataSetIntoMainMemoryClass
  * In this class, the excel file is read from a specified
  * location on the hard drive and then validated for errors.
  */
@@ -73,8 +73,8 @@ public class ReadDataSetIntoMainMemory {
 	public static ArrayList<Object[][]> readFileInFromHardDrive(final String fileName)
 			throws IOException {
 
-		FileInputStream fos = new FileInputStream(new File(fileName));
-		Date startTimer = new Date();
+		final FileInputStream fos = new FileInputStream(new File(fileName));
+		final Date startTimer = new Date();
 		System.out.println("Start timer: "+startTimer);
 		
 		Workbook dataSetWorkbook = null;
@@ -157,7 +157,7 @@ public class ReadDataSetIntoMainMemory {
 	public static Base_data[] passTheArrayToValidator(final Object[][] sheet,
 			final String makeFileNameForErrorLog) {
 		System.out.println("Array before validator: " + sheet.length);
-			Base_data[] bdArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
+			final Base_data[] bdArray = DataValidator.validateData(sheet, makeFileNameForErrorLog);
 			return bdArray;
 	}
 }

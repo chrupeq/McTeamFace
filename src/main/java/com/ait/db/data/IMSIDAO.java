@@ -139,7 +139,7 @@ public class IMSIDAO {
 		String description;
 
 		List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptObjectList = new ArrayList<UniqueEventCauseFailureClass>();
-		for (Object object : causeCodeFailureClassDescriptData) {
+		for (final Object object : causeCodeFailureClassDescriptData) {
 			Object[] objectArray = (Object[]) object;
 			causeCode = (int) (objectArray[0]);
 			failureClass = (int) (objectArray[1]);

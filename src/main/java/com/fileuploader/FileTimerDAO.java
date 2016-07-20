@@ -12,8 +12,8 @@ public class FileTimerDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	public FileTimer getFileTimer(int id) {
-		return entityManager.find(FileTimer.class, id);
+	public FileTimer getFileTimer(final int fileTimerId) {
+		return entityManager.find(FileTimer.class, fileTimerId);
 	}
 	
 	public void update(final FileTimer fileTimer) {

@@ -18,7 +18,7 @@ public class EventCauseFailuresDAO {
     private EntityManager entityManager;
 	private Query query;
 	
-	public List<Event_cause> getAllEventCauseCodesPerPhone(int tacNumber){
+	public List<Event_cause> getAllEventCauseCodesPerPhone(final int tacNumber){
 		
 		query = entityManager.createQuery("SELECT event_cause FROM Base_data b WHERE ue_type = :tacNumber");
 		query.setParameter("tacNumber", tacNumber);

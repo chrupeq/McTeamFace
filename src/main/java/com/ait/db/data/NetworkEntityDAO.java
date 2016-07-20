@@ -35,16 +35,16 @@ public class NetworkEntityDAO {
 	private Query query;
 
 	public List<? extends NetworkEntity> getAllNetworkEntityEntries(NetworkEntityType networkEntityType) {
-		Query query = getTheRetrieveAllEntriesQuery(networkEntityType);
+		final Query query = getTheRetrieveAllEntriesQuery(networkEntityType);
 		List<Object> databaseEntities = query.getResultList();
 		return getTheListOfNetworkEntities(databaseEntities);
 	}
 
-	public NetworkEntityType getNetworkEntityType(NetworkEntity networkEntity) {
+	public NetworkEntityType getNetworkEntityType(final NetworkEntity networkEntity) {
 		return NetworkEntityTypeEnumFactory.getNetworkEntityTypeEnum(networkEntity);
 	}
 
-	private Query getTheRetrieveAllEntriesQuery(NetworkEntityType networkEntityType) {
+	private Query getTheRetrieveAllEntriesQuery(final NetworkEntityType networkEntityType) {
 
 		if (networkEntityType.equals(NetworkEntityType.BASE_DATA)) {
 			query = entityManager.createQuery("SELECT b FROM Base_data b");
@@ -65,7 +65,7 @@ public class NetworkEntityDAO {
 	}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public String saveNetworkEntityArray(NetworkEntity[] networkEntity) {
+	public String saveNetworkEntityArray(final NetworkEntity[] networkEntity) {
 		for (int i = 0; i < networkEntity.length; i++) {
 			entityManager.merge(networkEntity[i]);
 			if(i == 5000){
@@ -87,20 +87,20 @@ public class NetworkEntityDAO {
 		return date;
 	}
 
-	public void saveNetworkEntity(NetworkEntity networkEntity) {
+	public void saveNetworkEntity(final NetworkEntity networkEntity) {
 		entityManager.persist(networkEntity);
 	}
 
-	public void updateNetworkEntity(NetworkEntity networkEntity) {
+	public void updateNetworkEntity(final NetworkEntity networkEntity) {
 		entityManager.merge(networkEntity);
 	}
 
-	public void deleteNetworkEntity(NetworkEntity networkEntity) {
+	public void deleteNetworkEntity(final NetworkEntity networkEntity) {
 		entityManager
 				.remove(entityManager.contains(networkEntity) ? networkEntity : entityManager.merge(networkEntity));
 	}
 
-	public NetworkEntity getNetworkEntityById(NetworkEntityType networkEntityType, Object... idParameters) {
+	public NetworkEntity getNetworkEntityById(final NetworkEntityType networkEntityType, final Object... idParameters) {
 		if (networkEntityType.equals(NetworkEntityType.BASE_DATA)) {
 			return entityManager.find(Base_data.class, idParameters[0]);
 		}
@@ -123,7 +123,7 @@ public class NetworkEntityDAO {
 		return null;
 	}
 
-	private List<NetworkEntity> getTheListOfNetworkEntities(List<Object> databaseEntities) {
+	private List<NetworkEntity> getTheListOfNetworkEntities(final List<Object> databaseEntities) {
 		listOfNetworkEntities = new ArrayList<NetworkEntity>();
 		for (Object entry : databaseEntities) {
 			if (entry instanceof NetworkEntity) {
@@ -134,8 +134,8 @@ public class NetworkEntityDAO {
 	}
 
 	static class PrimaryKeyFactory {
-		public static CompositePK getPrimaryKeyEntity(CompositePrimaryKeyType compositePrimaryKeyType,
-				Object... params) {
+		public static CompositePK getPrimaryKeyEntity(final CompositePrimaryKeyType compositePrimaryKeyType,
+				final Object... params) {
 			if (compositePrimaryKeyType.equals(CompositePrimaryKeyType.MCC_MNC_KEY)) {
 				Mcc_mncKey mccMncKey = new Mcc_mncKey();
 				mccMncKey.setMcc((Integer) params[0]);
@@ -153,7 +153,7 @@ public class NetworkEntityDAO {
 	}
 
 	public static class NetworkEntityTypeEnumFactory {
-		public static NetworkEntityType getNetworkEntityTypeEnum(NetworkEntity networkEntity) {
+		public static NetworkEntityType getNetworkEntityTypeEnum(final NetworkEntity networkEntity) {
 			if (networkEntity instanceof Base_data) {
 				return NetworkEntityType.BASE_DATA;
 			}
