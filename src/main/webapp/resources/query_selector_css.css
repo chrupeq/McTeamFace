@@ -241,3 +241,20 @@ table#querysTable tr.odd td {
 #searchParams {
 	text-align: center;
 }
+
+#skills {
+	float: left;
+}
+
+#canvasdiv2 {
+	width: 50%;
+	float: left;
+}
+
+#canvassurround {
+	float: left;
+}
+
+#drilldownTable {
+	width: 50%;
+}
