@@ -9,7 +9,7 @@ var modelsBarChart = function(data) {
 	
 	$('#skills').replaceWith('<canvas class="collapse" id="skills" width="300" height="300"></canvas>');
 	config = null;
-	
+
 	var randomColour = function() {
 		return 'rgba(' + (Math.floor(Math.random() * 256)) + ','
 				+ (Math.floor(Math.random() * 256)) + ','
@@ -85,10 +85,10 @@ Chart.defaults.global.legend.display = false;
 		    		   tacNumber = data[i].user_equipment.tac;
 		    	   }
 		       }
+		       
+		       getModelInfoForDrilldown(event_id, cause_code, tacNumber);
 
-		        //get value by index      
-//		        var value = myPie.data.datasets[0].data[0];
-//		        alert("value: " + value);
+
 		    }
 		);
 }

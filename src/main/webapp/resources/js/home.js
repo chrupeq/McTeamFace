@@ -45,7 +45,7 @@ var userAccessControl = function() {
 		$("#abouttab").removeClass('hiddenbycostanza');
 		$('#queryTabClick').click();
 		getCustomQueryBar();
-		$('#sidebar-wrapper').height('50%');
+		$('#sidebar-wrapper').height('57%');
 		
 	} else if (accessLevel == "CSR") {
 		injectNavBar('CSR');

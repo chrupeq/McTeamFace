@@ -54,6 +54,8 @@
 <script src="resources/js/queryPageJS/custom_query_bar.js"></script>
 <script src="resources/js/ProgressBars/data_persistence_progress.js"></script>
  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+ 
+ <script src="resources/js/charts/drilldowns/models_with_no_dates_drilldown.js"></script>
 
 <script src="resources/js/queryPageJS/imsi_query_for_search.js"></script>
 <script
@@ -482,11 +484,20 @@ alert(errMsg);
 				</div>
 				
 				<div id="canvasdiv" class="container clearfix animated fadeOutUp hiddenbycostanza">
-				<div id="drilldowncanvas" class="container clearfix animated fadeOutUp hiddenbycostanza">
     <div class="third widget doughnut">
     	<div id="canvassurround" class="box">
     		<h3 id="chartTitle"></h3>
 				<canvas id="skills" width="300" height="300"></canvas>
+				</div>
+				<div id="scrolltome"></div>
+				</div>
+				</div>
+				
+				<div id="canvasdiv2" class="container clearfix animated fadeOutUp hiddenbycostanza">
+    <div class="third widget doughnut">
+    	<div id="canvassurround" class="box">
+    		<h3 id="chartTitle"></h3>
+				<canvas id="skills2" width="300" height="300"></canvas>
 				</div>
 				<div id="scrolltome"></div>
 				</div>

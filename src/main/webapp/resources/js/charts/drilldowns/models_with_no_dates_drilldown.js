@@ -1,6 +1,6 @@
-var drilldown1Url = 'http://localhost:8080/GroupProject2016/rest/drilldown/failure_event_desc?';
+var drilldown1Url = 'http://localhost:8080/GroupProject2016/rest/drilldown/drill_down?';
 
-var loadEventImsiTable = function(eventId, causeCode, tacNumber){
+var getModelInfoForDrilldown = function(eventId, causeCode, tacNumber){
 	$('#queryprogress').css('width', '0%');
  	$('#queryprogress').text('0%');
 	$('#queryprogressouter').removeClass('animated fadeOutUp');
@@ -20,7 +20,8 @@ var loadEventImsiTable = function(eventId, causeCode, tacNumber){
 	        }
 	    },
 		success: function(data){
-			loadImsiEventIdCauseCodeTable(data);
+			//loadImsiEventIdCauseCodeTable(data);
+			alert("hi");
 			$('#queryprogressouter').mousemove(function(){
 				$('#queryprogressouter').removeClass('animated fadeInDown');
 				$('#queryprogressouter').addClass('animated fadeOutUp');

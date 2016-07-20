@@ -180,14 +180,8 @@ public class IMSIRestService {
 			e.printStackTrace();
 			return Response.status(400).build();
 		}
-		
-		
-		
-	
 	}
-	
-	
-	
+
 	@GET
 	@Path("/top10_IMSI")
 	@Produces({MediaType.APPLICATION_JSON})
