@@ -1,56 +1,25 @@
 $(document).ready(function() {
-	 $('#datetimepicker3').datetimepicker({
-         viewMode: 'years',
-		 format: 'DD/MM/YYYY HH:mm'
-     });
-	 $('#datetimepicker4').datetimepicker({
-		 viewMode: 'years',
-		 format: 'DD/MM/YYYY HH:mm'
-    });
-	 $('#datetimepicker5').datetimepicker({
-         viewMode: 'years',
-		 format: 'DD/MM/YYYY HH:mm'
-     });
-	 $('#datetimepicker6').datetimepicker({
-		 viewMode: 'years',
-		 format: 'DD/MM/YYYY HH:mm'
-    });
-	 $('#datetimepicker7').datetimepicker({
-         viewMode: 'years',
-		 format: 'DD/MM/YYYY HH:mm'
-     });
-	 $('#datetimepicker8').datetimepicker({
-		 viewMode: 'years',
-		 format: 'DD/MM/YYYY HH:mm'
-    });
-	 $('#datetimepicker11').datetimepicker({
-         viewMode: 'years',
-		 format: 'DD/MM/YYYY HH:mm'
-     });
-	 $('#datetimepicker12').datetimepicker({
-		 viewMode: 'years',
-		 format: 'DD/MM/YYYY HH:mm'
-    });
+	
 	$('#imsiWithDates').on("click", function(){
 		 $('#datetimepicker1').datetimepicker({
-             viewMode: 'years',
+            viewMode: 'years',
 			 format: 'DD/MM/YYYY HH:mm'
-         });
+        });
 		 $('#datetimepicker2').datetimepicker({
 			 viewMode: 'years',
 			 format: 'DD/MM/YYYY HH:mm'
-        });
+       });
 		loadDateModal();
 	});
 	
 	 $('#datetimepicker9').datetimepicker({
-         viewMode: 'years',
+        viewMode: 'years',
 		 format: 'DD/MM/YYYY HH:mm'
-     });
+    });
 	 $('#datetimepicker10').datetimepicker({
 		 viewMode: 'years',
 		 format: 'DD/MM/YYYY HH:mm'
-    });
+   });
 	
 	$('#allFailuresForModel').on('click', function(){
 		$('#modelFailuresModal').modal('show');
@@ -69,3 +38,45 @@ var loadDateModal = function(){
 	$('#dateQueryModal').modal('show');
 }
 
+var initialiseDatePickers = function(){
+	 $('#datetimepicker3').datetimepicker({
+	        viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+	    });
+		 $('#datetimepicker4').datetimepicker({
+			 viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+	   });
+		 $('#datetimepicker5').datetimepicker({
+	        viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+	    });
+		 $('#datetimepicker6').datetimepicker({
+			 viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+	   });
+		 $('#datetimepicker7').datetimepicker({
+	        viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+	    });
+		 $('#datetimepicker8').datetimepicker({
+			 viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+	   });
+		 $('#datetimepicker9').datetimepicker({
+		        viewMode: 'years',
+				 format: 'DD/MM/YYYY HH:mm'
+		    });
+			 $('#datetimepicker10').datetimepicker({
+				 viewMode: 'years',
+				 format: 'DD/MM/YYYY HH:mm'
+		   });
+		 $('#datetimepicker11').datetimepicker({
+	        viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+	    });
+		 $('#datetimepicker12').datetimepicker({
+			 viewMode: 'years',
+			 format: 'DD/MM/YYYY HH:mm'
+	   });
+}

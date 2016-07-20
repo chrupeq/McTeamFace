@@ -86,8 +86,9 @@ table#querysTable tr.odd td {
 }
 
 #costanzaLogo {
-	width: 10%;
+	width: 5%;
 	margin-right: 10%;
+	margin-left: 1%;
 	height: 5%;
 	float: left;
 }
@@ -212,6 +213,7 @@ table#querysTable tr.odd td {
 	border-bottom: thick double #ffffff;
 	position: fixed; 
 	z-index: 1000;
+	width: 100%;
 }
 
 #queryBody {

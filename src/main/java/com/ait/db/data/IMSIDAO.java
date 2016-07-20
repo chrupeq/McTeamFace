@@ -76,8 +76,7 @@ public class IMSIDAO {
 	public List<Object> getIMSIsWithEventIDsAndCauseCodes(BigInteger imsi) throws Exception {
 		// query = entityManager.createQuery("SELECT b FROM Base_data b WHERE
 		// b.imsi = :imsi");
-		query = entityManager.createQuery("SELECT b.event_cause.event_id, b.event_cause.cause_code, "
-				+ "b.event_cause.description, b.failure_class.failure_class, b.failure_class.description FROM Base_data b WHERE b.imsi = :imsi");
+		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi GROUP BY event_cause.event_id, event_cause.cause_code	");
 		query.setParameter("imsi", imsi);
 		List<Object> objectDataList = query.getResultList();
 		// if(baseDataList.isEmpty()) {

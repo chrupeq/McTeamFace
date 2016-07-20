@@ -1,12 +1,5 @@
 var rootUrl2 = "http://localhost:8080/GroupProject2016/rest/users";
 var jobTitle2 = "";
-$(document).ready(function() {
-	displayErrors();
-	jobTitle2 = jobTitle;
-	findAll();
-	revealCustomHeader();
-	hideTable();
-});
 
 var userAccessControl = function() {
 	$('#home').addClass('hiddenbycostanza');
@@ -21,17 +14,26 @@ var userAccessControl = function() {
 		$('#form').removeClass('hiddenbycostanza');
 		$('#importDataset').removeClass('hiddenbycostanza');
 		getCustomQueryBar();
+		$('#sidebar-wrapper').height('35%');
 
 	} else if (accessLevel == "NME") {
 		injectNavBar('NME');
-		$('#home').addClass('hiddenbycostanza');
+		
+				$('#home').addClass('hiddenbycostanza');
 		$("#querytab").removeClass('hiddenbycostanza');
 		$('#queryBody').removeClass('hiddenbycostanza');
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
 		$('#home').removeClass('active');
 		$('#queryBody').addClass('active');
+		$('#welcometab').addClass('hiddenbycostanza');
+		$('#wilkommen').addClass('hiddenbycostanza');
+		$('#queryList').removeClass('hiddenbycostanza');
+		$("#querytab").removeClass('hiddenbycostanza');
+		$('#querytab').addClass('active');
+		$('#queryTabClick').click();
 		getCustomQueryBar();
+		$('#sidebar-wrapper').height('100%');
 		
 
 	} else if (accessLevel == "SE") {
@@ -43,6 +45,7 @@ var userAccessControl = function() {
 		$("#abouttab").removeClass('hiddenbycostanza');
 		$('#queryTabClick').click();
 		getCustomQueryBar();
+		$('#sidebar-wrapper').height('50%');
 		
 	} else if (accessLevel == "CSR") {
 		injectNavBar('CSR');
@@ -55,6 +58,7 @@ var userAccessControl = function() {
 		$("#contacttab").removeClass('hiddenbycostanza');
 		$("#abouttab").removeClass('hiddenbycostanza');
 		getCustomQueryBar();
+		$('#sidebar-wrapper').height('40%');
 	}
 };
 
@@ -145,8 +149,6 @@ var addUser = function() {
 
 		data : formToJSON(),
 		success : function(data, textStatus, jqXHR) {
-
-			location.reload();
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			alert("addUser error: " + textStatus);
@@ -362,8 +364,8 @@ function checkUsernameExists(details) {
 
 $(document).on("click", "#logoutBtn", function() {
 	injectNavBar('logged out');
-	$('#tab').css('padding-top: 0px; margin-left: 0px;');
-	$('#queryList').css('margin-top: -2.4%;');
+//	$('#tab').css('padding-top: 0px; margin-left: 0px;');
+//	$('#queryList').css('margin-top: -2.4%;');
 	$('#customHeader').empty();
 	document.cookie = 'jobTitle=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
 	document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:00 UTC';
@@ -444,7 +446,7 @@ var revealCustomHeader = function() {
 	} 
 	  
 	if (name != "") {
-		if(getTheCookieYouNeed('last_login') != ""){
+		if(getTheCookieYouNeed('last_login') != 'null' && getTheCookieYouNeed('last_login') != '' && getTheCookieYouNeed('last_login') != ' '){
 			$('#customHeader').html('<h4>' + timeOfDay + name +'!</h4><h4>Your last login was ' + getTheCookieYouNeed('last_login') + '</h4>');
 		}else{
 		$('#customHeader').html('<h2>' + timeOfDay + name +'!</h2>');
@@ -452,3 +454,11 @@ var revealCustomHeader = function() {
 		$('#customHeader').removeClass('hiddenbycostanza');
 	}
 }
+
+$(document).ready(function() {
+	displayErrors();
+	jobTitle2 = jobTitle;
+	findAll();
+	revealCustomHeader();
+	hideTable();
+});

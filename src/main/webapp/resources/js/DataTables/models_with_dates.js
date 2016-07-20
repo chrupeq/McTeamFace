@@ -2,14 +2,6 @@ modelsUrl = 'http://localhost:8080/GroupProject2016/rest/unique_model_failures/d
 var model = "";
 var manufacturer = "";
 $(document).ready(function(){
-	$.getJSON("http://localhost:8080/GroupProject2016/rest/unique_model", function(result) {
-	    $.each(result, function(index, item) {
-	    	
-	    	$('#modelsWithDatesSelect').append($("<option></option>")
-                    .attr("value",item.tac)
-                    .text(item.manufacturer + ' ' + item.marketing_name));
-	    });
-	});
 	
 	$('#modelsWithDatesLink').on('click', function(){
 		$('.modalerrordiv').remove();
@@ -44,6 +36,16 @@ $(document).ready(function(){
 	
 });	
 
+var moreUniqueModels = function(){
+	$.getJSON("http://localhost:8080/GroupProject2016/rest/unique_model", function(result) {
+	    $.each(result, function(index, item) {
+	    	
+	    	$('#modelsWithDatesSelect').append($("<option></option>")
+                    .attr("value",item.tac)
+                    .text(item.manufacturer + ' ' + item.marketing_name));
+	    });
+	});
+}
 var rootUrlSelect = "http://localhost:8080/GroupProject2016/rest/unique_model";
 var findAllUniqueModels = function() {
 	$.ajax({

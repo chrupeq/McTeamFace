@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	findAllUniqueModels();
+
 	$(".js-example-basic-single").select2();
 	});
 
@@ -9,8 +9,7 @@ var findAllUniqueModels = function() {
 		type : 'GET',
 		url : rootUrlSelect,
 		dataType : "json",
-		success : loadSearchParams,
-		error: $('#tableDiv').html('<h3 id="noDataMessage">no data to display for this query<h3>')
+		success : loadSearchParams
 	});
 };
 

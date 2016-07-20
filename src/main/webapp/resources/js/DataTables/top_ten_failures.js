@@ -1,9 +1,6 @@
 var topTebUrl = "http://localhost:8080/GroupProject2016/rest/imsi/top10_market_operator_cellIdCombinations?";
 var IMSI = "";
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
-$(document).ready(function(){
-	
-});	
 
 var findTopTenFailures = function(date1, date2){
 	$('#queryprogress').css('width', '0%');

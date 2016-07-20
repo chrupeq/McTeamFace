@@ -196,4 +196,20 @@ var getCustomQueryBar = function(){
 		$('#singleImsiCauseCodeModal').modal('show');
 	})
 	
+	findAllUniqueModels();
+	getUniqueImsis();
+	getMoreUniqueImsis();
+	moreUniqueModels();
+	moreImsis();
+	evenMoreImsis();
+	initialiseDatePickers();
+		
+	$("#selectByModel").select2();
+	$("#IMSIs").select2();
+	$("#imsiEventIdCauseCode").select2();
+	$("#IMSIsCauseCodes").select2();
+	$("#failureClassSelect").select2();
+	$("#modelsWithDatesSelect").select2();
+	
+	
 }

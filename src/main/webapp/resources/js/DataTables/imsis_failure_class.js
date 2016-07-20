@@ -6,15 +6,6 @@ imsisForFailureClass = 'http://localhost:8080/GroupProject2016/rest/imsi/get_per
 
 $(document).ready(function(){
 	
-	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/unique_failure_class", function(result) {
-	    $.each(result, function(index, item) {
-	    	
-	    	$('#failureClassSelect').append($("<option></option>")
-                    .attr("value",item.failure_class)
-                    .text(item.failure_class + ': ' + item.description));
-	    });
-	});
-	
 	$('#failureClassSelect').on('change', function(){
 		hideTable();
 		$('#getByFailureClassModal').modal('hide');
@@ -27,7 +18,16 @@ $(document).ready(function(){
 		})
 })
 	
-	
+	var getMoreUniqueImsis = function(){
+	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/unique_failure_class", function(result) {
+	    $.each(result, function(index, item) {
+	    	
+	    	$('#failureClassSelect').append($("<option></option>")
+                    .attr("value",item.failure_class)
+                    .text(item.failure_class + ': ' + item.description));
+	    });
+	});
+}
 
 var loadFailureClassIMSITable = function(failureClass){
 	$('#queryprogress').css('width', '0%');

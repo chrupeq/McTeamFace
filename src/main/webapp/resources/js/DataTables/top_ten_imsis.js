@@ -1,24 +1,5 @@
 imsisTopTenUrl = 'http://localhost:8080/GroupProject2016/rest/imsi/top10_IMSI';
 
-$(document).ready(function(){
-	$('#topTenImsiSearch').on('click', function(){
-		hideTable();
-		var eleventh = $("#datetimepicker11").find("input").val();
-		var twelfth = $("#datetimepicker12").find("input").val();
-		if(checkDates(eleventh, twelfth) == 'false'){
-			
-		}else{
-			$('#topTenImsiModal').modal('hide');
-			$('.modalerrordiv').remove();
-		
-		$('#searchParams').html('You are searching for the top ten IMSI\'s with failures between ' + eleventh + ' and ' + twelfth);
-		loadTopTenImsiTable(eleventh, twelfth);
-		}
-		})
-})
-	
-	
-
 var loadTopTenImsiTable = function(eleventh, twelfth){
 	$('#queryprogress').css('width', '0%');
  	$('#queryprogress').text('0%');
@@ -98,3 +79,20 @@ var loadTopTenImsis = function(data){
 		hideTable();
 	});
 	};
+	
+	$(document).ready(function(){
+		$('#topTenImsiSearch').on('click', function(){
+			hideTable();
+			var eleventh = $("#datetimepicker11").find("input").val();
+			var twelfth = $("#datetimepicker12").find("input").val();
+			if(checkDates(eleventh, twelfth) == 'false'){
+				
+			}else{
+				$('#topTenImsiModal').modal('hide');
+				$('.modalerrordiv').remove();
+			
+			$('#searchParams').html('You are searching for the top ten IMSI\'s with failures between ' + eleventh + ' and ' + twelfth);
+			loadTopTenImsiTable(eleventh, twelfth);
+			}
+			})
+	})

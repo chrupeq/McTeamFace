@@ -1,21 +1,5 @@
 var rootUrl="http://localhost:8080/GroupProject2016/rest/users";
 var jobTitle = "";
-$(document).ready(function() {
-	var loggedIn = checkCookieStatus();
-	
-	if(loggedIn != ""){
-		$('#logoutBtn').removeClass('hiddenbycostanza');
-		userAccessControl();
-	}else{
-		$('#welcometab').removeClass('hiddenbycostanza');
-		$('#home').removeClass('hiddenbycostanza');
-	}
-	$('#loginButton').on("click", function(){
-		getDetailsFromUser();
-		
-		return false;
-	});
-});
 
 	var displayError = function(){
 		$("#errorMessage").removeClass('hiddenbycostanza');
@@ -67,7 +51,6 @@ function loginAuthentication(details) {
 				success: function(details){
 						}
 			});
-			getCustomQueryBar();
 			userAccessControl();
 		}		
 		
@@ -111,3 +94,20 @@ if(detail == 'last_login'){
 	return cookieArray[4].substring(12,36);
 }
 }
+
+$(document).ready(function() {
+	var loggedIn = checkCookieStatus();
+	
+	if(loggedIn != ""){
+		$('#logoutBtn').removeClass('hiddenbycostanza');
+		userAccessControl();
+	}else{
+		$('#welcometab').removeClass('hiddenbycostanza');
+		$('#home').removeClass('hiddenbycostanza');
+	}
+	$('#loginButton').on("click", function(){
+		getDetailsFromUser();
+		
+		return false;
+	});
+});

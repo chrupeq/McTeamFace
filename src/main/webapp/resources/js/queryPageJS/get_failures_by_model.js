@@ -1,7 +1,5 @@
 var rootUrlUMF = "http://localhost:8080/GroupProject2016/rest/unique_model_failures";
 var querysTable = "";
-$(document).ready(function(){
-})
 
 var findAllUniqueModelFailures = function(tacNumber) {
 	$('#queryprogress').css('width', '0%');

@@ -1,35 +1,15 @@
 var numOfIMSIsBetweenTwoDates = "http://localhost:8080/GroupProject2016/rest/imsi/imsi_count_between_dates?";
 var IMSI = "";
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
-$(document).ready(function(){
+
+var evenMoreImsis = function(){
 	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
 	    var options = $('#IMSIs');
 	    $.each(result, function(index, item) {
 	        options.append('<option value="'+item+'">'+item+'</option>');
 	    });
 	});
-	
-	$('#IMSIs').on('change', function(){
-		IMSI = this.value;
-		})
-	
-	$('#singleImsiSearch').on('click', function(){
-		$('.modalerrordiv').remove();
-		var fifthDate = $("#datetimepicker5").find("input").val();
-		var sixthDate = $("#datetimepicker6").find("input").val();
-		if(checkDates(fifthDate, sixthDate) == 'false'){
-			
-		}else{
-			hideTable();
-			$('#singleImsiModal').modal('hide');
-			$('.modalerrordiv').remove();
-		$('#searchParams').html('You are searching for a failure count for IMSI ' + IMSI + ' between ' + fifthDate + ' and ' + sixthDate);
-		
-		loadSingleImsiTable(fifthDate, sixthDate, IMSI);
-		}
-	});
-	
-});	
+}
 
 var loadSingleImsiTable = function(date1, date2, imsi){
 	$('#queryprogress').css('width', '0%');
@@ -101,4 +81,29 @@ var loadSingleImsiTable = function(date1, date2, imsi){
 			});
 		};
 	
+		
+		$(document).ready(function(){
+
+			
+			$('#IMSIs').on('change', function(){
+				IMSI = this.value;
+				})
+			
+			$('#singleImsiSearch').on('click', function(){
+				$('.modalerrordiv').remove();
+				var fifthDate = $("#datetimepicker5").find("input").val();
+				var sixthDate = $("#datetimepicker6").find("input").val();
+				if(checkDates(fifthDate, sixthDate) == 'false'){
+					
+				}else{
+					hideTable();
+					$('#singleImsiModal').modal('hide');
+					$('.modalerrordiv').remove();
+				$('#searchParams').html('You are searching for a failure count for IMSI ' + IMSI + ' between ' + fifthDate + ' and ' + sixthDate);
+				
+				loadSingleImsiTable(fifthDate, sixthDate, IMSI);
+				}
+			});
+			
+		});	
 	

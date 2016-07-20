@@ -1,29 +1,15 @@
 var imsisWithCauseCodes = "http://localhost:8080/GroupProject2016/rest/imsi/unique_causeCode_failureClass_Description?";
 var IMSI = "";
 var closeButton = '<button id="backToHomeButton" type="button" class="btn btn-secondary">Back To Home</button>';
-$(document).ready(function(){
+	
+var moreImsis = function(){
 	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
 	    var options = $('#IMSIsCauseCodes');
 	    $.each(result, function(index, item) {
 	        options.append('<option value="'+item+'">'+item+'</option>');
 	    });
 	});
-	
-	$('#IMSIsCauseCodes').on('change', function(){
-		IMSI = this.value;
-
-		$('.modalerrordiv').remove();
-
-
-			hideTable();
-			$('#singleImsiModal').modal('hide');
-			$('.modalerrordiv').remove();
-		    $('#searchParams').html('You are searching for unique failures for IMSI ' + IMSI);
-		
-		loadImsiCauseCodesTable(IMSI);
-	});
-	
-});	
+}
 
 var loadImsiCauseCodesTable = function(imsi){
 	$('#queryprogress').css('width', '0%');
@@ -98,4 +84,20 @@ var loadImsiCauseCodesTable = function(imsi){
 			});
 		};
 	
-	
+		$(document).ready(function(){
+			
+			$('#IMSIsCauseCodes').on('change', function(){
+				IMSI = this.value;
+
+				$('.modalerrordiv').remove();
+
+
+					hideTable();
+					$('#singleImsiModal').modal('hide');
+					$('.modalerrordiv').remove();
+				    $('#searchParams').html('You are searching for unique failures for IMSI ' + IMSI);
+				
+				loadImsiCauseCodesTable(IMSI);
+			});
+			
+		});	

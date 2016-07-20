@@ -1,14 +1,6 @@
 imsiEventUrl = 'http://localhost:8080/GroupProject2016/rest/imsi/imsi_event_id/';
 
 $(document).ready(function(){
-	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
-	    var IMSI2 = "";
-	    $.each(result, function(index, item) {
-	    	$('#imsiEventIdCauseCode').append($("<option></option>")
-                    .attr("value",item)
-                    .text(item));
-	    });
-	});
 	
 	$('#imsiEventSelectIdCauseCode').on('click', function(){
 		$('#imsisEventIdAndCauseCode').modal('show');
@@ -33,6 +25,17 @@ $(document).ready(function(){
 	
 });	
 
+var getUniqueImsis = function(){
+	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
+	    var IMSI2 = "";
+	    $.each(result, function(index, item) {
+	    	$('#imsiEventIdCauseCode').append($("<option></option>")
+                    .attr("value",item)
+                    .text(item));
+	    });
+	});
+}
+
 var loadImsisForSelect = function(){
 	$('#imsiEventIdCauseCode').empty();
 	$.getJSON("http://localhost:8080/GroupProject2016/rest/imsi/get_unique", function(result) {
@@ -51,7 +54,7 @@ var loadEventImsiTable = function(IMSI2){
 	$('#queryprogressouter').addClass('animated fadeInDown');
 	$.ajax({
 		type:'GET',
-		url: imsiEventUrl + '?imsi=' + IMSI2,
+		url: imsiEventUrl + IMSI2,
 		dataType:'json',
 		progress: function(e) {
 	        if(e.lengthComputable) {
@@ -75,16 +78,14 @@ var loadEventImsiTable = function(IMSI2){
 }
 
 var loadImsiEventIdCauseCodeTable = function(data){
-	
+	alert(data[0].cause_code);
 	var table = '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="querysTable">'
 	+ '<thead>'
 	+ '<tr>'
 	+ '<th align="left">Event ID</th>'
-	+ '<th align="left" class="col-sm-2">Cause Code</th>'
 	+ '<th align="left" class="col-sm-2">Event Cause Description</th>'
-	+ '<th align="left" class="col-sm-2">Failure Class</th>'
+	+ '<th align="left" class="col-sm-2">Cause Code</th>'
 	+ '<th align="left" class="col-sm-2">Failure Description</th>'
-	+ '<th align="left" class="col-sm-2">IMSI</th>'
 	+ '</tr>'
 	+ '</thead>'
 	+ '</table>';
@@ -98,18 +99,14 @@ var loadImsiEventIdCauseCodeTable = function(data){
 	        
 	        columns: [
 
-	            { data: "event_id" },
+	            { data: "event_cause.event_id" },
 	            
-	            { data: "cause_code" },
-	            
-	            { data: "eventIdCauseCodeDescription"},
-	            
-	            { data: "failure_class" },
-	            
-	            { data: "failureDescription" },
-	            
-	            { data: "imsi" },
+	            { data: "event_cause.description" },
 	      
+	            { data: "event_cause.cause_code" },
+	            
+	            { data: "failure_class.description" }
+	            
 	        ],
 	        
 	        

@@ -108,24 +108,26 @@ public class IMSIRestService {
 			return Response.status(400).build();
 		}
 	}
-//	@GET
-//	@Path("/imsi_event_id/{imsi}")
-//	@Produces({MediaType.APPLICATION_JSON})
-//	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
-//		try {
-//			List<IMSIWithEventIDAndCauseCode> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
-//			if(imsiList.isEmpty()) {
-//				return Response.status(404).build();
-//			} 
-//			ObjectMapper mapper = new ObjectMapper();
-//			String jsonInString = mapper.writeValueAsString(imsiList);
-//			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
-//		} catch(Exception e) {
-//			e.printStackTrace();
-//			
-//			return Response.status(400).build();
-//		}
-//	}
+	
+	@GET
+	@Path("/imsi_event_id/{imsi}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi") BigInteger imsi) {
+		try {
+			List<Object> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
+			if(imsiList.isEmpty()) {
+				return Response.status(404).build();
+			} 
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonInString = mapper.writeValueAsString(imsiList);
+			return Response.status(200).entity(imsiList).header("Content-Length", jsonInString.length()).build();
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+			return Response.status(400).build();
+		}
+	}
+	
 	@GET
 	@Path("/imsi_count_between_dates")
 	@Produces({MediaType.APPLICATION_JSON})
