@@ -47,10 +47,18 @@ var hideTable = function(){
 	$('.clearfix').addClass('fadeOutUp');
 	$('.clearfix').addClass('hiddenbycostanza');
 	hideRevealButton();
+	hideDrilldown();
 }
 
 var showCharts = function(){
 	$('.clearfix').removeClass('hiddenbycostanza');
 	$('.clearfix').removeClass('fadeOutUp');
 	$('.clearfix').addClass('fadeInDown');
+}
+
+var hideDrilldown = function(){
+	$('#canvasdiv2').removeClass('fadeInDown');
+	$('#canvasdiv2').addClass('fadeOutUp');
+	$('#canvasdiv2').addClass('hiddenbycostanza');
+	$('#canvasdiv2').empty();
 }

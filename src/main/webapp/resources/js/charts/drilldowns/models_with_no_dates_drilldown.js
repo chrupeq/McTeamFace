@@ -34,7 +34,8 @@ var getModelInfoForDrilldown = function(eventId, causeCode, tacNumber){
 
 var modelDrillDownTable = function(data){
 dataArray = data;
-	var table = '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="drilldownTable">'
+	var table = '<h3 style="text-align: center;">Individual failure records and associated information</h3>'
+	+ '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="drilldownTable">'
 	+ '<thead>'
 	+ '<tr>'
 	+ '<th align="left">Date/Time</th>'
