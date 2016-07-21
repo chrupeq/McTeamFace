@@ -14,8 +14,8 @@ public class SessionDAO {
 	@PersistenceContext
     private EntityManager entityManager;
 	
-	public void addEntry(String username, String sessionId, String jobTitle){
-		Session session = new Session(sessionId, jobTitle, username);
+	public void addEntry(final String username, final String sessionId, final String jobTitle){
+		final Session session = new Session(sessionId, jobTitle, username);
 		entityManager.persist(session);
 	}
 	

@@ -22,7 +22,7 @@ public class EventCauseFailuresDAO {
 		
 		query = entityManager.createQuery("SELECT event_cause FROM Base_data b WHERE ue_type = :tacNumber");
 		query.setParameter("tacNumber", tacNumber);
-		List<Event_cause> eventCauseList = query.getResultList();
+		final List<Event_cause> eventCauseList = query.getResultList();
 		return eventCauseList;
 	}
 }

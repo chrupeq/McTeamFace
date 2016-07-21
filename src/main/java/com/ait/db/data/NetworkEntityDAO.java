@@ -34,9 +34,9 @@ public class NetworkEntityDAO {
 	List<NetworkEntity> listOfNetworkEntities;
 	private Query query;
 
-	public List<? extends NetworkEntity> getAllNetworkEntityEntries(NetworkEntityType networkEntityType) {
+	public List<? extends NetworkEntity> getAllNetworkEntityEntries(final NetworkEntityType networkEntityType) {
 		final Query query = getTheRetrieveAllEntriesQuery(networkEntityType);
-		List<Object> databaseEntities = query.getResultList();
+		final List<Object> databaseEntities = query.getResultList();
 		return getTheListOfNetworkEntities(databaseEntities);
 	}
 
@@ -79,8 +79,8 @@ public class NetworkEntityDAO {
 			}
 
 		}
-		Date endTimer = new Date();
-		String date = ""+endTimer;
+		final Date endTimer = new Date();
+		final String date = ""+endTimer;
 		if(networkEntity.length > 500){
 		ExcelFileUploader.setProgressVariable(100);
 		}
@@ -105,12 +105,12 @@ public class NetworkEntityDAO {
 			return entityManager.find(Base_data.class, idParameters[0]);
 		}
 		if (networkEntityType.equals(NetworkEntityType.MCC_MNC)) {
-			Mcc_mncKey mccMncKey = (Mcc_mncKey) PrimaryKeyFactory
+			final Mcc_mncKey mccMncKey = (Mcc_mncKey) PrimaryKeyFactory
 					.getPrimaryKeyEntity(CompositePrimaryKeyType.MCC_MNC_KEY, idParameters);
 			return entityManager.find(Mcc_mnc.class, mccMncKey);
 		}
 		if (networkEntityType.equals(NetworkEntityType.EVENT_CAUSE)) {
-			Event_causeKey eventCauseKey = (Event_causeKey) PrimaryKeyFactory
+			final Event_causeKey eventCauseKey = (Event_causeKey) PrimaryKeyFactory
 					.getPrimaryKeyEntity(CompositePrimaryKeyType.EVENT_CAUSE_KEY, idParameters);
 			return entityManager.find(Event_cause.class, eventCauseKey);
 		}
@@ -125,7 +125,7 @@ public class NetworkEntityDAO {
 
 	private List<NetworkEntity> getTheListOfNetworkEntities(final List<Object> databaseEntities) {
 		listOfNetworkEntities = new ArrayList<NetworkEntity>();
-		for (Object entry : databaseEntities) {
+		for (final Object entry : databaseEntities) {
 			if (entry instanceof NetworkEntity) {
 				listOfNetworkEntities.add((NetworkEntity) entry);
 			}
@@ -137,13 +137,13 @@ public class NetworkEntityDAO {
 		public static CompositePK getPrimaryKeyEntity(final CompositePrimaryKeyType compositePrimaryKeyType,
 				final Object... params) {
 			if (compositePrimaryKeyType.equals(CompositePrimaryKeyType.MCC_MNC_KEY)) {
-				Mcc_mncKey mccMncKey = new Mcc_mncKey();
+				final Mcc_mncKey mccMncKey = new Mcc_mncKey();
 				mccMncKey.setMcc((Integer) params[0]);
 				mccMncKey.setMnc((Integer) params[1]);
 				return mccMncKey;
 			}
 			if (compositePrimaryKeyType.equals(CompositePrimaryKeyType.EVENT_CAUSE_KEY)) {
-				Event_causeKey eventCauseKey = new Event_causeKey();
+				final Event_causeKey eventCauseKey = new Event_causeKey();
 				eventCauseKey.setCause_code((Integer) params[0]);
 				eventCauseKey.setEvent_id((Integer) params[1]);
 				return eventCauseKey;

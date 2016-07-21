@@ -22,7 +22,7 @@ public class DrillDownDAO {
 		query.setParameter("eventId", eventId);
 		query.setParameter("causeCode", causeCode);
 		query.setParameter("tacNumber", tacNumber);
-		List<Base_data> baseDataList = query.getResultList();
+		final List<Base_data> baseDataList = query.getResultList();
 		System.out.println(baseDataList.size()+" is the size boyo");
 		return baseDataList;
     }
@@ -30,7 +30,7 @@ public class DrillDownDAO {
 	public List<Base_data> getModelOfPhoneDesc(final BigInteger imsi) {
 		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE imsi = :imsi GROUP BY market, operator");
 		query.setParameter("imsi", imsi);
-		List<Base_data> baseDataList = query.getResultList();
+		final List<Base_data> baseDataList = query.getResultList();
 		System.out.println(baseDataList.size()+" is the size boyo");
 		return baseDataList;
     }

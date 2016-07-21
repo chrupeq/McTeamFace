@@ -9,7 +9,7 @@ public enum NetworkEntityType {
 	
 	private String networkEntityType;
 	
-	private NetworkEntityType(String networkEntityType) {
+	private NetworkEntityType(final String networkEntityType) {
 		this.setNetworkEntityType(networkEntityType);
 	}
 
@@ -17,7 +17,7 @@ public enum NetworkEntityType {
 		return networkEntityType;
 	}
 
-	public void setNetworkEntityType(String networkEntityType) {
+	public void setNetworkEntityType(final String networkEntityType) {
 		this.networkEntityType = networkEntityType;
 	}
 }
