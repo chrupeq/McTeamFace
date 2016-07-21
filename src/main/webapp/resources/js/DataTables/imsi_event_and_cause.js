@@ -85,6 +85,7 @@ var loadImsiEventIdCauseCodeTable = function(data){
 	+ '<th align="left">Event ID</th>'
 	+ '<th align="left" class="col-sm-2">Event Cause Description</th>'
 	+ '<th align="left" class="col-sm-2">Cause Code</th>'
+	+ '<th align="left" class="col-sm-2">Failure Class</th>'
 	+ '<th align="left" class="col-sm-2">Failure Description</th>'
 	+ '</tr>'
 	+ '</thead>'
@@ -99,13 +100,15 @@ var loadImsiEventIdCauseCodeTable = function(data){
 	        
 	        columns: [
 
-	            { data: "event_cause.event_id" },
+	            { data: "event_id" },
 	            
-	            { data: "event_cause.description" },
+	            { data: "eventIdCauseCodeDescription" },
 	      
-	            { data: "event_cause.cause_code" },
+	            { data: "cause_code" },
 	            
-	            { data: "failure_class.description" }
+	            { data: "failure_class" },
+	            
+	            { data: "failureDescription" }
 	            
 	        ],
 	        
