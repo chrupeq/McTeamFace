@@ -29,6 +29,7 @@ import com.ait.db.model.Mcc_mnc;
 import com.ait.db.model.NetworkEntity;
 import com.ait.db.model.User_equipment;
 import com.ait.db.rest.JaxRsActivator;
+import com.ait.imsiStats.IMSIStats;
 
 @RunWith(Arquillian.class)
 public class NetworkEntityDAOFunctionalityTest {
@@ -36,6 +37,7 @@ public class NetworkEntityDAOFunctionalityTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Base_data.class.getPackage())
 				.addPackage(NetworkEntityDAO.class.getPackage())
+				.addClass(IMSIStats.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
