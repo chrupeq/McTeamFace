@@ -13,6 +13,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.ait.db.data.DateParser;
 import com.ait.db.data.DrillDownDAO;
 import com.ait.db.model.Base_data;
 
@@ -20,6 +21,8 @@ import com.ait.db.model.Base_data;
 @Stateless
 @LocalBean
 public class DrillDownRestService {
+	
+	DateParser dateParser;
 	
 	@EJB
 	DrillDownDAO drillDownDao;
@@ -38,11 +41,15 @@ public class DrillDownRestService {
 	}
 	
 	@GET
-	@Path("/imsi_desc")
+	@Path("/imsi_duration_percent")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getModelOfPhoneDescRest(@QueryParam("imsi") final BigInteger imsi) {
+	public Response getModelOfPhoneDescRest(@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo, @QueryParam("duration1") final Long duration1, @QueryParam("duration2") final Long duration2) {
+		
+		dateParser = new DateParser();
+		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
+		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
 		try{
-			final List<Base_data> baseDataList = drillDownDao.getModelOfPhoneDesc(imsi);
+			final List<Base_data> baseDataList = drillDownDao.getFailureDurationsBetweenDates(dateOne, dateTwo, duration1, duration2);
 			return Response.status(200).entity(baseDataList).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -51,3 +58,4 @@ public class DrillDownRestService {
 	}
 
 }
+
