@@ -17,19 +17,30 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.ait.db.data.DateParser;
 import com.ait.db.data.DrillDownDAO;
+import com.ait.db.data.ParseDate;
 import com.ait.db.model.Base_data;
 
 @RunWith(Arquillian.class)
 public class DrillDownDAOTest {
 	private List<Base_data> baseDataList;
+	private String dateOne = "2013-01-11 17:15:00";
+	private String dateTwo = "2013-01-11 17:16:00";
+	private String dateThree = "2013-01-11 17:17:00";
+	private String dateFour = "2013-01-11 17:00:00";
+	private String dateFive = "2013-01-11 17:30:00";
+	private String dateSix = "2016-06-28 00:00:00";
+	private String dateSeven = "2016-06-28 23:59:00";
+	private long durationOne = 1;
+	private long durationTwo = 100000;
 
 
 	@Deployment
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Base_data.class.getPackage())
-				.addClass(DrillDownDAO.class)
+				.addClasses(DrillDownDAO.class, ParseDate.class, DateParser.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
@@ -52,7 +63,6 @@ public class DrillDownDAOTest {
 		baseDataList = drillDownDAO.getModelOfPhoneDesc(imsi);
 		assertNotNull(baseDataList);
 		assertFalse(baseDataList.isEmpty());
-		assertEquals(6, baseDataList.size());
+		assertEquals(4, baseDataList.size());
 	}
-	
 }

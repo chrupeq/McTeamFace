@@ -26,6 +26,7 @@ import com.ait.db.model.Base_data;
 import com.ait.db.rest.DrillDownRestService;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
+import com.ait.imsiStats.IMSIStats;
 import com.ait.imsiStats.IMSIStatsProducer;
 
 @RunWith(Arquillian.class)
@@ -40,7 +41,7 @@ public class DrillDownRestTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Base_data.class.getPackage())
         		.addPackage(DrillDownDAO.class.getPackage())
-        		.addClasses(DrillDownRestService.class, JaxRsActivator.class)
+        		.addClasses(IMSIStats.class, DrillDownRestService.class, JaxRsActivator.class)
         		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsResource("import.sql")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -56,14 +57,4 @@ public class DrillDownRestTest {
         ClientResponse<String> responseObj = request.get(String.class);
         assertEquals(200, responseObj.getStatus());
 	}
-	
-	@Test
-	public void getModelOfPhoneDescRestTest() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/drill_down/imsi_desc");
-		request.header("Accept", MediaType.APPLICATION_JSON);
-		// we're expecting a String back
-        ClientResponse<String> responseObj = request.get(String.class);
-        assertEquals(200, responseObj.getStatus());
-	}
-
 }
