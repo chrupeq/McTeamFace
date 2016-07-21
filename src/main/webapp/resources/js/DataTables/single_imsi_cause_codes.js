@@ -93,7 +93,7 @@ var loadImsiCauseCodesTable = function(imsi){
 
 
 					hideTable();
-					$('#singleImsiModal').modal('hide');
+					$('#singleImsiCauseCodeModal').modal('hide');
 					$('.modalerrordiv').remove();
 				    $('#searchParams').html('You are searching for unique failures for IMSI ' + IMSI);
 				
