@@ -55,16 +55,6 @@ public class DrillDownDAO {
 		final List<Base_data> baseDataList = query.getResultList();
 		System.out.println(baseDataList.size()+" is the size boyo");
 		
-		query = entityManager.createQuery(
-				"SELECT COUNT(*) FROM Base_data b WHERE b.date_time BETWEEN :date1 AND :date2 GROUP BY b.imsi HAVING SUM(b.duration) > :duration1 AND SUM(b.duration) <= :duration2");
-		query.setParameter("date1", calendarArray[0]);
-		query.setParameter("date2", calendarArray[1]);
-		query.setParameter("duration1", duration1);
-		query.setParameter("duration2", duration2);
-		
-		Long l = (Long) query.getSingleResult();
-		System.out.println(l);
-		
 		return baseDataList;
     }
 
