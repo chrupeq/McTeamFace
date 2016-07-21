@@ -239,6 +239,9 @@ public class IMSIRestService {
 	public Response getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(@QueryParam("imsi") final BigInteger imsi){
 		try{
 			final List<UniqueEventCauseFailureClass> causeCodeFailureClassDescriptList = IMSIDao.getUniqueCauseCodeAndDescriptionForFailureClassForIMSI(imsi);
+			if(causeCodeFailureClassDescriptList.isEmpty()){
+				return Response.status(404).build();
+			}
 			final ObjectMapper mapper = new ObjectMapper();
 			final String jsonInString = mapper.writeValueAsString(causeCodeFailureClassDescriptList);
 			return Response.status(200).entity(causeCodeFailureClassDescriptList).header("Content-Length", jsonInString.length()).build();

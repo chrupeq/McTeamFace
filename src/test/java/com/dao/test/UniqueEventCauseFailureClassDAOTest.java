@@ -21,6 +21,7 @@ import com.ait.db.data.IMSIDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
 import com.ait.db.model.UniqueEventCauseFailureClass;
+import com.ait.imsiStats.IMSIStats;
 
 
 @RunWith(Arquillian.class)
@@ -37,6 +38,7 @@ public class UniqueEventCauseFailureClassDAOTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Base_data.class.getPackage())
 				.addPackage(IMSIDAO.class.getPackage())
+				.addClass(IMSIStats.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")

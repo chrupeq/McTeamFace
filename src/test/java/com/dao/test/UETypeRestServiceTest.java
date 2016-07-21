@@ -27,6 +27,7 @@ import com.ait.db.model.User_equipment;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
 import com.ait.db.rest.UETypeRestService;
+import com.ait.imsiStats.IMSIStats;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -41,7 +42,7 @@ public class UETypeRestServiceTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
         		.addPackage(User_equipment.class.getPackage())
         		.addPackage(UETypeDAO.class.getPackage())
-        		.addClasses(UETypeRestService.class, JaxRsActivator.class)
+        		.addClasses(IMSIStats.class, UETypeRestService.class, JaxRsActivator.class)
         		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsResource("import.sql")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
