@@ -65,6 +65,7 @@ $('#chartTitle').html("Top ten failures");
 		       
 		        var label = myPie.data.labels[0];
 		        alert("label: " + label);
+		        
 
 		        //get value by index      
 		        var value = myPie.data.datasets[0].data[0];

@@ -43,8 +43,9 @@ public class DrillDownRestService {
 	@GET
 	@Path("/imsi_duration_percent")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getModelOfPhoneDescRest(@QueryParam("dateOne") String dateOne, @QueryParam("dateTwo") String dateTwo, @QueryParam("duration1") final Long duration1, @QueryParam("duration2") final Long duration2) {
-		
+	public Response getModelOfPhoneDescRest(@QueryParam("date1") String dateOne, @QueryParam("date2") String dateTwo, @QueryParam("duration1") final Long duration1, @QueryParam("duration2") final Long duration2) {
+		System.out.println(dateOne);
+		System.out.println(dateTwo);
 		dateParser = new DateParser();
 		dateOne = dateParser.convertFromEuropeanToAmericanDateFormat(dateOne);
 		dateTwo = dateParser.convertFromEuropeanToAmericanDateFormat(dateTwo);
