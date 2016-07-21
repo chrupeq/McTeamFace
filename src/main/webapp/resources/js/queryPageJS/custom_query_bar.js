@@ -10,7 +10,7 @@ var getCustomQueryBar = function(){
 	customQueryBar = '<div id="sidebar-wrapper">'
 	     + '<ul class="sidebar-nav">'
 	      +   '<li class="sidebar-brand">'
-	       +      '<a href="#"`style="color: blue">'
+	       +      '<a id="queryBrand" href="#">'
 	        +         getTheCookieYouNeed('name') + '\'s Queries'
 	         +   '</a>'
 	         + '</li>';
@@ -74,6 +74,7 @@ var getCustomQueryBar = function(){
 	
 		$('#navTabs').html(customQueryBar);
 		$('#navTabs2').html(customQueryBar);
+		$('#queryBrand').html(getTheCookieYouNeed('name') + '\'s Menu');
 
 	}
 

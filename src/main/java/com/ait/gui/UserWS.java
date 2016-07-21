@@ -47,8 +47,10 @@ public class UserWS {
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("/{id}")
 	public Response findUserById(@PathParam("id") final int userId) {
+	
 		final User user = userDao.getUser(userId);
 		//Response response = Response.status(200).entity(user).header("Content-Length", user.toString().length()).build();
+		System.out.println(user.getFirstName());
 		return Response.status(200).entity(user).header("Content-Length", 100).build();
 	}
 

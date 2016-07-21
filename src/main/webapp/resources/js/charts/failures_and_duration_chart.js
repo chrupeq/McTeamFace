@@ -100,6 +100,9 @@ var failuresLineChart = function(data, date1, date2) {
 			},
 			options : {
 				responsive : true,
+				legend: {
+					position: 'bottom'
+				},
 			
 			}
 		};

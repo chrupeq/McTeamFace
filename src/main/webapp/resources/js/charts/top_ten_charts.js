@@ -109,7 +109,7 @@ var instantChart = function(data) {
 			responsive : true,
 			legend : {
 				position : 'bottom'
-			}
+			},
 		}
 	};
 showCharts();

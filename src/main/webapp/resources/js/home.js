@@ -83,6 +83,9 @@ $(document).on("click", 'button.editButton', function() {
 		$("#usernameFormInputEdit").removeProp("disabled");
 		$("#jobTitleSelectEdit").removeProp("disabled");
 	}
+//	$('#firstNameEdit').val(userId.firstname);
+//	$('#lastNameEdit').val(userId.lastname);
+//	$('#usernameFormInputEdit').val(user);
 	$("#myModalEdit").modal('show');
 
 	$(document).on("click", "#formButtonEdit", function() {
@@ -135,7 +138,8 @@ var findById = function(id) {
 		type : 'GET',
 		url : rootUrl2 + '/' + id,
 		dataType : "json",
-		success : renderEditDetails
+		success : renderEditDetails,
+		error: console.log("error")
 	});
 };
 
@@ -193,6 +197,7 @@ var deleteUser = function(id) {
 };
 
 var renderEditDetails = function(data) {
+	alert("I is here.");
 	$('#firstNameEdit').val(data.firstname);
 	$('#lastNameEdit').val(data.lastname);
 	$('#usernameFormInputEdit').val(data.username);

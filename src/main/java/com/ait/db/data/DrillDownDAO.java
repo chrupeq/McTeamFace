@@ -57,5 +57,24 @@ public class DrillDownDAO {
 		
 		return baseDataList;
     }
+	
+	public List<Base_data> getFailureCountsForCountryByEventIdAndCauseCode(String date1, String date2, String country) {
+		
+		dateParser = new DateParser();
+		final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		final Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
+		
+		query = entityManager.createQuery(
+				"SELECT COUNT(*), b FROM Base_data b WHERE b.date_time BETWEEN :date1 AND :date2 AND b.mcc_mnc.country = :country GROUP BY b.imsi HAVING SUM(b.duration) > :duration1 AND SUM(b.duration) <= :duration2");
+		query.setParameter("date1", calendarArray[0]);
+		query.setParameter("date2", calendarArray[1]);
+		query.setParameter("duration1", duration1);
+		query.setParameter("duration2", duration2);
+		
+		final List<Base_data> baseDataList = query.getResultList();
+		System.out.println(baseDataList.size()+" is the size boyo");
+		
+		return baseDataList;
+    }
 
 }
