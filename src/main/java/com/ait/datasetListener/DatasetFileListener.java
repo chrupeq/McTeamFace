@@ -1,6 +1,5 @@
 package com.ait.datasetListener;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class DatasetFileListener {
 	private WatchService watcher;
 	private WatchKey key;
 	private Path dir;
-	private ArrayList<Path> filesSent = new ArrayList<>();
+	final private ArrayList<Path> filesSent = new ArrayList<>();
 
 	public void newFolderWatcher() {
 		try {
@@ -28,11 +27,11 @@ public class DatasetFileListener {
 		}
 	}
 
-	public void setMonitoredDir(String filePath) {
+	public void setMonitoredDir(final String filePath) {
 
 		dir = Paths.get(filePath);
 
-		WatchEvent.Kind<?>[] events = { StandardWatchEventKinds.ENTRY_CREATE };
+		final WatchEvent.Kind<?>[] events = { StandardWatchEventKinds.ENTRY_CREATE };
 		try {
 			key = dir.register(watcher, events);
 		} catch (IOException e) {
@@ -44,10 +43,10 @@ public class DatasetFileListener {
 
 	@Asynchronous
 	
-	public void startWatching(ExcelFileUploader excelFileUploader) throws IOException {
+	public void startWatching(final ExcelFileUploader excelFileUploader) throws IOException {
 
 		WatchKey key = null;
-		String fileName = null;
+		//String fileName = null;
 
 		Runtime.getRuntime().addShutdownHook(new Thread("shutdown watcher") {
 
@@ -82,16 +81,16 @@ public class DatasetFileListener {
 			}
 			if (key != null) {
 
-				for (WatchEvent<?> event : key.pollEvents()) {
-					WatchEvent.Kind<?> kind = event.kind();
+				for (final WatchEvent<?> event : key.pollEvents()) {
+					final WatchEvent.Kind<?> kind = event.kind();
 
 					if (kind == StandardWatchEventKinds.OVERFLOW) {
 						continue;
 					} else if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
 						System.out.println("File created");
 						WatchEvent<Path> ev = (WatchEvent<Path>) event;
-						Path file = dir.resolve(ev.context());
-						File xlsFile = new File(file.toString());
+						final Path file = dir.resolve(ev.context());
+						//File xlsFile = new File(file.toString());
 						if (file.toString().endsWith(".xls")&&!filesSent.contains(file.getFileName())) {
 							System.out.println(file.toString());
 							try{
@@ -126,7 +125,7 @@ public class DatasetFileListener {
 					 * }
 					 */
 					
-					boolean valid = key.reset();
+					final boolean valid = key.reset();
 					if (!valid) {
 						System.out
 								.println("Watcher key could not be reset stopping watchservice.");
