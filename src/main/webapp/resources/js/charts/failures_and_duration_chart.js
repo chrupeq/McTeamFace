@@ -1,4 +1,4 @@
-var failuresLineChart = function(data) {
+var failuresLineChart = function(data, date1, date2) {
 	var labels = [];
 	var failureData = [];
 	var colours = [];
@@ -106,5 +106,39 @@ var failuresLineChart = function(data) {
 	appendRevealButton();
 $('#chartTitle').html("Highest total durations that occured between these dates");
 	var ctx = document.getElementById("skills").getContext("2d");
-	window.myPie = new Chart(ctx, config);
+	myPie = new Chart(ctx, config);
+
+	$("#skills").click( 	
+		    function(evt){
+		        var activePoints = myPie.getElementsAtEvent(evt);
+		        var holder = activePoints[0];
+		       
+		        var label = myPie.data.labels[0];
+		        
+		        var string = "foo",
+		        substring = "oo";
+		    console.log(string.indexOf(substring) > -1);
+		    var duration2 = "";
+		    if(label.indexOf('>') > -1){
+		    	duration2 == 3000000000;
+		    }else{
+		        var duration = label.toString().substring(2, label.length - 2);
+		        
+		        
+		        if(duration == '1000'){
+		        	duration2 = 0;
+		        }else if(duration == '2000'){
+		        	duration2 = 1000;
+		        }else if(duration == '5000'){
+		        	duration2 = 2000;
+		        }else if(duration == '10000'){
+		        	duration2 = 5000;
+		        }else if(duration == '20000'){
+		        	duration2 = 10000;
+		        }
+		    }
+
+		    getImsiStatsInformationForDrilldown(date1, date2, duration2, duration);
+		    }
+		);
 }
