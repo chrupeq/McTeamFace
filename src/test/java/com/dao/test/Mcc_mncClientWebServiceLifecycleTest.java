@@ -25,6 +25,7 @@ import com.ait.db.model.Event_cause;
 import com.ait.db.model.Mcc_mnc;
 import com.ait.db.rest.JaxRsActivator;
 import com.ait.db.rest.NetworkEntityRestService;
+import com.ait.imsiStats.IMSIStats;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -38,7 +39,7 @@ public class Mcc_mncClientWebServiceLifecycleTest {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war").addPackage(Mcc_mnc.class.getPackage())
         		.addPackage(NetworkEntityDAO.class.getPackage())
-        		.addClasses(NetworkEntityRestService.class, JaxRsActivator.class)
+        		.addClasses(IMSIStats.class, NetworkEntityRestService.class, JaxRsActivator.class)
         		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsResource("import.sql")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

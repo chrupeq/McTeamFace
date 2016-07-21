@@ -23,6 +23,7 @@ import com.ait.db.data.NetworkEntityDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.rest.JaxRsActivator;
 import com.ait.db.rest.NetworkEntityRestService;
+import com.ait.imsiStats.IMSIStats;
 
 import junit.framework.Assert;
 
@@ -39,7 +40,7 @@ public class NetworkEntityClientTest {
         return ShrinkWrap.create(WebArchive.class, "test.war")
         		.addPackage(Base_data.class.getPackage())
         		.addPackage(NetworkEntityDAO.class.getPackage())
-        		.addClasses(NetworkEntityRestService.class, JaxRsActivator.class)
+        		.addClasses(IMSIStats.class, NetworkEntityRestService.class, JaxRsActivator.class)
         		.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsResource("import.sql")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
@@ -71,18 +72,7 @@ public class NetworkEntityClientTest {
         String response = responseObj.getEntity().trim();
         System.out.println("The response is: " + response);
 	}
-	@Test
-	@InSequence(3)
-	public void testResourceNotFoundByURI() throws Exception {
-		request = new ClientRequest(deploymentUrl.toString() + RESOURCE_PREFIX + "/network_entities/4");
-		request.header("Accept", MediaType.APPLICATION_JSON);
-		// we're expecting a String back
-        responseObj = request.get(String.class);
-        assertEquals(404, responseObj.getStatus());
-        System.out.println("GET /network_entities/4 HTTP/1.1\n\n" + responseObj.getEntity());
-        String response = responseObj.getEntity().trim();
-        System.out.println("The response is: " + response);
-	}
+	
 	@Test
 	@InSequence(4)
 	public void testPostFailureClass() throws Exception {
