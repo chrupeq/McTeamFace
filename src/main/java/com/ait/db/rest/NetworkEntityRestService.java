@@ -3,6 +3,7 @@ package com.ait.db.rest;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,7 +30,7 @@ public class NetworkEntityRestService {
 	@EJB
 	NetworkEntityDAO networkEntityDAO;
 	@PersistenceContext
-	//private EntityManager entityManager;
+	private EntityManager entityManager;
 	private NetworkEntityType networkEntityTypeEnum;
 	
 	@GET
