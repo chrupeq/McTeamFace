@@ -78,7 +78,6 @@ var loadEventImsiTable = function(IMSI2){
 }
 
 var loadImsiEventIdCauseCodeTable = function(data){
-	alert(data[0].cause_code);
 	var table = '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="querysTable">'
 	+ '<thead>'
 	+ '<tr>'

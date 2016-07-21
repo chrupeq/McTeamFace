@@ -1,66 +1,5 @@
 var instantChart = function(data) {
-//	$('#chartdiv').removeClass('hiddenbycostanza');
-//	$('#chartdiv').removeClass('fadeOutUp');
-//	$('#chartdiv').addClass('fadeInDown');
-//	var countryCodes = [];
-//	
-//	data.map(function(item){
-//		if(item.country == 'Denmark'){
-//			countryCodes.push('DK');
-//		}else if(item.country == "Sweden"){
-//			countryCodes.push('SE');
-//		}else if(item.country == "Canada"){
-//			countryCodes.push('CA');
-//		}else if(item.country == "United States of America"){
-//			countryCodes.push('US');
-//		}else if(item.country == "Guadeloupe-France"){
-//			countryCodes.push('GLP');
-//		}else if(item.country == "Antigua and Barbuda"){
-//			countryCodes.push('AG');
-//		}else if(item.country == "India"){
-//			countryCodes.push('IN');
-//		}else if(item.country == "Japan"){
-//			countryCodes.push('JP');
-//		}else if(item.country == "Australia"){
-//			countryCodes.push('AU');
-//		}
-//		
-//		
-//		
-//	})
-//	
-//	var dataSets = [[]];
-//		for(var i = 0; i < countryCodes.length; i ++){
-//		dataSets[0].push({ id : "" + countryCodes[i] + ""});
-//		}
-//	window.map = AmCharts.makeChart( "chartdiv", {
-//
-//		  "type": "map",
-//		  colorSteps: 10,
-//		  "theme": "none",
-//		  "projection":"miller",
-//
-//		  "dataProvider": {
-//		    "map": "worldHigh",
-//		    "areas": dataSets[0]
-//		  },
-//		  "areasSettings": {
-//		    "autoZoom": true,
-//		    "selectedColor": "#CC0000",
-//		    "selectable": true
-//		  },
-//		  "smallMap": {},
-//		  "export": {
-//		    "enabled": true,
-//		    "position": "bottom-right"
-//		  }
-//		} );
-//	
-//	map.addListener("clickMapObject", function (event) {
-//	    alert(event.mapObject.title);
-//	});
-	
-	
+	console.log(data);
 		var labels = [];
 	var failureData = [];
 	var colours = [];
@@ -122,18 +61,30 @@ $('#chartTitle').html("Top ten failures");
 	$("#skills").click( 
 		    function(evt){
 		        var activePoints = myPie.getElementsAtEvent(evt);
+		       
 		        var holder = activePoints[0];
 		   
 		       
-		        var label = myPie.data.labels[0];
+		        var label = myPie.data.labels[holder._index];
+		        
+		      
 		       
 		   
 		        
 
 		        //get value by index      
 		        var value = myPie.data.datasets[0].data[0];
-		    
-		    }
+		  
+		       var indexForSub = label.indexOf('(');
+		       var dataForMap = label.substring(0, indexForSub - 1);
+		       
+		       for(var i = 0; i < data.length; i ++){
+		    	   if(data[i].operatorDescription == dataForMap){
+		    		   showDrillDownMap(data, data[i].country);
+		    		   break;
+		    	   }
+		    	   }
+		       }
 		);
 }
 

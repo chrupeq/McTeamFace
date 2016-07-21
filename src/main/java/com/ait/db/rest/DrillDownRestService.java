@@ -58,5 +58,18 @@ public class DrillDownRestService {
 		}
 	}
 
+	@GET
+	@Path("/drilldown_3")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getDrillDown3Info(@QueryParam("country")final String country) {
+		try{
+			final List<Base_data> baseDataList = drillDownDao.getFailureCountsForCountryByEventIdAndCauseCode(country);
+			return Response.status(200).entity(baseDataList).build();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return Response.status(404).build();
+		}
+	}
+	
 }
 
