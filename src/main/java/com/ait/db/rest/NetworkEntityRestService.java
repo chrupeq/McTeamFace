@@ -126,7 +126,7 @@ public class NetworkEntityRestService {
 //		return Response.status(201).entity(networkEntityType).build();
 //	}
 	
-	public NetworkEntityType getNetworkEntityType(final String networkEntity) throws EntityException{
+	public NetworkEntityType getNetworkEntityType(final String networkEntity) {
 		if(networkEntity.equals(NetworkEntityType.BASE_DATA.getNetworkEntityType())) {
 			return NetworkEntityType.BASE_DATA;
 		}else if(networkEntity.equals(NetworkEntityType.EVENT_CAUSE.getNetworkEntityType())){
@@ -138,7 +138,7 @@ public class NetworkEntityRestService {
 		}else if(networkEntity.equals(NetworkEntityType.USER_EQUIPMENT.getNetworkEntityType())){
 			return NetworkEntityType.USER_EQUIPMENT;
 		}else{
-			throw new EntityException("Entity not found!");
+			return NetworkEntityType.BASE_DATA;
 		}
 	}
 	
@@ -230,25 +230,4 @@ public class NetworkEntityRestService {
 
 }
 
-class EntityException extends Exception {
 
-    public EntityException() {
-        // TODO Auto-generated constructor stub
-    }
-
-    public EntityException(final String message) {
-        super(message);
-        // TODO Auto-generated constructor stub
-    }
-
-    public EntityException(final Throwable cause) {
-        super(cause);
-        // TODO Auto-generated constructor stub
-    }
-
-    public EntityException(final String message, final Throwable cause) {
-        super(message, cause);
-        // TODO Auto-generated constructor stub
-    }
-
-}

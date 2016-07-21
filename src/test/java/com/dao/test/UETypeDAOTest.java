@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 
 import com.ait.db.data.UETypeDAO;
 import com.ait.db.model.User_equipment;
+import com.ait.imsiStats.IMSIStats;
 
 @RunWith(Arquillian.class)
 public class UETypeDAOTest {
@@ -25,6 +26,7 @@ public class UETypeDAOTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(User_equipment.class.getPackage())
 				.addPackage(UETypeDAO.class.getPackage())
+				.addClass(IMSIStats.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")

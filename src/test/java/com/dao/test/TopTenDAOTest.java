@@ -22,6 +22,7 @@ import com.ait.db.data.TopTenDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
+import com.ait.imsiStats.IMSIStats;
 
 @RunWith(Arquillian.class)
 public class TopTenDAOTest {
@@ -38,6 +39,7 @@ public class TopTenDAOTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Base_data.class.getPackage())
 				.addPackage(TopTenDAO.class.getPackage())
+				.addClass(IMSIStats.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
