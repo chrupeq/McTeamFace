@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,7 +28,7 @@ public class EventCauseFailuresRestService {
 	@EJB
 	EventCauseFailuresDAO eventCauseFailuresDAO;
 	@PersistenceContext
-	//private EntityManager entityManager;
+	private EntityManager entityManager;
 	private EventCauseFailuresCounter eventCauseFailuresCounter;
 	
 	@GET

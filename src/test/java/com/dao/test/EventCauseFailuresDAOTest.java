@@ -19,6 +19,7 @@ import com.ait.db.data.EventCauseFailuresDAO;
 import com.ait.db.model.EventCauseFailures;
 import com.ait.db.model.EventCauseFailuresCounter;
 import com.ait.db.model.Event_cause;
+import com.ait.imsiStats.IMSIStats;
 
 @RunWith(Arquillian.class)
 public class EventCauseFailuresDAOTest {
@@ -32,6 +33,7 @@ public class EventCauseFailuresDAOTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Event_cause.class.getPackage())
 				.addPackage(EventCauseFailuresDAO.class.getPackage())
+				.addClass(IMSIStats.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")

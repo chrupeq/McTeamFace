@@ -27,6 +27,7 @@ import com.ait.db.model.Event_cause;
 import com.ait.db.rest.EventCauseFailuresRestService;
 import com.ait.db.rest.IMSIRestService;
 import com.ait.db.rest.JaxRsActivator;
+import com.ait.imsiStats.IMSIStats;
 
 @RunWith(Arquillian.class)
 @RunAsClient
@@ -44,7 +45,7 @@ public class EventCauseFailuresRestServiceTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(Event_cause.class.getPackage())
 				.addPackage(EventCauseFailuresDAO.class.getPackage())
-				.addClasses(EventCauseFailuresRestService.class, JaxRsActivator.class)
+				.addClasses(IMSIStats.class, EventCauseFailuresRestService.class, JaxRsActivator.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 	            .addAsWebInfResource("jbossas-ds.xml")
