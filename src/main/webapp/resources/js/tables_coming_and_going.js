@@ -48,6 +48,9 @@ var hideTable = function(){
 	$('.clearfix').addClass('hiddenbycostanza');
 	hideRevealButton();
 	hideDrilldown();
+	$('#canvasdiv').removeClass('fadeInDown');
+	$('#canvasdiv').addClass('fadeOutUp');
+	$('#canvasdiv').addClass('hiddenbycostanza');
 }
 
 var showCharts = function(){

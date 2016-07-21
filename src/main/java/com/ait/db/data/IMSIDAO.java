@@ -174,7 +174,7 @@ public class IMSIDAO {
 		final Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
 		query = entityManager.createQuery(
 				"SELECT b.imsi, COUNT(*) AS num_of_failures, SUM(b.duration) AS failure_duration FROM Base_data b "
-						+ "WHERE b.date_time BETWEEN :startDate AND :endDate GROUP BY (b.imsi)");
+						+ "WHERE b.date_time BETWEEN :startDate AND :endDate GROUP BY (b.imsi) ORDER BY failure_duration DESC");
 		query.setParameter("startDate", calendarArray[0]);
 		query.setParameter("endDate", calendarArray[1]);
 		final List<Object> imsiStats = query.getResultList();
