@@ -66,6 +66,11 @@
 <script src="resources/js/queryPageJS/select2.full.js"></script>
 <script src="resources/js/queryPageJS/get_failures_by_model.js"></script>
 <script src="resources/js/queryPageJS/jquery.dataTables.js"></script>
+<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldHigh.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
+<!-- <script src="resources/js/worldMap.js"></script> -->
+<link rel="stylesheet" href="resources/world.css">
 <script type="text/template" id="model_data_table">
 <div id="tableOuterDiv"><table class="display table table-striped table-hover table-condensed animated fadeInDown" id="querysTable">
 <thead>
@@ -327,6 +332,7 @@ alert(errMsg);
 			</div>
 			</div>
 			<div id="buttonForCharts"><button type="submit" id="clickforchart" class="animated fadeOutUp hiddenbycostanza btn btn-success btn-block">See A Chart</button></div>
+			<div id="buttonForCharts"><button type="submit" id="clickforchart2" class="animated fadeOutUp hiddenbycostanza btn btn-success btn-block">See A Chart</button></div>
                 </div>
             </div>
         </div>
@@ -487,7 +493,7 @@ alert(errMsg);
 				</div>
 				
 				<div id="canvasdiv" class="customcontainer animated fadeOutUp hiddenbycostanza">
-    <div class="third widget doughnut">
+    <div id="canvasDivOuterPart" class="third widget doughnut">
     	<div id="canvassurround" class="box">
     		<h3 id="chartTitle"></h3>
 				<canvas id="skills" width="300" height="300"></canvas>
@@ -497,14 +503,23 @@ alert(errMsg);
 				
 				</div>
 				
+			
+<div id="scrolltome"></div>
 				</div>
+				
 					<div id="canvasdiv2" class="animated fadeOutUp hiddenbycostanza">
     			<div><h2>Information coming</h2></div>
 			</div>
-				<div id="scrolltome"></div>
-				
-				
-			
+					<div style="text-align:center; bottom:0px;" class="hiddenbycostanza animated fadeOutUp" id="chartdiv">
+ <!--   Change projection: 
+  <a href="#" onclick="window.map.setProjection('winkel3')">Winkel 3</a> |
+  <a href="#" onclick="window.map.setProjection('eckert3')">Eckert 3</a> |
+  <a href="#" onclick="window.map.setProjection('eckert5')">Eckert 5</a> |
+  <a href="#" onclick="window.map.setProjection('eckert6')">Eckert 6</a> |
+  <a href="#" onclick="window.map.setProjection('miller')">Miller</a> |
+  <a href="#" onclick="window.map.setProjection('equirectangular')">Equirectangular</a> |
+  <a href="#" onclick="window.map.setProjection('mercator')">Mercator</a> -->
+</div>
 			<div id="imsiStatsModal" class="modal fade" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">

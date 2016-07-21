@@ -51,6 +51,13 @@ var hideTable = function(){
 	$('#canvasdiv').removeClass('fadeInDown');
 	$('#canvasdiv').addClass('fadeOutUp');
 	$('#canvasdiv').addClass('hiddenbycostanza');
+	$('#canvasDivOuterPart').show();
+	$('#chartdiv').removeClass('animated fadeInDown');
+	$('#clickforchart2').removeClass('animated fadeInDown');
+	$('#chartdiv').addClass('animated fadeOutUp');
+	$('#clickforchart2').addClass('animated fadeOutUp');
+	$('#clickforchart2').addClass('animated hiddenbycostanza');
+	$('#chartdiv').addClass('hiddenbycostanza');
 }
 
 var showCharts = function(){
