@@ -3,20 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/eventCauseFailures.js"></script>
+<script src="resources/js/worldMap.js"></script>
+<link rel="stylesheet" href="resources/world.css">
 </head>
 <body>
-<button type="button" id="seeEventCauseFailures">Display EventCause Failures</button>
-<h3 id="tableName"></h3>
-<table class="table table-striped table-hover table-condensed" id="eventCauseFailuresTable">
-	<thead id="tableHeader"></thead>
-	<tbody> </tbody>
-</table>
+<div id="chartdiv"></div>		
+<div style="text-align:center; position:absolute; bottom:0px;">
+  Change projection: 
+  <a href="#" onclick="window.map.setProjection('winkel3')">Winkel 3</a> |
+  <a href="#" onclick="window.map.setProjection('eckert3')">Eckert 3</a> |
+  <a href="#" onclick="window.map.setProjection('eckert5')">Eckert 5</a> |
+  <a href="#" onclick="window.map.setProjection('eckert6')">Eckert 6</a> |
+  <a href="#" onclick="window.map.setProjection('miller')">Miller</a> |
+  <a href="#" onclick="window.map.setProjection('equirectangular')">Equirectangular</a> |
+  <a href="#" onclick="window.map.setProjection('mercator')">Mercator</a>
+</div>
 
 
 
