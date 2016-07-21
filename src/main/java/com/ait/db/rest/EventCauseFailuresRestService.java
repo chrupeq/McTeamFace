@@ -5,7 +5,6 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -28,24 +27,24 @@ public class EventCauseFailuresRestService {
 	@EJB
 	EventCauseFailuresDAO eventCauseFailuresDAO;
 	@PersistenceContext
-	private EntityManager entityManager;
+	//private EntityManager entityManager;
 	private EventCauseFailuresCounter eventCauseFailuresCounter;
 	
 	@GET
 	@Path("/count_for_tac")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getEventCauseFailuresForATac(@QueryParam("tac") int tacNumber) {
+	public Response getEventCauseFailuresForATac(@QueryParam("tac")final int tacNumber) {
 		try {
-			List<Event_cause> eventCauseList 
+			final List<Event_cause> eventCauseList 
 				= eventCauseFailuresDAO.getAllEventCauseCodesPerPhone(tacNumber);
 			if(eventCauseList.isEmpty()) {
 				return Response.status(404).build();
 			}
 			eventCauseFailuresCounter = new EventCauseFailuresCounter(eventCauseList);
-			List<EventCauseFailures> eventCauseFailuresList 
+			final List<EventCauseFailures> eventCauseFailuresList 
 				= eventCauseFailuresCounter.getEventCauseFailures();
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(eventCauseFailuresList);
+			final ObjectMapper mapper = new ObjectMapper();
+			final String jsonInString = mapper.writeValueAsString(eventCauseFailuresList);
 			return Response.status(200).entity(eventCauseFailuresList).header("Content-Length", jsonInString.length()).build();
 		} catch(Exception e){
 			e.printStackTrace();

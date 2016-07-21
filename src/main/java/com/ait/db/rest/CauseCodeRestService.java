@@ -2,12 +2,9 @@ package com.ait.db.rest;
 
 import java.math.BigInteger;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -25,8 +22,8 @@ public class CauseCodeRestService {
 	
 	@EJB
 	CauseCodeDAO causeCodeDAO;
-	@PersistenceContext
-	private EntityManager entityManager;
+//	@PersistenceContext
+//	private EntityManager entityManager;
 	
 	
 	@GET
@@ -34,7 +31,7 @@ public class CauseCodeRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getUniqueCauseCodesFromBaseDataTable(){
 		try{
-			List<Integer> causeCodes = causeCodeDAO.getUniqueCauseCodes();
+			final List<Integer> causeCodes = causeCodeDAO.getUniqueCauseCodes();
 			if(causeCodes.isEmpty()){
 				return Response.status(404).build();
 			}
@@ -47,14 +44,14 @@ public class CauseCodeRestService {
 	@GET
 	@Path("/get_by_cause_code")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getAffectedIMSIsByCauseCode(@QueryParam("cause_code") int causeCode){
+	public Response getAffectedIMSIsByCauseCode(@QueryParam("cause_code") final int causeCode){
 		try{
-			List<BigInteger> affectedIMSIs = causeCodeDAO.getAffectedIMSIs(causeCode);
+			final List<BigInteger> affectedIMSIs = causeCodeDAO.getAffectedIMSIs(causeCode);
 			if(affectedIMSIs.isEmpty()){
 				return Response.status(404).build();
 			}
-			ObjectMapper mapper = new ObjectMapper();
-			String jsonInString = mapper.writeValueAsString(affectedIMSIs);
+			final ObjectMapper mapper = new ObjectMapper();
+			final String jsonInString = mapper.writeValueAsString(affectedIMSIs);
 			return Response.status(200).entity(affectedIMSIs).header("Content-Length", jsonInString.length()).build();
 		}catch(Exception e){
 			e.printStackTrace();

@@ -27,9 +27,9 @@ public class DrillDownRestService {
 	@GET
 	@Path("/failure_event_desc")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getFailureEventDescRest(@QueryParam("eventId") int eventId, @QueryParam("causeCode") int causeCode, @QueryParam("tacNumber") int tacNumber) {
+	public Response getFailureEventDescRest(@QueryParam("eventId")final int eventId, @QueryParam("causeCode")final int causeCode, @QueryParam("tacNumber")final int tacNumber) {
 		try{
-			List<Base_data> baseDataList = drillDownDao.getFailureEventDesc(eventId, causeCode, tacNumber);
+			final List<Base_data> baseDataList = drillDownDao.getFailureEventDesc(eventId, causeCode, tacNumber);
 			return Response.status(200).entity(baseDataList).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -40,9 +40,9 @@ public class DrillDownRestService {
 	@GET
 	@Path("/imsi_desc")
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response getModelOfPhoneDescRest(@QueryParam("imsi") BigInteger imsi) {
+	public Response getModelOfPhoneDescRest(@QueryParam("imsi") final BigInteger imsi) {
 		try{
-			List<Base_data> baseDataList = drillDownDao.getModelOfPhoneDesc(imsi);
+			final List<Base_data> baseDataList = drillDownDao.getModelOfPhoneDesc(imsi);
 			return Response.status(200).entity(baseDataList).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());
