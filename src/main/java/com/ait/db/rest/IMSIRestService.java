@@ -20,6 +20,7 @@ import com.ait.db.data.TopTenDAO;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
 import com.ait.db.model.IMSIHelperObject;
+import com.ait.db.model.IMSIWithEventIDAndCauseCode;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.TopTenIMSIForFailures;
 import com.ait.db.model.TopTenMarketOperatorCellIdCombinations;
@@ -109,7 +110,7 @@ public class IMSIRestService {
 	@Produces({MediaType.APPLICATION_JSON})
 	public Response getImsisWithEventIDsAndCauseCodes(@PathParam("imsi")final BigInteger imsi) {
 		try {
-			final List<Object> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
+			final List<IMSIWithEventIDAndCauseCode> imsiList = IMSIDao.getIMSIsWithEventIDsAndCauseCodes(imsi);
 			if(imsiList.isEmpty()) {
 				return Response.status(404).build();
 			} 

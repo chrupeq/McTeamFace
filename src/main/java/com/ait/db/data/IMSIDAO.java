@@ -14,6 +14,8 @@ import javax.persistence.Query;
 import com.ait.db.model.Base_data;
 import com.ait.db.model.Failure_class;
 import com.ait.db.model.IMSIHelperObject;
+import com.ait.db.model.IMSIWithEventIDAndCauseCode;
+import com.ait.db.model.IMSIWithEventIDAndCauseCodeFactory;
 import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.model.IMSIWithValidFailureClasses;
 import com.ait.db.model.UniqueEventCauseFailureClass;
@@ -28,7 +30,7 @@ public class IMSIDAO {
 	private EntityManager entityManager;
 	private Query query;
 	private DateParser dateParser;
-	//private IMSIWithEventIDAndCauseCodeFactory imsiWithEventIDAndCauseCodeFactory;
+	private IMSIWithEventIDAndCauseCodeFactory imsiWithEventIDAndCauseCodeFactory;
 
 	public List<BigInteger> getAllUniqueIMSIs() {
 		query = entityManager.createQuery("SELECT DISTINCT(i.imsi) FROM Base_data i");
@@ -69,22 +71,20 @@ public class IMSIDAO {
 		return imsiWithValidFailureClasses;
 	}
 
-	public List<Object> getIMSIsWithEventIDsAndCauseCodes(final BigInteger imsi) {
-		// query = entityManager.createQuery("SELECT b FROM Base_data b WHERE
-		// b.imsi = :imsi");
-		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi GROUP BY event_cause.event_id, event_cause.cause_code	");
+	public List<IMSIWithEventIDAndCauseCode> getIMSIsWithEventIDsAndCauseCodes(final BigInteger imsi) {
+		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi");
 		query.setParameter("imsi", imsi);
-		final List<Object> objectDataList = query.getResultList();
-		// if(baseDataList.isEmpty()) {
-		// List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList =
-		// new ArrayList<>(0);
-		// return imsiWithEventIDAndCauseCodeList;
-		// }
-		// imsiWithEventIDAndCauseCodeFactory = new
-		// IMSIWithEventIDAndCauseCodeFactory(baseDataList);
-		// List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList =
-		// imsiWithEventIDAndCauseCodeFactory.getIMSIWithEventIDAndCauseCodeList();
-		return objectDataList;
+		List<Base_data> baseDataList = query.getResultList();
+		if(baseDataList.isEmpty()) {
+			List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList =
+			new ArrayList<>(0);
+		 return imsiWithEventIDAndCauseCodeList;
+		 }
+		imsiWithEventIDAndCauseCodeFactory = new
+		IMSIWithEventIDAndCauseCodeFactory(baseDataList);
+		List<IMSIWithEventIDAndCauseCode> imsiWithEventIDAndCauseCodeList =
+		imsiWithEventIDAndCauseCodeFactory.getIMSIWithEventIDAndCauseCodeList();
+		return imsiWithEventIDAndCauseCodeList;
 	}
 
 	public List<Base_data> getAllBaseDataBetweenDates(final String date1, final String date2) {
@@ -198,5 +198,11 @@ public class IMSIDAO {
 		}
 		Collections.sort(imsiStatsObjects);
 		return imsiStatsObjects;
+	}
+	public List<Object>getIMSIsWithEventIDsAndCauseCodesVersionTwo(final BigInteger imsi) {
+		query = entityManager.createQuery("SELECT b FROM Base_data b WHERE b.imsi = :imsi GROUP BY event_cause.event_id, event_cause.cause_code	");
+		query.setParameter("imsi", imsi);
+		final List<Object> objectDataList = query.getResultList();
+		return objectDataList;
 	}
 }
