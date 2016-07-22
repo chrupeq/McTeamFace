@@ -18,6 +18,9 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import com.ait.db.data.DateParser;
+import com.ait.db.data.ParseDate;
 import com.ait.db.data.SessionDAO;
 import com.ait.db.model.User;
 import com.ait.db.rest.JaxRsActivator;
@@ -39,7 +42,7 @@ public class UserIntegrationTest {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
 				.addPackage(User.class.getPackage())
 				.addPackage(UserWS.class.getPackage())
-				.addClasses(JaxRsActivator.class, SessionDAO.class)
+				.addClasses(DateParser.class, ParseDate.class, JaxRsActivator.class, SessionDAO.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
