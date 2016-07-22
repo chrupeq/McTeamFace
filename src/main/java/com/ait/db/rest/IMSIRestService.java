@@ -6,6 +6,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -43,8 +45,8 @@ public class IMSIRestService {
 	@EJB
 	TopTenDAO topTenDAO;
 	DateParser dateParser;
-//	@PersistenceContext
-//	private EntityManager entityManager;
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	@GET
 	@Path("/get_unique")
