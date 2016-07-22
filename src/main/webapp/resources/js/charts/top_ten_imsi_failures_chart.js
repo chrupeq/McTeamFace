@@ -24,7 +24,7 @@ var topTenImsiChart = function(data) {
 	});
 	
 	for(var i = 0; i < percentageArray.length; i ++){
-		labels[i] += ' (' + percentageArray[i] + '%)';
+		labels[i] += ' (' + percentageArray[i].toFixed(2) + '%)';
 	}
 		
 	for(var i = 0; i < labels.length; i ++){
@@ -53,6 +53,34 @@ var topTenImsiChart = function(data) {
 $('#chartTitle').html("Top ten IMSI failures");
 	var ctx = document.getElementById("skills").getContext("2d");
 	window.myPie = new Chart(ctx, config);
+	
+	$("#skills").click( 
+		    function(evt){
+		        var activePoints = myPie.getElementsAtEvent(evt);
+		       
+		        var holder = activePoints[0];
+		   
+		       
+		        var label = myPie.data.labels[holder._index];
+		        
+		      
+		       
+		   
+		        
+
+		        //get value by index      
+		        var value = myPie.data.datasets[0].data[holder._index];
+		        
+		        var indexForSub = label.indexOf('(');
+			       var dataForMap = label.substring(0, indexForSub - 1);
+		     
+		  
+		        getMoreInfoDrilldown4(dataForMap);
+//		       var indexForSub = label.indexOf('(');
+//		       var dataForMap = label.substring(0, indexForSub - 1);
+		       
+		       }
+		);
 }
 
 var getPercentagesOfFailures = function(data){

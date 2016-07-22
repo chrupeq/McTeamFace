@@ -31,7 +31,7 @@ public List<TopTenMarketOperatorCellIdCombinations> getTopTenMarketOperatorCellI
 	final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	final Calendar[] calendarArray = dateParser.parseStringsToCalendarObjects(simpleDateFormat, date1, date2);
 	
-	query = entityManager.createQuery("SELECT COUNT(b.report_id) AS NUM_ROWS, b.mcc_mnc.mcc, b.mcc_mnc.mnc, b.mcc_mnc.country, b.mcc_mnc.operator, b.cell_id FROM Base_data b WHERE b.date_time BETWEEN :startDate AND :endDate GROUP BY b.mcc_mnc.mcc, b.mcc_mnc.mnc ORDER BY NUM_ROWS DESC LIMIT 10");
+	query = entityManager.createQuery("SELECT COUNT(b.report_id) AS NUM_ROWS, b.mcc_mnc.mcc, b.mcc_mnc.mnc, b.mcc_mnc.country, b.mcc_mnc.operator, b.cell_id FROM Base_data b WHERE b.date_time BETWEEN :startDate AND :endDate GROUP BY b.mcc_mnc.mcc, b.mcc_mnc.mnc, b.cell_id ORDER BY NUM_ROWS DESC LIMIT 10");
 	
 	
 	

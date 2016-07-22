@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import com.ait.db.data.DateParser;
 import com.ait.db.data.DrillDownDAO;
 import com.ait.db.model.Base_data;
+import com.ait.db.model.TopTenImsiEventCause;
 
 @Path("/drill_down")
 @Stateless
@@ -64,6 +65,19 @@ public class DrillDownRestService {
 	public Response getDrillDown3Info(@QueryParam("country")final String country) {
 		try{
 			final List<Base_data> baseDataList = drillDownDao.getFailureCountsForCountryByEventIdAndCauseCode(country);
+			return Response.status(200).entity(baseDataList).build();
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return Response.status(404).build();
+		}
+	}
+	
+	@GET
+	@Path("/drilldown_4")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response getDrillDown4Info(@QueryParam("imsi")final BigInteger imsi) {
+		try{
+			final List<TopTenImsiEventCause> baseDataList = drillDownDao.getTopTenImsiEventIdCauseCode(imsi);
 			return Response.status(200).entity(baseDataList).build();
 		}catch(Exception e){
 			System.out.println(e.getMessage());

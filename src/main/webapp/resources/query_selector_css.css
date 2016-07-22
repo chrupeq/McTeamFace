@@ -247,7 +247,7 @@ table#querysTable tr.odd td {
 }
 
 #canvasdiv2 {
-	width: 50%;
+	width: 45%;
 	float: left;
 }
 
@@ -256,5 +256,6 @@ table#querysTable tr.odd td {
 }
 
 #drilldownTable {
-	width: 50%;
+	float: left;
+	width: 100%;
 }

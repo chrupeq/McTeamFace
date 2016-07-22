@@ -29,6 +29,7 @@
 	<script src="resources/js/charts/drilldowns/models_with_no_dates_drilldown.js"></script>
 <script src="resources/js/charts/drilldowns/imsi_stats_drilldown.js"></script>
 <script src="resources/js/charts/drilldowns/top_ten_drilldown.js"></script>
+<script src="resources/js/charts/drilldowns/top_ten_imsi_drilldown.js"></script>
 
 <script src="resources/js/bootstrap.js"></script>
 <script src="resources/js/charts/Chart.bundle.js"></script>
@@ -250,8 +251,6 @@ data: fr.result + ',' + $('input[type=file]').val().replace(/C:\\fakepath\\/i, '
 contentType: "application/json; charset=utf-8",
 
 dataType: "json",
-
-success: checkUpload(),
 
 failure: function(errMsg) {
 

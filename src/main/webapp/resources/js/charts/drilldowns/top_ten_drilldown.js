@@ -74,7 +74,6 @@ var getInfoFromDatabase = function(country){
 }
 
 var loadCountryTable = function(data){
-	alert("fucccccccccccccccccccccccccccck");
 	var table = '<h3 style="text-align: center;">Test</h3>'
 		+ '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="drilldownTable">'
 		+ '<thead>'

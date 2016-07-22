@@ -1,3 +1,7 @@
+$(document).ready(function(){
+	Chart.defaults.global.legend.display = false;
+})
+
 var instantChart = function(data) {
 	console.log(data);
 		var labels = [];
@@ -46,18 +50,16 @@ var instantChart = function(data) {
 		},
 		options : {
 			responsive : true,
-			legend : {
-				position : 'bottom'
-			},
 		}
 	};
 showCharts();
-		
+Chart.defaults.global.legend.display = false;
 	appendRevealButton();
 $('#chartTitle').html("Top ten failures");
 	var ctx = document.getElementById("skills").getContext("2d");
+	Chart.defaults.global.legend.display = false;
 	myPie = new Chart(ctx, config);
-	
+	Chart.defaults.global.legend.display = false;
 	$("#skills").click( 
 		    function(evt){
 		        var activePoints = myPie.getElementsAtEvent(evt);

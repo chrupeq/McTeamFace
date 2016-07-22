@@ -22,6 +22,26 @@ public class DataValidator {
 	private static int[] MNCValues;
 	private static int[] MCCValues;
 	
+	static int counter1;
+	static int counter2;
+	
+	static int counter3;
+	static int counter4;
+	
+	static int counter5;
+	static int counter6;
+	
+	static int counter7;
+	static int counter8;
+	
+	static int counter9;
+	static int counter10;
+	
+	static int counter11;
+	static int counter12;
+	
+	static int counter13;
+	
 	private static Object[][] arrayToBePersisted;
 
 	private static StringBuilder errorBuilder = new StringBuilder();
@@ -180,16 +200,19 @@ public class DataValidator {
 							} else if (isLeapYear(year) && brokenUpDates[1].equals("02") && day <= 29 && day > 0) {
 								return true;
 							} else {
+								counter1 ++;
 								return false;
 							}
 						}
 					}
 				} catch (ParseException e) {
+					counter1 ++;
 					System.out.println("parse exception!");
 					e.printStackTrace();
 				}
 			}
 		}
+		counter2 ++;
 		return false;
 	}
 
@@ -197,6 +220,7 @@ public class DataValidator {
 		int causeCodeValue;
 		try {
 			if(eventId.toString().startsWith("0") && !eventId.toString().matches("^[1-9][1-9][1-9][1-9]$")){
+				counter3 ++;
 				return false;
 			}
 			int intValue = Integer.parseInt(eventId.toString());
@@ -221,14 +245,17 @@ public class DataValidator {
 			} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating EventID.");
 			e.printStackTrace();
+			counter3 ++;
 			return false;
 		}
+		counter3 ++;
 		return false;
 	}
 
 	private static boolean validateFailureClass(Object failureClass) {
 		try {
 			if (!failureClass.toString().matches("^[0-4]$") && !failureClass.toString().equals("(null)")){
+				counter4 ++;
 				return false;
 			}
 			if(failureClass.toString().equals("(null)")){
@@ -242,15 +269,17 @@ public class DataValidator {
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating failureClass.");
+			counter4 ++;
 			return false;
 		}
-
+		counter4 ++;
 		return false;
 	}
 
 	private static boolean validateUEType(Object ueType) {
 		
 		if(!ueType.toString().matches("^[0-9]{1,45}$")){
+			counter5 ++;
 			return false;
 		}
 		
@@ -263,8 +292,10 @@ public class DataValidator {
 			}
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating UEType.");
+			counter5 ++;
 			return false;
 		}
+		counter5 ++;
 		return false;
 	}
 
@@ -281,7 +312,7 @@ public class DataValidator {
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating marketsAndOperators.");
 		}
-
+		counter6 ++;
 		return false;
 	}
 
@@ -294,7 +325,7 @@ public class DataValidator {
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating cellId.");
 		}
-
+		counter7 ++;
 		return false;
 	}
 
@@ -307,6 +338,7 @@ public class DataValidator {
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating duration.");
 		}
+		counter8 ++;
 		return false;
 	}
 
@@ -314,6 +346,7 @@ public class DataValidator {
 		if (NEVersion.toString().matches("^[0-9][0-9][A-Z]")) {
 			return true;
 		}
+		counter9 ++;
 		return false;
 	}
 
@@ -326,6 +359,7 @@ public class DataValidator {
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating IMSI.");
 		}
+		counter10 ++;
 		return false;
 	}
 
@@ -337,6 +371,7 @@ public class DataValidator {
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating hier3.");
 		}
+		counter11 ++;
 		return false;
 	}
 
@@ -348,6 +383,7 @@ public class DataValidator {
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating hier32.");
 		}
+		counter12 ++;
 		return false;
 	}
 
@@ -359,6 +395,7 @@ public class DataValidator {
 		} catch (Exception e) {
 			System.out.println("Invalid datatype encountered while validating hier321.");
 		}
+		counter13 ++;
 		return false;
 	}
 
@@ -391,9 +428,22 @@ public class DataValidator {
 	private static Base_data[] sendInformationToTheDataLayer(Object[][] arrayToBePersisted){
 		SendValidatedInfoToDB db = new SendValidatedInfoToDB();
 		ExcelFileUploader.setProgressVariable(60);
+		System.out.println("counter1 " + counter1);
+		System.out.println("counter2 " + counter2);
+		System.out.println("counter3 " + counter3);
+		System.out.println("counter4 " + counter4);
+		System.out.println("counter5 " + counter5);
+		System.out.println("counter6 " + counter6);
+		System.out.println("counter7 " + counter7);
+		System.out.println("counter8 " + counter8);
+		System.out.println("counter9 " + counter9);
+		System.out.println("counter10 " + counter10);
+		System.out.println("counter11 " + counter11);
+		System.out.println("counter12 " + counter12);
 		Base_data[] bdArray = db.sendData(arrayToBePersisted, counterForDatabaseEntries);
 		ExcelFileUploader.setProgressVariable(65);
 		dataErrorLogger.errorsFound(errorToString.toString(), errorToString, fileNameForErrorLogger, errorCount);
+		errorCount = 0;
 		counterForDatabaseEntries = 0;
 		return bdArray;
 	}
