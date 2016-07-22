@@ -24,7 +24,6 @@ import com.ait.db.model.Mcc_mnc;
 import com.ait.db.model.NetworkEntity;
 import com.ait.db.model.User_equipment;
 
-
 @Path("/network_entities")
 public class NetworkEntityRestService {
 	@EJB

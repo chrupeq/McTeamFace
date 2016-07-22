@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,8 +24,8 @@ public class UETypeRestService {
 	@EJB
 	UETypeDAO UETypeDao;
 	
-//	@PersistenceContext
-//	private EntityManager entityManager;
+	@PersistenceContext
+	private EntityManager entityManager;
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})

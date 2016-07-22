@@ -32,7 +32,6 @@ import com.ait.imsiStats.IMSIStatsObjectFactory;
 import com.ait.imsiStats.IMSIStatsProducer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 @Path("/imsi")
 @Stateless
 @LocalBean

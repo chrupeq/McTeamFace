@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Stateless
 @LocalBean
 public class EventCauseFailuresRestService {
+
 	
 	@EJB
 	EventCauseFailuresDAO eventCauseFailuresDAO;
