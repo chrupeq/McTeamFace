@@ -22,7 +22,11 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.ait.db.data.DateParser;
+import com.ait.db.data.ParseDate;
 import com.ait.db.data.SessionDAO;
+import com.ait.db.model.Base_data;
+import com.ait.db.model.IMSIWithFailuresFactory;
 import com.ait.db.rest.JaxRsActivator;
 import com.fileuploader.FileTimer;
 import com.fileuploader.FileTimerDAO;
@@ -41,7 +45,8 @@ public class TestFileTimer {
 	@Deployment(testable = false)
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addClasses(JaxRsActivator.class, SessionDAO.class, FileTimer.class, FileTimerWS.class, FileTimerDAO.class)
+				.addPackage(Base_data.class.getPackage())
+				.addClasses(DateParser.class, ParseDate.class, JaxRsActivator.class, SessionDAO.class, FileTimer.class, FileTimerWS.class, FileTimerDAO.class)
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsResource("import.sql")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
