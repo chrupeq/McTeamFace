@@ -27,7 +27,7 @@ public class FileSystemMonitorInitializer {
     public void init() throws IOException{  
          
         fileSystemMonitor.newFolderWatcher();  
-        fileSystemMonitor.setMonitoredDir("C:/jboss-as-7.1.1.Final/bin/dataset");  
+        fileSystemMonitor.setMonitoredDir("C:/jboss-as-7.1.1.Final/bin/dataSets");  
         fileSystemMonitor.startWatching(excelFileUploader);  
          
     }  

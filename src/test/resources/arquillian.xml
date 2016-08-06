@@ -14,14 +14,14 @@
 		<configuration>
 			<property name="managementAddress">127.0.0.1</property>
 			<property name="managementPort">9999</property>
-			<property name="jbossHome">/opt/jboss-as-7.1.1.Final</property>
+			<property name="jbossHome">C:\jboss-as-7.1.1.Final</property>
 		</configuration>
 	</container>
 	<container qualifier="jbossas-managed" default="false">
 		<configuration>
 			<property name="javaVmArguments">-Xms256m -Xmx512m -XX:MaxPermSize=512m ${argLine}</property>
 			<property name="managementPort">9999</property>
-			<property name="jbossHome">/opt/jboss-as-7.1.1.Final</property>
+			<property name="jbossHome">C:\jboss-as-7.1.1.Final</property>
 		</configuration>
 	</container>
 </arquillian>

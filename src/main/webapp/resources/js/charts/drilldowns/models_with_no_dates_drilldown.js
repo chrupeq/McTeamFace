@@ -20,7 +20,7 @@ var getModelInfoForDrilldown = function(eventId, causeCode, tacNumber){
 	        }
 	    },
 		success: function(data){
-			modelDrillDownTable(data);
+			modelDrillDownTable2(data);
 			$('#canvasdiv2').removeClass('hiddenbycostanza');
 			$('#canvasdiv2').removeClass('animated fadeOutUp');
 			$('#canvasdiv2').addClass('animated fadeInDown');
@@ -32,7 +32,7 @@ var getModelInfoForDrilldown = function(eventId, causeCode, tacNumber){
 	});
 }
 
-var modelDrillDownTable = function(data){
+var modelDrillDownTable2 = function(data){
 dataArray = data;
 	var table = '<h3 style="text-align: center;">Individual failure records and associated information</h3>'
 	+ '<table class="display table table-striped table-hover table-condensed animated fadeInDown" id="drilldownTable">'

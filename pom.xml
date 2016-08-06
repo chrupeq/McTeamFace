@@ -21,7 +21,7 @@
 		<version.surefire.plugin>2.10</version.surefire.plugin>
 		<version.war.plugin>2.1.1</version.war.plugin>
 		<version.jboss.bom>1.0.7.Final</version.jboss.bom>
-		<version.jacoco>0.7.4.201502262128</version.jacoco>
+		<version.jacoco>0.7.7.201606060606</version.jacoco>
 		<version.arquillian_jacoco>1.0.0.Alpha8</version.arquillian_jacoco>
 		<powermock.version>1.5.1</powermock.version>
 	</properties>
@@ -71,11 +71,11 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-test-mockito-junit4-delegate</artifactId>
 			<version>1.6.5</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
@@ -246,7 +246,7 @@
 			<version>1.0.0.Alpha6</version>
 		</dependency>
 
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-module-junit4</artifactId>
 			<version>${powermock.version}</version>
@@ -257,7 +257,7 @@
 			<artifactId>powermock-api-mockito</artifactId>
 			<version>${powermock.version}</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -313,7 +313,7 @@
 				<dependency>
 					<groupId>org.jboss.as</groupId>
 					<artifactId>jboss-as-arquillian-container-remote</artifactId>
-					<version>7.1.1.Final</version>
+					<version>7.1.1.Final</version><!--$NO-MVN-MAN-VER$-->
 					<scope>test</scope>
 				</dependency>
 			</dependencies>
@@ -411,7 +411,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
+						<configuration>	
 							<argLine>-Xms256m -Xmx768m -XX:MaxPermSize=512m</argLine>
 							<systemPropertyVariables>
 								<arquillian.launch>jbossas-managed</arquillian.launch>
